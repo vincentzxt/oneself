@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/stock/stock",
+    "pages/data/data",
+    "pages/my/my",
+    "pages/sale/sale",
+    "pages/purchase/purchase",
+    "pages/current_unit/current_unit",
+    "pages/product/product",
+    "pages/current_unit/add/add",
+    "pages/current_unit/edit/edit"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#88909f",
+    "selectedColor": "#68b3ff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/image/business.png",
+        "selectedIconPath": "static/image/business_selected.png",
+        "text": "买卖"
+      },
+      {
+        "pagePath": "pages/stock/stock",
+        "iconPath": "static/image/stock.png",
+        "selectedIconPath": "static/image/stock_selected.png",
+        "text": "库存"
+      },
+      {
+        "pagePath": "pages/data/data",
+        "iconPath": "static/image/data.png",
+        "selectedIconPath": "static/image/data_selected.png",
+        "text": "报表"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/image/my.png",
+        "selectedIconPath": "static/image/my_selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
