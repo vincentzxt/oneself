@@ -228,7 +228,7 @@
 	}
 
 	.uni-fab--rightBottom {
-		right: 150px;
+		right: 30px;
 		bottom: 30px;
 	}
 

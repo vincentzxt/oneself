@@ -1528,6 +1528,33 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
+/***/ 134:
+/*!**********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  'sale': "\uE600",
+  'purchase': "\uE601",
+  'current_unit': "\uE653",
+  'product': "\uE603",
+  'receipt': "\uE65D",
+  'payment': "\uE65F",
+  'cost': "\uE604",
+  'return_order': "\uE646",
+  'arrowLeft': "\uE607",
+  'arrowRight': "\uE602",
+  'data': "\uE642",
+  'phone': "\uE62C",
+  'refresh': "\uE65B",
+  'search': "\uE605",
+  'address': "\uE62F" };exports.default = _default;
+
+/***/ }),
+
 /***/ 14:
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -7630,9 +7657,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 4:
-/*!*****************************************************************!*\
-  !*** /Users/vincent/Documents/HBuilderProjects/sass/pages.json ***!
-  \*****************************************************************/
+/*!***************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/pages.json ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8540,53 +8567,26 @@ module.exports = {"_from":"@dcloudio/uni-stat@^2.0.0-alpha-24420191128001","_id"
 /***/ }),
 
 /***/ 7:
-/*!**********************************************************************************!*\
-  !*** /Users/vincent/Documents/HBuilderProjects/sass/pages.json?{"type":"style"} ***!
-  \**********************************************************************************/
+/*!********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/pages.json?{"type":"style"} ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item" } }, "pages/stock/stock": { "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item" } }, "pages/data/data": { "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-card": "/components/uni-card/uni-card", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/my": { "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/sale/sale": { "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/purchase/purchase": { "usingComponents": {} }, "pages/current_unit/current_unit": { "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-fab": "/components/uni-fab/uni-fab" } }, "pages/product/product": { "usingComponents": {} }, "pages/current_unit/add/add": { "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/current_unit/edit/edit": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/stock/stock": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/sale/sale": {}, "pages/purchase/purchase": {}, "pages/current_unit/current_unit": {}, "pages/current_unit/add/add": {}, "pages/current_unit/edit/edit": {}, "pages/product/product": {}, "pages/product/add/add": {}, "pages/product/edit/edit": {}, "pages/product/add-type/add-type": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 
 /***/ 8:
-/*!*********************************************************************************!*\
-  !*** /Users/vincent/Documents/HBuilderProjects/sass/pages.json?{"type":"stat"} ***!
-  \*********************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/pages.json?{"type":"stat"} ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__BDBA323" };exports.default = _default;
-
-/***/ }),
-
-/***/ 85:
-/*!************************************************************************************!*\
-  !*** /Users/vincent/Documents/HBuilderProjects/sass/components/uni-icons/icons.js ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'sale': "\uE600",
-  'purchase': "\uE601",
-  'current_unit': "\uE653",
-  'product': "\uE603",
-  'receipt': "\uE65D",
-  'payment': "\uE65F",
-  'cost': "\uE604",
-  'return_order': "\uE646",
-  'arrowLeft': "\uE607",
-  'arrowRight': "\uE602",
-  'data': "\uE642",
-  'phone': "\uE62C",
-  'refresh': "\uE65B",
-  'search': "\uE605",
-  'address': "\uE62F" };exports.default = _default;
 
 /***/ })
 

@@ -1,11 +1,13 @@
 <template>
 	<view class="container">
-		<uni-nav-bar left-icon="refresh" :title="title" background-color="#68b3ff" color="#ffffff" @clickLeft="handleNavbarClickLeft" status-bar fixed></uni-nav-bar>
+		<cu-custom bgColor="bg-blue" :isBack="false">
+			<block slot="content">{{title}}</block>
+		</cu-custom>
 		<view class="content">
 			<uni-grid :column="2" :highlight="false" :square="false" borderColor="#e9eaec" @change="handleGridChange">
 				<uni-grid-item v-for="(item, index) in lists" :key="index" :index="index">
 					<uni-icons :type="item.iconType" :color="item.iconColor" :size="item.iconSize"></uni-icons>
-					<text class="item-text">{{item.text}}</text>
+					<text class="item-text text-grey">{{item.text}}</text>
 				</uni-grid-item>
 			</uni-grid>
 		</view>
@@ -30,7 +32,7 @@
 				lists: [
 					{text: '销售', iconType: 'sale', iconColor: '#f29d6e', iconSize: 40},
 					{text: '采购', iconType: 'purchase', iconColor: '#9cc84e', iconSize: 40},
-					{text: '往来单位', iconType: 'current_unit', iconColor: '#68b3ff', iconSize: 40},
+					{text: '客户&供应商', iconType: 'current_unit', iconColor: '#68b3ff', iconSize: 40},
 					{text: '产品', iconType: 'product', iconColor: '#68b3ff', iconSize: 40},
 					{text: '收款单', iconType: 'receipt', iconColor: '#f29d6e', iconSize: 40},
 					{text: '付款单', iconType: 'payment', iconColor: '#9cc84e', iconSize: 40},

@@ -1,41 +1,32 @@
 <template>
 	<view class="container">
-		<uni-nav-bar left-icon="arrowLeft" left-text="返回" :title="title" background-color="#68b3ff" color="#ffffff" @clickLeft="handleNavbarClickLeft" status-bar fixed></uni-nav-bar>
+		<cu-custom bgColor="bg-blue" :isBack="true">
+		    <block slot="backText">返回</block>
+		    <block slot="content">{{title}}</block>
+		</cu-custom>
 		<view class="content">
 			<form @submit="formSubmit">
 				<view class="uni-form-item item-border">
-					<view class="label">单位名称</view>
-					<input class="item" v-model="formData.name" type="text" placeholder-style="color:#d4d6db" placeholder="请输入单位名称"/>
+					<view class="label">产品名称</view>
+					<input class="item" v-model="formData.name" type="text" placeholder-style="color:#d4d6db" placeholder="请输入产品名称"/>
 				</view>
 				<view class="uni-form-item item-border">
-					<view class="label">单位类型</view>
-					<radio-group class="item" @change="handleTypeChange">
-						<radio value=0 :checked="formData.type == 0">客户</radio>
-						<radio value=1 :checked="formData.type == 1" style="margin-left: 10px;">供应商</radio>
-						<radio value=2 :checked="formData.type == 2" style="margin-left: 10px;">所有</radio>
-					</radio-group>
-				</view>
-				<view class="uni-form-item item-border">
-					<view class="label">电话</view>
-					<input class="item" v-model="formData.mobile" type="number" placeholder-style="color:#d4d6db" placeholder="请输入电话"/>
-				</view>
-				<view class="uni-form-item item-border">
-					<view class="label">地址</view>
+					<view class="label">产品类型</view>
 					<view class="item">
-						<picker mode=region @change="handleAddressChange">
-							<uni-icons style="margin-right: 10px;" type="address" color="#f5c06a" size=14></uni-icons>
-							<text v-if="!formData.address" style="color:#d4d6db;">点击选择</text>
-							<text v-else>{{formData.address}}</text>
-						</picker>
+						<view class="left">
+							<picker :range="productType" @change="handleTypeChange">
+								<text v-if="!formData.type" style="color:#d4d6db;">点击选择</text>
+								<text v-else>{{formData.type}}</text>
+							</picker>
+						</view>
+						<view class="right" @click="handleAddType">
+							<text class="lg" :class="'cuIcon-right'"></text>
+						</view>
 					</view>
 				</view>
 				<view class="uni-form-item item-border">
-					<view class="label">街道</view>
-					<input class="item" v-model="formData.street" type="text" placeholder-style="color:#d4d6db" placeholder="请输入街道"/>
-				</view>
-				<view class="uni-form-item">
-					<view class="label">邮箱</view>
-					<input class="item" v-model="formData.email" type="text" placeholder-style="color:#d4d6db" placeholder="请输入邮箱"/>
+					<view class="label">度量单位</view>
+					<input class="item" v-model="formData.unit" type="text" placeholder-style="color:#d4d6db" placeholder="请输入度量单位"/>
 				</view>
 				<view class="uni-form-item" style="margin-top:10px;">
 					<textarea style="height: 70px;" v-model="formData.remarks" placeholder-style="color:#d4d6db" placeholder="备注" maxlength=512 />
@@ -62,26 +53,21 @@
 		},
 		data() {
 			return {
-				title: '修改单位信息',
+				title: '修改产品信息',
 				formData: {
 					name: '',
-					type: 0,
-					mobile: '',
-					address: '',
-					street: '',
-					email: '',
+					type: '',
+					unit: '',
 					remarks: ''
 				},
+				productType: [ '香烟', '酒水', '百货', '熟食'],
 				disableSubmit: true
 			}
 		},
 		onLoad(options) {
 			this.formData.name = options.name
 			this.formData.type = options.type
-			this.formData.mobile = options.mobile
-			this.formData.address = options.address
-			this.formData.street = options.street
-			this.formData.email = options.email
+			this.formData.unit = options.unit
 			this.formData.remarks = options.remarks
 		},
 		methods: {
@@ -89,14 +75,12 @@
 				uni.navigateBack()
 			},
 			handleTypeChange(val) {
-				this.formData.type = val
+				this.formData.type = this.productType[val.detail.value]
 			},
-			handleAddressChange(val) {
-				if (val.detail.value[0] == val.detail.value[1]) {
-					this.formData.address = val.detail.value[0] + val.detail.value[2]
-				} else {
-					this.formData.address = val.detail.value.join('')
-				}
+			handleAddType() {
+				uni.navigateTo({
+					url: '../add-type/add-type'
+				})
 			},
 			formSubmit() {
 				uni.navigateBack()
@@ -105,7 +89,7 @@
 		watch:{
 			formData: {
 				handler(val) {
-					if (val.name && val.mobile && val.address && val.street) {
+					if (val.name && val.type) {
 						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true
@@ -136,6 +120,17 @@
 				}
 				.item {
 					width: 60%;
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+					.left {
+						width: 80%;
+					}
+					.right {
+						width: 20%;
+						text-align: right;
+					}
 				}
 			}
 			.item-border {

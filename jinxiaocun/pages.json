@@ -1,38 +1,19 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index"
-		},
-		{
-			"path": "pages/stock/stock"
-		},
-		{
-			"path": "pages/data/data"
-		},
-		{
-			"path" : "pages/my/my"
-    },
-		{
-			"path" : "pages/sale/sale"
-		},
-		{
-			"path" : "pages/purchase/purchase"
-		},
-		{
-			"path" : "pages/current_unit/current_unit"
-		},
-		{
-			"path" : "pages/product/product"
-		}
-	    ,{
-            "path" : "pages/current_unit/add/add",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/current_unit/edit/edit",
-            "style" : {}
-        }
-    ],
+		{ "path": "pages/index/index" },
+		{ "path": "pages/stock/stock" },
+		{ "path": "pages/data/data" },
+		{ "path" : "pages/my/my" },
+		{ "path" : "pages/sale/sale" },
+		{ "path" : "pages/purchase/purchase" },
+		{ "path" : "pages/current_unit/current_unit" },
+		{ "path" : "pages/current_unit/add/add" },
+		{ "path" : "pages/current_unit/edit/edit" },
+		{ "path" : "pages/product/product" },
+		{ "path" : "pages/product/add/add" },
+		{ "path" : "pages/product/edit/edit" },
+		{ "path" : "pages/product/add-type/add-type" }
+   ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

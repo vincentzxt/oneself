@@ -29,7 +29,7 @@
   src: url("//at.alicdn.com/t/font_1563314_nyy39a029hb.eot");
   src: url("//at.alicdn.com/t/font_1563314_nyy39a029hb.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1563314_nyy39a029hb.woff2") format("woff2"), url("//at.alicdn.com/t/font_1563314_nyy39a029hb.woff") format("woff"), url("//at.alicdn.com/t/font_1563314_nyy39a029hb.ttf") format("truetype"), url("//at.alicdn.com/t/font_1563314_nyy39a029hb.svg#iconfont") format("svg");
 }
-.uni-icons.data-v-7ea56d29 {
+.uni-icons.data-v-2b5ab302 {
   font-family: uniicons;
   text-decoration: none;
   text-align: center;
