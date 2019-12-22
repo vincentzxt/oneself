@@ -8,60 +8,75 @@
 		</view>
 		<view class="content">
 			<scroll-view :scroll-y="true" class="fill">
-				
-				<view class="cu-list menu sm-border">
+				<view class="content-header">
+					<radio-group class="item" @change="handleTypeChange">
+						<radio color="#2db7f5" value=0 :checked="formData.type == 0">客户</radio>
+						<radio color="#2db7f5" value=1 :checked="formData.type == 1" style="margin-left: 10px;">供应商</radio>
+						<radio color="#2db7f5" value=2 :checked="formData.type == 2" style="margin-left: 10px;">所有</radio>
+					</radio-group>
+				</view>
+				<view class="cu-list icon">
 					<view class="cu-item">
-						<view class="content cu-item-header">
-							<radio-group class="item" @change="handleTypeChange">
-								<radio class="text-grey" value=0 :checked="formData.type == 0">客户</radio>
-								<radio class="text-grey" value=1 :checked="formData.type == 1" style="margin-left: 10px;">供应商</radio>
-								<radio class="text-grey" value=2 :checked="formData.type == 2" style="margin-left: 10px;">所有</radio>
-							</radio-group>
+						<view class="icon">
+							<text class="cuIcon-company"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">单位名称：</text>
+							<input class="item-custom-content" v-model="formData.company" type="text" placeholder-class="text-slave2" placeholder="请输入单位名称"/>
 						</view>
 					</view>
 					<view class="cu-item">
-						<view class="content cu-item-content">
-							<text class="cuIcon-news text-grey"></text>
-							<input class="text-grey" v-model="formData.company" type="text" placeholder-class="text-gray" placeholder="请输入单位名称"/>
+						<view class="icon">
+							<text class="cuIcon-contacts"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">联系人名称：</text>
+							<input class="item-custom-content" v-model="formData.contacts" type="text" placeholder-class="text-slave2" placeholder="请输入联系人名称"/>
 						</view>
 					</view>
 					<view class="cu-item">
-						<view class="content cu-item-content">
-							<text class="cuIcon-profile text-grey"></text>
-							<input class="text-grey" v-model="formData.contacts" type="text" placeholder-class="text-gray" placeholder="请输入联系人名称"/>
+						<view class="icon">
+							<text class="cuIcon-mobile"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">电话：</text>
+							<input class="item-custom-content" v-model="formData.mobile" type="text" placeholder-class="text-slave2" placeholder="请输入电话"/>
 						</view>
 					</view>
 					<view class="cu-item">
-						<view class="content cu-item-content">
-							<text class="cuIcon-mobilefill text-grey"></text>
-							<input class="text-grey" v-model="formData.mobile" type="text" placeholder-class="text-gray" placeholder="请输入电话"/>
+						<view class="icon">
+							<text class="cuIcon-location"></text>
+						</view>
+							<view class="item item-custom">
+								<picker mode=region @change="handleAddressChange" style="width: 100%">
+									<view class="picker-content">
+										<text class="item-custom-title">位置：</text>
+										<text class="content text-slave2" v-if="!formData.address">省/市/区</text>
+										<text class="item-custom-content" v-else>{{formData.address}}</text>
+									</view>
+								</picker>
+							</view>
+					</view>
+					<view class="cu-item">
+						<view class="icon">
+							<text class="cuIcon-home"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">街道：</text>
+							<input class="item-custom-content" v-model="formData.street" type="text" placeholder-class="text-slave2" placeholder="请输入街道"/>
 						</view>
 					</view>
 					<view class="cu-item">
-						<view class="content cu-item-content">
-							<text class="cuIcon-location text-grey"></text>
-							<picker mode=region @change="handleAddressChange" style="width:100%;">
-								<text v-if="!formData.address" class="text-gray">点击选择</text>
-								<text class="text-grey" v-else>{{formData.address}}</text>
-							</picker>
+						<view class="icon">
+							<text class="cuIcon-email"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">邮箱：</text>
+							<input class="item-custom-content" v-model="formData.email" type="text" placeholder-class="text-slave2" placeholder="请输入邮箱"/>
 						</view>
 					</view>
-					<view class="cu-item">
-						<view class="content cu-item-content">
-							<text class="cuIcon-home text-grey"></text>
-							<input class="text-grey" v-model="formData.street" type="text" placeholder-class="text-gray" placeholder="请输入街道"/>
-						</view>
-					</view>
-					<view class="cu-item">
-						<view class="content cu-item-content">
-							<text class="cuIcon-mail text-grey"></text>
-							<input class="text-grey" v-model="formData.email" type="text" placeholder-class="text-gray" placeholder="请输入邮箱"/>
-						</view>
-					</view>
-					<view class="cu-item" style="margin-top:10px;padding:10px;">
-						<view class="content cu-item-content">
-							<textarea class="text-grey" style="height: 100px;" v-model="formData.remarks" placeholder-class="text-gray" placeholder="备注" maxlength=512 />
-						</view>
+					<view class="list-footer">
+						<textarea style="height: 100px;" v-model="formData.remarks" placeholder-class="text-slave2" placeholder="备注" maxlength=512 />
 					</view>
 				</view>
 			</scroll-view>
@@ -76,7 +91,7 @@
 	export default {
 		data() {
 			return {
-				title: '修改信息',
+				title: '添加客户&供应商',
 				formData: {
 					type: 0,
 					company: '',
@@ -146,16 +161,34 @@
 		}
 		.content {
 			height: 82%;
-			.cu-item-header {
+			.content-header {
 				display: flex;
-				flex-direction: row;
+				height: 140upx;
+				background-color: #ffffff;
 				justify-content: center;
 				align-items: center;
+				border-bottom: 1px solid #dcdee2;
 			}
-			.cu-item-content {
+			.item-custom {
 				display: flex;
 				flex-direction: row;
+				justify-content: space-between;
 				align-items: center;
+				.item-custom-title {
+					width: 40%;
+				}
+				.item-custom-content {
+					width: 60%;
+				}
+			}
+			.picker-content {
+				display: flex;
+				justify-content: space-between;
+			}
+			.list-footer {
+				background-color: #ffffff;
+				margin-top: 10upx;
+				padding-left: 10upx;
 			}
 		}
 		.footer {

@@ -1,95 +1,149 @@
 <template>
 	<view class="container">
-		<cu-custom bgColor="bg-blue" :isBack="true">
-		    <block slot="backText">返回</block>
-		    <block slot="content">{{title}}</block>
-		</cu-custom>
+		<view class="header">
+			<cu-custom bgColor="bg-blue" :isBack="true">
+				<block slot="backText">返回</block>
+				<block slot="content">{{title}}</block>
+			</cu-custom>
+		</view>
 		<view class="content">
-			<form @submit="formSubmit">
-				<view class="uni-form-item item-border">
-					<view class="label">产品名称</view>
-					<input class="item" v-model="formData.name" type="text" placeholder-style="color:#d4d6db" placeholder="请输入产品名称"/>
-				</view>
-				<view class="uni-form-item item-border">
-					<view class="label">产品类型</view>
-					<view class="item">
-						<view class="left">
-							<picker :range="productType" @change="handleTypeChange">
-								<text v-if="!formData.type" style="color:#d4d6db;">点击选择</text>
-								<text v-else>{{formData.type}}</text>
-							</picker>
+			<scroll-view :scroll-y="true" class="fill">
+				<view class="cu-list icon-action">
+					<view class="cu-item">
+						<view class="icon">
+							<text class="cuIcon-product"></text>
 						</view>
-						<view class="right" @click="handleAddType">
-							<text class="lg" :class="'cuIcon-right'"></text>
+						<view class="item item-custom">
+							<text class="item-custom-title">产品名称：</text>
+							<input class="item-custom-content" v-model="formData.name" type="text" placeholder-class="text-slave2" placeholder="请输入产品名称"/>
+						</view>
+					</view>
+					<view class="cu-item" @tap="handleSelectType">
+						<view class="icon">
+							<text class="cuIcon-classify"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">产品分类：</text>
+							<text class="item-custom-content text-slave2" v-if="!formData.type">请选择产品分类</text>
+							<text class="item-custom-content" v-else>{{formData.type}}</text>
+						</view>
+						<view class="action">
+							<text class="cuIcon-arrow"></text>
+						</view>
+					</view>
+					<view class="cu-item" @tap="handleSelectMasterUnit">
+						<view class="icon">
+							<text class="cuIcon-unit"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">主计量单位：</text>
+							<text class="item-custom-content text-slave2" v-if="!formData.masterUnit">请选择主计量单位</text>
+							<text class="item-custom-content" v-else>{{formData.masterUnit}}</text>
+						</view>
+						<view class="action">
+							<text class="cuIcon-arrow"></text>
+						</view>
+					</view>
+					<view class="cu-item arrow" @tap="handleSelectSlaveUnit">
+						<view class="icon">
+							<text class="cuIcon-unit"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">辅计量单位：</text>
+							<text class="item-custom-content text-slave2" v-if="!formData.slaveUnit">请选择辅计量单位</text>
+							<text class="item-custom-content" v-else>{{formData.slaveUnit}}</text>
+						</view>
+						<view class="action">
+							<text class="cuIcon-arrow"></text>
+						</view>
+					</view>
+					<view class="cu-item">
+						<view class="icon">
+							<text class="cuIcon-multiple"></text>
+						</view>
+						<view class="item item-custom">
+							<text class="item-custom-title">计量单位倍率：</text>
+							<input class="item-custom-content" v-model="formData.multiple" type="text" placeholder-class="text-slave2" placeholder="请输入计量单位倍率"/>
 						</view>
 					</view>
 				</view>
-				<view class="uni-form-item item-border">
-					<view class="label">度量单位</view>
-					<input class="item" v-model="formData.unit" type="text" placeholder-style="color:#d4d6db" placeholder="请输入度量单位"/>
-				</view>
-				<view class="uni-form-item" style="margin-top:10px;">
-					<textarea style="height: 70px;" v-model="formData.remarks" placeholder-style="color:#d4d6db" placeholder="备注" maxlength=512 />
-				</view>
-				<view style="margin-top:10px;">
-					<button type="primary" form-type="submit" :disabled="disableSubmit">提交</button>
-				</view>
-			</form>
+			</scroll-view>
+		</view>
+		<view class="footer">
+			<button class="cu-btn bg-green fill" type="" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
 	</view>
 </template>
 
 <script>
-	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
-	import uniIcons from "@/components/uni-icons/uni-icons.vue"
-	import uniList from "@/components/uni-list/uni-list.vue"
-	import uniListItem from "@/components/uni-list-item/uni-list-item.vue"
 	export default {
-		components: {
-			uniNavBar,
-			uniIcons,
-			uniList,
-			uniListItem,
-		},
 		data() {
 			return {
-				title: '修改产品信息',
+				title: '添加产品',
 				formData: {
 					name: '',
 					type: '',
+					masterUnit: '',
+					slaveUnit: '',
 					unit: '',
-					remarks: ''
+					multiple: '',
+					remarks: '',
 				},
-				productType: [ '香烟', '酒水', '百货', '熟食'],
-				disableSubmit: true
+				disableSubmit: true,
+				unitSwich: 0
 			}
 		},
 		onLoad(options) {
 			this.formData.name = options.name
 			this.formData.type = options.type
-			this.formData.unit = options.unit
+			this.formData.masterUnit = options.masterUnit
+			this.formData.slaveUnit = options.slaveUnit
+			this.formData.multiple = options.multiple
 			this.formData.remarks = options.remarks
+		},
+		onShow() {
+			let pages =  getCurrentPages()
+			let curPage = pages[pages.length - 1]
+			if (curPage.data.selectType) {
+				this.formData.type = curPage.data.selectType.name
+			}
+			if (curPage.data.selectUnit) {
+				if (this.unitSwich == 0) {
+					this.formData.masterUnit = curPage.data.selectUnit.name
+				} else {
+					this.formData.slaveUnit = curPage.data.selectUnit.name
+				}
+			}
 		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack()
 			},
-			handleTypeChange(val) {
-				this.formData.type = this.productType[val.detail.value]
-			},
-			handleAddType() {
+			handleSelectType() {
 				uni.navigateTo({
-					url: '../add-type/add-type'
+					url: '../type/type?callPage=1'
 				})
 			},
-			formSubmit() {
+			handleSelectMasterUnit() {
+				this.unitSwich = 0
+				uni.navigateTo({
+					url: '../unit/unit?callPage=1'
+				})
+			},
+			handleSelectSlaveUnit() {
+				this.unitSwich = 1
+				uni.navigateTo({
+					url: '../unit/unit?callPage=1'
+				})
+			},
+			handleSubmit() {
 				uni.navigateBack()
 			}
 		},
 		watch:{
 			formData: {
 				handler(val) {
-					if (val.name && val.type) {
+					if (val.name && val.type && val.unit) {
 						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true
@@ -102,40 +156,36 @@
 </script>
 
 <style lang="scss" scoped>
-	.container {
+	.fill {
 		width: 100%;
+		height: 100%;
+	}
+	.container {
+		height: 100vh;
+		width: 100vw;
+		.header {
+			height: 11%;
+		}
 		.content {
-			display: flex;
-			flex-direction: column;
-			margin-top:$uni-spacing-col-lg;
-			.uni-form-item {
+			height: 82%;
+			.item-custom {
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
-				padding:$uni-spacing-row-lg;
-				background-color: $uni-bg-color-secondary;
-				.label {
+				.item-custom-title {
 					width: 40%;
 				}
-				.item {
+				.item-custom-content {
 					width: 60%;
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-					align-items: center;
-					.left {
-						width: 80%;
-					}
-					.right {
-						width: 20%;
-						text-align: right;
-					}
 				}
 			}
-			.item-border {
-				border-bottom: 0.5px solid $uni-border-color;
-			}
+		}
+		.footer {
+			height: 7%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
 		}
 	}
 </style>

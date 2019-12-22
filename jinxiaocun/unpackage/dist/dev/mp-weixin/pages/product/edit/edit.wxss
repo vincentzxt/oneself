@@ -24,20 +24,21 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.container.data-v-163f1338 {
+.fill.data-v-163f1338 {
   width: 100%;
+  height: 100%;
+}
+.container.data-v-163f1338 {
+  height: 100vh;
+  width: 100vw;
+}
+.container .header.data-v-163f1338 {
+    height: 11%;
 }
 .container .content.data-v-163f1338 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-            flex-direction: column;
-    margin-top: 10rpx;
+    height: 82%;
 }
-.container .content .uni-form-item.data-v-163f1338 {
+.container .content .item-custom.data-v-163f1338 {
       display: -webkit-box;
       display: -webkit-flex;
       display: flex;
@@ -51,36 +52,24 @@
       -webkit-box-align: center;
       -webkit-align-items: center;
               align-items: center;
-      padding: 10rpx;
-      background-color: #ffffff;
 }
-.container .content .uni-form-item .label.data-v-163f1338 {
+.container .content .item-custom .item-custom-title.data-v-163f1338 {
         width: 40%;
 }
-.container .content .uni-form-item .item.data-v-163f1338 {
+.container .content .item-custom .item-custom-content.data-v-163f1338 {
         width: 60%;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: row;
-                flex-direction: row;
-        -webkit-box-pack: justify;
-        -webkit-justify-content: space-between;
-                justify-content: space-between;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-                align-items: center;
 }
-.container .content .uni-form-item .item .left.data-v-163f1338 {
-          width: 80%;
-}
-.container .content .uni-form-item .item .right.data-v-163f1338 {
-          width: 20%;
-          text-align: right;
-}
-.container .content .item-border.data-v-163f1338 {
-      border-bottom: 0.5px solid #d4d6db;
+.container .footer.data-v-163f1338 {
+    height: 7%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+            justify-content: flex-end;
 }
 

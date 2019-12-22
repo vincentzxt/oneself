@@ -1528,7 +1528,79 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 134:
+/***/ 12:
+/*!*********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/static/test-data/customer.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.customerList = void 0;var customerList = [
+{ id: '1', company: '张三', contacts: '张三', type: 0, mobile: '13100011111', code: '00001', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: 'test' },
+{ id: '2', company: '李四', contacts: '李四', type: 2, mobile: '15933321212', code: '00002', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '3', company: '王五', contacts: '王五', type: 0, mobile: '13899077662', code: '00003', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '4', company: '北京牛栏山酒业有限公司', contacts: '小牛', type: 1, mobile: '13944377668', code: '00004', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '5', company: '秦始皇', contacts: '秦始皇', type: 2, mobile: '13055688774', code: '00005', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '6', company: '河北山海建材有限公司', contacts: '小山', type: 1, mobile: '13844588256', code: '00006', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '7', company: '程咬金', contacts: '程咬金', type: 0, mobile: '18666844771', code: '00007', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '8', company: '梦瑶', contacts: '梦瑶', type: 0, mobile: '15688977411', code: '00008', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '9', company: '张三丰', contacts: '张三丰', type: 0, mobile: '13100011111', code: '00009', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '10', company: '霍元甲', contacts: '霍元甲', type: 0, mobile: '15933321212', code: '00010', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '11', company: '张居正', contacts: '张居正', type: 0, mobile: '13899077662', code: '00011', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '12', company: '河南油菜花食品贸易公司', contacts: '菜花', type: 1, mobile: '13944377668', code: '00012', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '13', company: '山东大饼有限公司', contacts: '饼哥', type: 1, mobile: '13055688774', code: '00013', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '14', company: '张良', contacts: '张良', type: 0, mobile: '13844588256', code: '00014', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '15', company: '令狐冲', contacts: '令狐冲', type: 0, mobile: '18666844771', code: '00015', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' },
+{ id: '16', company: '黑龙江水炮安防公司', contacts: '山炮', type: 1, mobile: '15688977411', code: '00016', address: '北京市朝阳区', street: '安慧里18号', email: 'aa@163.com', remarks: '' }];exports.customerList = customerList;
+
+/***/ }),
+
+/***/ 13:
+/*!********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/static/test-data/product.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.productList = exports.productUnit = exports.productType = void 0;var productType = [
+{ 'name': '所有分类' },
+{ 'name': '香烟' },
+{ 'name': '酒水' },
+{ 'name': '百货' },
+{ 'name': '熟食' }];exports.productType = productType;
+
+
+var productUnit = [
+{ 'name': '盒' },
+{ 'name': '包' },
+{ 'name': '条' },
+{ 'name': '箱' },
+{ 'name': '瓶' },
+{ 'name': '卷' },
+{ 'name': '个' },
+{ 'name': '把' },
+{ 'name': '捆' },
+{ 'name': '支' },
+{ 'name': '斤' },
+{ 'name': '公斤' }];exports.productUnit = productUnit;
+
+
+var productList = [
+{ id: '1', name: '长白山', type: '香烟', code: '00001', unit: '盒', masterUnit: '盒', slaveUnit: '条', multiple: '10', price: '11', remarks: 'test' },
+{ id: '2', name: '玉溪', type: '香烟', code: '00002', unit: '盒', masterUnit: '盒', slaveUnit: '条', multiple: '10', price: '23', remarks: '' },
+{ id: '3', name: '燕京大绿棒子', type: '酒水', code: '00003', unit: '瓶', masterUnit: '瓶', slaveUnit: '箱', multiple: '6', price: '3.5', remarks: '' },
+{ id: '4', name: '白牛二', type: '酒水', code: '00004', unit: '瓶', masterUnit: '瓶', slaveUnit: '箱', multiple: '6', price: '15', remarks: '' },
+{ id: '5', name: '易拉罐燕京', type: '酒水', code: '00005', unit: '瓶', masterUnit: '瓶', slaveUnit: '箱', multiple: '6', price: '6', remarks: '' },
+{ id: '6', name: '卫生纸', type: '百货', code: '00006', unit: '卷', masterUnit: '卷', slaveUnit: '包', multiple: '12', price: '2', remarks: '' },
+{ id: '7', name: '拖把', type: '百货', code: '00007', unit: '把', masterUnit: '把', slaveUnit: '捆', multiple: '5', price: '10', remarks: '' },
+{ id: '8', name: '杯子', type: '百货', code: '00008', unit: '个', masterUnit: '个', slaveUnit: '盒', multiple: '6', price: '6', remarks: '' },
+{ id: '9', name: '牛肉', type: '熟食', code: '00009', unit: '斤', masterUnit: '斤', slaveUnit: '公斤', multiple: '2', price: '29', remarks: '' }];exports.productList = productList;
+
+/***/ }),
+
+/***/ 144:
 /*!**********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
   \**********************************************************************************************/
@@ -1555,7 +1627,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 14:
+/***/ 16:
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
   \********************************************************************/
@@ -8574,7 +8646,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@^2.0.0-alpha-24420191128001","_id"
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/stock/stock": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/sale/sale": {}, "pages/purchase/purchase": {}, "pages/current_unit/current_unit": {}, "pages/current_unit/add/add": {}, "pages/current_unit/edit/edit": {}, "pages/product/product": {}, "pages/product/add/add": {}, "pages/product/edit/edit": {}, "pages/product/add-type/add-type": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/stock/stock": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/sale/sale": {}, "pages/purchase/purchase": {}, "pages/current_unit/current_unit": {}, "pages/current_unit/add/add": {}, "pages/current_unit/edit/edit": {}, "pages/product/product": {}, "pages/product/add/add": {}, "pages/product/edit/edit": {}, "pages/product/type/type": {}, "pages/product/unit/unit": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 

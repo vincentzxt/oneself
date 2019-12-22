@@ -12,7 +12,8 @@
     "pages/product/product",
     "pages/product/add/add",
     "pages/product/edit/edit",
-    "pages/product/add-type/add-type"
+    "pages/product/type/type",
+    "pages/product/unit/unit"
   ],
   "subPackages": [],
   "window": {
@@ -50,5 +51,6 @@
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
-  }
+  },
+  "sitemapLocation": "sitemap63.json"
 }

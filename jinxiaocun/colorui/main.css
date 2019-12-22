@@ -1,20 +1,12 @@
-/*
-  ColorUi for uniApp  v2.1.6 | by 文晓港 2019-05-31 10:44:24
-  仅供学习交流，如作它用所承受的法律责任一概与作者无关  
-  
-  *使用ColorUi开发扩展与插件时，请注明基于ColorUi开发 
-  
-  （QQ交流群：240787041）
-*/
 
 /* ==================
         初始化
  ==================== */
 body {
-	background-color: #f1f1f1;
+	background-color: #f8f8f9;
 	font-size: 28upx;
-	color: #333333;
-	font-family: Helvetica Neue, Helvetica, sans-serif;
+	color: #515a6e;
+	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
 view,
@@ -811,226 +803,79 @@ button.cuIcon.lg {
 }
 
 .cu-list+.cu-list {
-	margin-top: 30upx
-}
-
-.cu-list>.cu-item {
-	transition: all .6s ease-in-out 0s;
-	transform: translateX(0upx)
-}
-
-.cu-list>.cu-item.move-cur {
-	transform: translateX(-260upx)
-}
-
-.cu-list>.cu-item .move {
-	position: absolute;
-	right: 0;
-	display: flex;
-	width: 260upx;
-	height: 100%;
-	transform: translateX(100%)
-}
-
-.cu-list>.cu-item .move view {
-	display: flex;
-	flex: 1;
-	justify-content: center;
-	align-items: center
-}
-
-.cu-list.menu-avatar {
-	overflow: hidden;
-}
-
-.cu-list.menu-avatar>.cu-item {
-	position: relative;
-	display: flex;
-	padding-right: 10upx;
-	height: 140upx;
-	background-color: #ffffff;
-	justify-content: flex-end;
-	align-items: center
-}
-
-.cu-list.menu-avatar>.cu-item>.cu-avatar {
-	position: absolute;
-	left: 30upx
-}
-
-.cu-list.menu-avatar>.cu-item .flex .text-cut {
-	max-width: 510upx
-}
-
-.cu-list.menu-avatar>.cu-item .content {
-	position: absolute;
-	left: 30upx;
-	width: calc(100% - 96upx - 60upx - 120upx - 20upx);
-	line-height: 1.6em;
-}
-
-.cu-list.menu-avatar>.cu-item .content.flex-sub {
-	width: calc(100% - 96upx - 60upx - 20upx);
-}
-
-.cu-list.menu-avatar>.cu-item .content>view:first-child {
-	font-size: 30upx;
-	display: flex;
-	align-items: center
-}
-
-.cu-list.menu-avatar>.cu-item .content .cu-tag.sm {
-	display: inline-block;
-	margin-left: 10upx;
-	height: 28upx;
-	font-size: 16upx;
-	line-height: 32upx
-}
-
-.cu-list.menu-avatar>.cu-item .action {
-	width: 100upx;
-	text-align: center
-}
-
-.cu-list.menu-avatar>.cu-item .action view+view {
 	margin-top: 10upx
 }
 
-.cu-list.menu-avatar.comment>.cu-item .content {
-	position: relative;
-	left: 0;
-	width: auto;
-	flex: 1;
+.cu-list.menu,
+.cu-list.icon,
+.cu-list.action,
+.cu-list.icon-action
+{
+	overflow: hidden;
 }
 
-.cu-list.menu-avatar.comment>.cu-item {
-	padding: 30upx 30upx 30upx 120upx;
-	height: auto
-}
-
-.cu-list.menu-avatar.comment .cu-avatar {
-	align-self: flex-start
-}
-
-.cu-list.menu>.cu-item {
-	position: relative;
+.cu-list.menu>.cu-item,
+.cu-list.icon>.cu-item,
+.cu-list.action>.cu-item,
+.cu-list.icon-action>.cu-item
+{
 	display: flex;
-	padding: 0 30upx;
-	min-height: 100upx;
+	height: 140upx;
 	background-color: #ffffff;
-	justify-content: space-between;
-	align-items: center
+	align-items: center;
+	border-bottom: 1px solid #dcdee2;
 }
 
-.cu-list.menu>.cu-item:last-child:after {
-	border: none
+.cu-list.menu>.cu-item>.item {
+	width: 100%;
+	height: 100%;
 }
 
-.cu-list.menu-avatar>.cu-item:after,
-.cu-list.menu>.cu-item:after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	box-sizing: border-box;
-	width: 200%;
-	height: 200%;
-	border-bottom: 1upx solid #ddd;
-	border-radius: inherit;
-	content: " ";
-	transform: scale(.5);
-	transform-origin: 0 0;
-	pointer-events: none
-}
-
-.cu-list.menu>.cu-item.grayscale {
-	background-color: #f5f5f5
-}
-
-.cu-list.menu>.cu-item.cur {
-	background-color: #fcf7e9
-}
-
-.cu-list.menu>.cu-item.arrow {
-	padding-right: 90upx
-}
-
-.cu-list.menu>.cu-item.arrow:before {
-	position: absolute;
-	top: 0;
-	right: 30upx;
-	bottom: 0;
-	display: block;
-	margin: auto;
-	width: 30upx;
-	height: 30upx;
-	color: #8799a3;
-	content: "\e6a3";
-	text-align: center;
-	font-size: 34upx;
-	font-family: cuIcon;
-	line-height: 30upx
-}
-
-.cu-list.menu>.cu-item button.content {
-	padding: 0;
-	background-color: transparent;
-	justify-content: flex-start
-}
-
-.cu-list.menu>.cu-item button.content:after {
-	display: none
-}
-
-.cu-list.menu>.cu-item .cu-avatar-group .cu-avatar {
-	border-color: #ffffff
-}
-
-.cu-list.menu>.cu-item .content>view:first-child {
+.cu-list.icon>.cu-item>.icon {
+	width: 15%;
+	height: 100%;
 	display: flex;
-	align-items: center
+	justify-content: center;
+	align-items: center;
 }
 
-.cu-list.menu>.cu-item .content>text[class*=cuIcon] {
-	display: inline-block;
-	margin-right: 10upx;
-	width: 1.6em;
-	text-align: center
+.cu-list.icon>.cu-item>.item {
+	width: 85%;
+	height: 100%;
 }
 
-.cu-list.menu>.cu-item .content>image {
-	display: inline-block;
-	margin-right: 10upx;
-	width: 1.6em;
-	height: 1.6em;
-	vertical-align: middle
+.cu-list.icon-action>.cu-item>.icon {
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.cu-list.menu>.cu-item .content {
-	font-size: 30upx;
-	line-height: 1.6em;
-	flex: 1
+.cu-list.action>.cu-item>.item {
+	width: 85%;
+	height: 100%;
 }
 
-.cu-list.menu>.cu-item .content .cu-tag.sm {
-	display: inline-block;
-	margin-left: 10upx;
-	height: 28upx;
-	font-size: 16upx;
-	line-height: 32upx
+.cu-list.action>.cu-item>.action {
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.cu-list.menu>.cu-item .action .cu-tag:empty {
-	right: 10upx
+.cu-list.icon-action>.cu-item>.item {
+	width: 70%;
+	height: 100%;
 }
 
-.cu-list.menu {
-	display: block;
-	overflow: hidden
-}
-
-.cu-list.menu.sm-border>.cu-item:after {
-	left: 30upx;
-	width: calc(200% - 120upx)
+.cu-list.icon-action>.cu-item>.action {
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .cu-list.grid>.cu-item {
@@ -1060,9 +905,6 @@ button.cuIcon.lg {
 .cu-list.grid>.cu-item text {
 	display: block;
 	margin-top: 10upx;
-	color: #888;
-	font-size: 26upx;
-	line-height: 40upx
 }
 
 .cu-list.grid>.cu-item [class*=cuIcon] {
@@ -1070,7 +912,6 @@ button.cuIcon.lg {
 	display: block;
 	margin-top: 20upx;
 	width: 100%;
-	font-size: 48upx
 }
 
 .cu-list.grid>.cu-item .cu-tag {
@@ -2052,7 +1893,7 @@ button.cuIcon.lg {
 	z-index: 1110;
 	opacity: 0;
 	outline: 0;
-	text-align: center;
+	
 	-ms-transform: scale(1.185);
 	transform: scale(1.185);
 	backface-visibility: hidden;
@@ -2995,7 +2836,7 @@ scroll-view.cu-steps .cu-item {
 
 .line-blue::after,
 .lines-blue::after {
-	border-color: #0081ff;
+	border-color: #2d8cf0;
 }
 
 .line-purple::after,
@@ -3036,6 +2877,11 @@ scroll-view.cu-steps .cu-item {
 .line-white::after,
 .lines-white::after {
 	border-color: #ffffff;
+}
+
+.bg-menu {
+	background-color: #f0faff;
+	color: #5cadff;
 }
 
 .bg-red {
@@ -3456,16 +3302,24 @@ scroll-view.cu-steps .cu-item {
 	text-align: right;
 }
 
+.text-slave {
+	color: #808695
+}
+
+.text-slave2 {
+	color: #dcdee2
+}
+
 .text-red,
 .line-red,
 .lines-red {
-	color: #e54d42;
+	color: #ed4014;
 }
 
 .text-orange,
 .line-orange,
 .lines-orange {
-	color: #f37b1d;
+	color: #ff9900;
 }
 
 .text-yellow,
@@ -3483,7 +3337,7 @@ scroll-view.cu-steps .cu-item {
 .text-green,
 .line-green,
 .lines-green {
-	color: #39b54a;
+	color: #19be6b;
 }
 
 .text-cyan,
@@ -3495,7 +3349,7 @@ scroll-view.cu-steps .cu-item {
 .text-blue,
 .line-blue,
 .lines-blue {
-	color: #0081ff;
+	color: #2db7f5;
 }
 
 .text-purple,

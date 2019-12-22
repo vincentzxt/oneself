@@ -4,68 +4,60 @@
 			<block slot="content">{{title}}</block>
 		</cu-custom>
 		<view class="content">
-			<uni-grid :column="2" :highlight="false" :square="false" borderColor="#e9eaec" @change="handleGridChange">
-				<uni-grid-item v-for="(item, index) in lists" :key="index" :index="index">
-					<uni-icons :type="item.iconType" :color="item.iconColor" :size="item.iconSize"></uni-icons>
-					<text class="item-text text-grey">{{item.text}}</text>
-				</uni-grid-item>
-			</uni-grid>
+			<view class="cu-list grid" :class="['col-' + gridCol,gridBorder?'':'no-border']">
+				<view class="cu-item" v-for="(item,index) in lists" :key="index" style="padding:40upx;" @tap="handleGridChange(item)">
+					<view :class="['cuIcon-' + item.cuIcon,'text-' + item.color]" style="font-size:64upx"></view>
+					<text style="font-size:32upx;margin-top:20upx;" class="text-lg">{{item.name}}</text>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
-	import uniIcons from "@/components/uni-icons/uni-icons.vue"
-	import uniGrid from "@/components/uni-grid/uni-grid.vue"
-	import uniGridItem from "@/components/uni-grid-item/uni-grid-item.vue"
 	export default {
-		components: {
-			uniNavBar,
-			uniIcons,
-			uniGrid,
-			uniGridItem
-		},
 		data() {
 			return {
 				title: '买卖',
 				lists: [
-					{text: '销售', iconType: 'sale', iconColor: '#f29d6e', iconSize: 40},
-					{text: '采购', iconType: 'purchase', iconColor: '#9cc84e', iconSize: 40},
-					{text: '客户&供应商', iconType: 'current_unit', iconColor: '#68b3ff', iconSize: 40},
-					{text: '产品', iconType: 'product', iconColor: '#68b3ff', iconSize: 40},
-					{text: '收款单', iconType: 'receipt', iconColor: '#f29d6e', iconSize: 40},
-					{text: '付款单', iconType: 'payment', iconColor: '#9cc84e', iconSize: 40},
-					{text: '费用单', iconType: 'cost', iconColor: '#f6d667', iconSize: 40},
-					{text: '退货单', iconType: 'return_order', iconColor: '#f6d667', iconSize: 40},
-				]
+					{id: '1', name: '销售', cuIcon: 'sale', color: 'red' },
+					{id: '2', name: '采购', cuIcon: 'purchase-fill', color: 'blue' },
+					{id: '3', name: '客户&供应商', cuIcon: 'customer-fill', color: 'orange' },
+					{id: '4', name: '产品', cuIcon: 'product-fill', color: 'blue' },
+					{id: '5', name: '收款单', cuIcon: 'receipt', color: 'red' },
+					{id: '6', name: '付款单', cuIcon: 'payment', color: 'orange' },
+					{id: '7', name: '费用单', cuIcon: 'cost', color: 'green' },
+					{id: '8', name: '退货单', cuIcon: 'return-order', color: 'green' },
+				],
+				gridCol: 2,
+				gridBorder: true
 			}
 		},
 		onLoad() {
-			console.log("view onLoad")
+			console.log(uni.upx2px(24))
 		},
 		methods: {
 			handleNavbarClickLeft() {
 				console.log("###left###")
 			},
 			handleGridChange(val) {
-				switch(val.detail.index) {
-					case 0:
+				switch(val.id) {
+					case '1':
 						uni.navigateTo({
 							url: '../sale/sale'
 						})
 						break
-					case 1:
+					case '2':
 						uni.navigateTo({
 							url: '../purchase/purchase'
 						})
 						break
-					case 2:
+					case '3':
 						uni.navigateTo({
 							url: '../current_unit/current_unit'
 						})
 						break
-					case 3:
+					case '4':
 						uni.navigateTo({
 							url: '../product/product'
 						})

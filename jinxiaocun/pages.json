@@ -12,8 +12,9 @@
 		{ "path" : "pages/product/product" },
 		{ "path" : "pages/product/add/add" },
 		{ "path" : "pages/product/edit/edit" },
-		{ "path" : "pages/product/add-type/add-type" }
-   ],
+		{ "path" : "pages/product/type/type" },
+    {	"path" : "pages/product/unit/unit" }
+  ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

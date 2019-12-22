@@ -38,6 +38,18 @@
 .container .content.data-v-72d38184 {
     height: 75%;
 }
+.container .content .item-custom.data-v-72d38184 {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+              justify-content: center;
+}
 .container .footer.data-v-72d38184 {
     height: 7%;
     display: -webkit-box;
