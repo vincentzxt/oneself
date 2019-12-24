@@ -1,10 +1,14 @@
 <template>
 	<view>
 		<view class="cu-custom" :style="[{height:CustomBar + 'px'}]">
-			<view class="cu-bar fixed" :style="style" :class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]">
-				<view class="action" @tap="BackPage" v-if="isBack">
+			<view class="cu-bar fixed text-white" :class="bgColor?bgColor:'bg-blue'" :style="style">
+				<view class="action" @tap="backPage" v-if="isBack">
 					<text class="cuIcon-back"></text>
 					<slot name="backText"></slot>
+				</view>
+				<view class="action" @tap="refreshPage" v-if="isRefresh">
+					<text class="cuIcon-refresh"></text>
+					<slot name="refreshText"></slot>
 				</view>
 				<view class="content" :style="[{top:StatusBar + 'px'}]">
 					<slot name="content"></slot>
@@ -45,16 +49,23 @@
 				type: [Boolean, String],
 				default: false
 			},
+			isRefresh: {
+				type: [Boolean, String],
+				default: false
+			},
 			bgImage: {
 				type: String,
 				default: ''
 			},
 		},
 		methods: {
-			BackPage() {
+			backPage() {
 				uni.navigateBack({
 					delta: 1
 				});
+			},
+			refreshPage() {
+				this.$emit('refreshPage')
 			}
 		}
 	}

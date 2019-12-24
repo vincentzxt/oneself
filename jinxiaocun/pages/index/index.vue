@@ -1,13 +1,13 @@
 <template>
-	<view class="container">
-		<cu-custom bgColor="bg-blue" :isBack="false">
+	<view>
+		<cu-custom :isRefresh="true" @refreshPage="handleRefreshPage">
 			<block slot="content">{{title}}</block>
 		</cu-custom>
-		<view class="content">
+		<view>
 			<view class="cu-list grid" :class="['col-' + gridCol,gridBorder?'':'no-border']">
-				<view class="cu-item" v-for="(item,index) in lists" :key="index" style="padding:40upx;" @tap="handleGridChange(item)">
-					<view :class="['cuIcon-' + item.cuIcon,'text-' + item.color]" style="font-size:64upx"></view>
-					<text style="font-size:32upx;margin-top:20upx;" class="text-lg">{{item.name}}</text>
+				<view class="cu-item" v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
+					<view :class="['cuIcon-' + item.cuIcon,'text-' + item.color]"></view>
+					<text class="text-lg">{{item.name}}</text>
 				</view>
 			</view>
 		</view>
@@ -34,11 +34,11 @@
 			}
 		},
 		onLoad() {
-			console.log(uni.upx2px(24))
+			
 		},
 		methods: {
-			handleNavbarClickLeft() {
-				console.log("###left###")
+			handleRefreshPage() {
+				console.log("refreshpage")
 			},
 			handleGridChange(val) {
 				switch(val.id) {
@@ -69,14 +69,5 @@
 </script>
 
 <style lang="scss" scoped>
-	.container {
-		width: 100%;
-		.content {
-			display: flex;
-			flex-direction: column;
-			.item-text {
-				margin-top: $uni-spacing-col-base;
-			}
-		}
-	}
+
 </style>

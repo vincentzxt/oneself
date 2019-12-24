@@ -6,71 +6,63 @@
 				<block slot="content">{{title}}</block>
 			</cu-custom>
 			<view class="cu-bar search bg-white">
-				<view class="search-form round">
-					<text class="cuIcon-search text-slave2"></text>
-					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-slave2" placeholder="输入名称" confirm-type="search"></input>
+				<view class="search-form text-white">
+					<text class="cuIcon-search text-disabled"></text>
+					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-disabled" placeholder="输入名称" confirm-type="search"></input>
 				</view>
 				<view class="action">
-					<button class="cu-btn bg-blue round" @tap="handleCancelSearch">取消</button>
+					<button class="cu-btn bg-blue" @tap="handleCancelSearch">取消</button>
 				</view>
 			</view>
 		</view>
-		<view class="content">
+		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<view class="cu-list action">
+				<view class="cu-list menu sm-border">
 					<view class="cu-item" v-for="(item, index) in searchDatas" :key="index">
-						<view class="item item-custom" @tap="handleReturnItem(item)">
+						<view class="content" @tap="handleReturnItem(item)">
 							<text>{{item.name}}</text>
 						</view>
-						<view class="action">
-							<text class="cuIcon-edit" @tap="handleShowEditModal(item)"></text>
+						<view class="action flex justify-center align-center" style="width:20%; height: 140upx;" @tap="handleShowEditModal(item)">
+							<text class="cuIcon-edit text-sub"></text>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cuIcon-add cu-btn bg-green fill" @tap="handleShowAddModal">添加</button>
+			<button class="cuIcon-add cu-btn bg-blue fill" @tap="handleShowAddModal">添加</button>
 		</view>
 		<view class="cu-modal bottom-modal" :class="showAddModal?'show':''">
 			<view class="cu-dialog">
-				<view class="cu-bar bg-blue justify-end" style="20%">
+				<view class="cu-bar bg-blue">
 					<view class="content">添加分类</view>
 				</view>
-				<view>
-					<view class="cu-list menu">
-						<view class="cu-item">
-							<view class="item dialog-item-custom">
-								<text class="dialog-item-custom-title">分类名称：</text>
-								<input class="dialog-item-custom-content" type="text" v-model="addTypeName" placeholder-class="text-slave2" placeholder="请输入分类名称"/>
-							</view>
-						</view>
+				<form>
+					<view class="cu-form-group">
+						<view class="title">分类名称</view>
+						<input type="text" name="addTypeName" v-model="addTypeName" placeholder-class="text-disabled" placeholder="请输入分类名称"/>
 					</view>
-				</view>
-				<view class="cu-bar dialog-footer">
-					<view class="action bg-gray dialog-footer-left"  @tap="handleHideAddModal">取消</view>
-					<view class="action bg-green dialog-footer-right" @tap="handleAdd">确定</view>
+				</form>
+				<view class="cu-bar dialog-footer ">
+					<view class="action bg-disabled dialog-footer-left"  @tap="handleHideAddModal">取消</view>
+					<view class="action bg-blue dialog-footer-right" @tap="handleAdd">确定</view>
 				</view>
 			</view>
 		</view>
 		<view class="cu-modal bottom-modal" :class="showEditModal?'show':''">
 				<view class="cu-dialog">
-					<view class="cu-bar bg-blue justify-end" style="20%">
+					<view class="cu-bar bg-blue text-white">
 						<view class="content">修改分类</view>
 					</view>
-					<view>
-						<view class="cu-list menu">
-							<view class="cu-item">
-								<view class="item dialog-item-custom">
-									<text class="dialog-item-custom-title">分类名称：</text>
-									<input class="dialog-item-custom-content" type="text" v-model="editTypeName"/>
-								</view>
-							</view>
+					<form>
+						<view class="cu-form-group">
+							<view class="title">分类名称</view>
+							<input type="text" name="editTypeName" v-model="editTypeName" placeholder-class="text-disabled" placeholder="请输入分类名称"/>
 						</view>
-					</view>
+					</form>
 					<view class="cu-bar dialog-footer">
-						<view class="action bg-gray dialog-footer-left"  @tap="handleHideEditModal">取消</view>
-						<view class="action bg-green dialog-footer-right" @tap="handleEdit">确定</view>
+						<view class="action bg-disabled dialog-footer-left"  @tap="handleHideEditModal">取消</view>
+						<view class="action bg-blue dialog-footer-right" @tap="handleEdit">确定</view>
 					</view>
 				</view>
 			</view>
@@ -182,19 +174,6 @@
 		width: 100%;
 		height: 100%;
 	}
-	.dialog-item-custom {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		margin-left: 10upx;
-		.dialog-item-custom-title {
-			width: 40%;
-		}
-		.dialog-item-custom-content {
-			width: 60%;
-		}
-	}
 	.dialog-footer {
 		padding: 0;
 		.dialog-footer-left {
@@ -214,38 +193,14 @@
 		.header {
 			height: 18%;
 		}
-		.content {
+		.main {
 			height: 75%;
-			.item-custom {
-				display: flex;
-				align-items: center;
-				margin-left: 10upx;
-			}
 		}
 		.footer {
 			height: 7%;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-end;
-		}
-		.dialog-header {
-			height: 40px;
-			padding: 5px;
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-		}
-		.dialog-content {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
-		.dialog-footer {
-			height: 40px;
-			display: flex;
-			flex-direction: row;
-			align-content: center;
 		}
 	}
 </style>

@@ -6,43 +6,44 @@
 				<block slot="content">{{title}}</block>
 			</cu-custom>
 			<view class="cu-bar search bg-white">
-				<view class="search-form round">
-					<text class="cuIcon-search text-slave2"></text>
-					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-slave2" placeholder="输入编码、名称" confirm-type="search"></input>
+				<view class="search-form">
+					<text class="cuIcon-search text-disabled"></text>
+					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-disabled" placeholder="输入编码、名称" confirm-type="search"></input>
 				</view>
 				<view class="action">
-					<button class="cu-btn bg-blue round" @click="handleCancelSearch">取消</button>
+					<button class="cu-btn bg-blue text-white" @click="handleCancelSearch">取消</button>
 				</view>
 			</view>
 		</view>
-		<view class="content">
-			<scroll-view :scroll-y="true" class="content-left">
-				<view class="cu-list menu">
+		<view class="main">
+			<scroll-view :scroll-y="true" class="main-left">
+				<view class="cu-list menu sm-border">
 					<view class="cu-item" :class="item.name==curSelectType?'menuSelect':''" v-for="(item, index) in types" :key="index" @tap="handleSelectType(item.name)">
-						<view class="item item-custom-left">
-							<text>{{item.name}}</text>
+						<view class="content padding-tb-sm">
+							<view>
+								<text>{{item.name}}</text>
+							</view>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
-			<scroll-view :scroll-y="true" class="content-right">
-				<view class="cu-list action">
-					<view class="cu-item" v-for="(item, index) in searchDatas" :key="index" @click="handleEdit(item)">
-						<view class="item item-custom-right">
-							<text>{{item.name}}</text>
-							<view class="margin-top-xs text-sm text-slave">
+			<scroll-view :scroll-y="true" class="main-right">
+				<view class="cu-list menu sm-border">
+					<view class="cu-item arrow" v-for="(item, index) in searchDatas" :key="index" @click="handleEdit(item)">
+						<view class="content padding-tb-sm">
+							<view>
+								<text>{{item.name}}</text>
+							</view>
+							<view class="text-sub text-sm margin-top-xs">
 								<text>编码：{{item.code}}</text>
 							</view>
-						</view>
-						<view class="action">
-							<text class="cuIcon-arrow"></text>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cuIcon-add cu-btn bg-green fill" @click="handleAdd">添加</button>
+			<button class="cuIcon-add cu-btn bg-blue fill" @click="handleAdd">添加</button>
 		</view>
 	</view>
 </template>
@@ -116,31 +117,19 @@
 		.header {
 			height: 18%;
 		}
-		.content {
+		.main {
 			height: 75%;
 			display: flex;
-			flex-direction: row;
 			justify-content: space-between;
-			.content-left {
+			.main-left {
 				width: 30%;
-				.item-custom-left {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-				}
 				.menuSelect {
 					background-color: #f0faff;
 					color: #5cadff;
 				}
 			}
-			.content-right {
+			.main-right {
 				width: 68%;
-				.item-custom-right {
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					margin-left: 10upx;
-				}
 			}
 		}
 		.footer {

@@ -6,37 +6,34 @@
 				<block slot="content">{{title}}</block>
 			</cu-custom>
 			<view class="cu-bar search bg-white">
-				<view class="search-form round">
-					<text class="cuIcon-search text-slave2"></text>
-					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-slave2" placeholder="输入编码、名称、电话" confirm-type="search"></input>
+				<view class="search-form">
+					<text class="cuIcon-search text-disabled"></text>
+					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-disabled" placeholder="输入编码、名称、电话" confirm-type="search"></input>
 				</view>
 				<view class="action">
-					<button class="cu-btn bg-blue round" @click="handleCancelSearch">取消</button>
+					<button class="cu-btn bg-blue" @click="handleCancelSearch">取消</button>
 				</view>
 			</view>
 		</view>
-		<view class="content">
+		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<view class="cu-list icon-action">
-					<view class="cu-item" v-for="(item, index) in searchDatas" :key="index" @click="handleEdit(item)">
-						<view class="icon">
-							<text class="cuIcon-company"></text>
-						</view>
-						<view class="item item-custom">
-							<text>{{item.company}}</text>
-							<view class="margin-top-xs text-sm text-slave">
-								<text>电话：{{item.mobile}}</text>
+				<view class="cu-list menu sm-border">
+					<view class="cu-item arrow" v-for="(item, index) in searchDatas" :key="index" @click="handleEdit(item)">
+						<view class="content padding-tb-sm">
+							<view>
+								<text class="cuIcon-company text-orange"></text>
+								<text class="margin-left-sm">{{item.company}}</text>
 							</view>
-						</view>
-						<view class="action">
-							<text class="cuIcon-arrow"></text>
+							<view class="text-sub text-sm margin-top-xs">
+								<text class="margin-left-xl">电话：{{item.mobile}}</text>
+							</view>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cuIcon-add cu-btn bg-green fill" @click="handleAdd">添加</button>
+			<button class="cu-btn cuIcon-add bg-blue fill" @click="handleAdd">添加</button>
 		</view>
 	</view>
 </template>
@@ -57,7 +54,9 @@
 		},
 		methods: {
 			handleNavbarClickLeft() {
-				uni.navigateBack()
+				uni.navigateBack({
+					delta: 1
+				})
 			},
 			handleAdd() {
 				uni.navigateTo({
@@ -99,13 +98,8 @@
 		.header {
 			height: 18%;
 		}
-		.content {
+		.main {
 			height: 75%;
-			.item-custom {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-			}
 		}
 		.footer {
 			height: 7%;

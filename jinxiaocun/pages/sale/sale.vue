@@ -16,9 +16,9 @@
 						<view class="item item-custom">
 							<text class="item-custom-title">搜索单位</text>
 							<view class="cu-bar search bg-white item-custom-content">
-								<view class="search-form round">
-									<text class="cuIcon-search text-slave2"></text>
-									<input v-model="customerSearchKey" :adjust-position="false" type="text" placeholder-class="text-slave2" placeholder="输入编码、名称、电话" confirm-type="search"></input>
+								<view class="search-form">
+									<text class="cuIcon-search text-disabled"></text>
+									<input v-model="customerSearchKey" :adjust-position="false" type="text" placeholder-class="text-disabled" placeholder="输入编码、名称、电话" confirm-type="search"></input>
 								</view>
 							</view>
 						</view>
@@ -39,9 +39,9 @@
 						<view class="item item-custom">
 							<text class="item-custom-title">产品</text>
 							<view class="cu-bar search bg-white item-custom-content">
-								<view class="search-form round">
-									<text class="cuIcon-search text-slave2"></text>
-									<input v-model="productSearchKey" :adjust-position="false" type="text" placeholder-class="text-slave2" placeholder="输入编码、名称" confirm-type="search"></input>
+								<view class="search-form">
+									<text class="cuIcon-search text-disabled"></text>
+									<input v-model="productSearchKey" :adjust-position="false" type="text" placeholder-class="text-disabled" placeholder="输入编码、名称" confirm-type="search"></input>
 								</view>
 							</view>
 						</view>
@@ -52,7 +52,7 @@
 								<view class="cu-item" v-for="(item, index) in customerSearchDatas" :key="index" @tap="handleSelectCustomer(item)">
 									<view class="item item-custom2">
 										<text>{{item.company}}</text>
-										<view class="margin-top-xs text-sm text-slave">
+										<view class="margin-top-xs text-sm text-sub">
 											<text>电话：{{item.mobile}}</text>
 										</view>
 									</view>
@@ -62,7 +62,7 @@
 								<view class="cu-item" v-for="(item, index) in productSearchDatas" :key="index" @tap="handleSelectProduct(item)">
 									<view class="item item-custom2">
 										<text>{{item.name}}</text>
-										<view class="margin-top-xs text-sm text-slave">
+										<view class="margin-top-xs text-sm text-sub">
 											<text>编码：{{item.code}}</text>
 										</view>
 									</view>
@@ -78,7 +78,7 @@
 						</view>
 						<view class="item item-custom2" @tap="handleShowModal(item)">
 							<text class="item-custom2-title">{{item.name}}</text>
-							<view class="margin-top-xs text-sm text-slave item-custom2-content">
+							<view class="margin-top-xs text-sm text-sub item-custom2-content">
 								<text style="width:50%">销售数量：{{item.num}}</text>
 								<text style="width:50%">计量单位：{{item.unit}}</text>
 								<text style="width:50%">建议零售价：￥{{item.price}}</text>
@@ -108,13 +108,15 @@
 				<view class="footer-content1">
 					<text class="text-grey margin-left">合计金额：<text class="text-red">￥{{totalPrice}}</text></text>
 				</view>
-				<button class="cu-btn bg-green footer-content2">确定</button>
+				<button class="cu-btn bg-green text-white footer-content2">确定</button>
 			</view>
 		</view>
 		<view class="cu-modal bottom-modal" :class="showModal?'show':''">
 			<view class="cu-dialog dialog">
-				<view class="cu-bar bg-blue justify-end" style="20%">
-					<view class="content">调整产品规格</view>
+				<view class="cu-bar bg-blue text-white">
+					<view class="content">
+						<text>调整产品规格</text>
+					</view>
 				</view>
 				<view class="cu-list menu">
 					<view class="cu-item">
@@ -140,8 +142,8 @@
 					</view>
 				</view>
 				<view class="cu-bar dialog-footer">
-					<view class="action bg-gray dialog-footer-left"  @tap="handleHideModal">取消</view>
-					<view class="action bg-green dialog-footer-right" @tap="handleEdit">确定</view>
+					<view class="action bg-disabled text-white dialog-footer-left"  @tap="handleHideModal">取消</view>
+					<view class="action bg-green text-white dialog-footer-right" @tap="handleEdit">确定</view>
 				</view>
 			</view>
 		</view>
@@ -228,7 +230,9 @@
 				this.checkedAccount = val.detail.value
 			},
 			handleNumChange(val) {
-				this.curSelectPruduct.num = val
+				if (this.curSelectPruduct) {
+					this.curSelectPruduct.num = val
+				}
 			},
 			handleUnitChange(val) {
 				this.checkedUnit = val.detail.value
@@ -359,7 +363,7 @@
 				flex-direction: row;
 				align-items: center;
 				.footer-content1 {
-					width: 60%;
+					width: 50%;
 					height: 100%;
 					display: flex;
 					flex-direction: row;
@@ -367,7 +371,7 @@
 					margin-left: 10px;
 				}
 				.footer-content2 {
-					width: 40%;
+					width: 50%;
 					height: 100%;
 				}
 			}

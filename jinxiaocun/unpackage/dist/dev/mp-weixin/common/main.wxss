@@ -25,6 +25,14 @@
 /* 透明度 */
 /* 文章场景相关 */
 /*每个页面公共css */
+/*
+  ColorUi for uniApp  v2.1.6 | by 文晓港 2019-05-31 10:44:24
+  仅供学习交流，如作它用所承受的法律责任一概与作者无关  
+  
+  *使用ColorUi开发扩展与插件时，请注明基于ColorUi开发 
+  
+  （QQ交流群：240787041）
+*/
 /* ==================
         初始化
  ==================== */
@@ -776,104 +784,233 @@ to {
 	        filter: grayscale(1);
 }
 .cu-list+.cu-list {
-	margin-top: 10rpx
+	margin-top: 20rpx
 }
-.cu-list.menu,
-.cu-list.icon,
-.cu-list.action,
-.cu-list.icon-action
-{
+.cu-list>.cu-item {
+	-webkit-transition: all .6s ease-in-out 0s;
+	transition: all .6s ease-in-out 0s;
+	-webkit-transform: translateX(0rpx);
+	        transform: translateX(0rpx)
+}
+.cu-list>.cu-item.move-cur {
+	-webkit-transform: translateX(-260rpx);
+	        transform: translateX(-260rpx)
+}
+.cu-list>.cu-item .move {
+	position: absolute;
+	right: 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	width: 260rpx;
+	height: 100%;
+	-webkit-transform: translateX(100%);
+	        transform: translateX(100%)
+}
+.cu-list>.cu-item .move view {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center
+}
+.cu-list.menu-avatar {
 	overflow: hidden;
 }
-.cu-list.menu>.cu-item,
-.cu-list.icon>.cu-item,
-.cu-list.action>.cu-item,
-.cu-list.icon-action>.cu-item
-{
+.cu-list.menu-avatar>.cu-item {
+	position: relative;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
+	padding-right: 10rpx;
 	height: 140rpx;
 	background-color: #ffffff;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	        justify-content: flex-end;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
-	        align-items: center;
-	border-bottom: 1px solid #dcdee2;
+	        align-items: center
 }
-.cu-list.menu>.cu-item>.item {
-	width: 100%;
-	height: 100%;
+.cu-list.menu-avatar>.cu-item>.cu-avatar {
+	position: absolute;
+	left: 30rpx
 }
-.cu-list.icon>.cu-item>.icon {
-	width: 15%;
-	height: 100%;
+.cu-list.menu-avatar>.cu-item .flex .text-cut {
+	max-width: 510rpx
+}
+.cu-list.menu-avatar>.cu-item .content {
+	position: absolute;
+	left: 146rpx;
+	width: calc(100% - 96rpx - 60rpx - 120rpx - 20rpx);
+	line-height: 1.6em;
+}
+.cu-list.menu-avatar>.cu-item .content.flex-sub {
+	width: calc(100% - 96rpx - 60rpx - 20rpx);
+}
+.cu-list.menu-avatar>.cu-item .content>view:first-child {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
-	        align-items: center;
+	        align-items: center
 }
-.cu-list.icon>.cu-item>.item {
-	width: 85%;
-	height: 100%;
+.cu-list.menu-avatar>.cu-item .content .cu-tag.sm {
+	display: inline-block;
+	margin-left: 10rpx;
+	height: 28rpx;
+	line-height: 32rpx
 }
-.cu-list.icon-action>.cu-item>.icon {
-	width: 15%;
-	height: 100%;
+.cu-list.menu-avatar>.cu-item .action {
+	width: 100rpx;
+	text-align: center
+}
+.cu-list.menu-avatar>.cu-item .action view+view {
+	margin-top: 10rpx
+}
+.cu-list.menu-avatar.comment>.cu-item .content {
+	position: relative;
+	left: 0;
+	width: auto;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.cu-list.menu-avatar.comment>.cu-item {
+	padding: 30rpx 30rpx 30rpx 120rpx;
+	height: auto
+}
+.cu-list.menu-avatar.comment .cu-avatar {
+	-webkit-align-self: flex-start;
+	        align-self: flex-start
+}
+.cu-list.menu>.cu-item {
+	position: relative;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	padding: 0 30rpx;
+	min-height: 100rpx;
+	background-color: #ffffff;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
-	        align-items: center;
+	        align-items: center
 }
-.cu-list.action>.cu-item>.item {
-	width: 85%;
-	height: 100%;
+.cu-list.menu>.cu-item:last-child:after {
+	border: none
 }
-.cu-list.action>.cu-item>.action {
-	width: 15%;
-	height: 100%;
+.cu-list.menu-avatar>.cu-item:after,
+.cu-list.menu>.cu-item:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	width: 200%;
+	height: 200%;
+	border-bottom: 1rpx solid #ddd;
+	border-radius: inherit;
+	content: " ";
+	-webkit-transform: scale(.5);
+	        transform: scale(.5);
+	-webkit-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	pointer-events: none;
+}
+.cu-list.menu>.cu-item.grayscale {
+	background-color: #f5f5f5
+}
+.cu-list.menu>.cu-item.cur {
+	background-color: #fcf7e9
+}
+.cu-list.menu>.cu-item.arrow {
+	padding-right: 90rpx
+}
+.cu-list.menu>.cu-item.arrow:before {
+	position: absolute;
+	top: 0;
+	right: 30rpx;
+	bottom: 0;
+	display: block;
+	margin: auto;
+	width: 30rpx;
+	height: 30rpx;
+	color: #8799a3;
+	content: "\E8F1";
+	text-align: center;
+	font-family: cuIcon;
+}
+.cu-list.menu>.cu-item button.content {
+	padding: 0;
+	background-color: transparent;
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	        justify-content: flex-start
+}
+.cu-list.menu>.cu-item button.content:after {
+	display: none
+}
+.cu-list.menu>.cu-item .cu-avatar-group .cu-avatar {
+	border-color: #ffffff
+}
+.cu-list.menu>.cu-item .content>view:first-child {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
-	        align-items: center;
+	        align-items: center
 }
-.cu-list.icon-action>.cu-item>.item {
-	width: 70%;
-	height: 100%;
+.cu-list.menu>.cu-item .content>text[class*=cuIcon] {
+	display: inline-block;
+	margin-right: 10rpx;
+	width: 1.6em;
+	text-align: center
 }
-.cu-list.icon-action>.cu-item>.action {
-	width: 15%;
-	height: 100%;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
+.cu-list.menu>.cu-item .content>image {
+	display: inline-block;
+	margin-right: 10rpx;
+	width: 1.6em;
+	height: 1.6em;
+	vertical-align: middle
+}
+.cu-list.menu>.cu-item .content {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1
+}
+.cu-list.menu>.cu-item .content .cu-tag.sm {
+	display: inline-block;
+	margin-left: 10rpx;
+	height: 28rpx;
+}
+.cu-list.menu>.cu-item .action .cu-tag:empty {
+	right: 10rpx
+}
+.cu-list.menu {
+	display: block;
+	overflow: hidden
+}
+.cu-list.menu.sm-border>.cu-item:after {
+	left: 30rpx;
+	width: calc(200% - 120rpx)
 }
 .cu-list.grid>.cu-item {
 	position: relative;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	padding: 20rpx 0 30rpx;
+	padding: 60rpx;
 	-webkit-transition-duration: 0s;
 	        transition-duration: 0s;
 	-webkit-box-orient: vertical;
@@ -905,8 +1042,8 @@ to {
 .cu-list.grid>.cu-item [class*=cuIcon] {
 	position: relative;
 	display: block;
-	margin-top: 20rpx;
 	width: 100%;
+	font-size: 64rpx;
 }
 .cu-list.grid>.cu-item .cu-tag {
 	right: auto;
@@ -1760,21 +1897,24 @@ to {
 .cu-form-group .title {
 	text-align: justify;
 	padding-right: 30rpx;
-	font-size: 30rpx;
 	position: relative;
 	height: 60rpx;
-	line-height: 60rpx;
+	font-size: 28rpx;
+	line-height: 56rpx;
 }
 .cu-form-group input {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	        flex: 1;
-	font-size: 30rpx;
-	color: #555;
+	padding-right: 20rpx;
+}
+.cu-form-group text {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
 	padding-right: 20rpx;
 }
 .cu-form-group>text[class*="cuIcon-"] {
-	font-size: 36rpx;
 	padding: 0;
 	box-sizing: border-box;
 }
@@ -1782,11 +1922,9 @@ to {
 	margin: 32rpx 0 30rpx;
 	height: 4.6em;
 	width: 100%;
-	line-height: 1.2em;
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	        flex: 1;
-	font-size: 28rpx;
 	padding: 0;
 }
 .cu-form-group.align-start .title {
@@ -1803,22 +1941,17 @@ to {
 	position: relative;
 }
 .cu-form-group picker .picker {
-	line-height: 100rpx;
-	font-size: 28rpx;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
 	width: 100%;
-	text-align: right;
+	text-align: left;
 }
 .cu-form-group picker::after {
 	font-family: cuIcon;
 	display: block;
-	content: "\E6A3";
+	content: "\E8F1";
 	position: absolute;
-	font-size: 34rpx;
-	color: #8799a3;
-	line-height: 100rpx;
 	width: 60rpx;
 	text-align: center;
 	top: 0;
@@ -1842,6 +1975,7 @@ to {
 	z-index: 1110;
 	opacity: 0;
 	outline: 0;
+	text-align: center;
 	-webkit-transform: scale(1.185);
 	        transform: scale(1.185);
 	-webkit-backface-visibility: hidden;
@@ -2691,7 +2825,7 @@ scroll-view.cu-steps .cu-item {
 }
 .line-blue::after,
 .lines-blue::after {
-	border-color: #2d8cf0;
+	border-color: #0081ff;
 }
 .line-purple::after,
 .lines-purple::after {
@@ -2725,9 +2859,9 @@ scroll-view.cu-steps .cu-item {
 .lines-white::after {
 	border-color: #ffffff;
 }
-.bg-menu {
-	background-color: #f0faff;
-	color: #5cadff;
+.bg-disabled {
+	background-color: #c5c8ce;
+	color: #ffffff;
 }
 .bg-red {
 	background-color: #e54d42;
@@ -2754,7 +2888,7 @@ scroll-view.cu-steps .cu-item {
 	color: #ffffff;
 }
 .bg-blue {
-	background-color: #68b3ff;
+	background-color: #2db7f5;
 	color: #ffffff;
 }
 .bg-purple {
@@ -3020,7 +3154,7 @@ scroll-view.cu-steps .cu-item {
 	font-size: 32rpx;
 }
 .text-xl {
-	font-size: 36rpx;
+	font-size: 40rpx;
 }
 .text-xxl {
 	font-size: 44rpx;
@@ -3065,11 +3199,23 @@ scroll-view.cu-steps .cu-item {
 .text-right {
 	text-align: right;
 }
-.text-slave {
-	color: #808695
+.text-title {
+	color: #17233d;
 }
-.text-slave2 {
-	color: #dcdee2
+.text-hover {
+	color: #5cadff;
+}
+.text-active {
+	color: #2b85e4;
+}
+.text-content {
+	color: #515a6e;
+}
+.text-sub {
+	color: #808695;
+}
+.text-disabled {
+	color: #c5c8ce;
 }
 .text-red,
 .line-red,
@@ -3129,17 +3275,17 @@ scroll-view.cu-steps .cu-item {
 .text-grey,
 .line-grey,
 .lines-grey {
-	color: #515a6e;
+	color: #8799a3;
 }
 .text-gray,
 .line-gray,
 .lines-gray {
-	color: #c5c8ce;
+	color: #aaaaaa;
 }
 .text-black,
 .line-black,
 .lines-black {
-	color: #333333;
+	color: #17233d;
 }
 .text-white,
 .line-white,

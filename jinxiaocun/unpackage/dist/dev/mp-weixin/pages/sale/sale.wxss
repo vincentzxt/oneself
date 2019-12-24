@@ -140,7 +140,7 @@
               align-items: center;
 }
 .container .footer .footer-content .footer-content1.data-v-8d7be2b8 {
-        width: 60%;
+        width: 50%;
         height: 100%;
         display: -webkit-box;
         display: -webkit-flex;
@@ -155,7 +155,7 @@
         margin-left: 10px;
 }
 .container .footer .footer-content .footer-content2.data-v-8d7be2b8 {
-        width: 40%;
+        width: 50%;
         height: 100%;
 }
 

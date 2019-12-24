@@ -6,83 +6,53 @@
 				<block slot="content">{{title}}</block>
 			</cu-custom>
 		</view>
-		<view class="content">
+		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<view class="content-header">
-					<radio-group class="item" @change="handleTypeChange">
-						<radio color="#2db7f5" value=0 :checked="formData.type == 0">客户</radio>
-						<radio color="#2db7f5" value=1 :checked="formData.type == 1" style="margin-left: 10px;">供应商</radio>
-						<radio color="#2db7f5" value=2 :checked="formData.type == 2" style="margin-left: 10px;">所有</radio>
-					</radio-group>
-				</view>
-				<view class="cu-list icon">
-					<view class="cu-item">
-						<view class="icon">
-							<text class="cuIcon-company"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">单位名称：</text>
-							<input class="item-custom-content" v-model="formData.company" type="text" placeholder-class="text-slave2" placeholder="请输入单位名称"/>
-						</view>
+				<form>
+					<view class="main-header">
+						<radio-group @change="handleTypeChange">
+							<radio color="#2db7f5" value=0 :checked="formData.type == 0">客户</radio>
+							<radio color="#2db7f5" class="margin-left" value=1 :checked="formData.type == 1">供应商</radio>
+							<radio color="#2db7f5" class="margin-left" value=2 :checked="formData.type == 2">所有</radio>
+						</radio-group>
 					</view>
-					<view class="cu-item">
-						<view class="icon">
-							<text class="cuIcon-contacts"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">联系人名称：</text>
-							<input class="item-custom-content" v-model="formData.contacts" type="text" placeholder-class="text-slave2" placeholder="请输入联系人名称"/>
-						</view>
+					<view class="cu-form-group">
+						<view class="title">单位名称</view>
+						<input type="text" name="company" v-model="formData.company" placeholder-class="text-disabled" placeholder="请输入单位名称"/>
 					</view>
-					<view class="cu-item">
-						<view class="icon">
-							<text class="cuIcon-mobile"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">电话：</text>
-							<input class="item-custom-content" v-model="formData.mobile" type="text" placeholder-class="text-slave2" placeholder="请输入电话"/>
-						</view>
+					<view class="cu-form-group">
+						<view class="title">联系人名称</view>
+						<input type="text" name="contacts" v-model="formData.contacts" placeholder-class="text-disabled" placeholder="请输入联系人名称"/>
 					</view>
-					<view class="cu-item">
-						<view class="icon">
-							<text class="cuIcon-location"></text>
-						</view>
-							<view class="item item-custom">
-								<picker mode=region @change="handleAddressChange" style="width: 100%">
-									<view class="picker-content">
-										<text class="item-custom-title">位置：</text>
-										<text class="content text-slave2" v-if="!formData.address">省/市/区</text>
-										<text class="item-custom-content" v-else>{{formData.address}}</text>
-									</view>
-								</picker>
+					<view class="cu-form-group">
+						<view class="title">电话</view>
+						<input type="text" name="mobile" v-model="formData.mobile" placeholder-class="text-disabled" placeholder="请输入电话"/>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">位置</view>
+						<picker mode="region" @change="handleAddressChange" :value="formData.address">
+							<view class="picker">
+								<text v-if="formData.address.length === 0" class="text-disabled">省/市/区</text>
+								<text v-else>{{formData.address[0]}}, {{formData.address[1]}}, {{formData.address[2]}}</text>
 							</view>
+						</picker>
 					</view>
-					<view class="cu-item">
-						<view class="icon">
-							<text class="cuIcon-home"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">街道：</text>
-							<input class="item-custom-content" v-model="formData.street" type="text" placeholder-class="text-slave2" placeholder="请输入街道"/>
-						</view>
+					<view class="cu-form-group">
+						<view class="title">街道</view>
+						<input type="text" name="street" v-model="formData.street" placeholder-class="text-disabled" placeholder="请输入街道"/>
 					</view>
-					<view class="cu-item">
-						<view class="icon">
-							<text class="cuIcon-email"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">邮箱：</text>
-							<input class="item-custom-content" v-model="formData.email" type="text" placeholder-class="text-slave2" placeholder="请输入邮箱"/>
-						</view>
+					<view class="cu-form-group">
+						<view class="title">邮箱</view>
+						<input type="text" name="email" v-model="formData.email" placeholder-class="text-disabled" placeholder="请输入邮箱"/>
 					</view>
-					<view class="list-footer">
-						<textarea style="height: 100px;" v-model="formData.remarks" placeholder-class="text-slave2" placeholder="备注" maxlength=512 />
+					<view class="cu-form-group margin-top">
+						<textarea maxlength="-1" v-model="formData.remarks" placeholder-class="text-disabled" placeholder="备注"></textarea>
 					</view>
-				</view>
+				</form>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cu-btn bg-green fill" type="" :disabled="disableSubmit" @click="handleSubmit">提交</button>
+			<button class="cu-btn bg-blue text-white fill" type="" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
 	</view>
 </template>
@@ -97,7 +67,7 @@
 					company: '',
 					contacts: '',
 					mobile: '',
-					address: '',
+					address: [],
 					street: '',
 					email: '',
 					remarks: ''
@@ -110,23 +80,24 @@
 			this.formData.company = options.company
 			this.formData.contacts = options.contacts
 			this.formData.mobile = options.mobile
-			this.formData.address = options.address
+			this.formData.address = options.address.split(',')
 			this.formData.street = options.street
 			this.formData.email = options.email
 			this.formData.remarks = options.remarks
 		},
 		methods: {
 			handleNavbarClickLeft() {
-				uni.navigateBack()
+				uni.navigateBack({
+					delta: 1
+				})
 			},
 			handleTypeChange(val) {
 				this.formData.type = val.detail.value
 			},
 			handleAddressChange(val) {
-				if (val.detail.value[0] == val.detail.value[1]) {
-					this.formData.address = val.detail.value[0] + val.detail.value[2]
-				} else {
-					this.formData.address = val.detail.value.join('')
+				this.formData.address = []
+				for (let item of val.detail.value) {
+					this.formData.address.push(item)
 				}
 			},
 			handleSubmit() {
@@ -159,36 +130,18 @@
 		.header {
 			height: 11%;
 		}
-		.content {
+		.main {
 			height: 82%;
-			.content-header {
+			.cu-form-group .title {
+				min-width: calc(5em + 30px);
+			}
+			.main-header {
 				display: flex;
 				height: 140upx;
 				background-color: #ffffff;
 				justify-content: center;
 				align-items: center;
 				border-bottom: 1px solid #dcdee2;
-			}
-			.item-custom {
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				align-items: center;
-				.item-custom-title {
-					width: 40%;
-				}
-				.item-custom-content {
-					width: 60%;
-				}
-			}
-			.picker-content {
-				display: flex;
-				justify-content: space-between;
-			}
-			.list-footer {
-				background-color: #ffffff;
-				margin-top: 10upx;
-				padding-left: 10upx;
 			}
 		}
 		.footer {

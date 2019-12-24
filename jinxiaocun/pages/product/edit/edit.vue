@@ -6,71 +6,40 @@
 				<block slot="content">{{title}}</block>
 			</cu-custom>
 		</view>
-		<view class="content">
+		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<view class="cu-list icon-action">
-					<view class="cu-item">
-						<view class="icon">
-							<text class="cuIcon-product"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">产品名称：</text>
-							<input class="item-custom-content" v-model="formData.name" type="text" placeholder-class="text-slave2" placeholder="请输入产品名称"/>
-						</view>
+				<form>
+					<view class="cu-form-group">
+						<view class="title">产品名称</view>
+						<input type="text" name="name" v-model="formData.name" placeholder-class="text-disabled" placeholder="请输入产品名称"/>
 					</view>
-					<view class="cu-item" @tap="handleSelectType">
-						<view class="icon">
-							<text class="cuIcon-classify"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">产品分类：</text>
-							<text class="item-custom-content text-slave2" v-if="!formData.type">请选择产品分类</text>
-							<text class="item-custom-content" v-else>{{formData.type}}</text>
-						</view>
-						<view class="action">
-							<text class="cuIcon-arrow"></text>
-						</view>
+					<view class="cu-form-group" @tap="handleSelectType">
+						<view class="title">产品分类</view>
+						<text v-if="!formData.type" class="text-disabled">请选择产品分类</text>
+						<text v-else>{{formData.type}}</text>
+						<view class="cuIcon-arrow" ></view>
 					</view>
-					<view class="cu-item" @tap="handleSelectMasterUnit">
-						<view class="icon">
-							<text class="cuIcon-unit"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">主计量单位：</text>
-							<text class="item-custom-content text-slave2" v-if="!formData.masterUnit">请选择主计量单位</text>
-							<text class="item-custom-content" v-else>{{formData.masterUnit}}</text>
-						</view>
-						<view class="action">
-							<text class="cuIcon-arrow"></text>
-						</view>
+					<view class="cu-form-group" @tap="handleSelectMasterUnit">
+						<view class="title">主计量单位</view>
+						<text v-if="!formData.masterUnit" class="text-disabled">请选择主计量单位</text>
+						<text v-else>{{formData.masterUnit}}</text>
+						<view class="cuIcon-arrow" ></view>
 					</view>
-					<view class="cu-item arrow" @tap="handleSelectSlaveUnit">
-						<view class="icon">
-							<text class="cuIcon-unit"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">辅计量单位：</text>
-							<text class="item-custom-content text-slave2" v-if="!formData.slaveUnit">请选择辅计量单位</text>
-							<text class="item-custom-content" v-else>{{formData.slaveUnit}}</text>
-						</view>
-						<view class="action">
-							<text class="cuIcon-arrow"></text>
-						</view>
+					<view class="cu-form-group" @tap="handleSelectSlaveUnit">
+						<view class="title">辅计量单位</view>
+						<text v-if="!formData.slaveUnit" class="text-disabled">请选择辅计量单位</text>
+						<text v-else>{{formData.slaveUnit}}</text>
+						<view class="cuIcon-arrow" ></view>
 					</view>
-					<view class="cu-item">
-						<view class="icon">
-							<text class="cuIcon-multiple"></text>
-						</view>
-						<view class="item item-custom">
-							<text class="item-custom-title">计量单位倍率：</text>
-							<input class="item-custom-content" v-model="formData.multiple" type="text" placeholder-class="text-slave2" placeholder="请输入计量单位倍率"/>
-						</view>
+					<view class="cu-form-group">
+						<view class="title">计量单位倍率</view>
+						<input type="text" name="name" v-model="formData.multiple" placeholder-class="text-disabled" placeholder="请输入计量单位倍率"/>
 					</view>
-				</view>
+				</form>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cu-btn bg-green fill" type="" :disabled="disableSubmit" @click="handleSubmit">提交</button>
+			<button class="cu-btn bg-blue fill" type="" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
 	</view>
 </template>
@@ -121,19 +90,19 @@
 			},
 			handleSelectType() {
 				uni.navigateTo({
-					url: '../type/type?callPage=1'
+					url: '../type/type'
 				})
 			},
 			handleSelectMasterUnit() {
 				this.unitSwich = 0
 				uni.navigateTo({
-					url: '../unit/unit?callPage=1'
+					url: '../unit/unit'
 				})
 			},
 			handleSelectSlaveUnit() {
 				this.unitSwich = 1
 				uni.navigateTo({
-					url: '../unit/unit?callPage=1'
+					url: '../unit/unit'
 				})
 			},
 			handleSubmit() {
@@ -160,25 +129,19 @@
 		width: 100%;
 		height: 100%;
 	}
+	.cu-form-group .title {
+		min-width: calc(4em + 15px);
+	}
 	.container {
 		height: 100vh;
 		width: 100vw;
 		.header {
 			height: 11%;
 		}
-		.content {
+		.main {
 			height: 82%;
-			.item-custom {
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				align-items: center;
-				.item-custom-title {
-					width: 40%;
-				}
-				.item-custom-content {
-					width: 60%;
-				}
+			.cu-form-group .title {
+				min-width: calc(6em + 30px);
 			}
 		}
 		.footer {

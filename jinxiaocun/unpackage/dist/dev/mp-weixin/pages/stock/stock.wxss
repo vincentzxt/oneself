@@ -24,20 +24,8 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.container.data-v-0939f232 {
-  width: 100%;
-}
 .container .content.data-v-0939f232 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-            flex-direction: column;
-    font-size: 14rpx;
-}
-.container .content .item-text.data-v-0939f232 {
-      margin-top: 5rpx;
+  background-color: red;
+  height: 100rpx;
 }
 
