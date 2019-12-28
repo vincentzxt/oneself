@@ -1,0 +1,25 @@
+<template>
+	<view class="cu-class cu-cell-group">
+		<slot></slot>
+	</view>
+</template>
+
+<script>
+	export default {
+		mounted() {
+			const cells = this.$children
+			const len = cells.length
+			
+			if (len > 0) {
+				let lastIndex = len - 1
+				cells.forEach((cell, index) => {
+					cell.updateIsLastCell(index === lastIndex)
+				})
+			}
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	
+</style>

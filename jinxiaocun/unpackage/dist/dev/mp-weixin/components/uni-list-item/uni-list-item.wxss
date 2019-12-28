@@ -12,7 +12,7 @@
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
 /* 颜色变量 */
-/* 行为相关颜色 */
+/* 基本颜色 */
 /* 文字基本颜色 */
 /* 背景颜色 */
 /* 边框颜色 */
@@ -23,7 +23,6 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-/* 文章场景相关 */
 /**
  * 这里是uni-app内置的常用样式变量
  *
@@ -37,7 +36,7 @@
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
 /* 颜色变量 */
-/* 行为相关颜色 */
+/* 基本颜色 */
 /* 文字基本颜色 */
 /* 背景颜色 */
 /* 边框颜色 */
@@ -48,9 +47,8 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-/* 文章场景相关 */
 .uni-list-item.data-v-0be73b92 {
-  font-size: 10rpx;
+  font-size: 32rpx;
   position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -59,13 +57,13 @@
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
-  padding-left: 10rpx;
+  padding-left: 30rpx;
 }
 .uni-list-item--disabled.data-v-0be73b92 {
   opacity: 0.3;
 }
 .uni-list-item--hover.data-v-0be73b92 {
-  background-color: #f1f1f1;
+  background-color: #5cadff;
 }
 .uni-list-item__container.data-v-0be73b92 {
   display: -webkit-box;
@@ -75,7 +73,7 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
           flex-direction: row;
-  padding: 10rpx 10rpx;
+  padding: 30rpx 30rpx;
   padding-left: 0;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
@@ -87,7 +85,7 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  border-top-color: #d4d6db;
+  border-top-color: #dddee1;
   border-top-style: solid;
   border-top-width: 1px;
 }
@@ -106,18 +104,15 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
           flex-direction: column;
-  color: #3b4144;
 }
 .uni-list-item__content-title.data-v-0be73b92 {
-  width: 70%;
-  font-size: 14rpx;
-  color: #3b4144;
+  font-size: 28rpx;
   overflow: hidden;
 }
 .uni-list-item__content-note.data-v-0be73b92 {
   margin-top: 6rpx;
-  color: #d4d6db;
-  font-size: 10rpx;
+  color: #808695;
+  font-size: 24rpx;
   overflow: hidden;
 }
 .uni-list-item__extra.data-v-0be73b92 {
@@ -151,19 +146,5 @@
 .uni-list-item__icon-img.data-v-0be73b92 {
   height: 52rpx;
   width: 52rpx;
-}
-.uni-list-item-extra-text-wrap.data-v-0be73b92 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-          flex-direction: column;
-  width: 30%;
-}
-.uni-list-item-extra-text.data-v-0be73b92 {
-  font-size: 10rpx;
-  margin: 5rpx 0;
 }
 

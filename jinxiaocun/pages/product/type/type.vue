@@ -1,90 +1,71 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<cu-custom bgColor="bg-blue" :isBack="true">
-				<block slot="backText">返回</block>
-				<block slot="content">{{title}}</block>
-			</cu-custom>
-			<view class="cu-bar search bg-white">
-				<view class="search-form text-white">
-					<text class="cuIcon-search text-disabled"></text>
-					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-disabled" placeholder="输入名称" confirm-type="search"></input>
-				</view>
-				<view class="action">
-					<button class="cu-btn bg-blue" @tap="handleCancelSearch">取消</button>
-				</view>
-			</view>
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
+			</uni-navbar>
+			<uni-search-bar @input="handleSearch" placeholder="输入名称" cancelButton="always"></uni-search-bar>
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<view class="cu-list menu sm-border">
-					<view class="cu-item" v-for="(item, index) in searchDatas" :key="index">
-						<view class="content" @tap="handleReturnItem(item)">
-							<text>{{item.name}}</text>
-						</view>
-						<view class="action flex justify-center align-center" style="width:20%; height: 140upx;" @tap="handleShowEditModal(item)">
-							<text class="cuIcon-edit text-sub"></text>
-						</view>
-					</view>
-				</view>
+				<cu-panel>
+					<cu-cell-group>
+						<cu-cell :title="item.name" v-for="(item, index) in searchDatas" :key="index" isReturn :rName="name" :rDatas="item">
+							<view style="color:#808695" slot="footer" @tap="handleOpenEdit(item)">
+								<uni-icons type="edit" color="#2d8cf0"></uni-icons>
+							</view>
+						</cu-cell>
+					</cu-cell-group>
+				</cu-panel>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cuIcon-add cu-btn bg-blue fill" @tap="handleShowAddModal">添加</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary"  @tap="handleOpenAdd">添加</button>
 		</view>
-		<view class="cu-modal bottom-modal" :class="showAddModal?'show':''">
-			<view class="cu-dialog">
-				<view class="cu-bar bg-blue">
-					<view class="content">添加分类</view>
-				</view>
-				<form>
-					<view class="cu-form-group">
-						<view class="title">分类名称</view>
-						<input type="text" name="addTypeName" v-model="addTypeName" placeholder-class="text-disabled" placeholder="请输入分类名称"/>
-					</view>
-				</form>
-				<view class="cu-bar dialog-footer ">
-					<view class="action bg-disabled dialog-footer-left"  @tap="handleHideAddModal">取消</view>
-					<view class="action bg-blue dialog-footer-right" @tap="handleAdd">确定</view>
-				</view>
-			</view>
-		</view>
-		<view class="cu-modal bottom-modal" :class="showEditModal?'show':''">
-				<view class="cu-dialog">
-					<view class="cu-bar bg-blue text-white">
-						<view class="content">修改分类</view>
-					</view>
-					<form>
-						<view class="cu-form-group">
-							<view class="title">分类名称</view>
-							<input type="text" name="editTypeName" v-model="editTypeName" placeholder-class="text-disabled" placeholder="请输入分类名称"/>
-						</view>
-					</form>
-					<view class="cu-bar dialog-footer">
-						<view class="action bg-disabled dialog-footer-left"  @tap="handleHideEditModal">取消</view>
-						<view class="action bg-blue dialog-footer-right" @tap="handleEdit">确定</view>
-					</view>
-				</view>
-			</view>
-		</view>
+		<uni-popup ref="add" type="bottom">
+			<cu-panel>
+				<cu-cell title="分类名称">
+					<input slot="footer" type="text" v-model="addTypeName" placeholder-style="color:#c5c8ce" placeholder="请输入分类名称"/>
+				</cu-cell>
+			</cu-panel>
+			<button style="background-color: #2d8cf0;" type="primary" @tap="handleAdd">提交</button>
+		</uni-popup>
+		<uni-popup ref="edit" type="bottom">
+			<cu-panel>
+				<cu-cell title="分类名称">
+					<input slot="footer" type="text" v-model="editTypeName" placeholder-style="color:#c5c8ce" placeholder="请输入分类名称"/>
+				</cu-cell>
+			</cu-panel>
+			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">提交</button>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
+	import uniPopup from '@/components/uni-popup/uni-popup.vue'
+	import cuPanel from '@/components/custom/cu-panel.vue'
+	import cuCell from '@/components/custom/cu-cell.vue'
+	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	export default {
+		components: {
+			uniSearchBar,
+			uniPopup,
+			cuPanel,
+			cuCell,
+			cuCellGroup
+		},
 		data() {
 			return {
+				name: '',
 				title: '产品分类',
 				datas: null,
 				searchDatas: null,
-				searchKey: '',
-				showAddModal: false,
-				showEditModal: false,
 				addTypeName: '',
 				editTypeName: ''
 			}
 		},
 		onLoad(options) {
+			this.name = options.name
 		},
 		onShow() {
 			this.datas = uni.getStorageSync('productType')
@@ -94,33 +75,22 @@
 			this.searchDatas = this.datas
 		},
 		methods: {
-			handleShowAddModal() {
-				this.addTypeName = ''
-				this.$nextTick(function(){
-					this.showAddModal = true
-				})
-			},
-			handleReturnItem(val) {
-				let pages =  getCurrentPages()
-				let prevPage = pages[pages.length - 2]
-				prevPage.setData({
-					selectType: val
-				})
+			handleNavbarClickLeft() {
 				uni.navigateBack({
 					delta: 1
 				})
 			},
-			handleShowEditModal(val) {
-				this.editTypeName = val.name
+			handleOpenAdd() {
+				this.addTypeName = ''
 				this.$nextTick(function(){
-					this.showEditModal = true
+					this.$refs.add.open()
 				})
 			},
-			handleHideAddModal() {
-				this.showAddModal = false
-			},
-			handleHideEditModal() {
-				this.showEditModal = false
+			handleOpenEdit(val) {
+				this.editTypeName = val.name
+				this.$nextTick(function(){
+					this.$refs.edit.open()
+				})
 			},
 			handleAdd() {
 				if (this.addTypeName) {
@@ -152,15 +122,10 @@
 					this.showEditModal = false
 				})
 			},
-			handleCancelSearch() {
-				this.searchKey = ''
-			}
-		},
-		watch: {
-			searchKey(val) {
-				if (val) {
+			handleSearch(val) {
+				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
-						return item.name.indexOf(val) !== -1
+						return item.name.indexOf(val.value) !== -1
 					})
 				} else {
 					this.searchDatas = this.datas
@@ -173,19 +138,6 @@
 	.fill {
 		width: 100%;
 		height: 100%;
-	}
-	.dialog-footer {
-		padding: 0;
-		.dialog-footer-left {
-			width: 50%;
-			height: 100upx;
-			margin-left: 0;
-		}
-		.dialog-footer-right {
-			width: 50%;
-			height: 100upx;
-			margin-right: 0;
-		}
 	}
 	.container {
 		height: 100vh;

@@ -13,14 +13,6 @@
 			}
 		},
 		onLaunch: function() {
-			uni.getSystemInfo({
-				success: function(e) {
-					Vue.prototype.StatusBar = e.statusBarHeight
-					let custom = wx.getMenuButtonBoundingClientRect()
-					Vue.prototype.Custom = custom
-					Vue.prototype.CustomBar = custom.bottom + custom.top - e.statusBarHeight
-				}
-			}),
 			this.getGlobalData()
 		},
 		methods: {
@@ -43,7 +35,10 @@
 </script>
 
 <style lang="scss">
+	page {
+		font-size: $uni-font-size-base;
+		color: $uni-text-color;
+		background-color: $uni-bg-color;
+	}
 	/*每个页面公共css */
-	@import "colorui/main.css";
-	@import "colorui/icon.css";
 </style>

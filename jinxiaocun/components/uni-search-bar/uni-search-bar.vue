@@ -3,17 +3,17 @@
 		<view :style="{borderRadius:radius+'px',backgroundColor: bgColor}" class="uni-searchbar__box" @click="searchClick">
 			<!-- #ifdef MP-ALIPAY -->
 			<view class="uni-searchbar__box-icon-search">
-				<uni-icons color="#d4d6db" size="14" type="search" />
+				<uni-icons color="#c5c8ce" size="18" type="search" />
 			</view>
 			<!-- #endif -->
 			<!-- #ifndef MP-ALIPAY -->
-			<uni-icons color="#d4d6db" class="uni-searchbar__box-icon-search" size="14" type="search" />
+			<uni-icons color="#c5c8ce" class="uni-searchbar__box-icon-search" size="18" type="search" />
 			<!-- #endif -->
 			<input v-if="show" :focus="showSync" :maxlength="maxlength" @confirm="confirm" class="uni-searchbar__box-search-input"
 			 confirm-type="search" type="text" v-model="searchVal" />
 			<text v-else class="uni-searchbar__text-placeholder">{{ placeholder }}</text>
 			<view v-if="show && (clearButton==='always'||clearButton==='auto'&&searchVal!=='')" class="uni-searchbar__box-icon-clear" @click="clear">
-				<uni-icons color="#d4d6db" class="" size="14" type="clear" />
+				<uni-icons color="#c5c8ce" class="" size="24" type="clear" />
 			</view>
 		</view>
 		<text @click="cancel" class="uni-searchbar__cancel" v-if="cancelButton ==='always' || show && cancelButton ==='auto'">{{cancelText}}</text>
@@ -124,8 +124,7 @@
 		flex-direction: row;
 		position: relative;
 		padding: $uni-spacing-col-base;
-		background-color: $uni-bg-color-secondary;
-		border-bottom: 0.5px solid $uni-border-color;
+		background-color: #fff;
 	}
 
 	.uni-searchbar__box {
@@ -154,7 +153,7 @@
 		width: 32px;
 		justify-content: center;
 		align-items: center;
-		color: $uni-text-color-grey;
+		color: $uni-text-color-placeholder;
 	}
 
 	.uni-searchbar__box-search-input {
@@ -171,7 +170,7 @@
 
 	.uni-searchbar__text-placeholder {
 		font-size: $uni-font-size-base;
-		color: $uni-text-color-grey;
+		color: $uni-text-color-placeholder;
 		margin-left: 5px;
 	}
 
@@ -179,6 +178,6 @@
 		padding-left: 10px;
 		line-height: $uni-searchbar-height;
 		font-size: 14px;
-		color: #68b3ff;
+		color: $uni-color-link;
 	}
 </style>

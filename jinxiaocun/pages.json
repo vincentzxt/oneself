@@ -5,7 +5,9 @@
 		{ "path": "pages/data/data" },
 		{ "path" : "pages/my/my" },
 		{ "path" : "pages/sale/sale" },
+		{ "path" : "pages/sale/payment/payment" },
 		{ "path" : "pages/purchase/purchase" },
+		{ "path" : "pages/purchase/payment/payment" },
 		{ "path" : "pages/current_unit/current_unit" },
 		{ "path" : "pages/current_unit/add/add" },
 		{ "path" : "pages/current_unit/edit/edit" },
@@ -14,13 +16,13 @@
 		{ "path" : "pages/product/edit/edit" },
 		{ "path" : "pages/product/type/type" },
     {	"path" : "pages/product/unit/unit" }
-  ],
+    ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},
 	"tabBar": {
 		"color": "#88909f",
-		"selectedColor": "#68b3ff",
+		"selectedColor": "#2d8cf0",
 		"list": [
 			{
 				"pagePath": "pages/index/index",

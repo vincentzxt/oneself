@@ -1,9 +1,6 @@
 {
   "usingComponents": {
-    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "uni-card": "/components/uni-card/uni-card",
-    "uni-list": "/components/uni-list/uni-list",
-    "uni-list-item": "/components/uni-list-item/uni-list-item"
+    "uni-grid": "/components/uni-grid/uni-grid",
+    "uni-grid-item": "/components/uni-grid-item/uni-grid-item"
   }
 }

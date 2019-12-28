@@ -1,84 +1,73 @@
 <template>
 	<view>
-		<uni-nav-bar left-icon="back" left-text="返回" :title="title" background-color="#68b3ff" color="#ffffff" @clickLeft="handleNavbarClickLeft" status-bar></uni-nav-bar>
-		<view class="list">
-			<uni-list class="mb-5">
-				<uni-list-item title="销售流水" :show-extra-icon="true" :extra-icon="{color: '#ed4013',size: '22',type: 'data'}"></uni-list-item>
-			</uni-list>
-			<uni-list class="mb-5">
-				<uni-list-item title="采购流水" :show-extra-icon="true" :extra-icon="{color: '#4ccc65',size: '22',type: 'data'}"></uni-list-item>
-			</uni-list>
-			<uni-list>
-				<uni-list-item title="产品销售总览" :show-extra-icon="true" :extra-icon="{color: '#ed4013',size: '22',type: 'data'}"></uni-list-item>
-			</uni-list>
-		</view>
+		<uni-navbar :title="title" left-icon="back" @refreshPage="handleRefreshPage">
+		</uni-navbar>
+		<uni-grid :column="3">
+			<uni-grid-item v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
+				<uni-icons :type="item.icon" :color="item.color"></uni-icons>
+				<text>{{item.name}}</text>
+			</uni-grid-item>
+		</uni-grid>
 	</view>
 </template>
 
 <script>
-	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
-	import uniIcons from "@/components/uni-icons/uni-icons.vue"
-	import uniCard from "@/components/uni-card/uni-card.vue"
-	import uniList from "@/components/uni-list/uni-list.vue"
-	import uniListItem from "@/components/uni-list-item/uni-list-item.vue"
+	import uniGrid from '@/components/uni-grid/uni-grid.vue'
+	import uniGridItem from '@/components/uni-grid-item/uni-grid-item.vue'
 	export default {
 		components: {
-			uniNavBar,
-			uniIcons,
-			uniCard,
-			uniList,
-			uniListItem
+			uniGrid,
+			uniGridItem
 		},
 		data() {
 			return {
-				title: '报表'
+				title: '买卖',
+				lists: [
+					{id: '1', name: '销售', icon: 'sale', color: 'red' },
+					{id: '2', name: '采购', icon: 'purchase-fill', color: 'blue' },
+					{id: '3', name: '客户&供应商', icon: 'customer-fill', color: 'orange' },
+					{id: '4', name: '产品', icon: 'product-fill', color: 'blue' },
+					{id: '5', name: '收款单', icon: 'receipt', color: 'red' },
+					{id: '6', name: '付款单', icon: 'payment', color: 'orange' },
+					{id: '7', name: '费用单', icon: 'cost', color: 'green' },
+					{id: '8', name: '退货单', icon: 'return-order', color: 'green' },
+				]
 			}
 		},
 		onLoad() {
-			console.log("view onLoad")
-		},
-		onShow() {
-			console.log("view onshow")
-		},
-		onReady() {
-			console.log("view onready")			
 		},
 		methods: {
-			handleNavbarClickLeft() {
-				console.log("###left###")
+			handleRefreshPage() {
+				console.log("refreshpage")
 			},
-			handleGridChange(index) {
-				console.log(index)
+			handleGridChange(val) {
+				switch(val.id) {
+					case '1':
+						uni.navigateTo({
+							url: '../sale/sale'
+						})
+						break
+					case '2':
+						uni.navigateTo({
+							url: '../purchase/purchase'
+						})
+						break
+					case '3':
+						uni.navigateTo({
+							url: '../current_unit/current_unit'
+						})
+						break
+					case '4':
+						uni.navigateTo({
+							url: '../product/product'
+						})
+						break
+				}
 			}
 		}
 	}
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+<style lang="scss" scoped>
 
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
-	
-	.list {
-		display: flex;
-		flex-direction: column;
-	}
-	
-	.mb-5 {
-		margin-bottom: 20rpx;
-	}
-	
 </style>

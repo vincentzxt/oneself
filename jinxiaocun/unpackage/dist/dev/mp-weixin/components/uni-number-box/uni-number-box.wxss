@@ -12,7 +12,7 @@
  * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
  */
 /* 颜色变量 */
-/* 行为相关颜色 */
+/* 基本颜色 */
 /* 文字基本颜色 */
 /* 背景颜色 */
 /* 边框颜色 */
@@ -23,7 +23,6 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-/* 文章场景相关 */
 .uni-numbox.data-v-69bc1346 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -34,16 +33,19 @@
           flex-direction: row;
   height: 35px;
   line-height: 35px;
-  width: 160px;
+  width: 107px;
 }
 .uni-numbox__value.data-v-69bc1346 {
-  background-color: #ffffff;
-  width: 80px;
+  background-color: #f7f7f7;
+  width: 40px;
   height: 35px;
   text-align: center;
+  font-size: 32rpx;
   border-width: 1rpx;
   border-style: solid;
-  border-color: #d4d6db;
+  border-color: #dddee1;
+  border-left-width: 1px;
+  border-right-width: 1px;
 }
 .uni-numbox__minus.data-v-69bc1346 {
   display: -webkit-box;
@@ -62,11 +64,11 @@
   width: 35px;
   height: 35px;
   font-size: 20px;
-  color: #6f7788;
+  color: #495060;
   background-color: #f8f8f8;
   border-width: 1rpx;
   border-style: solid;
-  border-color: #d4d6db;
+  border-color: #dddee1;
   border-top-left-radius: 6rpx;
   border-bottom-left-radius: 6rpx;
   border-right-width: 0;
@@ -89,10 +91,17 @@
   height: 35px;
   border-width: 1rpx;
   border-style: solid;
-  border-color: #d4d6db;
+  border-color: #dddee1;
   border-top-right-radius: 6rpx;
   border-bottom-right-radius: 6rpx;
   background-color: #f8f8f8;
   border-left-width: 0;
+}
+.uni-numbox--text.data-v-69bc1346 {
+  font-size: 40rpx;
+  color: #495060;
+}
+.uni-numbox--disabled.data-v-69bc1346 {
+  color: #c0c0c0;
 }
 

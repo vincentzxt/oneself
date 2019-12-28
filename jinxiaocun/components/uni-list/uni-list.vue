@@ -49,7 +49,7 @@
 		/* #ifndef APP-NVUE */
 		display: flex;
 		/* #endif */
-		background-color: $uni-bg-color-secondary;
+		background-color: #fff;
 		position: relative;
 		flex-direction: column;
 		// border-bottom-color: $uni-border-color;

@@ -6,11 +6,11 @@
 			<view :style="{ color: color,backgroundColor: backgroundColor }" class="uni-navbar__header uni-navbar__content_view">
 				<view @tap="onClickLeft" class="uni-navbar__header-btns uni-navbar__header-btns-left uni-navbar__content_view">
 					<view class="uni-navbar__content_view" v-if="leftIcon.length">
-						<uni-icons :color="color" :type="leftIcon" size="14" />
+						<uni-icons :color="color" :type="leftIcon" size="24" />
 					</view>
 					<view :class="{ 'uni-navbar-btn-icon-left': !leftIcon.length }" class="uni-navbar-btn-text uni-navbar__content_view"
 					 v-if="leftText.length">
-						<text :style="{ color: color, fontSize: '14px', 'margin-left': '5px' }">{{ leftText }}</text>
+						<text :style="{ color: color, fontSize: '14px' }">{{ leftText }}</text>
 					</view>
 					<slot name="left" />
 				</view>
@@ -116,10 +116,10 @@
 	$nav-height: 44px;
 	.uni-nav-bar-text {
 		/* #ifdef APP-PLUS */
-		font-size: $uni-font-size-lg;
+		font-size: 34rpx;
 		/* #endif */
 		/* #ifndef APP-PLUS */
-		font-size: $uni-font-size-base;
+		font-size: $uni-font-size-lg;
 		/* #endif */
 	}
 	.uni-nav-bar-right-text {
@@ -217,7 +217,7 @@
 	}
 
 	.uni-navbar--border {
-		border-bottom-width: 0rpx;
+		border-bottom-width: 1rpx;
 		border-bottom-style: solid;
 		border-bottom-color: $uni-border-color;
 	}

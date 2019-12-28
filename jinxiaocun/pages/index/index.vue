@@ -1,40 +1,41 @@
 <template>
 	<view>
-		<cu-custom :isRefresh="true" @refreshPage="handleRefreshPage">
-			<block slot="content">{{title}}</block>
-		</cu-custom>
-		<view>
-			<view class="cu-list grid" :class="['col-' + gridCol,gridBorder?'':'no-border']">
-				<view class="cu-item" v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
-					<view :class="['cuIcon-' + item.cuIcon,'text-' + item.color]"></view>
-					<text class="text-lg">{{item.name}}</text>
+		<uni-navbar :title="title" left-icon="refresh" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleRefreshPage"></uni-navbar>
+		<uni-grid :column="2" :square="false">
+			<uni-grid-item v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
+				<view class="item-content">
+					<uni-icons :type="item.icon" :color="item.color" size=28></uni-icons>
+					<text class="item-content-text"> {{item.name}}</text>
 				</view>
-			</view>
-		</view>
+			</uni-grid-item>
+		</uni-grid>
 	</view>
 </template>
 
 <script>
+	import uniGrid from '@/components/uni-grid/uni-grid.vue'
+	import uniGridItem from '@/components/uni-grid-item/uni-grid-item.vue'
 	export default {
+		components: {
+			uniGrid,
+			uniGridItem
+		},
 		data() {
 			return {
 				title: '买卖',
 				lists: [
-					{id: '1', name: '销售', cuIcon: 'sale', color: 'red' },
-					{id: '2', name: '采购', cuIcon: 'purchase-fill', color: 'blue' },
-					{id: '3', name: '客户&供应商', cuIcon: 'customer-fill', color: 'orange' },
-					{id: '4', name: '产品', cuIcon: 'product-fill', color: 'blue' },
-					{id: '5', name: '收款单', cuIcon: 'receipt', color: 'red' },
-					{id: '6', name: '付款单', cuIcon: 'payment', color: 'orange' },
-					{id: '7', name: '费用单', cuIcon: 'cost', color: 'green' },
-					{id: '8', name: '退货单', cuIcon: 'return-order', color: 'green' },
-				],
-				gridCol: 2,
-				gridBorder: true
+					{id: '1', name: '销售', icon: 'sale', color: '#ed3f14' },
+					{id: '2', name: '采购', icon: 'purchase-fill', color: '#2d8cf0' },
+					{id: '3', name: '客户&供应商', icon: 'customer-fill', color: '#ff9900' },
+					{id: '4', name: '产品', icon: 'product-fill', color: '#2d8cf0' },
+					{id: '5', name: '收款单', icon: 'receipt', color: '#ed3f14' },
+					{id: '6', name: '付款单', icon: 'payment', color: '#ff9900' },
+					{id: '7', name: '费用单', icon: 'cost', color: '#19be6b' },
+					{id: '8', name: '退货单', icon: 'return-order', color: '#19be6b' }
+				]
 			}
 		},
 		onLoad() {
-			
 		},
 		methods: {
 			handleRefreshPage() {
@@ -69,5 +70,18 @@
 </script>
 
 <style lang="scss" scoped>
-
+	.item-content {
+		width: 100%;
+		height: 100%;
+		padding: 30px 0px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		&-text {
+			font-size: $uni-font-size-lg;
+			color: $uni-title-color;
+			margin-top: $uni-spacing-col-base;
+		}
+	}
 </style>

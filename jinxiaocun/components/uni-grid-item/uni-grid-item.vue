@@ -78,10 +78,8 @@
 		position: relative;
 		flex: 1;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 23px;
-		background-color: $uni-bg-color-secondary;
+		// justify-content: center;
+		// align-items: center;
 	}
 
 	.uni-grid-item--border {
@@ -105,6 +103,6 @@
 	}
 
 	.uni-highlight:active {
-		background-color: $uni-bg-color-hover;
+		background-color: $uni-color-link-hover;
 	}
 </style>

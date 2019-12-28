@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import App from './App'
-import cuCustom from './colorui/components/cu-custom.vue'
+import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
+import uniIcons from '@/components/uni-icons/uni-icons.vue'
 
-Vue.component('cu-custom',cuCustom)
+Vue.component('uni-navbar',uniNavBar)
+Vue.component('uni-icons',uniIcons)
+
 Vue.config.productionTip = false
 
 App.mpType = 'app'

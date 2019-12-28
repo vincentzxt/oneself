@@ -19,8 +19,7 @@
 <style lang="scss" scoped>
 	.uni-status-bar {
 		width: 750rpx;
-		//height: 20px;
-		background-color: #ffffff;
-		height: var(--status-bar-height);
+		height: 20px;
+		// height: var(--status-bar-height);
 	}
 </style>

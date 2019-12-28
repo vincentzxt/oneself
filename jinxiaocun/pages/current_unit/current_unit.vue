@@ -1,51 +1,39 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<cu-custom bgColor="bg-blue" :isBack="true">
-				<block slot="backText">返回</block>
-				<block slot="content">{{title}}</block>
-			</cu-custom>
-			<view class="cu-bar search bg-white">
-				<view class="search-form">
-					<text class="cuIcon-search text-disabled"></text>
-					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-disabled" placeholder="输入编码、名称、电话" confirm-type="search"></input>
-				</view>
-				<view class="action">
-					<button class="cu-btn bg-blue" @click="handleCancelSearch">取消</button>
-				</view>
-			</view>
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">				
+			</uni-navbar>
+			<uni-search-bar @input="handleSearch" placeholder="输入编码、名称、电话" cancelButton="always"></uni-search-bar>
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<view class="cu-list menu sm-border">
-					<view class="cu-item arrow" v-for="(item, index) in searchDatas" :key="index" @click="handleEdit(item)">
-						<view class="content padding-tb-sm">
-							<view>
-								<text class="cuIcon-company text-orange"></text>
-								<text class="margin-left-sm">{{item.company}}</text>
-							</view>
-							<view class="text-sub text-sm margin-top-xs">
-								<text class="margin-left-xl">电话：{{item.mobile}}</text>
-							</view>
-						</view>
-					</view>
-				</view>
+				<uni-list>
+					<uni-list-item :title="item.company" :note="'电话：'+item.mobile" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					</uni-list-item>
+				</uni-list>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cu-btn cuIcon-add bg-blue fill" @click="handleAdd">添加</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleAdd">添加</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
+	import uniList from '@/components/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	export default {
+		components: {
+			uniSearchBar,
+			uniList,
+			uniListItem
+		},
 		data() {
 			return {
 				title: '客户&供应商',
 				datas: null,
-				searchDatas: null,
-				searchKey: ''
+				searchDatas: null
 			}
 		},
 		onShow() {
@@ -69,15 +57,10 @@
 								+val.street+'&email='+val.email+'&remarks='+val.remarks
 				})
 			},
-			handleCancelSearch() {
-				this.searchKey = ''
-			}
-		},
-		watch: {
-			searchKey(val) {
-				if (val) {
+			handleSearch(val) {
+				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
-						return item.company.indexOf(val) !== -1 || item.code.indexOf(val) !== -1 || item.mobile.indexOf(val) !== -1
+						return item.company.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1 || item.mobile.indexOf(val.value) !== -1
 					})
 				} else {
 					this.searchDatas = this.datas
@@ -88,6 +71,7 @@
 </script>
 
 <style lang="scss" scoped>
+	@import '~@/uni.scss';
 	.fill {
 		width: 100%;
 		height: 100%;
@@ -100,6 +84,7 @@
 		}
 		.main {
 			height: 75%;
+			
 		}
 		.footer {
 			height: 7%;

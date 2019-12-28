@@ -98,6 +98,7 @@
 		/* #endif */
 		flex: 1;
 		flex-direction: column;
+		background-color: #fff;
 		/* #ifdef H5 */
 		width: 100%;
 		/* #endif */

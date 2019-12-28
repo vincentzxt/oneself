@@ -1,102 +1,73 @@
 <template>
-	<view class="container">
-		<uni-nav-bar left-icon="refresh" :title="title" background-color="#68b3ff" color="#ffffff" @clickLeft="handleNavbarClickLeft" status-bar></uni-nav-bar>
-		<view class="header mb-10">
-			<uni-icons type="phone" color="#e6e6e6" size=64></uni-icons>
-			<view class="header-info">
-				<text>{{name}}</text>
-				<text class="header-info-text2">{{address}}</text>
-				<text class="header-info-text2">{{date}}</text>
-			</view>
-			<uni-icons style="margin-left: auto" type="arrowRight" color="#ffffff" size=14></uni-icons>
-		</view>
-		<view class="content">
-			<uni-list class="mb-10">
-				<uni-list-item title="员工管理" :show-extra-icon="true" :extra-icon="{color: '#ed4013',size: '22',type: 'data'}"></uni-list-item>
-				<uni-list-item title="修改密码" :show-extra-icon="true" :extra-icon="{color: '#4ccc65',size: '22',type: 'data'}"></uni-list-item>
-				<uni-list-item title="清空帐号" :show-extra-icon="true" :extra-icon="{color: '#ed4013',size: '22',type: 'data'}"></uni-list-item>
-			</uni-list>
-			<view class="exit-login">
-				<text>退出登录</text>
-			</view>
-		</view>
+	<view>
+		<uni-navbar :title="title" left-icon="back" @refreshPage="handleRefreshPage">
+		</uni-navbar>
+		<uni-grid :column="3">
+			<uni-grid-item v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
+				<uni-icons :type="item.icon" :color="item.color"></uni-icons>
+				<text>{{item.name}}</text>
+			</uni-grid-item>
+		</uni-grid>
 	</view>
 </template>
 
 <script>
-	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
-	import uniIcons from "@/components/uni-icons/uni-icons.vue"
-	import uniList from "@/components/uni-list/uni-list.vue"
-	import uniListItem from "@/components/uni-list-item/uni-list-item.vue"
+	import uniGrid from '@/components/uni-grid/uni-grid.vue'
+	import uniGridItem from '@/components/uni-grid-item/uni-grid-item.vue'
 	export default {
 		components: {
-			uniNavBar,
-			uniIcons,
-			uniList,
-			uniListItem
+			uniGrid,
+			uniGridItem
 		},
 		data() {
 			return {
-				title: '我的',
-				name: '测试帐号(13811159400)',
-				address: '北京昊天建材有限公司',
-				date: '到期日期：2020-10-01'
+				title: '买卖',
+				lists: [
+					{id: '1', name: '销售', icon: 'sale', color: 'red' },
+					{id: '2', name: '采购', icon: 'purchase-fill', color: 'blue' },
+					{id: '3', name: '客户&供应商', icon: 'customer-fill', color: 'orange' },
+					{id: '4', name: '产品', icon: 'product-fill', color: 'blue' },
+					{id: '5', name: '收款单', icon: 'receipt', color: 'red' },
+					{id: '6', name: '付款单', icon: 'payment', color: 'orange' },
+					{id: '7', name: '费用单', icon: 'cost', color: 'green' },
+					{id: '8', name: '退货单', icon: 'return-order', color: 'green' },
+				]
 			}
 		},
 		onLoad() {
-			console.log("view onLoad")
-		},
-		onShow() {
-			console.log("view onshow")
-		},
-		onReady() {
-			console.log("view onready")			
 		},
 		methods: {
-			handleNavbarClickLeft() {
-				console.log("###left###")
+			handleRefreshPage() {
+				console.log("refreshpage")
 			},
-			handleGridChange(index) {
-				console.log(index)
+			handleGridChange(val) {
+				switch(val.id) {
+					case '1':
+						uni.navigateTo({
+							url: '../sale/sale'
+						})
+						break
+					case '2':
+						uni.navigateTo({
+							url: '../purchase/purchase'
+						})
+						break
+					case '3':
+						uni.navigateTo({
+							url: '../current_unit/current_unit'
+						})
+						break
+					case '4':
+						uni.navigateTo({
+							url: '../product/product'
+						})
+						break
+				}
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.container {
-		width: 100%;
-		.header {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			background-color: $uni-bg-color-main;
-			padding: 30rpx;
-			.header-info {
-				display: flex;
-				flex-direction: column;
-				color: #ffffff;
-				margin-left: $uni-spacing-row-lg;
-				.header-info-text2 {
-					font-size: $uni-font-size-sm;
-					margin-top: $uni-spacing-col-base;
-				}
-			}
-		}
-		.content {
-			display: flex;
-			flex-direction: column;
-			.exit-login {
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				color: #ef535c;
-				background-color: #ffffff;
-				padding: $uni-spacing-col-base;
-			}
-		}
-	}
-	.mb-10 {
-		margin-bottom: $uni-spacing-col-lg;
-	}
+
 </style>

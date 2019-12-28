@@ -19,10 +19,7 @@
 			<view v-if="showBadge || showArrow || showSwitch" class="uni-list-item__extra">
 				<uni-badge v-if="showBadge" :type="badgeType" :text="badgeText" />
 				<switch v-if="showSwitch" :disabled="disabled" :checked="switchChecked" @change="onSwitchChange" />
-				<uni-icons v-if="showArrow" :size="14" class="uni-icon-wrapper" color="#bbb" type="arrowRight" />
-			</view>
-			<view v-if="showExtraText && extraText.length > 0" class="uni-list-item-extra-text-wrap">
-				<text class="uni-list-item-extra-text" v-for="(item, index) in extraText" :key="index">{{item.key}}: {{item.value}}</text>
+				<uni-icons v-if="showArrow" :size="20" class="uni-icon-wrapper" color="#c5c8ce" type="arrow" />
 			</view>
 		</view>
 	</view>
@@ -103,16 +100,6 @@
 						size: 20
 					}
 				}
-			},
-			showExtraText: {
-				type: Boolean,
-				default: false
-			},
-			extraText: {
-				type: Array,
-				default () {
-					return []
-				}
 			}
 		},
 		inject: ['list'],
@@ -144,7 +131,7 @@
 	$list-item-pd: $uni-spacing-col-lg $uni-spacing-row-lg;
 
 	.uni-list-item {
-		font-size: $uni-font-size-sm;
+		font-size: $uni-font-size-lg;
 		position: relative;
 		flex-direction: column;
 		justify-content: space-between;
@@ -186,14 +173,10 @@
 		flex: 1;
 		overflow: hidden;
 		flex-direction: column;
-		color: #3b4144;
-
 	}
 
 	.uni-list-item__content-title {
-		width: 70%;
 		font-size: $uni-font-size-base;
-		color: #3b4144;
 		overflow: hidden;
 	}
 
@@ -224,16 +207,5 @@
 	.uni-list-item__icon-img {
 		height: $uni-img-size-base;
 		width: $uni-img-size-base;
-	}
-	
-	.uni-list-item-extra-text-wrap {
-		display: flex;
-		flex-direction: column;
-		width: 30%;
-	}
-	
-	.uni-list-item-extra-text {
-		font-size: $uni-font-size-sm;
-		margin: $uni-spacing-col-base 0;
 	}
 </style>

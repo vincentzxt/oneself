@@ -1,51 +1,45 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<cu-custom bgColor="bg-blue" :isBack="true">
-				<block slot="backText">返回</block>
-				<block slot="content">{{title}}</block>
-			</cu-custom>
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
+			</uni-navbar>
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<form>
-					<view class="cu-form-group">
-						<view class="title">产品名称</view>
-						<input type="text" name="name" v-model="formData.name" placeholder-class="text-disabled" placeholder="请输入产品名称"/>
-					</view>
-					<view class="cu-form-group" @tap="handleSelectType">
-						<view class="title">产品分类</view>
-						<text v-if="!formData.type" class="text-disabled">请选择产品分类</text>
-						<text v-else>{{formData.type}}</text>
-						<view class="cuIcon-arrow" ></view>
-					</view>
-					<view class="cu-form-group" @tap="handleSelectMasterUnit">
-						<view class="title">主计量单位</view>
-						<text v-if="!formData.masterUnit" class="text-disabled">请选择主计量单位</text>
-						<text v-else>{{formData.masterUnit}}</text>
-						<view class="cuIcon-arrow" ></view>
-					</view>
-					<view class="cu-form-group" @tap="handleSelectSlaveUnit">
-						<view class="title">辅计量单位</view>
-						<text v-if="!formData.slaveUnit" class="text-disabled">请选择辅计量单位</text>
-						<text v-else>{{formData.slaveUnit}}</text>
-						<view class="cuIcon-arrow" ></view>
-					</view>
-					<view class="cu-form-group">
-						<view class="title">计量单位倍率</view>
-						<input type="text" name="name" v-model="formData.multiple" placeholder-class="text-disabled" placeholder="请输入计量单位倍率"/>
-					</view>
-				</form>
+				<cu-panel>
+					<cu-cell-group>
+						<cu-cell title="产品名称">
+							<input slot="footer" type="text" v-model="formData.name" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称"/>
+						</cu-cell>
+						<cu-cell title="产品分类" :value="formData.type" isLink url="../type/type" params="name=type">
+						</cu-cell>
+						<cu-cell title="主计量单位" :value="formData.masterUnit" isLink url="../unit/unit" params="name=masterUnit">
+						</cu-cell>
+						<cu-cell title="辅计量单位" :value="formData.slaveUnit" isLink url="../unit/unit" params="name=slaveUnit">
+						</cu-cell>
+						<cu-cell title="计量单位倍率">
+							<input slot="footer" type="text" v-model="formData.multiple" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位倍率"/>
+						</cu-cell>
+					</cu-cell-group>
+				</cu-panel>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cu-btn bg-blue fill" type="" :disabled="disableSubmit" @click="handleSubmit">提交</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @tap="handleSubmit">提交</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import cuPanel from '@/components/custom/cu-panel.vue'
+	import cuCell from '@/components/custom/cu-cell.vue'
+	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	export default {
+		components: {
+			cuPanel,
+			cuCell,
+			cuCellGroup
+		},
 		data() {
 			return {
 				title: '添加产品',
@@ -58,43 +52,26 @@
 					multiple: '',
 					remarks: '',
 				},
-				disableSubmit: true,
-				unitSwich: 0
+				disableSubmit: true
 			}
 		},
 		onShow() {
 			let pages =  getCurrentPages()
 			let curPage = pages[pages.length - 1]
-			if (curPage.data.selectType) {
-				this.formData.type = curPage.data.selectType.name
-			}
-			if (curPage.data.selectUnit) {
-				if (this.unitSwich == 0) {
-					this.formData.masterUnit = curPage.data.selectUnit.name
-				} else {
-					this.formData.slaveUnit = curPage.data.selectUnit.name
+			if (curPage.data.rName && curPage.data.datas) {
+				if (curPage.data.rName == 'type') {
+					this.formData.type = curPage.data.datas.name
+				} else if(curPage.data.rName == 'masterUnit') {
+					this.formData.masterUnit = curPage.data.datas.name
+				} else if (curPage.data.rName == 'slaveUnit') {
+					this.formData.slaveUnit = curPage.data.datas.name
 				}
 			}
 		},
 		methods: {
 			handleNavbarClickLeft() {
-				uni.navigateBack()
-			},
-			handleSelectType() {
-				uni.navigateTo({
-					url: '../type/type'
-				})
-			},
-			handleSelectMasterUnit() {
-				this.unitSwich = 0
-				uni.navigateTo({
-					url: '../unit/unit'
-				})
-			},
-			handleSelectSlaveUnit() {
-				this.unitSwich = 1
-				uni.navigateTo({
-					url: '../unit/unit'
+				uni.navigateBack({
+					delta: 1
 				})
 			},
 			handleSubmit() {

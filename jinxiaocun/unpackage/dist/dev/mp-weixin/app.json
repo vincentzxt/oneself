@@ -5,7 +5,9 @@
     "pages/data/data",
     "pages/my/my",
     "pages/sale/sale",
+    "pages/sale/payment/payment",
     "pages/purchase/purchase",
+    "pages/purchase/payment/payment",
     "pages/current_unit/current_unit",
     "pages/current_unit/add/add",
     "pages/current_unit/edit/edit",
@@ -21,7 +23,7 @@
   },
   "tabBar": {
     "color": "#88909f",
-    "selectedColor": "#68b3ff",
+    "selectedColor": "#2d8cf0",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -50,7 +52,7 @@
     ]
   },
   "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom"
-  },
-  "sitemapLocation": "sitemap12.json"
+    "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-icons": "/components/uni-icons/uni-icons"
+  }
 }

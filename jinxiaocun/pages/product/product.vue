@@ -1,55 +1,40 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<cu-custom bgColor="bg-blue" :isBack="true">
-				<block slot="backText">返回</block>
-				<block slot="content">{{title}}</block>
-			</cu-custom>
-			<view class="cu-bar search bg-white">
-				<view class="search-form">
-					<text class="cuIcon-search text-disabled"></text>
-					<input v-model="searchKey" :adjust-position="false" type="text" placeholder-class="text-disabled" placeholder="输入编码、名称" confirm-type="search"></input>
-				</view>
-				<view class="action">
-					<button class="cu-btn bg-blue text-white" @click="handleCancelSearch">取消</button>
-				</view>
-			</view>
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
+			</uni-navbar>
+			<uni-search-bar @input="handleSearch" placeholder="输入编码、名称" cancelButton="always"></uni-search-bar>
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="main-left">
-				<view class="cu-list menu sm-border">
-					<view class="cu-item" :class="item.name==curSelectType?'menuSelect':''" v-for="(item, index) in types" :key="index" @tap="handleSelectType(item.name)">
-						<view class="content padding-tb-sm">
-							<view>
-								<text>{{item.name}}</text>
-							</view>
-						</view>
-					</view>
-				</view>
+				<uni-list>
+					<uni-list-item :title="item.name" :class="item.name==curSelectType?'menuSelect':''" :show-arrow="false" v-for="(item, index) in types" :key="index" @tap="handleSelectType(item.name)">
+					</uni-list-item>
+				</uni-list>
 			</scroll-view>
 			<scroll-view :scroll-y="true" class="main-right">
-				<view class="cu-list menu sm-border">
-					<view class="cu-item arrow" v-for="(item, index) in searchDatas" :key="index" @click="handleEdit(item)">
-						<view class="content padding-tb-sm">
-							<view>
-								<text>{{item.name}}</text>
-							</view>
-							<view class="text-sub text-sm margin-top-xs">
-								<text>编码：{{item.code}}</text>
-							</view>
-						</view>
-					</view>
-				</view>
+				<uni-list>
+					<uni-list-item :title="item.name" :note="'编码：'+item.code" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					</uni-list-item>
+				</uni-list>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="cuIcon-add cu-btn bg-blue fill" @click="handleAdd">添加</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleAdd">添加</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
+	import uniList from '@/components/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	export default {
+		components: {
+			uniSearchBar,
+			uniList,
+			uniListItem
+		},
 		data() {
 			return {
 				title: '产品',
@@ -66,6 +51,11 @@
 			this.searchDatas = this.datas
 		},
 		methods: {
+			handleNavbarClickLeft() {
+				uni.navigateBack({
+					delta: 1
+				})
+			},
 			handleAdd() {
 				uni.navigateTo({
 					url: './add/add'
@@ -87,20 +77,13 @@
 					this.searchDatas = this.datas
 				}
 			},
-			handleCancelSearch() {
-				this.searchKey = ''
-			}
-		},
-		watch: {
-			searchKey(val) {
-				if (val) {
+			handleSearch(val) {
+				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
-						return item.name.indexOf(val) !== -1 || item.code.indexOf(val) !== -1
+						return item.company.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1 || item.mobile.indexOf(val.value) !== -1
 					})
-					this.curSelectType = 0
 				} else {
 					this.searchDatas = this.datas
-					this.curSelectType = 0
 				}
 			}
 		}
@@ -124,8 +107,8 @@
 			.main-left {
 				width: 30%;
 				.menuSelect {
-					background-color: #f0faff;
-					color: #5cadff;
+					background-color: $uni-bg-color-hover;
+					color: #fff;
 				}
 			}
 			.main-right {

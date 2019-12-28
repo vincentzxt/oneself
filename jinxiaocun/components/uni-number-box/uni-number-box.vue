@@ -23,7 +23,7 @@
 			},
 			max: {
 				type: Number,
-				default: 1000
+				default: 100
 			},
 			step: {
 				type: Number,
@@ -120,17 +120,20 @@
 		flex-direction: row;
 		height: $box-height;
 		line-height: $box-height;
-		width: 160px;
+		width: 107px;
 	}
 
 	.uni-numbox__value {
-		background-color: #ffffff;
-		width: 80px;
+		background-color: $uni-bg-color;
+		width: 40px;
 		height: $box-height;
 		text-align: center;
+		font-size: $uni-font-size-lg;
 		border-width: 1rpx;
 		border-style: solid;
 		border-color: $uni-border-color;
+		border-left-width: 1px;
+		border-right-width: 1px;
 	}
 
 	.uni-numbox__minus {
@@ -173,4 +176,12 @@
 		border-left-width: 0;
 	}
 
+	.uni-numbox--text {
+		font-size: 40rpx;
+		color: $uni-text-color;
+	}
+
+	.uni-numbox--disabled {
+		color: $uni-text-color-disable;
+	}
 </style>
