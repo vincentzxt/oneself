@@ -45,22 +45,42 @@
 				switch(val.id) {
 					case '1':
 						uni.navigateTo({
-							url: '../sale/sale'
+							url: './sale/sale'
 						})
 						break
 					case '2':
 						uni.navigateTo({
-							url: '../purchase/purchase'
+							url: './purchase/purchase'
 						})
 						break
 					case '3':
 						uni.navigateTo({
-							url: '../current_unit/current_unit'
+							url: './current_unit/current_unit'
 						})
 						break
 					case '4':
 						uni.navigateTo({
-							url: '../product/product'
+							url: './product/product'
+						})
+						break
+					case '5':
+						uni.navigateTo({
+							url: './receipt/receipt'
+						})
+						break
+					case '6':
+						uni.navigateTo({
+							url: './payment/payment'
+						})
+						break
+					case '7':
+						uni.navigateTo({
+							url: './cost/cost'
+						})
+						break
+					case '8':
+						uni.navigateTo({
+							url: './return-order/return-order'
 						})
 						break
 				}

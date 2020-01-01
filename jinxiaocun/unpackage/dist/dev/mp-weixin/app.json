@@ -1,21 +1,25 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/sale/sale",
+    "pages/index/sale/payment/payment",
+    "pages/index/purchase/purchase",
+    "pages/index/purchase/payment/payment",
+    "pages/index/current_unit/current_unit",
+    "pages/index/current_unit/add/add",
+    "pages/index/current_unit/edit/edit",
+    "pages/index/product/product",
+    "pages/index/product/add/add",
+    "pages/index/product/edit/edit",
+    "pages/index/product/type/type",
+    "pages/index/product/unit/unit",
+    "pages/index/receipt/receipt",
+    "pages/index/payment/payment",
+    "pages/index/cost/cost",
+    "pages/index/return-order/return-order",
     "pages/stock/stock",
     "pages/data/data",
-    "pages/my/my",
-    "pages/sale/sale",
-    "pages/sale/payment/payment",
-    "pages/purchase/purchase",
-    "pages/purchase/payment/payment",
-    "pages/current_unit/current_unit",
-    "pages/current_unit/add/add",
-    "pages/current_unit/edit/edit",
-    "pages/product/product",
-    "pages/product/add/add",
-    "pages/product/edit/edit",
-    "pages/product/type/type",
-    "pages/product/unit/unit"
+    "pages/my/my"
   ],
   "subPackages": [],
   "window": {
@@ -54,5 +58,6 @@
   "usingComponents": {
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons"
-  }
+  },
+  "sitemapLocation": "sitemap91.json"
 }

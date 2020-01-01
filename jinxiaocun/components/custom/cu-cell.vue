@@ -4,10 +4,10 @@
 			<slot name="icon"></slot>
 		</view>
 		<view class="cu-cell-bd" @tap="handleTap">
-			<view class="cu-cell-bd-title">
+			<view v-if="title || label" class="cu-cell-bd-title">
 				<view v-if="title" class="cu-cell-text">{{ title }}</view>
 				<view v-if="label" class="cu-cell-desc">
-					<text style="margin-right:20px;" v-for="(item, index) in filterLabel" :key="index">{{item}}</text>
+					<text class="cu-cell-desc-item" :style="{'margin-top': index > 1 ? '5px' : '0px'}" v-for="(item, index) in filterLabel" :key="index">{{item}}</text>
 				</view>
 			</view>
 			<slot></slot>
@@ -161,6 +161,9 @@
 			margin-top: $uni-spacing-col-base;
 			display: flex;
 			flex-wrap: wrap;
+			&-item {
+				width: 50%;
+			}
 		}
 		&-ft{
 			position: relative;

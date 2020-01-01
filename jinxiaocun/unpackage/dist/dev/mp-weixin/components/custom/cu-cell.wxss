@@ -99,6 +99,9 @@
     -webkit-flex-wrap: wrap;
             flex-wrap: wrap;
 }
+.cu-cell-desc-item.data-v-5f2c1378 {
+      width: 50%;
+}
 .cu-cell-ft.data-v-5f2c1378 {
     position: relative;
     text-align: right;

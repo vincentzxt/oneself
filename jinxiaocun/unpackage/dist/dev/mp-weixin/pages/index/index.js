@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 138));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 145));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 178));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 185));};var _default =
 
 
 
@@ -180,22 +180,42 @@ __webpack_require__.r(__webpack_exports__);
       switch (val.id) {
         case '1':
           uni.navigateTo({
-            url: '../sale/sale' });
+            url: './sale/sale' });
 
           break;
         case '2':
           uni.navigateTo({
-            url: '../purchase/purchase' });
+            url: './purchase/purchase' });
 
           break;
         case '3':
           uni.navigateTo({
-            url: '../current_unit/current_unit' });
+            url: './current_unit/current_unit' });
 
           break;
         case '4':
           uni.navigateTo({
-            url: '../product/product' });
+            url: './product/product' });
+
+          break;
+        case '5':
+          uni.navigateTo({
+            url: './receipt/receipt' });
+
+          break;
+        case '6':
+          uni.navigateTo({
+            url: './payment/payment' });
+
+          break;
+        case '7':
+          uni.navigateTo({
+            url: './cost/cost' });
+
+          break;
+        case '8':
+          uni.navigateTo({
+            url: './return-order/return-order' });
 
           break;}
 
