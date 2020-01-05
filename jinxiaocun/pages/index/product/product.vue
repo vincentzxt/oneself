@@ -8,13 +8,13 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="main-left">
 				<uni-list>
-					<uni-list-item :title="item.name" :class="item.name==curSelectType?'menuSelect':''" :show-arrow="false" v-for="(item, index) in types" :key="index" @tap="handleSelectType(item.name)">
+					<uni-list-item :title="item" :class="item==curSelectType?'menuSelect':''" :show-arrow="false" v-for="(item, index) in productCategory" :key="index" @tap="handleSelectType(item)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
 			<scroll-view :scroll-y="true" class="main-right">
 				<uni-list>
-					<uni-list-item :title="item.name" :note="'编码：'+item.code" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					<uni-list-item :title="item.productname" :note="'编码：'+item.querycde" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
@@ -38,7 +38,7 @@
 		data() {
 			return {
 				title: '产品',
-				types: null,
+				productCategory: null,
 				datas: null,
 				searchDatas: null,
 				searchKey: '',
@@ -46,8 +46,10 @@
 			}
 		},
 		onShow() {
-			this.types = uni.getStorageSync('productType')
+			this.productCategory = uni.getStorageSync('productCategory')
+			console.log(this.productCategory)
 			this.datas = uni.getStorageSync('productList')
+			console.log(this.datas)
 			this.searchDatas = this.datas
 		},
 		methods: {
@@ -67,11 +69,11 @@
 								'&multiple='+val.multiple+'&remarks='+val.remarks
 				})
 			},
-			handleSelectType(name) {
-				this.curSelectType = name
-				if (name !== '所有分类') {
+			handleSelectType(type) {
+				this.curSelectType = type
+				if (type !== '所有分类') {
 					this.searchDatas = this.datas.filter((item) => {
-						return item.type == name
+						return item.productcategory == type
 					})
 				} else {
 					this.searchDatas = this.datas

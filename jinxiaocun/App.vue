@@ -1,15 +1,12 @@
 <script>
 	import Vue from 'vue'
-	import { customerList } from '@/static/test-data/customer.js'
-	import { productType, productUnit, productList } from '@/static/test-data/product.js'
+	import { query } from '@/api/common.js'
+	import { queryProductCategory } from '@/api/product.js'
+	import { api } from '@/config/common.js'
 	
 	export default {
 		data() {
 			return {
-				customerList,
-				productType,
-				productUnit,
-				productList
 			}
 		},
 		onLaunch: function() {
@@ -18,22 +15,47 @@
 					console.log(res)
 				}
 			})
-			this.getGlobalData()
+			this.getCurrentUnit()
+			this.getBaseProduct()
+			this.getProductCategory()
 		},
 		methods: {
-			getGlobalData() {
-				if (this.customerList && this.customerList.length > 0) {
-					uni.setStorageSync('customerList', this.customerList)
-				}
-				if (this.productType && this.productType.length > 0) {
-					uni.setStorageSync('productType', this.productType)
-				}
-				if (this.productUnit && this.productUnit.length > 0) {
-					uni.setStorageSync('productUnit', this.productUnit)
-				}
-				if (this.productList && this.productList.length > 0) {
-					uni.setStorageSync('productList', this.productList)
-				}
+			getCurrentUnit() {
+				query(api.contactUnit).then(res => {
+					if (res && res.data.returnCode == '0000') {
+						uni.setStorageSync('currentUnitList', res.data.data.resultList)
+					} else {
+						uni.setStorageSync('currentUnitList', [])
+					}
+				}).catch(error => {
+					uni.setStorageSync('currentUnitList', [])
+					console.log(error)
+				})
+			},
+			getBaseProduct() {
+				query(api.baseProduct).then(res => {
+					if (res && res.data.returnCode == '0000') {
+						uni.setStorageSync('productList', res.data.data.resultList)
+					} else {
+						uni.setStorageSync('productList', [])
+					}
+				}).catch(error => {
+					uni.setStorageSync('productList', [])
+					console.log(error)
+				})
+			},
+			getProductCategory() {
+				queryProductCategory(api.baseProduct).then(res => {
+					console.log(res)
+					if (res && res.data.returnCode == '0000') {
+						uni.setStorageSync('productCategory', res.data.data.productCategories)
+					} else {
+						uni.setStorageSync('productCategory', [])
+					}
+				}).catch(error => {
+					uni.setStorageSync('productCategory', [])
+					console.log(error)
+				})
 			}
 		}
 	}
