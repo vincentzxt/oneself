@@ -32,10 +32,10 @@
   width: 100vw;
 }
 .container .header.data-v-cefdf5b2 {
-    height: 18%;
+    height: 15%;
 }
 .container .main.data-v-cefdf5b2 {
-    height: 75%;
+    height: 78%;
 }
 .container .footer.data-v-cefdf5b2 {
     height: 7%;

@@ -5,9 +5,9 @@
     "pages/index/sale/payment/payment",
     "pages/index/purchase/purchase",
     "pages/index/purchase/payment/payment",
-    "pages/index/current_unit/current_unit",
-    "pages/index/current_unit/add/add",
-    "pages/index/current_unit/edit/edit",
+    "pages/index/current-unit/current-unit",
+    "pages/index/current-unit/add/add",
+    "pages/index/current-unit/edit/edit",
     "pages/index/product/product",
     "pages/index/product/add/add",
     "pages/index/product/edit/edit",
@@ -58,6 +58,5 @@
   "usingComponents": {
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons"
-  },
-  "sitemapLocation": "sitemap91.json"
+  }
 }

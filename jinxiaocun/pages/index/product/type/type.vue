@@ -143,10 +143,10 @@
 		height: 100vh;
 		width: 100vw;
 		.header {
-			height: 18%;
+			height: 15%;
 		}
 		.main {
-			height: 75%;
+			height: 78%;
 		}
 		.footer {
 			height: 7%;

@@ -4,7 +4,7 @@
 		<uni-grid :column="2" :square="false">
 			<uni-grid-item v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
 				<view class="item-content">
-					<uni-icons :type="item.icon" :color="item.color" size=28></uni-icons>
+					<uni-icons :type="item.icon" :color="item.color" size=32></uni-icons>
 					<text class="item-content-text"> {{item.name}}</text>
 				</view>
 			</uni-grid-item>

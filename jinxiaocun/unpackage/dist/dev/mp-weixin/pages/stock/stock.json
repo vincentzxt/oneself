@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "uni-grid": "/components/uni-grid/uni-grid",
-    "uni-grid-item": "/components/uni-grid-item/uni-grid-item"
+    "cu-panel": "/components/custom/cu-panel",
+    "cu-cell": "/components/custom/cu-cell"
   }
 }

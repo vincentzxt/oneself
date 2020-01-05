@@ -98,10 +98,10 @@
 		height: 100vh;
 		width: 100vw;
 		.header {
-			height: 18%;
+			height: 15%;
 		}
 		.main {
-			height: 75%;
+			height: 78%;
 			display: flex;
 			justify-content: space-between;
 			.main-left {

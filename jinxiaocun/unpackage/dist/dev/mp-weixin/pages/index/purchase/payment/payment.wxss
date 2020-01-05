@@ -37,11 +37,21 @@
 .container .main.data-v-ce5b4a72 {
     height: 82%;
 }
+.container .main .picker.data-v-ce5b4a72 {
+      width: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+              justify-content: flex-end;
+}
 .container .footer.data-v-ce5b4a72 {
     height: 7%;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
+    background-color: #e9eaec;
 }
 .container .footer-text.data-v-ce5b4a72 {
       width: 50%;

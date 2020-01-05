@@ -34,7 +34,7 @@
   -webkit-align-items: center;
           align-items: center;
   line-height: 1.4;
-  font-size: 28rpx;
+  font-size: 32rpx;
   overflow: hidden;
 }
 .cu-cell.data-v-5f2c1378::after {
@@ -85,12 +85,12 @@
 }
 .cu-cell-text.data-v-5f2c1378 {
     line-height: 24px;
-    font-size: 28rpx;
+    font-size: 32rpx;
     color: #495060;
 }
 .cu-cell-desc.data-v-5f2c1378 {
     line-height: 1.2;
-    font-size: 24rpx;
+    font-size: 28rpx;
     color: #808695;
     margin-top: 10rpx;
     display: -webkit-box;

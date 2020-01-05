@@ -8,23 +8,32 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
-						<cu-cell title="付款方式">
-							<radio-group @change="handlePaymentChange">
-								<radio color="#2db7f5" value=0 :checked="payment == 0">微信</radio>
-								<radio color="#2db7f5" value=1 :checked="payment == 1" style="margin-left: 10px;">支付宝</radio>
-								<radio color="#2db7f5" value=2 :checked="payment == 2" style="margin-left: 10px;">网银</radio>
+						<cu-cell title="是否赊账">
+							<radio-group @change="handleCreditChange">
+								<radio color="#2db7f5" value=0 :checked="isCredit == 0">否</radio>
+								<radio color="#2db7f5" value=1 :checked="isCredit == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
+						</cu-cell>
+						<cu-cell title="付款方式" isLink>
+							<view style="width:80%;">
+								<picker @change="handlePaymentChange" :value="payment" :range="paymentDict">
+									<view class="picker">
+										<text v-if="!payment" style="color:#c5c8ce">请选择付款方式</text>
+										<text v-else>{{payment}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
 						<cu-cell title="是否生成入库单">
 							<radio-group @change="handleOrderChange">
-								<radio color="#2db7f5" value=0 :checked="isOrder == 0">是</radio>
-								<radio color="#2db7f5" value=1 :checked="isOrder == 1" style="margin-left: 10px;">否</radio>
+								<radio color="#2db7f5" value=0 :checked="isOrder == 0">否</radio>
+								<radio color="#2db7f5" value=1 :checked="isOrder == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
 						<cu-cell title="是否打印单据">
 							<radio-group @change="handlePrintChange">
-								<radio color="#2db7f5" value=0 :checked="isPrint == 0">是</radio>
-								<radio color="#2db7f5" value=1 :checked="isPrint == 1" style="margin-left: 10px;">否</radio>
+								<radio color="#2db7f5" value=0 :checked="isPrint == 0">否</radio>
+								<radio color="#2db7f5" value=1 :checked="isPrint == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
 					</cu-cell-group>
@@ -55,10 +64,12 @@
 		data() {
 			return {
 				reqData: {},
-				title: '付款',
+				title: '采购付款',
 				payment: 0,
 				isOrder: 0,
-				isPrint: 0
+				isPrint: 0,
+				isCredit: 0,
+				paymentDict: ['微信', '支付宝', '网银']
 			};
 		},
 		onLoad(options) {
@@ -72,8 +83,11 @@
 					delta: 1
 				})
 			},
+			handleCreditChange(val) {
+				this.isCredit = val.detail.value
+			},
 			handlePaymentChange(val) {
-				this.payment = val.detail.value
+				this.payment = this.paymentDict[val.detail.value]
 			},
 			handleOrderChange(val) {
 				this.isOrder = val.detail.value
@@ -101,10 +115,16 @@
 		}
 		.main {
 			height: 82%;
+			.picker {
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
+			}
 		}
 		.footer {
 			height: 7%;
 			display: flex;
+			background-color:$uni-split-color;
 			&-text {
 				width: 50%;
 				height: 100%;

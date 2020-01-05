@@ -42,7 +42,7 @@
           align-items: center;
 }
 .item-content-text.data-v-1f1d1caa {
-    font-size: 32rpx;
+    font-size: 36rpx;
     color: #1c2438;
     margin-top: 10rpx;
 }

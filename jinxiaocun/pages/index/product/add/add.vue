@@ -15,9 +15,9 @@
 						</cu-cell>
 						<cu-cell title="主计量单位" :value="reqData.masterUnit" isLink url="../unit/unit" params="name=masterUnit">
 						</cu-cell>
-						<cu-cell title="辅计量单位" :value="reqData.slaveUnit" isLink url="../unit/unit" params="name=slaveUnit">
+						<cu-cell v-if="reqData.masterUnit" title="辅计量单位" :value="reqData.slaveUnit" isLink url="../unit/unit" params="name=slaveUnit">
 						</cu-cell>
-						<cu-cell title="计量单位倍率">
+						<cu-cell v-if="reqData.masterUnit && reqData.slaveUnit" title="计量单位倍率">
 							<input slot="footer" type="text" v-model="reqData.multiple" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位倍率"/>
 						</cu-cell>
 					</cu-cell-group>
@@ -105,10 +105,10 @@
 		height: 100vh;
 		width: 100vw;
 		.header {
-			height: 11%;
+			height: 10%;
 		}
 		.main {
-			height: 82%;
+			height: 83%;
 			.cu-form-group .title {
 				min-width: calc(6em + 30px);
 			}

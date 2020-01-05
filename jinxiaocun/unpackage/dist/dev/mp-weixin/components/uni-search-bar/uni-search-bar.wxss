@@ -57,7 +57,7 @@
           align-items: center;
   height: 36px;
   padding: 5px 8px 5px 0px;
-  border-width: 0.5px;
+  border-width: 0px;
   border-style: solid;
   border-color: #dddee1;
 }
@@ -82,7 +82,7 @@
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #495060;
 }
 .uni-searchbar__box-icon-clear.data-v-420f3066 {
@@ -93,7 +93,7 @@
   padding-left: 5px;
 }
 .uni-searchbar__text-placeholder.data-v-420f3066 {
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #c5c8ce;
   margin-left: 5px;
 }

@@ -13,6 +13,11 @@
 			}
 		},
 		onLaunch: function() {
+			uni.getSystemInfo({
+				success: (res) => {
+					console.log(res)
+				}
+			})
 			this.getGlobalData()
 		},
 		methods: {

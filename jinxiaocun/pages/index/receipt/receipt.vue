@@ -8,33 +8,39 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
-						<cu-cell title="业务类型">
-							<radio-group @change="handleTypeChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.type == 0">普通收款</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.type == 1" style="margin-left: 10px;">直接收款</radio>
-								<radio color="#2db7f5" value=2 :checked="reqData.type == 2" style="margin-left: 10px;">预收款</radio>
-							</radio-group>
+						<cu-cell title="业务类型" isLink>
+							<view style="width:80%;">
+								<picker @change="handleTypeChange" :value="reqData.type" :range="typeDict">
+									<view class="picker">
+										<text v-if="!reqData.type" style="color:#c5c8ce">请选择业务类型</text>
+										<text v-else>{{reqData.type}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:60%;" @input="handleSearchCompany" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sc" style="width:65%;" @input="handleSearchCompany" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCustomer" title="结算单位">
 							<input slot="footer" type="text" v-model="reqData.company" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
 						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="收款方式">
-							<radio-group @change="handleReceivablesMethodChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.receivablesMethod == 0">微信</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.receivablesMethod == 1" style="margin-left: 10px;">支付宝</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.receivablesMethod == 2" style="margin-left: 10px;">网银</radio>
-							</radio-group>
+						<cu-cell title="收款方式" isLink>
+							<view style="width:80%;">
+								<picker @change="handleReceivablesChange" :value="reqData.receivables" :range="receivablesDict">
+									<view class="picker">
+										<text v-if="!reqData.receivables" style="color:#c5c8ce">请选择收款方式</text>
+										<text v-else>{{reqData.receivables}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
 						<cu-cell v-if="!searchCustomer" title="收款金额">
 							<input slot="footer" type="text" v-model="reqData.money" placeholder-style="color:#c5c8ce" placeholder="请输入收款金额"/>
 						</cu-cell>
 						<cu-cell v-if="!searchCustomer" title="是否使用预收">
 							<radio-group @change="handleAdvanceChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.isAdvance == 0">是</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.isAdvance == 1" style="margin-left: 10px;">否</radio>
+								<radio color="#2db7f5" value=0 :checked="reqData.isAdvance == 0">否</radio>
+								<radio color="#2db7f5" value=1 :checked="reqData.isAdvance == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
 						<cu-cell v-if="!searchCustomer" title="折让">
@@ -78,7 +84,7 @@
 				reqData: {
 					type: 0,
 					company: '',
-					receivablesMethod: 0,
+					receivables: 0,
 					money: 0,
 					totalMoney: 0,
 					isAdvance: 0,
@@ -88,6 +94,8 @@
 				customerDatas: null,
 				customerSearchDatas: null,
 				searchCustomer: false,
+				typeDict: ['普通收款', '直接收款', '预收款'],
+				receivablesDict: ['微信', '支付宝', '网银']
 			};
 		},
 		onShow() {
@@ -101,7 +109,14 @@
 				})
 			},
 			handleTypeChange(val) {
-				this.reqData.type = val.detail.value
+				if (val) {
+					this.reqData.type = this.typeDict[val.detail.value]
+				}
+			},
+			handleReceivablesChange(val) {
+				if (val) {
+					this.reqData.receivables = this.receivablesDict[val.detail.value]
+				}
 			},
 			handleSearchCompany(val) {
 				if (val.value) {
@@ -121,9 +136,6 @@
 			},
 			handleAdvanceChange(val) {
 				this.reqData.isAdvance = val.detail.value
-			},
-			handleReceivablesMethodChange(val) {
-				this.reqData.receivablesMethod = val.detail.value
 			},
 			handleSubmit() {
 				
@@ -155,14 +167,20 @@
 		height: 100vh;
 		width: 100vw;
 		.header {
-			height: 11%;
+			height: 10%;
 		}
 		.main {
-			height: 82%;
+			height: 83%;
+			.picker {
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
+			}
 		}
 		.footer {
 			height: 7%;
 			display: flex;
+			background-color:$uni-split-color;
 			&-text {
 				width: 50%;
 				height: 100%;

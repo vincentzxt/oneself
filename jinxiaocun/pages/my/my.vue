@@ -1,67 +1,78 @@
 <template>
-	<view>
-		<uni-navbar :title="title" left-icon="back" @refreshPage="handleRefreshPage">
-		</uni-navbar>
-		<uni-grid :column="3">
-			<uni-grid-item v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
-				<uni-icons :type="item.icon" :color="item.color"></uni-icons>
-				<text>{{item.name}}</text>
-			</uni-grid-item>
-		</uni-grid>
+	<view class="container">
+		<view class="header">
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">				
+			</uni-navbar>
+			<uni-search-bar @input="handleSearch" placeholder="输入编码、名称、电话" cancelButton="always"></uni-search-bar>
+		</view>
+		<view class="main">
+			<scroll-view :scroll-y="true" class="fill">
+				<uni-list>
+					<uni-list-item :title="item.company" :note="'电话：'+item.mobile" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					</uni-list-item>
+				</uni-list>
+			</scroll-view>
+		</view>
+		<view class="footer">
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleAdd">添加</button>
+		</view>
 	</view>
 </template>
 
 <script>
-	import uniGrid from '@/components/uni-grid/uni-grid.vue'
-	import uniGridItem from '@/components/uni-grid-item/uni-grid-item.vue'
+	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
+	import uniList from '@/components/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import { query } from '@/api/current-unit.js'
+	import { api } from '@/config/common.js'
 	export default {
 		components: {
-			uniGrid,
-			uniGridItem
+			uniSearchBar,
+			uniList,
+			uniListItem
 		},
 		data() {
 			return {
-				title: '买卖',
-				lists: [
-					{id: '1', name: '销售', icon: 'sale', color: 'red' },
-					{id: '2', name: '采购', icon: 'purchase-fill', color: 'blue' },
-					{id: '3', name: '客户&供应商', icon: 'customer-fill', color: 'orange' },
-					{id: '4', name: '产品', icon: 'product-fill', color: 'blue' },
-					{id: '5', name: '收款单', icon: 'receipt', color: 'red' },
-					{id: '6', name: '付款单', icon: 'payment', color: 'orange' },
-					{id: '7', name: '费用单', icon: 'cost', color: 'green' },
-					{id: '8', name: '退货单', icon: 'return-order', color: 'green' },
-				]
+				title: '客户&供应商',
+				datas: null,
+				searchDatas: null
 			}
 		},
-		onLoad() {
+		onShow() {
+			query(api.contactUnit).then(res => {
+				if (res && res.data.returnCode == '0000') {
+					console.log(res)
+				}
+			}).catch(error => {
+				console.log(error)
+			})
+			this.datas = uni.getStorageSync('customerList')
+			this.searchDatas = this.datas
 		},
 		methods: {
-			handleRefreshPage() {
-				console.log("refreshpage")
+			handleNavbarClickLeft() {
+				uni.navigateBack({
+					delta: 1
+				})
 			},
-			handleGridChange(val) {
-				switch(val.id) {
-					case '1':
-						uni.navigateTo({
-							url: '../sale/sale'
-						})
-						break
-					case '2':
-						uni.navigateTo({
-							url: '../purchase/purchase'
-						})
-						break
-					case '3':
-						uni.navigateTo({
-							url: '../current_unit/current_unit'
-						})
-						break
-					case '4':
-						uni.navigateTo({
-							url: '../product/product'
-						})
-						break
+			handleAdd() {
+				uni.navigateTo({
+					url: './add/add'
+				})
+			},
+			handleEdit(val) {
+				uni.navigateTo({
+					url: './edit/edit?id='+val.id+'&company='+val.company+'&contacts='+val.contacts+'&type='+val.type+'&mobile='+val.mobile+'&address='+val.address+'&street='
+								+val.street+'&email='+val.email+'&remarks='+val.remarks
+				})
+			},
+			handleSearch(val) {
+				if (val.value) {
+					this.searchDatas = this.datas.filter((item) => {
+						return item.company.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1 || item.mobile.indexOf(val.value) !== -1
+					})
+				} else {
+					this.searchDatas = this.datas
 				}
 			}
 		}
@@ -69,5 +80,25 @@
 </script>
 
 <style lang="scss" scoped>
-
+	@import '~@/uni.scss';
+	.fill {
+		width: 100%;
+		height: 100%;
+	}
+	.container {
+		height: 100vh;
+		width: 100vw;
+		.header {
+			height: 108px;
+		}
+		.main {
+			height: calc(100vh - 148px);
+		}
+		.footer {
+			height: 40px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+		}
+	}
 </style>

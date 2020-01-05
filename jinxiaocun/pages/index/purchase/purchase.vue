@@ -9,7 +9,7 @@
 				<cu-panel>
 					<cu-cell-group>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:60%;" @input="handleSearchCompany" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sc" style="width:65%;" @input="handleSearchCompany" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCustomer" title="单位名称">
 							<input slot="footer" type="text" v-model="reqData.company" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
@@ -18,7 +18,7 @@
 							<input slot="footer" type="text" v-model="reqData.mobile" placeholder-style="color:#c5c8ce" placeholder="请输入电话"/>
 						</cu-cell>
 						<cu-cell v-if="!searchCustomer" title="产品">
-							<uni-search-bar ref="sp" style="width:60%;" @input="handleSearchProduct" placeholder="输入编码、名称" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sp" style="width:65%;" @input="handleSearchProduct" placeholder="输入编码、名称" cancelButton="none"></uni-search-bar>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
@@ -252,6 +252,7 @@
 		.footer {
 			height: 7%;
 			display: flex;
+			background-color:$uni-split-color;
 			&-text {
 				width: 50%;
 				height: 100%;

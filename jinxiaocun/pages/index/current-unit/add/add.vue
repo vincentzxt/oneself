@@ -25,10 +25,14 @@
 							<input slot="footer" type="text" v-model="reqData.mobile" placeholder-style="color:#c5c8ce" placeholder="请输入电话"/>
 						</cu-cell>
 						<cu-cell title="位置">
-							<picker slot="footer" mode="region" @change="handleAddressChange" :value="reqData.address">
-								<text v-if="reqData.address.length === 0" style="color:#c5c8ce">省/市/区</text>
-								<text v-else>{{reqData.address[0]}}, {{reqData.address[1]}}, {{reqData.address[2]}}</text>
-							</picker>
+							<view style="width:85%;">
+								<picker mode="region" @change="handleAddressChange" :value="reqData.address">
+									<view class="picker">
+										<text v-if="reqData.address.length === 0" style="color:#c5c8ce">省/市/区</text>
+										<text v-else>{{reqData.address[0]}}, {{reqData.address[1]}}, {{reqData.address[2]}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
 						<cu-cell title="街道">
 							<input slot="footer" type="text" v-model="reqData.street" placeholder-style="color:#c5c8ce" placeholder="请输入街道"/>
@@ -122,10 +126,10 @@
 		height: 100vh;
 		width: 100vw;
 		.header {
-			height: 11%;
+			height: 10%;
 		}
 		.main {
-			height: 82%;
+			height: 83%;
 			.cu-form-group .title {
 				min-width: calc(5em + 30px);
 			}
@@ -135,6 +139,11 @@
 				background-color: #ffffff;
 				justify-content: center;
 				align-items: center;
+			}
+			.picker {
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
 			}
 		}
 		.footer {

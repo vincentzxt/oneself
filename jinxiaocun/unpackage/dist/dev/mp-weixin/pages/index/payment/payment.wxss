@@ -32,16 +32,26 @@
   width: 100vw;
 }
 .container .header.data-v-e9095d56 {
-    height: 11%;
+    height: 10%;
 }
 .container .main.data-v-e9095d56 {
-    height: 82%;
+    height: 83%;
+}
+.container .main .picker.data-v-e9095d56 {
+      width: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+              justify-content: flex-end;
 }
 .container .footer.data-v-e9095d56 {
     height: 7%;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
+    background-color: #e9eaec;
 }
 .container .footer-text.data-v-e9095d56 {
       width: 50%;

@@ -35,10 +35,10 @@
   width: 100vw;
 }
 .container .header.data-v-595bdc6b {
-    height: 11%;
+    height: 10%;
 }
 .container .main.data-v-595bdc6b {
-    height: 82%;
+    height: 83%;
 }
 .container .main .cu-form-group .title.data-v-595bdc6b {
       min-width: calc(6em + 30px);

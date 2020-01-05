@@ -1,73 +1,61 @@
 <template>
-	<view>
-		<uni-navbar :title="title" left-icon="back" @refreshPage="handleRefreshPage">
-		</uni-navbar>
-		<uni-grid :column="3">
-			<uni-grid-item v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
-				<uni-icons :type="item.icon" :color="item.color"></uni-icons>
-				<text>{{item.name}}</text>
-			</uni-grid-item>
-		</uni-grid>
+	<view class="container">
+		<view class="header">
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
+			</uni-navbar>
+		</view>
+		<view class="main">
+			<scroll-view :scroll-y="true">
+				<cu-panel>
+					<cu-cell title="期初" isLink>
+						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel>
+					<cu-cell title="盘点" isLink>
+						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
+					</cu-cell>
+				</cu-panel>
+			</scroll-view>
+		</view>
 	</view>
 </template>
 
 <script>
-	import uniGrid from '@/components/uni-grid/uni-grid.vue'
-	import uniGridItem from '@/components/uni-grid-item/uni-grid-item.vue'
+	import cuPanel from '@/components/custom/cu-panel.vue'
+	import cuCell from '@/components/custom/cu-cell.vue'
 	export default {
 		components: {
-			uniGrid,
-			uniGridItem
+			cuPanel,
+			cuCell
 		},
 		data() {
 			return {
-				title: '买卖',
-				lists: [
-					{id: '1', name: '销售', icon: 'sale', color: 'red' },
-					{id: '2', name: '采购', icon: 'purchase-fill', color: 'blue' },
-					{id: '3', name: '客户&供应商', icon: 'customer-fill', color: 'orange' },
-					{id: '4', name: '产品', icon: 'product-fill', color: 'blue' },
-					{id: '5', name: '收款单', icon: 'receipt', color: 'red' },
-					{id: '6', name: '付款单', icon: 'payment', color: 'orange' },
-					{id: '7', name: '费用单', icon: 'cost', color: 'green' },
-					{id: '8', name: '退货单', icon: 'return-order', color: 'green' },
-				]
-			}
+				title: '库存'
+			};
 		},
-		onLoad() {
+		onShow() {
+			
 		},
 		methods: {
-			handleRefreshPage() {
-				console.log("refreshpage")
-			},
-			handleGridChange(val) {
-				switch(val.id) {
-					case '1':
-						uni.navigateTo({
-							url: '../sale/sale'
-						})
-						break
-					case '2':
-						uni.navigateTo({
-							url: '../purchase/purchase'
-						})
-						break
-					case '3':
-						uni.navigateTo({
-							url: '../current_unit/current_unit'
-						})
-						break
-					case '4':
-						uni.navigateTo({
-							url: '../product/product'
-						})
-						break
-				}
+			handleNavbarClickLeft() {
+				uni.navigateBack({
+					delta: 1
+				})
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-
+	.container {
+		height: 100vh;
+		width: 100vw;
+		.header {
+			
+		}
+		.main {
+			margin-top: $uni-spacing-col-base;
+		}
+	}
 </style>
