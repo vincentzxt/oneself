@@ -19,7 +19,12 @@
     "pages/index/return-order/return-order",
     "pages/stock/stock",
     "pages/data/data",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/my/login/login",
+    "pages/my/set",
+    "pages/my/login/reg",
+    "pages/my/login/forget",
+    "pages/my/bankcard"
   ],
   "subPackages": [],
   "window": {

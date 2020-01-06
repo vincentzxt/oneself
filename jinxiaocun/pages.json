@@ -19,8 +19,22 @@
 		{ "path" : "pages/index/return-order/return-order" },
 		{ "path" : "pages/stock/stock" },
 		{ "path" : "pages/data/data" },
-		{ "path" : "pages/my/my" }
-  ],
+		{ "path" : "pages/my/my" },
+		{"path" : "pages/my/login/login", "style" : {}},
+		{"path" : "pages/my/set", "style" : {}}
+      ,{
+            "path" : "pages/my/login/reg",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/login/forget",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/bankcard",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

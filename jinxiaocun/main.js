@@ -9,6 +9,19 @@ Vue.component('uni-icons',uniIcons)
 Vue.config.productionTip = false
 
 App.mpType = 'app'
+//统一提示方便全局修改
+const msg = (title,  icon='none',duration=2000, mask=false)=>{
+	if(Boolean(title) === false){
+		return;
+	}
+	uni.showToast({
+		title,
+		duration,
+		mask,
+		icon
+	});
+} 
+Vue.prototype.$api = {msg}; 
 
 const app = new Vue({
     ...App
