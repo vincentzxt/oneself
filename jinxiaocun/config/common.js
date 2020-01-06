@@ -11,5 +11,6 @@ export const api = {
 	dept: '/api/Dept',
 	purPurchaseOrder: '/api/PurPurchaseOrder',
 	salesOrder: '/api/SalesOrder',
-	token: '/api/Token'
+	token: '/api/Token',
+	login: '/api/BseUser/Login'
 }

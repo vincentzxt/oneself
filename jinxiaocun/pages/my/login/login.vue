@@ -30,6 +30,8 @@
 
 <script>
 	import uniIcon from "@/components/uni-icon/uni-icon.vue"
+	import { query } from '@/api/common.js'
+	import { api } from '@/config/common.js'
 	export default {
 		data() {
 			return {
@@ -77,40 +79,51 @@
 				//             title: '正在请求中'  
 				//         }); 
 				let url = "http://120.210.132.94:5599/api/BseUser/Login"
-				uni.request({
-				    url: url,
-				    data:sendData,
-					header: {
-						'Content-Type': 'application/json'
-					},
-					method: "POST",
-				    success: (res) => {
-						if(res.statusCode == 200 && res.data.returnCode ==='0000' ){
-							let userinfo = {
-								"token":res.data.data.token,
-								"exp":res.data.data.exp
-							};
-							uni.setStorage({
-							    key: 'userinfo',
-							    data: userinfo,
-							    success: function () {
-							        uni.switchTab({
-							        	url:'/pages/index/index'
-							        }) 
-							    }
-							});
+				// uni.request({
+				//     url: url,
+				//     data:sendData,
+				// 	header: {
+				// 		'Content-Type': 'application/json'
+				// 	},
+				// 	method: "POST",
+				//     success: (res) => {
+				// 		if(res.statusCode == 200 && res.data.returnCode ==='0000' ){
+				// 			let userinfo = {
+				// 				"token":res.data.data.token,
+				// 				"exp":res.data.data.exp
+				// 			};
+				// 			uni.setStorage({
+				// 			    key: 'userinfo',
+				// 			    data: userinfo,
+				// 			    success: function () {
+				// 			        uni.switchTab({
+				// 			        	url:'/pages/index/index'
+				// 			        }) 
+				// 			    }
+				// 			});
 							
-						}else{this.$api.msg(res.data.returnMessage) }	
-				    },
-					fail:() => { 
-					    this.$api.msg('请求失败fail') 
-					},  
-					complete:() => { 
-						this.loading = false;
-					    //uni.hideLoading();  
-					} 
-				});
+				// 		}else{this.$api.msg(res.data.returnMessage) }	
+				//     },
+				// 	fail:() => { 
+				// 	    this.$api.msg('请求失败fail') 
+				// 	},  
+				// 	complete:() => { 
+				// 		this.loading = false;
+				// 	    //uni.hideLoading();  
+				// 	} 
+				// });
 				
+				query(api.login).then(res => {
+					if (res && res.data.returnCode == '0000') {
+						console.log(res);
+						//uni.setStorageSync('currentUnitList', res.data.data.resultList)
+					} else {
+						//uni.setStorageSync('currentUnitList', [])
+					}
+				}).catch(error => {
+					//uni.setStorageSync('currentUnitList', [])
+					//console.log(error)
+				})
 				
 				
 			},

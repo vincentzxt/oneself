@@ -122,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 343));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -154,6 +154,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _common = __webpack_require__(/*! @/api/common.js */ 14);
+var _common2 = __webpack_require__(/*! @/config/common.js */ 48);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 343));};var _default =
 {
   data: function data() {
     return {
@@ -182,7 +184,7 @@ __webpack_require__.r(__webpack_exports__);
         url: '/pages/my/login/forget' });
 
     },
-    handleLogin: function handleLogin() {var _this = this;var
+    handleLogin: function handleLogin() {var
       loginname = this.loginname,password = this.password;
       if (loginname.length == 0) {
         this.$api.msg('登录账号不能为空！');
@@ -201,40 +203,51 @@ __webpack_require__.r(__webpack_exports__);
       //             title: '正在请求中'  
       //         }); 
       var url = "http://120.210.132.94:5599/api/BseUser/Login";
-      uni.request({
-        url: url,
-        data: sendData,
-        header: {
-          'Content-Type': 'application/json' },
+      // uni.request({
+      //     url: url,
+      //     data:sendData,
+      // 	header: {
+      // 		'Content-Type': 'application/json'
+      // 	},
+      // 	method: "POST",
+      //     success: (res) => {
+      // 		if(res.statusCode == 200 && res.data.returnCode ==='0000' ){
+      // 			let userinfo = {
+      // 				"token":res.data.data.token,
+      // 				"exp":res.data.data.exp
+      // 			};
+      // 			uni.setStorage({
+      // 			    key: 'userinfo',
+      // 			    data: userinfo,
+      // 			    success: function () {
+      // 			        uni.switchTab({
+      // 			        	url:'/pages/index/index'
+      // 			        }) 
+      // 			    }
+      // 			});
 
-        method: "POST",
-        success: function success(res) {
-          if (res.statusCode == 200 && res.data.returnCode === '0000') {
-            var userinfo = {
-              "token": res.data.data.token,
-              "exp": res.data.data.exp };
+      // 		}else{this.$api.msg(res.data.returnMessage) }	
+      //     },
+      // 	fail:() => { 
+      // 	    this.$api.msg('请求失败fail') 
+      // 	},  
+      // 	complete:() => { 
+      // 		this.loading = false;
+      // 	    //uni.hideLoading();  
+      // 	} 
+      // });
 
-            uni.setStorage({
-              key: 'userinfo',
-              data: userinfo,
-              success: function success() {
-                uni.switchTab({
-                  url: '/pages/index/index' });
-
-              } });
-
-
-          } else {_this.$api.msg(res.data.returnMessage);}
-        },
-        fail: function fail() {
-          _this.$api.msg('请求失败fail');
-        },
-        complete: function complete() {
-          _this.loading = false;
-          //uni.hideLoading();  
-        } });
-
-
+      (0, _common.query)(_common2.api.login).then(function (res) {
+        if (res && res.data.returnCode == '0000') {
+          console.log(res);
+          //uni.setStorageSync('currentUnitList', res.data.data.resultList)
+        } else {
+            //uni.setStorageSync('currentUnitList', [])
+          }
+      }).catch(function (error) {
+        //uni.setStorageSync('currentUnitList', [])
+        //console.log(error)
+      });
 
 
     },
@@ -246,7 +259,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
     },
-    settime: function settime(smiao) {var _this2 = this;
+    settime: function settime(smiao) {var _this = this;
       var that = this;
       var miao = that.miao;
       if (miao == 0) {
@@ -255,7 +268,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         setTimeout(function () {
           smiao--;
-          _this2.miao = smiao;
+          _this.miao = smiao;
           that.settime(smiao);
         }, 1000);
       }

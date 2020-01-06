@@ -9944,7 +9944,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   dept: '/api/Dept',
   purPurchaseOrder: '/api/PurPurchaseOrder',
   salesOrder: '/api/SalesOrder',
-  token: '/api/Token' };exports.api = api;
+  token: '/api/Token',
+  login: '/api/BseUser/Login' };exports.api = api;
 
 /***/ }),
 
