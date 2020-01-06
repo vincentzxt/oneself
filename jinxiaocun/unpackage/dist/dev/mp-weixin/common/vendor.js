@@ -1534,19 +1534,35 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 12:
-/*!************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/current-unit.js ***!
-  \************************************************************************************/
+/***/ 14:
+/*!******************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/common.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.get = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
+var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/Query',
+    data: data,
+    method: 'post' });
+
+};exports.query = query;
+
+var get = function get(url, id) {var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  return _http.default.request({
+    url: url + '/id',
+    data: data,
+    method: 'post' });
+
+};exports.get = get;
 
 /***/ }),
 
-/***/ 13:
+/***/ 15:
 /*!******************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/utils/http.js ***!
   \******************************************************************************/
@@ -1554,8 +1570,8 @@ uni$1;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _uniAxios = _interopRequireDefault(__webpack_require__(/*! @/js-sdk/uni-axios */ 14));
-var _common = __webpack_require__(/*! @/config/common.js */ 46);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _uniAxios = _interopRequireDefault(__webpack_require__(/*! @/js-sdk/uni-axios */ 16));
+var _common = __webpack_require__(/*! @/config/common.js */ 48);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 创建自定义接口服务实例
 var http = _uniAxios.default.create({
@@ -1601,7 +1617,7 @@ http;exports.default = _default;
 
 /***/ }),
 
-/***/ 14:
+/***/ 16:
 /*!******************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/index.js ***!
   \******************************************************************************************/
@@ -1609,12 +1625,12 @@ http;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _uniAxios = __webpack_require__(/*! ./uni-axios */ 15);var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _uniAxios = __webpack_require__(/*! ./uni-axios */ 17);var _default =
 _uniAxios.axios;exports.default = _default;
 
 /***/ }),
 
-/***/ 15:
+/***/ 17:
 /*!**********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/uni-axios.js ***!
   \**********************************************************************************************/
@@ -1622,7 +1638,7 @@ _uniAxios.axios;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });var _exportNames = { axios: true };Object.defineProperty(exports, "axios", { enumerable: true, get: function get() {return _axios.default;} });var _axios = _interopRequireWildcard(__webpack_require__(/*! axios */ 16));
+Object.defineProperty(exports, "__esModule", { value: true });var _exportNames = { axios: true };Object.defineProperty(exports, "axios", { enumerable: true, get: function get() {return _axios.default;} });var _axios = _interopRequireWildcard(__webpack_require__(/*! axios */ 18));
 
 
 
@@ -1664,11 +1680,11 @@ Object.defineProperty(exports, "__esModule", { value: true });var _exportNames =
 
 
 
-Object.keys(_axios).forEach(function (key) {if (key === "default" || key === "__esModule") return;if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;Object.defineProperty(exports, key, { enumerable: true, get: function get() {return _axios[key];} });});var _utils = _interopRequireDefault(__webpack_require__(/*! axios/lib/utils */ 18));var _adapter = __webpack_require__(/*! ./adapter */ 44);var _normalizeHeaderName = _interopRequireDefault(__webpack_require__(/*! axios/lib/helpers/normalizeHeaderName */ 30));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};if (desc.get || desc.set) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}}newObj.default = obj;return newObj;}}function setContentTypeIfUnset(headers, value) {if (!_utils.default.isUndefined(headers) && _utils.default.isUndefined(headers['Content-Type'])) {headers['Content-Type'] = value;}}_axios.default.defaults.transformRequest = [function transformRequest(data, headers) {(0, _normalizeHeaderName.default)(headers, 'Accept');(0, _normalizeHeaderName.default)(headers, 'Content-Type');if (_utils.default.isFormData(data) || _utils.default.isArrayBuffer(data) || _utils.default.isBuffer(data) || _utils.default.isStream(data) || _utils.default.isFile(data) || _utils.default.isBlob(data)) {return data;}if (_utils.default.isArrayBufferView(data)) {return data.buffer;}if (_utils.default.isURLSearchParams(data)) {setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');return data.toString();}if (_utils.default.isObject(data)) {setContentTypeIfUnset(headers, 'application/json;charset=utf-8');return JSON.stringify(data);}return data;}];_axios.default.defaults.adapter = _adapter.adapter;
+Object.keys(_axios).forEach(function (key) {if (key === "default" || key === "__esModule") return;if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;Object.defineProperty(exports, key, { enumerable: true, get: function get() {return _axios[key];} });});var _utils = _interopRequireDefault(__webpack_require__(/*! axios/lib/utils */ 20));var _adapter = __webpack_require__(/*! ./adapter */ 46);var _normalizeHeaderName = _interopRequireDefault(__webpack_require__(/*! axios/lib/helpers/normalizeHeaderName */ 32));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};if (desc.get || desc.set) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}}newObj.default = obj;return newObj;}}function setContentTypeIfUnset(headers, value) {if (!_utils.default.isUndefined(headers) && _utils.default.isUndefined(headers['Content-Type'])) {headers['Content-Type'] = value;}}_axios.default.defaults.transformRequest = [function transformRequest(data, headers) {(0, _normalizeHeaderName.default)(headers, 'Accept');(0, _normalizeHeaderName.default)(headers, 'Content-Type');if (_utils.default.isFormData(data) || _utils.default.isArrayBuffer(data) || _utils.default.isBuffer(data) || _utils.default.isStream(data) || _utils.default.isFile(data) || _utils.default.isBlob(data)) {return data;}if (_utils.default.isArrayBufferView(data)) {return data.buffer;}if (_utils.default.isURLSearchParams(data)) {setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');return data.toString();}if (_utils.default.isObject(data)) {setContentTypeIfUnset(headers, 'application/json;charset=utf-8');return JSON.stringify(data);}return data;}];_axios.default.defaults.adapter = _adapter.adapter;
 
 /***/ }),
 
-/***/ 16:
+/***/ 18:
 /*!********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/index.js ***!
   \********************************************************************************************/
@@ -1676,11 +1692,11 @@ Object.keys(_axios).forEach(function (key) {if (key === "default" || key === "__
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__(/*! ./lib/axios */ 17);
+module.exports = __webpack_require__(/*! ./lib/axios */ 19);
 
 /***/ }),
 
-/***/ 17:
+/***/ 19:
 /*!************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/axios.js ***!
   \************************************************************************************************/
@@ -1690,11 +1706,11 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 17);
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./utils */ 18);
-var bind = __webpack_require__(/*! ./helpers/bind */ 19);
-var Axios = __webpack_require__(/*! ./core/Axios */ 21);
-var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ 40);
-var defaults = __webpack_require__(/*! ./defaults */ 27);
+var utils = __webpack_require__(/*! ./utils */ 20);
+var bind = __webpack_require__(/*! ./helpers/bind */ 21);
+var Axios = __webpack_require__(/*! ./core/Axios */ 23);
+var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ 42);
+var defaults = __webpack_require__(/*! ./defaults */ 29);
 
 /**
                                        * Create an instance of Axios
@@ -1727,386 +1743,20 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ 41);
-axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 42);
-axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 26);
+axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ 43);
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 44);
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 28);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(/*! ./helpers/spread */ 43);
+axios.spread = __webpack_require__(/*! ./helpers/spread */ 45);
 
 module.exports = axios;
 
 // Allow use of default import syntax in TypeScript
 module.exports.default = axios;
-
-/***/ }),
-
-/***/ 18:
-/*!************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/utils.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var bind = __webpack_require__(/*! ./helpers/bind */ 19);
-var isBuffer = __webpack_require__(/*! is-buffer */ 20);
-
-/*global toString:true*/
-
-// utils is a library of generic helper functions non-specific to axios
-
-var toString = Object.prototype.toString;
-
-/**
-                                           * Determine if a value is an Array
-                                           *
-                                           * @param {Object} val The value to test
-                                           * @returns {boolean} True if value is an Array, otherwise false
-                                           */
-function isArray(val) {
-  return toString.call(val) === '[object Array]';
-}
-
-/**
-   * Determine if a value is an ArrayBuffer
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is an ArrayBuffer, otherwise false
-   */
-function isArrayBuffer(val) {
-  return toString.call(val) === '[object ArrayBuffer]';
-}
-
-/**
-   * Determine if a value is a FormData
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is an FormData, otherwise false
-   */
-function isFormData(val) {
-  return typeof FormData !== 'undefined' && val instanceof FormData;
-}
-
-/**
-   * Determine if a value is a view on an ArrayBuffer
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
-   */
-function isArrayBufferView(val) {
-  var result;
-  if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
-    result = ArrayBuffer.isView(val);
-  } else {
-    result = val && val.buffer && val.buffer instanceof ArrayBuffer;
-  }
-  return result;
-}
-
-/**
-   * Determine if a value is a String
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a String, otherwise false
-   */
-function isString(val) {
-  return typeof val === 'string';
-}
-
-/**
-   * Determine if a value is a Number
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a Number, otherwise false
-   */
-function isNumber(val) {
-  return typeof val === 'number';
-}
-
-/**
-   * Determine if a value is undefined
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if the value is undefined, otherwise false
-   */
-function isUndefined(val) {
-  return typeof val === 'undefined';
-}
-
-/**
-   * Determine if a value is an Object
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is an Object, otherwise false
-   */
-function isObject(val) {
-  return val !== null && typeof val === 'object';
-}
-
-/**
-   * Determine if a value is a Date
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a Date, otherwise false
-   */
-function isDate(val) {
-  return toString.call(val) === '[object Date]';
-}
-
-/**
-   * Determine if a value is a File
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a File, otherwise false
-   */
-function isFile(val) {
-  return toString.call(val) === '[object File]';
-}
-
-/**
-   * Determine if a value is a Blob
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a Blob, otherwise false
-   */
-function isBlob(val) {
-  return toString.call(val) === '[object Blob]';
-}
-
-/**
-   * Determine if a value is a Function
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a Function, otherwise false
-   */
-function isFunction(val) {
-  return toString.call(val) === '[object Function]';
-}
-
-/**
-   * Determine if a value is a Stream
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a Stream, otherwise false
-   */
-function isStream(val) {
-  return isObject(val) && isFunction(val.pipe);
-}
-
-/**
-   * Determine if a value is a URLSearchParams object
-   *
-   * @param {Object} val The value to test
-   * @returns {boolean} True if value is a URLSearchParams object, otherwise false
-   */
-function isURLSearchParams(val) {
-  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
-}
-
-/**
-   * Trim excess whitespace off the beginning and end of a string
-   *
-   * @param {String} str The String to trim
-   * @returns {String} The String freed of excess whitespace
-   */
-function trim(str) {
-  return str.replace(/^\s*/, '').replace(/\s*$/, '');
-}
-
-/**
-   * Determine if we're running in a standard browser environment
-   *
-   * This allows axios to run in a web worker, and react-native.
-   * Both environments support XMLHttpRequest, but not fully standard globals.
-   *
-   * web workers:
-   *  typeof window -> undefined
-   *  typeof document -> undefined
-   *
-   * react-native:
-   *  navigator.product -> 'ReactNative'
-   * nativescript
-   *  navigator.product -> 'NativeScript' or 'NS'
-   */
-function isStandardBrowserEnv() {
-  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
-  navigator.product === 'NativeScript' ||
-  navigator.product === 'NS')) {
-    return false;
-  }
-  return (
-    typeof window !== 'undefined' &&
-    typeof document !== 'undefined');
-
-}
-
-/**
-   * Iterate over an Array or an Object invoking a function for each item.
-   *
-   * If `obj` is an Array callback will be called passing
-   * the value, index, and complete array for each item.
-   *
-   * If 'obj' is an Object callback will be called passing
-   * the value, key, and complete object for each property.
-   *
-   * @param {Object|Array} obj The object to iterate
-   * @param {Function} fn The callback to invoke for each item
-   */
-function forEach(obj, fn) {
-  // Don't bother if no value provided
-  if (obj === null || typeof obj === 'undefined') {
-    return;
-  }
-
-  // Force an array if not already something iterable
-  if (typeof obj !== 'object') {
-    /*eslint no-param-reassign:0*/
-    obj = [obj];
-  }
-
-  if (isArray(obj)) {
-    // Iterate over array values
-    for (var i = 0, l = obj.length; i < l; i++) {
-      fn.call(null, obj[i], i, obj);
-    }
-  } else {
-    // Iterate over object keys
-    for (var key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        fn.call(null, obj[key], key, obj);
-      }
-    }
-  }
-}
-
-/**
-   * Accepts varargs expecting each argument to be an object, then
-   * immutably merges the properties of each object and returns result.
-   *
-   * When multiple objects contain the same key the later object in
-   * the arguments list will take precedence.
-   *
-   * Example:
-   *
-   * ```js
-   * var result = merge({foo: 123}, {foo: 456});
-   * console.log(result.foo); // outputs 456
-   * ```
-   *
-   * @param {Object} obj1 Object to merge
-   * @returns {Object} Result of all merge properties
-   */
-function merge() /* obj1, obj2, obj3, ... */{
-  var result = {};
-  function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
-      result[key] = merge(result[key], val);
-    } else {
-      result[key] = val;
-    }
-  }
-
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    forEach(arguments[i], assignValue);
-  }
-  return result;
-}
-
-/**
-   * Function equal to merge with the difference being that no reference
-   * to original objects is kept.
-   *
-   * @see merge
-   * @param {Object} obj1 Object to merge
-   * @returns {Object} Result of all merge properties
-   */
-function deepMerge() /* obj1, obj2, obj3, ... */{
-  var result = {};
-  function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
-      result[key] = deepMerge(result[key], val);
-    } else if (typeof val === 'object') {
-      result[key] = deepMerge({}, val);
-    } else {
-      result[key] = val;
-    }
-  }
-
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    forEach(arguments[i], assignValue);
-  }
-  return result;
-}
-
-/**
-   * Extends object a by mutably adding to it the properties of object b.
-   *
-   * @param {Object} a The object to be extended
-   * @param {Object} b The object to copy properties from
-   * @param {Object} thisArg The object to bind function to
-   * @return {Object} The resulting value of object a
-   */
-function extend(a, b, thisArg) {
-  forEach(b, function assignValue(val, key) {
-    if (thisArg && typeof val === 'function') {
-      a[key] = bind(val, thisArg);
-    } else {
-      a[key] = val;
-    }
-  });
-  return a;
-}
-
-module.exports = {
-  isArray: isArray,
-  isArrayBuffer: isArrayBuffer,
-  isBuffer: isBuffer,
-  isFormData: isFormData,
-  isArrayBufferView: isArrayBufferView,
-  isString: isString,
-  isNumber: isNumber,
-  isObject: isObject,
-  isUndefined: isUndefined,
-  isDate: isDate,
-  isFile: isFile,
-  isBlob: isBlob,
-  isFunction: isFunction,
-  isStream: isStream,
-  isURLSearchParams: isURLSearchParams,
-  isStandardBrowserEnv: isStandardBrowserEnv,
-  forEach: forEach,
-  merge: merge,
-  deepMerge: deepMerge,
-  extend: extend,
-  trim: trim };
-
-/***/ }),
-
-/***/ 19:
-/*!*******************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/bind.js ***!
-  \*******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function bind(fn, thisArg) {
-  return function wrap() {
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-    return fn.apply(thisArg, args);
-  };
-};
 
 /***/ }),
 
@@ -8142,6 +7792,384 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 20:
+/*!************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/utils.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var bind = __webpack_require__(/*! ./helpers/bind */ 21);
+var isBuffer = __webpack_require__(/*! is-buffer */ 22);
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+                                           * Determine if a value is an Array
+                                           *
+                                           * @param {Object} val The value to test
+                                           * @returns {boolean} True if value is an Array, otherwise false
+                                           */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+
+/**
+   * Determine if a value is an ArrayBuffer
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+   */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+   * Determine if a value is a FormData
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is an FormData, otherwise false
+   */
+function isFormData(val) {
+  return typeof FormData !== 'undefined' && val instanceof FormData;
+}
+
+/**
+   * Determine if a value is a view on an ArrayBuffer
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+   */
+function isArrayBufferView(val) {
+  var result;
+  if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = val && val.buffer && val.buffer instanceof ArrayBuffer;
+  }
+  return result;
+}
+
+/**
+   * Determine if a value is a String
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a String, otherwise false
+   */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+   * Determine if a value is a Number
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a Number, otherwise false
+   */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+   * Determine if a value is undefined
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if the value is undefined, otherwise false
+   */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+   * Determine if a value is an Object
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is an Object, otherwise false
+   */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+   * Determine if a value is a Date
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a Date, otherwise false
+   */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+   * Determine if a value is a File
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a File, otherwise false
+   */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+   * Determine if a value is a Blob
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a Blob, otherwise false
+   */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+   * Determine if a value is a Function
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a Function, otherwise false
+   */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+   * Determine if a value is a Stream
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a Stream, otherwise false
+   */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+   * Determine if a value is a URLSearchParams object
+   *
+   * @param {Object} val The value to test
+   * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+   */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+   * Trim excess whitespace off the beginning and end of a string
+   *
+   * @param {String} str The String to trim
+   * @returns {String} The String freed of excess whitespace
+   */
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+
+/**
+   * Determine if we're running in a standard browser environment
+   *
+   * This allows axios to run in a web worker, and react-native.
+   * Both environments support XMLHttpRequest, but not fully standard globals.
+   *
+   * web workers:
+   *  typeof window -> undefined
+   *  typeof document -> undefined
+   *
+   * react-native:
+   *  navigator.product -> 'ReactNative'
+   * nativescript
+   *  navigator.product -> 'NativeScript' or 'NS'
+   */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+  navigator.product === 'NativeScript' ||
+  navigator.product === 'NS')) {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined');
+
+}
+
+/**
+   * Iterate over an Array or an Object invoking a function for each item.
+   *
+   * If `obj` is an Array callback will be called passing
+   * the value, index, and complete array for each item.
+   *
+   * If 'obj' is an Object callback will be called passing
+   * the value, key, and complete object for each property.
+   *
+   * @param {Object|Array} obj The object to iterate
+   * @param {Function} fn The callback to invoke for each item
+   */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object') {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+   * Accepts varargs expecting each argument to be an object, then
+   * immutably merges the properties of each object and returns result.
+   *
+   * When multiple objects contain the same key the later object in
+   * the arguments list will take precedence.
+   *
+   * Example:
+   *
+   * ```js
+   * var result = merge({foo: 123}, {foo: 456});
+   * console.log(result.foo); // outputs 456
+   * ```
+   *
+   * @param {Object} obj1 Object to merge
+   * @returns {Object} Result of all merge properties
+   */
+function merge() /* obj1, obj2, obj3, ... */{
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = merge(result[key], val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+   * Function equal to merge with the difference being that no reference
+   * to original objects is kept.
+   *
+   * @see merge
+   * @param {Object} obj1 Object to merge
+   * @returns {Object} Result of all merge properties
+   */
+function deepMerge() /* obj1, obj2, obj3, ... */{
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = deepMerge(result[key], val);
+    } else if (typeof val === 'object') {
+      result[key] = deepMerge({}, val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+   * Extends object a by mutably adding to it the properties of object b.
+   *
+   * @param {Object} a The object to be extended
+   * @param {Object} b The object to copy properties from
+   * @param {Object} thisArg The object to bind function to
+   * @return {Object} The resulting value of object a
+   */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  deepMerge: deepMerge,
+  extend: extend,
+  trim: trim };
+
+/***/ }),
+
+/***/ 21:
+/*!*******************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/bind.js ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+/***/ }),
+
+/***/ 211:
+/*!************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/current-unit.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
+/***/ 22:
 /*!*****************************************!*\
   !*** ./node_modules/is-buffer/index.js ***!
   \*****************************************/
@@ -8173,7 +8201,62 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 21:
+/***/ 226:
+/*!**********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  'sale': "\uE600",
+  'cost': "\uE604",
+  'purchase': "\uE887",
+  'purchase-fill': "\uE888",
+  'stock': "\uE88F",
+  'stock-fill': "\uE890",
+  'customer': "\uE8A8",
+  'customer-fill': "\uE8A9",
+  'multiple': "\uE8B5",
+  'multiple-fill': "\uE8B4",
+  'search': "\uE8B8",
+  'home': "\uE8BA",
+  'home-fill': "\uE8B9",
+  'user': "\uE8C8",
+  'user-fill': "\uE8C9",
+  'profile': "\uE8CA",
+  'add': "\uE8E1",
+  'back': "\uE8EF",
+  'arrow': "\uE8F1",
+  'location': "\uE8FE",
+  'location-fill': "\uE8FF",
+  'data': "\uE902",
+  'data-fill': "\uE905",
+  'phone': "\uE8BD",
+  'mobile': "\uE8DC",
+  'product': "\uE8A1",
+  'product-fill': "\uE8A0",
+  'finance': "\uE8AF",
+  'finance-fill': "\uE8AE",
+  'edit': "\uE8CC",
+  'edit-fill': "\uE8CD",
+  'refresh': "\uE8FC",
+  'delete': "\uE775",
+  'email': "\uE60F",
+  'company': "\uEDB4",
+  'contacts': "\uE605",
+  'classify': "\uE898",
+  'classify-fill': "\uE897",
+  'unit': "\uE8A3",
+  'unit-fill': "\uE8A2",
+  'receipt': "\uE668",
+  'payment': "\uE691",
+  'return-order': "\uE6FE" };exports.default = _default;
+
+/***/ }),
+
+/***/ 23:
 /*!*****************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/Axios.js ***!
   \*****************************************************************************************************/
@@ -8183,11 +8266,11 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
-var buildURL = __webpack_require__(/*! ../helpers/buildURL */ 22);
-var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 23);
-var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 24);
-var mergeConfig = __webpack_require__(/*! ./mergeConfig */ 40);
+var utils = __webpack_require__(/*! ./../utils */ 20);
+var buildURL = __webpack_require__(/*! ../helpers/buildURL */ 24);
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 25);
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 26);
+var mergeConfig = __webpack_require__(/*! ./mergeConfig */ 42);
 
 /**
                                              * Create a new instance of Axios
@@ -8270,7 +8353,7 @@ module.exports = Axios;
 
 /***/ }),
 
-/***/ 22:
+/***/ 24:
 /*!***********************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/buildURL.js ***!
   \***********************************************************************************************************/
@@ -8280,7 +8363,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
+var utils = __webpack_require__(/*! ./../utils */ 20);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -8352,62 +8435,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 /***/ }),
 
-/***/ 222:
-/*!**********************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'sale': "\uE600",
-  'cost': "\uE604",
-  'purchase': "\uE887",
-  'purchase-fill': "\uE888",
-  'stock': "\uE88F",
-  'stock-fill': "\uE890",
-  'customer': "\uE8A8",
-  'customer-fill': "\uE8A9",
-  'multiple': "\uE8B5",
-  'multiple-fill': "\uE8B4",
-  'search': "\uE8B8",
-  'home': "\uE8BA",
-  'home-fill': "\uE8B9",
-  'user': "\uE8C8",
-  'user-fill': "\uE8C9",
-  'profile': "\uE8CA",
-  'add': "\uE8E1",
-  'back': "\uE8EF",
-  'arrow': "\uE8F1",
-  'location': "\uE8FE",
-  'location-fill': "\uE8FF",
-  'data': "\uE902",
-  'data-fill': "\uE905",
-  'phone': "\uE8BD",
-  'mobile': "\uE8DC",
-  'product': "\uE8A1",
-  'product-fill': "\uE8A0",
-  'finance': "\uE8AF",
-  'finance-fill': "\uE8AE",
-  'edit': "\uE8CC",
-  'edit-fill': "\uE8CD",
-  'refresh': "\uE8FC",
-  'delete': "\uE775",
-  'email': "\uE60F",
-  'company': "\uEDB4",
-  'contacts': "\uE605",
-  'classify': "\uE898",
-  'classify-fill': "\uE897",
-  'unit': "\uE8A3",
-  'unit-fill': "\uE8A2",
-  'receipt': "\uE668",
-  'payment': "\uE691",
-  'return-order': "\uE6FE" };exports.default = _default;
-
-/***/ }),
-
-/***/ 23:
+/***/ 25:
 /*!******************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/InterceptorManager.js ***!
   \******************************************************************************************************************/
@@ -8417,7 +8445,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
+var utils = __webpack_require__(/*! ./../utils */ 20);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -8470,7 +8498,7 @@ module.exports = InterceptorManager;
 
 /***/ }),
 
-/***/ 24:
+/***/ 26:
 /*!***************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/dispatchRequest.js ***!
   \***************************************************************************************************************/
@@ -8480,12 +8508,12 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
-var transformData = __webpack_require__(/*! ./transformData */ 25);
-var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 26);
-var defaults = __webpack_require__(/*! ../defaults */ 27);
-var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 38);
-var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ 39);
+var utils = __webpack_require__(/*! ./../utils */ 20);
+var transformData = __webpack_require__(/*! ./transformData */ 27);
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 28);
+var defaults = __webpack_require__(/*! ../defaults */ 29);
+var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 40);
+var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ 41);
 
 /**
                                                         * Throws a `Cancel` if cancellation has been requested.
@@ -8567,7 +8595,7 @@ module.exports = function dispatchRequest(config) {
 
 /***/ }),
 
-/***/ 25:
+/***/ 27:
 /*!*************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/transformData.js ***!
   \*************************************************************************************************************/
@@ -8577,7 +8605,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
+var utils = __webpack_require__(/*! ./../utils */ 20);
 
 /**
                                     * Transform the data for a request or a response
@@ -8598,7 +8626,7 @@ module.exports = function transformData(data, headers, fns) {
 
 /***/ }),
 
-/***/ 26:
+/***/ 28:
 /*!**********************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/cancel/isCancel.js ***!
   \**********************************************************************************************************/
@@ -8614,7 +8642,7 @@ module.exports = function isCancel(value) {
 
 /***/ }),
 
-/***/ 27:
+/***/ 29:
 /*!***************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/defaults.js ***!
   \***************************************************************************************************/
@@ -8624,8 +8652,8 @@ module.exports = function isCancel(value) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(/*! ./utils */ 18);
-var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 30);
+var utils = __webpack_require__(/*! ./utils */ 20);
+var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 32);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded' };
@@ -8642,10 +8670,10 @@ function getDefaultAdapter() {
   // Only Node.JS has a process variable that is of [[Class]] process
   if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(/*! ./adapters/http */ 31);
+    adapter = __webpack_require__(/*! ./adapters/http */ 33);
   } else if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(/*! ./adapters/xhr */ 31);
+    adapter = __webpack_require__(/*! ./adapters/xhr */ 33);
   }
   return adapter;
 }
@@ -8720,11 +8748,42 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 });
 
 module.exports = defaults;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 28)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 30)))
 
 /***/ }),
 
-/***/ 28:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 30:
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
   \********************************************************/
@@ -8751,7 +8810,7 @@ exports.binding = function (name) {
     var path;
     exports.cwd = function () { return cwd };
     exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 29);
+        if (!path) path = __webpack_require__(/*! path */ 31);
         cwd = path.resolve(dir, cwd);
     };
 })();
@@ -8765,7 +8824,7 @@ exports.features = {};
 
 /***/ }),
 
-/***/ 29:
+/***/ 31:
 /*!***********************************************!*\
   !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
@@ -8997,42 +9056,11 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 28)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 30)))
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 30:
+/***/ 32:
 /*!**********************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \**********************************************************************************************************************/
@@ -9042,7 +9070,7 @@ module.exports = g;
 "use strict";
 
 
-var utils = __webpack_require__(/*! ../utils */ 18);
+var utils = __webpack_require__(/*! ../utils */ 20);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -9055,7 +9083,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 /***/ }),
 
-/***/ 31:
+/***/ 33:
 /*!*******************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/adapters/xhr.js ***!
   \*******************************************************************************************************/
@@ -9065,12 +9093,12 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
-var settle = __webpack_require__(/*! ./../core/settle */ 32);
-var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 22);
-var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 35);
-var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 36);
-var createError = __webpack_require__(/*! ../core/createError */ 33);
+var utils = __webpack_require__(/*! ./../utils */ 20);
+var settle = __webpack_require__(/*! ./../core/settle */ 34);
+var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 24);
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 37);
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 38);
+var createError = __webpack_require__(/*! ../core/createError */ 35);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -9162,7 +9190,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 37);
+      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 39);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -9240,7 +9268,7 @@ module.exports = function xhrAdapter(config) {
 
 /***/ }),
 
-/***/ 32:
+/***/ 34:
 /*!******************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/settle.js ***!
   \******************************************************************************************************/
@@ -9250,7 +9278,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var createError = __webpack_require__(/*! ./createError */ 33);
+var createError = __webpack_require__(/*! ./createError */ 35);
 
 /**
                                              * Resolve or reject a Promise based on response status.
@@ -9276,7 +9304,7 @@ module.exports = function settle(resolve, reject, response) {
 
 /***/ }),
 
-/***/ 33:
+/***/ 35:
 /*!***********************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/createError.js ***!
   \***********************************************************************************************************/
@@ -9286,7 +9314,7 @@ module.exports = function settle(resolve, reject, response) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(/*! ./enhanceError */ 34);
+var enhanceError = __webpack_require__(/*! ./enhanceError */ 36);
 
 /**
                                                * Create an Error with the specified message, config, error code, request and response.
@@ -9305,7 +9333,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 /***/ }),
 
-/***/ 34:
+/***/ 36:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/enhanceError.js ***!
   \************************************************************************************************************/
@@ -9358,35 +9386,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 /***/ }),
 
-/***/ 349:
-/*!******************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/common.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.get = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _http.default.request({
-    url: url + '/Query',
-    data: data,
-    method: 'post' });
-
-};exports.query = query;
-
-var get = function get(url, id) {var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return _http.default.request({
-    url: url + '/id',
-    data: data,
-    method: 'post' });
-
-};exports.get = get;
-
-/***/ }),
-
-/***/ 35:
+/***/ 37:
 /*!***************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/parseHeaders.js ***!
   \***************************************************************************************************************/
@@ -9396,7 +9396,7 @@ var get = function get(url, id) {var data = arguments.length > 2 && arguments[2]
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
+var utils = __webpack_require__(/*! ./../utils */ 20);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -9450,27 +9450,7 @@ module.exports = function parseHeaders(headers) {
 
 /***/ }),
 
-/***/ 350:
-/*!*******************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/product.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.queryProductCategory = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-var queryProductCategory = function queryProductCategory(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _http.default.request({
-    url: url + '/queryProductCategory',
-    data: data,
-    method: 'post' });
-
-};exports.queryProductCategory = queryProductCategory;
-
-/***/ }),
-
-/***/ 36:
+/***/ 38:
 /*!******************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \******************************************************************************************************************/
@@ -9480,7 +9460,7 @@ var queryProductCategory = function queryProductCategory(url) {var data = argume
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
+var utils = __webpack_require__(/*! ./../utils */ 20);
 
 module.exports =
 utils.isStandardBrowserEnv() ?
@@ -9548,7 +9528,7 @@ function nonStandardBrowserEnv() {
 
 /***/ }),
 
-/***/ 37:
+/***/ 39:
 /*!**********************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/cookies.js ***!
   \**********************************************************************************************************/
@@ -9558,7 +9538,7 @@ function nonStandardBrowserEnv() {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 18);
+var utils = __webpack_require__(/*! ./../utils */ 20);
 
 module.exports =
 utils.isStandardBrowserEnv() ?
@@ -9611,7 +9591,19 @@ function nonStandardBrowserEnv() {
 
 /***/ }),
 
-/***/ 38:
+/***/ 4:
+/*!***************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/pages.json ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
+/***/ 40:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \****************************************************************************************************************/
@@ -9636,7 +9628,7 @@ module.exports = function isAbsoluteURL(url) {
 
 /***/ }),
 
-/***/ 39:
+/***/ 41:
 /*!**************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/combineURLs.js ***!
   \**************************************************************************************************************/
@@ -9661,19 +9653,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 /***/ }),
 
-/***/ 4:
-/*!***************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/pages.json ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-
-/***/ 40:
+/***/ 42:
 /*!***********************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/mergeConfig.js ***!
   \***********************************************************************************************************/
@@ -9683,7 +9663,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ../utils */ 18);
+var utils = __webpack_require__(/*! ../utils */ 20);
 
 /**
                                   * Config-specific merge-function which creates a new config-object
@@ -9735,7 +9715,7 @@ module.exports = function mergeConfig(config1, config2) {
 
 /***/ }),
 
-/***/ 41:
+/***/ 43:
 /*!********************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/cancel/Cancel.js ***!
   \********************************************************************************************************/
@@ -9765,7 +9745,7 @@ module.exports = Cancel;
 
 /***/ }),
 
-/***/ 42:
+/***/ 44:
 /*!*************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/cancel/CancelToken.js ***!
   \*************************************************************************************************************/
@@ -9775,7 +9755,7 @@ module.exports = Cancel;
 "use strict";
 
 
-var Cancel = __webpack_require__(/*! ./Cancel */ 41);
+var Cancel = __webpack_require__(/*! ./Cancel */ 43);
 
 /**
                                    * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -9833,7 +9813,7 @@ module.exports = CancelToken;
 
 /***/ }),
 
-/***/ 43:
+/***/ 45:
 /*!*********************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/spread.js ***!
   \*********************************************************************************************************/
@@ -9871,7 +9851,7 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
-/***/ 44:
+/***/ 46:
 /*!********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/adapter.js ***!
   \********************************************************************************************/
@@ -9879,15 +9859,15 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.adapter = void 0;var _utils = __webpack_require__(/*! axios/lib/utils */ 18);
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.adapter = void 0;var _utils = __webpack_require__(/*! axios/lib/utils */ 20);
 
 
 
 
-var _createError = _interopRequireDefault(__webpack_require__(/*! axios/lib/core/createError */ 33));
-var _buildURL = _interopRequireDefault(__webpack_require__(/*! axios/lib/helpers/buildURL */ 22));
-var _settle = _interopRequireDefault(__webpack_require__(/*! axios/lib/core/settle */ 32));
-var _awaitTimeout = _interopRequireDefault(__webpack_require__(/*! ./await-timeout */ 45));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _createError = _interopRequireDefault(__webpack_require__(/*! axios/lib/core/createError */ 35));
+var _buildURL = _interopRequireDefault(__webpack_require__(/*! axios/lib/helpers/buildURL */ 24));
+var _settle = _interopRequireDefault(__webpack_require__(/*! axios/lib/core/settle */ 34));
+var _awaitTimeout = _interopRequireDefault(__webpack_require__(/*! ./await-timeout */ 47));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var timer = new _awaitTimeout.default();
 
@@ -9939,7 +9919,7 @@ var adapter = function adapter(config) {
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /*!**************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/await-timeout.js ***!
   \**************************************************************************************************/
@@ -10029,7 +10009,7 @@ function _classCallCheck(instance, Constructor) {if (!(instance instanceof Const
 
 /***/ }),
 
-/***/ 46:
+/***/ 48:
 /*!*********************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/config/common.js ***!
   \*********************************************************************************/
@@ -10055,123 +10035,22 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
 /***/ }),
 
 /***/ 49:
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*!*******************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/product.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
+Object.defineProperty(exports, "__esModule", { value: true });exports.queryProductCategory = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
+var queryProductCategory = function queryProductCategory(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/queryProductCategory',
+    data: data,
+    method: 'post' });
 
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    options.components = Object.assign(components, options.components || {})
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
+};exports.queryProductCategory = queryProductCategory;
 
 /***/ }),
 
@@ -11059,6 +10938,127 @@ function main() {
 
 main();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 52:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    options.components = Object.assign(components, options.components || {})
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
 
 /***/ }),
 

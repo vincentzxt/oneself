@@ -1,10 +1,17 @@
+<template>
+	
+</template>
 <script>
 	import Vue from 'vue'
+	import cuSpin from '@/components/custom/cu-spin.vue'
 	import { query } from '@/api/common.js'
 	import { queryProductCategory } from '@/api/product.js'
 	import { api } from '@/config/common.js'
 	
 	export default {
+		components: {
+			cuSpin
+		},
 		data() {
 			return {
 			}

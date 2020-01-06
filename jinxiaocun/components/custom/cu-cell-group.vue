@@ -6,6 +6,7 @@
 
 <script>
 	export default {
+		name: 'cu-cell-group',
 		mounted() {
 			const cells = this.$children
 			const len = cells.length
