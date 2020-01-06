@@ -63,5 +63,6 @@
   "usingComponents": {
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons"
-  }
+  },
+  "sitemapLocation": "sitemap61.json"
 }

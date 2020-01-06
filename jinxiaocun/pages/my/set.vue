@@ -21,7 +21,7 @@
 							<input slot="footer" type="number" v-model="reqData.contact_tel" placeholder-style="color:#c5c8ce" placeholder="请输入联系人电话"/>
 						</cu-cell>
 						<cu-cell title="微信">
-							<input slot="footer" type="number" v-model="reqData.contact_qq" placeholder-style="color:#c5c8ce" placeholder="请输入QQ"/>
+							<input slot="footer" type="number" v-model="reqData.contact_qq" placeholder-style="color:#c5c8ce" placeholder="请输入微信"/>
 						</cu-cell>
 						<cu-cell title="邮箱">
 							<input slot="footer" type="text" v-model="reqData.contact_email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱"/>

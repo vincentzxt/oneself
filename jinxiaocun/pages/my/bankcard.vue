@@ -28,13 +28,11 @@
 							<input slot="footer" type="number" v-model="reqData.contact_qq" placeholder-style="color:#c5c8ce" placeholder="请输入QQ"/>
 						</cu-cell>
 						<cu-cell title="是否禁用">
-							<input slot="footer" type="text" v-model="reqData.contact_email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱"/>
+							<radio-group @change="handleForbiddenChanage">
+								<radio color="#2db7f5" value=0 :checked="reqData.isForbidden == 0">否</radio>
+								<radio color="#2db7f5" value=1 :checked="reqData.isForbidden == 1" style="margin-left: 10px;">是</radio>
+							</radio-group>
 						</cu-cell>
-						<cu-panel>
-							<cu-cell>
-								<textarea style="height: 80px" maxlength="-1" v-model="reqData.contact_addr" placeholder-style="color:#c5c8ce" placeholder="地址"></textarea>
-							</cu-cell>
-						</cu-panel>
 					</cu-cell-group>
 				</cu-panel>
 			</scroll-view>
@@ -69,7 +67,8 @@
 					contact_qq:'',
 					contact_email:'',
 					contact_addr:'',
-					banktype:0
+					banktype:0,
+					isForbidden:0
 				},
 				bankDict: ['微信', '支付宝','银行卡', '现金'],
 				title: '账户设置'
@@ -80,6 +79,9 @@
 		methods: {
 			handleBankChange(val) {
 				this.reqData.banktype = this.bankDict[val.detail.value]
+			},
+			handleForbiddenChanage(val) {
+				this.reqData.isForbidden = val.detail.value
 			},
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -103,25 +105,32 @@
 		height: 100vh;
 		width: 100vw;
 		.header {
-			height: 11%;
+			height: 10%;
 		}
 		.main {
-			height: 82%;
+			height: 83%;
+			.picker {
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
+			}
 		}
-	//	.textarea{width: 60%;}
 		.footer {
 			height: 7%;
 			display: flex;
+			background-color:$uni-split-color;
+			&-text {
+				width: 50%;
+				height: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				margin-left: $uni-spacing-row-lg;
+			}
 			&-btn	{
-				width: 100%;
+				width: 50%;
 				height: 100%;
 			}
 		}
-	}
-	.portrait{
-		position: relative;
-		width: 84rpx;
-		height: 84rpx;
-		border-radius: 50%;
 	}
 </style>
