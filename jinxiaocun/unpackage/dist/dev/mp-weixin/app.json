@@ -1,8 +1,8 @@
 {
-  "usingComponents": {
-    "cu-spin": "/components/custom/cu-spin"
-  }
-}pages/index/sale/payment/payment",
+  "pages": [
+    "pages/index/index",
+    "pages/index/sale/sale",
+    "pages/index/sale/payment/payment",
     "pages/index/purchase/purchase",
     "pages/index/purchase/payment/payment",
     "pages/index/current-unit/current-unit",
@@ -57,6 +57,8 @@
   },
   "usingComponents": {
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
-    "uni-icons": "/components/uni-icons/uni-icons"
-  }
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "cu-loading": "/components/custom/cu-loading"
+  },
+  "sitemapLocation": "sitemap9.json"
 }

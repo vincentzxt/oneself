@@ -2,9 +2,11 @@ import Vue from 'vue'
 import App from './App'
 import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
 import uniIcons from '@/components/uni-icons/uni-icons.vue'
+import cuLoading from '@/components/custom/cu-loading.vue'
 
 Vue.component('uni-navbar',uniNavBar)
 Vue.component('uni-icons',uniIcons)
+Vue.component('cu-loading',cuLoading)
 
 Vue.config.productionTip = false
 

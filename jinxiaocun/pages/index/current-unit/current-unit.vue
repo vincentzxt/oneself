@@ -38,7 +38,6 @@
 		},
 		onShow() {
 			this.datas = uni.getStorageSync('currentUnitList')
-			console.log(this.datas)
 			this.searchDatas = this.datas
 		},
 		methods: {

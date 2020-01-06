@@ -1,1 +1,0 @@
-<view class="{{['cu-spin data-v-1e211258',fix?'cu-spin-fix':'',fullscreen?'cu-spin-fullscreen':'']}}"><view class="cu-spin-main _div data-v-1e211258"><view class="cu-spin-dot data-v-1e211258"></view><view class="cu-spin-text _div data-v-1e211258"><slot></slot></view></view></view>
