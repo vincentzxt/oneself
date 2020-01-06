@@ -23,21 +23,21 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-62da2df8 {
+.fill.data-v-aebb52b8 {
   width: 100%;
   height: 100%;
 }
-.container.data-v-62da2df8 {
+.container.data-v-aebb52b8 {
   height: 100vh;
   width: 100vw;
 }
-.container .header.data-v-62da2df8 {
+.container .header.data-v-aebb52b8 {
     height: 10%;
 }
-.container .main.data-v-62da2df8 {
+.container .main.data-v-aebb52b8 {
     height: 83%;
 }
-.container .main .picker.data-v-62da2df8 {
+.container .main .picker.data-v-aebb52b8 {
       width: 100%;
       display: -webkit-box;
       display: -webkit-flex;
@@ -46,14 +46,14 @@
       -webkit-justify-content: flex-end;
               justify-content: flex-end;
 }
-.container .footer.data-v-62da2df8 {
+.container .footer.data-v-aebb52b8 {
     height: 7%;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     background-color: #e9eaec;
 }
-.container .footer-text.data-v-62da2df8 {
+.container .footer-text.data-v-aebb52b8 {
       width: 50%;
       height: 100%;
       display: -webkit-box;
@@ -68,7 +68,7 @@
               align-items: center;
       margin-left: 30rpx;
 }
-.container .footer-btn.data-v-62da2df8 {
+.container .footer-btn.data-v-aebb52b8 {
       width: 100%;
       height: 100%;
 }

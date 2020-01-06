@@ -1,13 +1,9 @@
 <template>
   <view class="mask" :class= "mask == 'true' || mask == true ? 'mask-show' : ''" @click="Mclose" v-if="show" @touchmove.stop.prevent="preventTouchMove">
-		<!-- 加载动画开始 -->    <!-- loading1~loading30挑选任意一个替换下方html 且替换对应css -->
     <view class="loader loading">
-      
     </view>
-		<!-- 加载动画结束 -->
 		<view class="title">{{text}}</view>
   </view>
-  <!-- 遮罩层-->
 </template>
 
 <script scoped="true">
@@ -43,7 +39,6 @@ export default {
 
 <style lang="scss" scoped>
 .mask {
-  /* pointer-events: none; */
   position: fixed;
   z-index: 99999;
   top: 0;
@@ -66,7 +61,6 @@ export default {
 	font-size: 28upx;
 }
 
-/* loading加载动画的css */
 .loader {
   position: relative;
   width: 60upx;

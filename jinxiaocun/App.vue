@@ -21,6 +21,8 @@
 		methods: {
 			getCurrentUnit() {
 				query(api.contactUnit).then(res => {
+					console.log("#currentUnit#")
+					console.log(res)
 					if (res && res.data.returnCode == '0000') {
 						uni.setStorageSync('currentUnitList', res.data.data.resultList)
 					} else {
@@ -33,6 +35,8 @@
 			},
 			getBaseProduct() {
 				query(api.baseProduct).then(res => {
+					console.log("#baseProduct#")
+					console.log(res)
 					if (res && res.data.returnCode == '0000') {
 						uni.setStorageSync('productList', res.data.data.resultList)
 					} else {
@@ -45,6 +49,7 @@
 			},
 			getProductCategory() {
 				queryProductCategory(api.baseProduct).then(res => {
+					console.log("#ProductCategory#")
 					console.log(res)
 					if (res && res.data.returnCode == '0000') {
 						uni.setStorageSync('productCategory', res.data.data.productCategories)
