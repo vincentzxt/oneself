@@ -149,6 +149,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
 {
   name: 'UniListItem',
   components: {
@@ -157,6 +158,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
   props: {
     title: {
+      type: String,
+      default: '' },
+    // 列表标题
+    content: {
       type: String,
       default: '' },
     // 列表标题
@@ -175,6 +180,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       default: true },
 
     showBadge: {
+      // 是否显示数字角标
+      type: [Boolean, String],
+      default: false },
+
+    showText: {
       // 是否显示数字角标
       type: [Boolean, String],
       default: false },

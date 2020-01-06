@@ -1,34 +1,88 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{ "path" : "pages/index/index" },
-		{ "path" : "pages/index/sale/sale" },
-		{ "path" : "pages/index/sale/payment/payment" },
-		{ "path" : "pages/index/purchase/purchase" },
-		{ "path" : "pages/index/purchase/payment/payment" },
-		{ "path" : "pages/index/current-unit/current-unit" },
-		{ "path" : "pages/index/current-unit/add/add" },
-		{ "path" : "pages/index/current-unit/edit/edit" },
-		{ "path" : "pages/index/product/product" },
-		{ "path" : "pages/index/product/add/add" },
-		{ "path" : "pages/index/product/edit/edit" },
-		{ "path" : "pages/index/product/type/type" },
-		{	"path" : "pages/index/product/unit/unit" },
-		{ "path" : "pages/index/receipt/receipt" },
-		{ "path" : "pages/index/payment/payment" },
-		{ "path" : "pages/index/cost/cost" },
-		{ "path" : "pages/index/return-order/return-order" },
-		{ "path" : "pages/stock/stock" },
-		{ "path" : "pages/data/data" },
-		{ "path" : "pages/my/my" }
-  ],
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/index/sale/sale"
+		},
+		{
+			"path": "pages/index/sale/payment/payment"
+		},
+		{
+			"path": "pages/index/purchase/purchase"
+		},
+		{
+			"path": "pages/index/purchase/payment/payment"
+		},
+		{
+			"path": "pages/index/current-unit/current-unit"
+		},
+		{
+			"path": "pages/index/current-unit/add/add"
+		},
+		{
+			"path": "pages/index/current-unit/edit/edit"
+		},
+		{
+			"path": "pages/index/product/product"
+		},
+		{
+			"path": "pages/index/product/add/add"
+		},
+		{
+			"path": "pages/index/product/edit/edit"
+		},
+		{
+			"path": "pages/index/product/type/type"
+		},
+		{
+			"path": "pages/index/product/unit/unit"
+		},
+		{
+			"path": "pages/index/receipt/receipt"
+		},
+		{
+			"path": "pages/index/payment/payment"
+		},
+		{
+			"path": "pages/index/cost/cost"
+		},
+		{
+			"path": "pages/index/return-order/return-order"
+		},
+		{
+			"path": "pages/stock/stock"
+		},
+		{
+			"path": "pages/data/data"
+		},
+		{
+			"path": "pages/my/my"
+		},
+		{
+			"path": "pages/my/login/login"
+		},
+		{
+			"path": "pages/my/set"
+		},
+		{
+			"path": "pages/my/login/reg"
+		},
+		{
+			"path": "pages/my/login/forget"
+		}, 
+		{
+			"path": "pages/my/bankcard"
+		}
+	],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},
 	"tabBar": {
 		"color": "#88909f",
 		"selectedColor": "#2d8cf0",
-		"list": [
-			{
+		"list": [{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/image/business.png",
 				"selectedIconPath": "static/image/business_selected.png",

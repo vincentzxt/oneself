@@ -128,7 +128,7 @@
   box-shadow: 0 1px 6px #ccc;
 }
 .uni-navbar--border.data-v-0350fba0 {
-  border-bottom-width: 1rpx;
+  border-bottom-width: 0rpx;
   border-bottom-style: solid;
   border-bottom-color: #dddee1;
 }

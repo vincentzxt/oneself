@@ -109,6 +109,10 @@
   font-size: 32rpx;
   overflow: hidden;
 }
+.uni-list-item__content-content.data-v-0be73b92 {
+  color: #808695;
+  font-size: 28rpx;
+}
 .uni-list-item__content-note.data-v-0be73b92 {
   margin-top: 6rpx;
   color: #808695;

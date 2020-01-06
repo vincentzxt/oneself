@@ -23,21 +23,21 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-cefdf5b2 {
+.fill.data-v-05ac7e7b {
   width: 100%;
   height: 100%;
 }
-.container.data-v-cefdf5b2 {
+.container.data-v-05ac7e7b {
   height: 100vh;
   width: 100vw;
 }
-.container .header.data-v-cefdf5b2 {
+.container .header.data-v-05ac7e7b {
     height: 15%;
 }
-.container .main.data-v-cefdf5b2 {
+.container .main.data-v-05ac7e7b {
     height: 78%;
 }
-.container .footer.data-v-cefdf5b2 {
+.container .footer.data-v-05ac7e7b {
     height: 7%;
     display: -webkit-box;
     display: -webkit-flex;
