@@ -161,7 +161,8 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onShow: function onShow() {
-    this.datas = uni.getStorageSync('customerList');
+    this.datas = uni.getStorageSync('currentUnitList');
+    console.log(this.datas);
     this.searchDatas = this.datas;
   },
   methods: {
@@ -177,7 +178,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleEdit: function handleEdit(val) {
       uni.navigateTo({
-        url: './edit/edit?id=' + val.id + '&company=' + val.company + '&contacts=' + val.contacts + '&type=' + val.type + '&mobile=' + val.mobile + '&address=' + val.address + '&street=' +
+        url: './edit/edit?contactunitid=' + val.contactunitid + '&company=' + val.company + '&contacts=' + val.contacts + '&type=' + val.type + '&telephone=' + val.telephone + '&address=' + val.address + '&street=' +
         val.street + '&email=' + val.email + '&remarks=' + val.remarks });
 
     },

@@ -190,7 +190,7 @@ __webpack_require__.r(__webpack_exports__);
           break;
         case '3':
           uni.navigateTo({
-            url: './current_unit/current_unit' });
+            url: './current-unit/current-unit' });
 
           break;
         case '4':

@@ -207,14 +207,7 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onLoad: function onLoad(options) {
-    this.reqData.type = options.type;
-    this.reqData.company = options.company;
-    this.reqData.contacts = options.contacts;
-    this.reqData.mobile = options.mobile;
-    this.reqData.address = options.address.split(',');
-    this.reqData.street = options.street;
-    this.reqData.email = options.email;
-    this.reqData.remarks = options.remarks;
+    this.reqData.contactunitid = options.contactunitid;
   },
   methods: {
     handleNavbarClickLeft: function handleNavbarClickLeft() {

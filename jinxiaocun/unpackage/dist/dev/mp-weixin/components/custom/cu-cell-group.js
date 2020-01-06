@@ -111,6 +111,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 var _default =
 {
+  name: 'cu-cell-group',
   mounted: function mounted() {
     var cells = this.$children;
     var len = cells.length;

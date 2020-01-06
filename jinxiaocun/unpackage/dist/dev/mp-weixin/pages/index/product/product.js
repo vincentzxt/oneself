@@ -162,7 +162,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       title: '产品',
-      types: null,
+      productCategory: null,
       datas: null,
       searchDatas: null,
       searchKey: '',
@@ -170,8 +170,10 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onShow: function onShow() {
-    this.types = uni.getStorageSync('productType');
+    this.productCategory = uni.getStorageSync('productCategory');
+    console.log(this.productCategory);
     this.datas = uni.getStorageSync('productList');
+    console.log(this.datas);
     this.searchDatas = this.datas;
   },
   methods: {
@@ -191,11 +193,11 @@ __webpack_require__.r(__webpack_exports__);
         '&multiple=' + val.multiple + '&remarks=' + val.remarks });
 
     },
-    handleSelectType: function handleSelectType(name) {
-      this.curSelectType = name;
-      if (name !== '所有分类') {
+    handleSelectType: function handleSelectType(type) {
+      this.curSelectType = type;
+      if (type !== '所有分类') {
         this.searchDatas = this.datas.filter(function (item) {
-          return item.type == name;
+          return item.productcategory == type;
         });
       } else {
         this.searchDatas = this.datas;

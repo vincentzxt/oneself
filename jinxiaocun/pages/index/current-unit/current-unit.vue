@@ -8,7 +8,7 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<uni-list>
-					<uni-list-item :title="item.company" :note="'电话：'+item.mobile" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					<uni-list-item :title="item.contactunitname" :note="'电话：'+item.telephone" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
@@ -37,7 +37,8 @@
 			}
 		},
 		onShow() {
-			this.datas = uni.getStorageSync('customerList')
+			this.datas = uni.getStorageSync('currentUnitList')
+			console.log(this.datas)
 			this.searchDatas = this.datas
 		},
 		methods: {
@@ -53,7 +54,7 @@
 			},
 			handleEdit(val) {
 				uni.navigateTo({
-					url: './edit/edit?id='+val.id+'&company='+val.company+'&contacts='+val.contacts+'&type='+val.type+'&mobile='+val.mobile+'&address='+val.address+'&street='
+					url: './edit/edit?contactunitid='+val.contactunitid+'&company='+val.company+'&contacts='+val.contacts+'&type='+val.type+'&telephone='+val.telephone+'&address='+val.address+'&street='
 								+val.street+'&email='+val.email+'&remarks='+val.remarks
 				})
 			},
