@@ -128,7 +128,7 @@
 				margin-left: $uni-spacing-row-lg;
 			}
 			&-btn	{
-				width: 50%;
+				width: 100%;
 				height: 100%;
 			}
 		}

@@ -115,6 +115,7 @@
 .login .con_02_t {
   background-color: #E0441D;
   color: #fff;
+  margin-top: 10px;
   height: 30px;
   line-height: 30px;
   border-radius: 20px;
