@@ -5,18 +5,7 @@
 			</uni-navbar>
 		</view>
 		<view class="main">
-			<scroll-view :scroll-y="true">
-				<cu-panel>
-					<cu-cell title="销售流水" isLink>
-						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel>
-					<cu-cell title="采购流水" isLink>
-						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-			</scroll-view>
+			<cu-upimg count=2></cu-upimg>
 		</view>
 	</view>
 </template>
@@ -24,14 +13,16 @@
 <script>
 	import cuPanel from '@/components/custom/cu-panel.vue'
 	import cuCell from '@/components/custom/cu-cell.vue'
+	import cuUpimg from '@/components/custom/cu-upimg.vue'
 	export default {
 		components: {
 			cuPanel,
-			cuCell
+			cuCell,
+			cuUpimg
 		},
 		data() {
 			return {
-				title: '库存'
+				title: '报表'
 			};
 		},
 		onShow() {

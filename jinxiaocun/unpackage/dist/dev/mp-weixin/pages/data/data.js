@@ -122,17 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 296));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 303));};var _default =
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 296));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 303));};var cuUpimg = function cuUpimg() {return Promise.all(/*! import() | components/custom/cu-upimg */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/custom/cu-upimg")]).then(__webpack_require__.bind(null, /*! @/components/custom/cu-upimg.vue */ 266));};var _default =
 
 
 
@@ -151,11 +141,12 @@ __webpack_require__.r(__webpack_exports__);
 {
   components: {
     cuPanel: cuPanel,
-    cuCell: cuCell },
+    cuCell: cuCell,
+    cuUpimg: cuUpimg },
 
   data: function data() {
     return {
-      title: '库存' };
+      title: '报表' };
 
   },
   onShow: function onShow() {

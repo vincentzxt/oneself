@@ -1,1 +1,1 @@
-<view class="_div"></view>
+<view><cu-loading class="vue-ref" vue-id="1" text="加载中..." mask="true" click="true" data-ref="loading" bind:__l="__l"></cu-loading></view>

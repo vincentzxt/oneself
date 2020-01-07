@@ -1,17 +1,9 @@
-<template>
-	
-</template>
 <script>
 	import Vue from 'vue'
-	import cuSpin from '@/components/custom/cu-spin.vue'
 	import { query } from '@/api/common.js'
 	import { queryProductCategory } from '@/api/product.js'
 	import { api } from '@/config/common.js'
-	
 	export default {
-		components: {
-			cuSpin
-		},
 		data() {
 			return {
 			}
@@ -29,6 +21,8 @@
 		methods: {
 			getCurrentUnit() {
 				query(api.contactUnit).then(res => {
+					console.log("#currentUnit#")
+					console.log(res)
 					if (res && res.data.returnCode == '0000') {
 						uni.setStorageSync('currentUnitList', res.data.data.resultList)
 					} else {
@@ -41,6 +35,8 @@
 			},
 			getBaseProduct() {
 				query(api.baseProduct).then(res => {
+					console.log("#baseProduct#")
+					console.log(res)
 					if (res && res.data.returnCode == '0000') {
 						uni.setStorageSync('productList', res.data.data.resultList)
 					} else {
@@ -53,6 +49,7 @@
 			},
 			getProductCategory() {
 				queryProductCategory(api.baseProduct).then(res => {
+					console.log("#ProductCategory#")
 					console.log(res)
 					if (res && res.data.returnCode == '0000') {
 						uni.setStorageSync('productCategory', res.data.data.productCategories)
