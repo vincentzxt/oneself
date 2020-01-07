@@ -12,5 +12,6 @@ export const api = {
 	purPurchaseOrder: '/api/PurPurchaseOrder',
 	salesOrder: '/api/SalesOrder',
 	token: '/api/Token',
-	login: '/api/BseUser/Login'
+	login: '/api/BseUser/Login',
+	Regist:'/api/BseUser/Regist'
 }

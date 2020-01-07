@@ -30,7 +30,7 @@
 
 <script>
 	import uniIcon from "@/components/uni-icon/uni-icon.vue"
-	import { query } from '@/api/common.js'
+	import { post } from '@/api/user.js'
 	import { api } from '@/config/common.js'
 	export default {
 		data() {
@@ -74,58 +74,30 @@
 					loginname,
 					password
 				};
-				this.loading = true
-				// uni.showLoading({  
-				//             title: '正在请求中'  
-				//         }); 
-				let url = "http://120.210.132.94:5599/api/BseUser/Login"
-				// uni.request({
-				//     url: url,
-				//     data:sendData,
-				// 	header: {
-				// 		'Content-Type': 'application/json'
-				// 	},
-				// 	method: "POST",
-				//     success: (res) => {
-				// 		if(res.statusCode == 200 && res.data.returnCode ==='0000' ){
-				// 			let userinfo = {
-				// 				"token":res.data.data.token,
-				// 				"exp":res.data.data.exp
-				// 			};
-				// 			uni.setStorage({
-				// 			    key: 'userinfo',
-				// 			    data: userinfo,
-				// 			    success: function () {
-				// 			        uni.switchTab({
-				// 			        	url:'/pages/index/index'
-				// 			        }) 
-				// 			    }
-				// 			});
-							
-				// 		}else{this.$api.msg(res.data.returnMessage) }	
-				//     },
-				// 	fail:() => { 
-				// 	    this.$api.msg('请求失败fail') 
-				// 	},  
-				// 	complete:() => { 
-				// 		this.loading = false;
-				// 	    //uni.hideLoading();  
-				// 	} 
-				// });
-				
-				query(api.login).then(res => {
-					if (res && res.data.returnCode == '0000') {
-						console.log(res);
-						//uni.setStorageSync('currentUnitList', res.data.data.resultList)
+				this.loading = true;
+				post(api.login,sendData).then(res => {
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						let userInfo = {
+										"token":res.data.data.token,
+										"exp":res.data.data.exp
+									};
+									uni.setStorage({
+									    key: 'userInfo',
+									    data: userInfo,
+									    success: function () {
+									        uni.switchTab({
+									        	url:'/pages/index/index'
+									        }) 
+									    }
+									});
 					} else {
-						//uni.setStorageSync('currentUnitList', [])
+						this.$api.msg(res.data.returnMessage) 
 					}
+					this.loading =false;
 				}).catch(error => {
-					//uni.setStorageSync('currentUnitList', [])
-					//console.log(error)
+					this.loading =false;
+					this.$api.msg('请求失败fail') 
 				})
-				
-				
 			},
 			send(){
 				const mobile=this.mobile

@@ -39,6 +39,8 @@
 
 <script>
 import uniIcon from '@/components/uni-icon/uni-icon.vue';
+import { post } from '@/api/user.js'
+import { api } from '@/config/common.js'
 export default {
 	data() {
 		return {
@@ -75,6 +77,10 @@ export default {
 				this.$api.msg('重复密码不能为空！');
 				return;
 			}
+			if(password!=re_password){
+				this.$api.msg('两次密码不一致！');
+				return;
+			}
 			if (telephone.length != 11) {
 				this.$api.msg('手机号码不正确！');
 				return;
@@ -88,44 +94,20 @@ export default {
 			// uni.showLoading({
 			//             title: '正在请求中'
 			//         });
-			let url = 'http://120.210.132.94:5599/api/BseUser/Regist';
-			uni.request({
-				url: url,
-				data: sendData,
-				header: {
-					'Content-Type': 'application/json'
-				},
-				method: 'POST',
-				success: res => {
-					if (res.statusCode == 200 && res.data.returnCode === '0000') {
-						console.log(res.data.data);
-						this.login_action();
-						// let userinfo = {
-						// 	token: res.data.data.token,
-						// 	exp: res.data.data.exp
-						// };
-						// uni.setStorage({
-						// 	key: 'userinfo',
-						// 	data: userinfo,
-						// 	success: function() {
-						// 		uni.switchTab({
-						// 			url: '/pages/index/index'
-						// 		});
-						// 	}
-						// });
-						
+			
+			post(api.Regist,sendData).then(res => {
+					if (res.status == 200 && res.data.returnCode == '0000') {
+					this.login_action();
 					} else {
-						this.$api.msg('登录失败');
+						this.$api.msg(res.data.returnMessage) 
 					}
-				},
-				fail: () => {
-					this.$api.msg('请求失败fail');
-				},
-				complete: () => {
-					this.loading = false;
-					//uni.hideLoading();
-				}
-			});
+					this.loading =false;
+				}).catch(error => {
+					this.loading =false;
+					this.$api.msg('请求失败fail') 
+				})
+			
+			
 		},
 		send() {
 			const mobile = this.mobile;

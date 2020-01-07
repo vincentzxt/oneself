@@ -61,7 +61,14 @@ export default {
 			}
 		};
 	},
-	onLoad() {},
+	onLoad(){},
+	onShow(){
+		if(!uni.getStorageSync('userInfo')){
+			uni.reLaunch({
+				url:'/pages/my/login/login'
+			})
+		}
+	},
 	methods: {
 		handleRefreshPage() {
 			console.log('refreshpage');

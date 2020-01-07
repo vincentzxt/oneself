@@ -36,6 +36,10 @@
 			}
 		},
 		onLoad() {
+			
+		},
+		onShow(){
+			console.log(uni.getStorageSync('userInfo'));
 		},
 		methods: {
 			handleRefreshPage() {
