@@ -141,7 +141,7 @@ export default {
 		.main {
 			font-size: 24rpx;
 			height: 83%;
-			padding: 0 15upx;
+			padding: 15upx;
 			.cu-form-group .title {
 				min-width: calc(5em + 30px);
 			}

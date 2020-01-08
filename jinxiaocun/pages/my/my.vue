@@ -20,12 +20,12 @@
 			</view>
 		</view>
 		<uni-list>
-			<uni-list-item title="员工管理" thumb="../../static/my/icon/manager.png" @click="handleUserManage()" :show-arrow="true"></uni-list-item>
+			<uni-list-item title="员工管理" thumb="../../static/my/icon/list.png" @click="handleUserManage()" :show-arrow="true"></uni-list-item>
 			<!-- 			<uni-list-item title="员工列表"  thumb="../../static/my/icon/list.png"></uni-list-item>
  -->
 			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @click="handlePassword()"></uni-list-item>
 			<uni-list-item title="账户设置" thumb="../../static/my/icon/bankcard.png" @click="handleBankSet()"></uni-list-item>
-		    <uni-list-item title="续费" thumb="../../static/my/icon/bankcard.png" @click="handleRecharge()"></uni-list-item>
+		    <uni-list-item title="续费" thumb="../../static/my/icon/recharge.png" @click="handleRecharge()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<uni-list>

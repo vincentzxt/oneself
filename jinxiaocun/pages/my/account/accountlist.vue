@@ -13,7 +13,7 @@
 			</view>
 			<view class="list-between">
 					<view class="list_bottom_box_item"><text>账户类型：{{item.bankType}}</text></view>
-					<view class="list_bottom_box_item"><text>余额：{{item.money}}</text></view>
+					<view class="list_bottom_box_item"><text>余额：¥{{item.money}}</text></view>
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
@@ -133,7 +133,7 @@ export default {
 		}
 	.top{
 		font-size: 32rpx;
-		padding: 10upx 15upx 10upx 30upx;
+		padding: 15upx 15upx 5upx 30upx;
 		background-color: #ffffff;
 		display:flex;
 		justify-content: space-between;
@@ -146,7 +146,9 @@ export default {
 			height: 83%;
 			padding: 0 15upx;
 			margin-top: 10upx;
-		
+			.list-item{
+				padding: 16upx 16upx;
+			}
 			.cu-form-group .title {
 				min-width: calc(5em + 30px);
 			}

@@ -36,7 +36,7 @@
 }
 .container .top {
     font-size: 32rpx;
-    padding: 10rpx 15rpx 10rpx 30rpx;
+    padding: 15rpx 15rpx 5rpx 30rpx;
     background-color: #ffffff;
     display: -webkit-box;
     display: -webkit-flex;
@@ -53,6 +53,9 @@
     height: 83%;
     padding: 0 15rpx;
     margin-top: 10rpx;
+}
+.container .main .list-item {
+      padding: 16rpx 16rpx;
 }
 .container .main .cu-form-group .title {
       min-width: calc(5em + 30px);
