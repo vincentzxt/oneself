@@ -16,6 +16,11 @@ const http = axios.create({
 
 // 拦截器 在请求之前拦截
 http.interceptors.request.use(config => {
+	
+	let userInfo = uni.getStorageSync('userInfo')
+	if (userInfo.token) {
+		config.headers.Authorization = 'Bearer ' + userInfo.token
+	}
     // code...
     // 获取本地存储的Cookie
     // const cookie = uni.getStorageSync('cookie')

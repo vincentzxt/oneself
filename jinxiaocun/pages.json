@@ -16,7 +16,8 @@
 			"path": "pages/index/purchase/payment/payment"
 		},
 		{
-			"path": "pages/index/current-unit/current-unit"
+			"path": "pages/index/current-unit/current-unit",
+			"style": { "enablePullDownRefresh": true }
 		},
 		{
 			"path": "pages/index/current-unit/add/add"

@@ -9,22 +9,22 @@
 				<cu-panel>
 					<cu-cell-group>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:65%;" @input="handleSearchCompany" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sc" style="width:65%;" @input="handleSearchCurrentUnit" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="单位名称">
-							<input slot="footer" type="text" v-model="reqData.company" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
+						<cu-cell v-if="!searchcurrentUnit" title="单位名称">
+							<input slot="footer" type="text" v-model="reqData.contactunitname" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
 						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="电话">
+						<cu-cell v-if="!searchcurrentUnit" title="电话">
 							<input slot="footer" type="text" v-model="reqData.mobile" placeholder-style="color:#c5c8ce" placeholder="请输入电话"/>
 						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="产品">
+						<cu-cell v-if="!searchcurrentUnit" title="产品">
 							<uni-search-bar ref="sp" style="width:65%;" @input="handleSearchProduct" placeholder="输入编码、名称" cancelButton="none"></uni-search-bar>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
-				<cu-panel v-if="searchCustomer || searchProduct">
-					<uni-list v-if="searchCustomer">
-						<uni-list-item :title="item.company" :note="'电话：'+item.mobile" v-for="(item, index) in customerSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCustomer(item)">
+				<cu-panel v-if="searchcurrentUnit || searchProduct">
+					<uni-list v-if="searchcurrentUnit">
+						<uni-list-item :title="item.CurrentUnit" :note="'电话：'+item.mobile" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectcurrentUnit(item)">
 						</uni-list-item>
 					</uni-list>
 					<uni-list v-if="searchProduct">
@@ -32,7 +32,7 @@
 						</uni-list-item>
 					</uni-list>
 				</cu-panel>
-				<cu-panel v-if="!searchCustomer && !searchProduct && reqData.productList.length > 0">
+				<cu-panel v-if="!searchcurrentUnit && !searchProduct && reqData.productList.length > 0">
 					<cu-cell-group>
 						<cu-cell :title="item.name" :label="'销售数量：'+item.num+'|计量单位：'+item.unit+'|建议零售价：'+item.price" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
 							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
@@ -89,15 +89,15 @@
 		},
 		data() {
 			return {
-				customerDatas: null,
-				customerSearchDatas: null,
+				currentUnitDatas: null,
+				currentUnitSearchDatas: null,
 				productDatas: null,
 				productSearchDatas: null,
-				searchCustomer: false,
+				searchCurrentUnit: false,
 				searchProduct: false,
 				reqData: {
-					company: '',
-					mobile: '',
+					contactunitname: '',
+					telephone: '',
 					productList: [],
 					totalPrice: 0.00,
 				},
@@ -110,9 +110,9 @@
 			};
 		},
 		onShow() {
-			this.customerDatas = uni.getStorageSync('customerList')
+			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
 			this.productDatas = uni.getStorageSync('productList')
-			this.customerSearchDatas = this.customerDatas
+			this.currentUnitSearchDatas = this.currentUnitDatas
 			this.productSearchDatas = this.productDatas
 		},
 		methods: {
@@ -121,21 +121,21 @@
 					delta: 1
 				})
 			},
-			handleSearchCompany(val) {
+			handleSearchCurrentUnit(val) {
 				if (val.value) {
-					this.customerSearchDatas = this.customerDatas.filter((item) => {
-						return item.company.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1 || item.mobile.indexOf(val.value) !== -1
+					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
+						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
-					this.searchCustomer = true
+					this.searchcurrentUnit = true
 				} else {
-					this.customerSearchDatas = this.customerDatas
-					this.searchCustomer = false
+					this.currentUnitSearchDatas = this.currentUnitDatas
+					this.searchcurrentUnit = false
 				}
 			},
 			handleSearchProduct(val) {
 				if (val.value) {
 					this.productSearchDatas = this.productDatas.filter((item) => {
-						return item.name.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1
+						return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1
 					})
 					this.searchProduct = true
 				} else {
@@ -143,10 +143,10 @@
 					this.searchProduct = false
 				}
 			},
-			handleSelectCustomer(val) {
-				this.reqData.company = val.company
+			handleSelectcurrentUnit(val) {
+				this.reqData.CurrentUnit = val.CurrentUnit
 				this.reqData.mobile = val.mobile
-				this.searchCustomer = false
+				this.searchcurrentUnit = false
 				this.$refs.sc.clear()
 			},
 			handleSelectProduct(val) {
@@ -223,7 +223,7 @@
 			},
 			reqData: {
 				handler(val) {
-					if (val.company && val.productList.length > 0 && val.totalPrice) {
+					if (val.CurrentUnit && val.productList.length > 0 && val.totalPrice) {
 						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true

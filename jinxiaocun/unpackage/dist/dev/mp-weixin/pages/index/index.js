@@ -133,11 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-<<<<<<< HEAD
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 268));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 275));};var _default =
-=======
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 273));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 280));};var _default =
->>>>>>> bf28b422e5cbd504b541b7fdaaf7ffee7bd6cd49
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -154,10 +150,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 47));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 274));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 281));};var cuLoading = function cuLoading() {return __webpack_require__.e(/*! import() | components/custom/cu-loading */ "components/custom/cu-loading").then(__webpack_require__.bind(null, /*! @/components/custom/cu-loading.vue */ 267));};var _default =
 {
   components: {
     uniGrid: uniGrid,
-    uniGridItem: uniGridItem },
+    uniGridItem: uniGridItem,
+    cuLoading: cuLoading },
 
   data: function data() {
     return {
@@ -175,10 +175,17 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onLoad: function onLoad() {
+    if (uni.getStorageSync('userInfo')) {
+      _business.default.getCurrentUnit();
+      _business.default.getBaseProduct();
+      _business.default.getProductCategory();
+    } else {
+      uni.reLaunch({
+        url: '/pages/my/my' });
 
+    }
   },
   onShow: function onShow() {
-    console.log(uni.getStorageSync('userInfo'));
   },
   methods: {
     handleRefreshPage: function handleRefreshPage() {

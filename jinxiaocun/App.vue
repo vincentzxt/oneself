@@ -1,8 +1,5 @@
 <script>
 	import Vue from 'vue'
-	import { query } from '@/api/common.js'
-	import { queryProductCategory } from '@/api/product.js'
-	import { api } from '@/config/common.js'
 	export default {
 		data() {
 			return {
@@ -14,53 +11,9 @@
 					console.log(res)
 				}
 			})
-			this.getCurrentUnit()
-			this.getBaseProduct()
-			this.getProductCategory()
+			//uni.removeStorageSync('userInfo')
 		},
 		methods: {
-			getCurrentUnit() {
-				query(api.contactUnit).then(res => {
-					console.log("#currentUnit#")
-					console.log(res)
-					if (res && res.data.returnCode == '0000') {
-						uni.setStorageSync('currentUnitList', res.data.data.resultList)
-					} else {
-						uni.setStorageSync('currentUnitList', [])
-					}
-				}).catch(error => {
-					uni.setStorageSync('currentUnitList', [])
-					console.log(error)
-				})
-			},
-			getBaseProduct() {
-				query(api.baseProduct).then(res => {
-					console.log("#baseProduct#")
-					console.log(res)
-					if (res && res.data.returnCode == '0000') {
-						uni.setStorageSync('productList', res.data.data.resultList)
-					} else {
-						uni.setStorageSync('productList', [])
-					}
-				}).catch(error => {
-					uni.setStorageSync('productList', [])
-					console.log(error)
-				})
-			},
-			getProductCategory() {
-				queryProductCategory(api.baseProduct).then(res => {
-					console.log("#ProductCategory#")
-					console.log(res)
-					if (res && res.data.returnCode == '0000') {
-						uni.setStorageSync('productCategory', res.data.data.productCategories)
-					} else {
-						uni.setStorageSync('productCategory', [])
-					}
-				}).catch(error => {
-					uni.setStorageSync('productCategory', [])
-					console.log(error)
-				})
-			}
 		}
 	}
 </script>

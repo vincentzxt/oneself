@@ -47,9 +47,7 @@
 		},
 		onShow() {
 			this.productCategory = uni.getStorageSync('productCategory')
-			console.log(this.productCategory)
 			this.datas = uni.getStorageSync('productList')
-			console.log(this.datas)
 			this.searchDatas = this.datas
 		},
 		methods: {
@@ -65,8 +63,7 @@
 			},
 			handleEdit(val) {
 				uni.navigateTo({
-					url: './edit/edit?id='+val.id+'&name='+val.name+'&type='+val.type+'&masterUnit='+val.masterUnit+'&slaveUnit='+val.slaveUnit+
-								'&multiple='+val.multiple+'&remarks='+val.remarks
+					url: './edit/edit?item=' + JSON.stringify(val)
 				})
 			},
 			handleSelectType(type) {
@@ -82,7 +79,7 @@
 			handleSearch(val) {
 				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
-						return item.company.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1 || item.mobile.indexOf(val.value) !== -1
+						return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1
 					})
 				} else {
 					this.searchDatas = this.datas
