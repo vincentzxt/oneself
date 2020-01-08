@@ -47,6 +47,8 @@
 	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import { post,tokenpost} from '@/api/user.js'
+	import { api } from '@/config/common.js'
 	export default {
 		components: {
 			cuPanel,
@@ -62,7 +64,7 @@
 					company_name:'湖北吉奥汽车服务有限公司',
 					contact_person: '',
 					contact_tel: '',
-					contact_qq:'',
+					contact_webchat:'',
 					contact_email:'',
 					contact_addr:''
 				},
@@ -70,11 +72,25 @@
 			};
 		},
 		onShow() {
+			//loadData();
 		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
 					delta: 1
+				})
+			},
+			loadData(){
+				tokenpost(api.GetUserInfo).then(res => {
+					if (res.status == 200 && res.data.returnCode == '0000') {
+					  this.dataList = res.data.data
+					} else {
+						this.$api.msg(res.data.returnMessage) 
+					}
+					this.loading =false;
+				}).catch(error => {
+					this.loading =false;
+					this.$api.msg('请求失败fail') 
 				})
 			},
 			handleSubmit() {

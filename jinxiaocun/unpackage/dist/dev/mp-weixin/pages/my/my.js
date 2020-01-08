@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 321));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 328));};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -176,8 +176,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import adCell from '@/component/ADCell/ADCell.vue';
-var _default = {
+
+
+var _user = __webpack_require__(/*! @/api/user.js */ 217);
+var _common = __webpack_require__(/*! @/config/common.js */ 46);var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 321));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 328));};var _default =
+{
   components: {
     // adCell
     uniList: uniList,
@@ -187,8 +190,9 @@ var _default = {
     return {
       title: '我的',
       dataList: {
-        loginname: '',
+        loginname: 'xuewei',
         realname: '张三丰',
+        telephone: '15827068282',
         companyname: '湖北吉奥汽车服务有限公司',
         expiredate: '2020-11-20',
         daycount: 0,
@@ -203,16 +207,41 @@ var _default = {
       uni.reLaunch({
         url: '/pages/my/login/login' });
 
-    }
+    };
+    this.loadData();
   },
   methods: {
     handleRefreshPage: function handleRefreshPage() {
       console.log('refreshpage');
     },
+    handlePassword: function handlePassword() {
+      console.log("11111111111");
+      uni.navigateTo({
+        url: '/pages/my/login/editPassword' });
+
+    },
     handleBankSet: function handleBankSet() {
       console.log("11111111111");
       uni.navigateTo({
-        url: '/pages/my/bankcard' });
+        url: '/pages/my/account/accountlist' });
+
+    },
+    handleRecharge: function handleRecharge() {
+      console.log("11111111111");
+      uni.navigateTo({
+        url: '/pages/my/account/recharge' });
+
+    },
+    handleUserManage: function handleUserManage() {
+      console.log("11111111111");
+      uni.navigateTo({
+        url: '/pages/my/user/user' });
+
+    },
+    handleMyorder: function handleMyorder() {
+      console.log("11111111111");
+      uni.navigateTo({
+        url: '/pages/my/myorder' });
 
     },
     handleGridChange: function handleGridChange(val) {
@@ -267,34 +296,20 @@ var _default = {
 
     },
     loadData: function loadData() {var _this = this;
-      var userid = uni.getStorageSync('userInfo').userid;
-      var token = uni.getStorageSync('userInfo').token;
-      var url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
-      var sendData = {
-        userid: userid };
-
-      uni.request({
-        url: url,
-        data: sendData,
-        header: {
-          'Content-Type': 'application/json' },
-
-        method: 'POST',
-        success: function success(res) {
-          if (res.statusCode == 200 && res.data.returnCode === '0000') {
-            _this.dataList = res.data.data;
-
-          } else {
-            _this.$api.msg('登录失败');
-          }
-        },
-        fail: function fail() {
-          _this.$api.msg('请求失败fail');
-        },
-        complete: function complete() {
-          _this.loading = false;
-          //uni.hideLoading();
-        } });
+      // let userid = uni.getStorageSync('userInfo').userid;
+      // let token = uni.getStorageSync('userInfo').token;
+      // let url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
+      (0, _user.tokenpost)(_common.api.GetUserInfo).then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this.dataList = res.data.data;
+        } else {
+          _this.$api.msg(res.data.returnMessage);
+        }
+        _this.loading = false;
+      }).catch(function (error) {
+        _this.loading = false;
+        _this.$api.msg('请求失败fail');
+      });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

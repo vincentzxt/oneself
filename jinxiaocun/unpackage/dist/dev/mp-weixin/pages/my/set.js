@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 302));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 309));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 316));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 321));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 328));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -182,6 +182,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _user = __webpack_require__(/*! @/api/user.js */ 217);
+var _common = __webpack_require__(/*! @/config/common.js */ 46);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 302));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 309));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 316));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 321));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 328));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -197,7 +199,7 @@ __webpack_require__.r(__webpack_exports__);
         company_name: '湖北吉奥汽车服务有限公司',
         contact_person: '',
         contact_tel: '',
-        contact_qq: '',
+        contact_webchat: '',
         contact_email: '',
         contact_addr: '' },
 
@@ -205,12 +207,26 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onShow: function onShow() {
+    //loadData();
   },
   methods: {
     handleNavbarClickLeft: function handleNavbarClickLeft() {
       uni.navigateBack({
         delta: 1 });
 
+    },
+    loadData: function loadData() {var _this = this;
+      (0, _user.tokenpost)(_common.api.GetUserInfo).then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this.dataList = res.data.data;
+        } else {
+          _this.$api.msg(res.data.returnMessage);
+        }
+        _this.loading = false;
+      }).catch(function (error) {
+        _this.loading = false;
+        _this.$api.msg('请求失败fail');
+      });
     },
     handleSubmit: function handleSubmit() {
 

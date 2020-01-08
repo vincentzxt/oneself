@@ -25,7 +25,7 @@
 							</view>
 						</cu-cell>
 						<cu-cell title="账户余额">
-							<input slot="footer" type="number" v-model="reqData.contact_qq" placeholder-style="color:#c5c8ce" placeholder="请输入QQ"/>
+							<input slot="footer" type="number" v-model="reqData.contact_qq" placeholder-style="color:#c5c8ce" placeholder="账户余额"/>
 						</cu-cell>
 						<cu-cell title="是否禁用">
 							<radio-group @change="handleForbiddenChanage">

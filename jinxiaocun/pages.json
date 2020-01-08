@@ -74,9 +74,33 @@
 			"path": "pages/my/login/forget"
 		}, 
 		{
-			"path": "pages/my/bankcard"
+			"path": "pages/my/account/accountadd"
 		}
-	],
+        ,{
+            "path" : "pages/my/myorder",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/user/user",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/user/useradd",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/account/accountlist",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/account/recharge",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/login/editPassword",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},
