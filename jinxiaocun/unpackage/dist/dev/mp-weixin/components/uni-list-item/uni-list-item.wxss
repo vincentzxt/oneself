@@ -47,7 +47,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.uni-list-item.data-v-0be73b92 {
+.uni-list-item.data-v-1dad00be {
   font-size: 36rpx;
   position: relative;
   -webkit-box-orient: vertical;
@@ -59,13 +59,13 @@
           justify-content: space-between;
   padding-left: 30rpx;
 }
-.uni-list-item--disabled.data-v-0be73b92 {
+.uni-list-item--disabled.data-v-1dad00be {
   opacity: 0.3;
 }
-.uni-list-item--hover.data-v-0be73b92 {
+.uni-list-item--hover.data-v-1dad00be {
   background-color: #5cadff;
 }
-.uni-list-item__container.data-v-0be73b92 {
+.uni-list-item__container.data-v-1dad00be {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -89,10 +89,10 @@
   border-top-style: solid;
   border-top-width: 1px;
 }
-.uni-list-item--first.data-v-0be73b92 {
+.uni-list-item--first.data-v-1dad00be {
   border-top-width: 0px;
 }
-.uni-list-item__content.data-v-0be73b92 {
+.uni-list-item__content.data-v-1dad00be {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -105,21 +105,21 @@
   -webkit-flex-direction: column;
           flex-direction: column;
 }
-.uni-list-item__content-title.data-v-0be73b92 {
+.uni-list-item__content-title.data-v-1dad00be {
   font-size: 32rpx;
   overflow: hidden;
 }
-.uni-list-item__content-content.data-v-0be73b92 {
+.uni-list-item__content-content.data-v-1dad00be {
   color: #808695;
   font-size: 28rpx;
 }
-.uni-list-item__content-note.data-v-0be73b92 {
+.uni-list-item__content-note.data-v-1dad00be {
   margin-top: 6rpx;
   color: #808695;
   font-size: 28rpx;
   overflow: hidden;
 }
-.uni-list-item__extra.data-v-0be73b92 {
+.uni-list-item__extra.data-v-1dad00be {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -134,7 +134,7 @@
   -webkit-align-items: center;
           align-items: center;
 }
-.uni-list-item__icon.data-v-0be73b92 {
+.uni-list-item__icon.data-v-1dad00be {
   margin-right: 18rpx;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -147,7 +147,7 @@
   -webkit-align-items: center;
           align-items: center;
 }
-.uni-list-item__icon-img.data-v-0be73b92 {
+.uni-list-item__icon-img.data-v-1dad00be {
   height: 52rpx;
   width: 52rpx;
 }

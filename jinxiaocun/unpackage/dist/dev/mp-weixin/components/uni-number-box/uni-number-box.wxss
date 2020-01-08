@@ -23,7 +23,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.uni-numbox.data-v-69bc1346 {
+.uni-numbox.data-v-21253d72 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -35,7 +35,7 @@
   line-height: 35px;
   width: 107px;
 }
-.uni-numbox__value.data-v-69bc1346 {
+.uni-numbox__value.data-v-21253d72 {
   background-color: #f7f7f7;
   width: 40px;
   height: 35px;
@@ -47,7 +47,7 @@
   border-left-width: 1px;
   border-right-width: 1px;
 }
-.uni-numbox__minus.data-v-69bc1346 {
+.uni-numbox__minus.data-v-21253d72 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -73,7 +73,7 @@
   border-bottom-left-radius: 6rpx;
   border-right-width: 0;
 }
-.uni-numbox__plus.data-v-69bc1346 {
+.uni-numbox__plus.data-v-21253d72 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -97,11 +97,11 @@
   background-color: #f8f8f8;
   border-left-width: 0;
 }
-.uni-numbox--text.data-v-69bc1346 {
+.uni-numbox--text.data-v-21253d72 {
   font-size: 40rpx;
   color: #495060;
 }
-.uni-numbox--disabled.data-v-69bc1346 {
+.uni-numbox--disabled.data-v-21253d72 {
   color: #c0c0c0;
 }
 

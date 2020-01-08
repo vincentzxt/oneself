@@ -13,5 +13,6 @@ export const api = {
 	salesOrder: '/api/SalesOrder',
 	token: '/api/Token',
 	login: '/api/BseUser/Login',
-	Regist:'/api/BseUser/Regist'
+	Regist:'/api/BseUser/Regist',
+	GetUserInfo:'/api/BseUser/GetUserInfo'
 }

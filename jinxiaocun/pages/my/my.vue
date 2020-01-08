@@ -12,23 +12,24 @@
 			<view class="flex_col color_fff">
 				<image src="../../static/image/missing-face.png" mode="aspectFill" class="pic"></image>
 				<view class="flex_grow">
-					<view class="size_16">{{dataList.realname}}</view>
-					<view class="size_16">{{dataList.companyname}}</view>
+					<view class="size_16">{{dataList.loginname}}({{dataList.telephone}})</view>
+					<view class="size_16">{{dataList.companyname || "湖北吉奥汽车服务有限公司"}}</view>
 					<view class="size_16">到期日期：{{dataList.expiredate}}</view>
 				</view>
 				<view class="edit size_16" @click="handleSet()">设置</view>
 			</view>
 		</view>
 		<uni-list>
-			<uni-list-item title="员工管理" thumb="../../static/my/icon/manager.png" :show-arrow="true"></uni-list-item>
+			<uni-list-item title="员工管理" thumb="../../static/my/icon/manager.png" @click="handleUserManage()" :show-arrow="true"></uni-list-item>
 			<!-- 			<uni-list-item title="员工列表"  thumb="../../static/my/icon/list.png"></uni-list-item>
  -->
-			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png"></uni-list-item>
+			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @click="handlePassword()"></uni-list-item>
 			<uni-list-item title="账户设置" thumb="../../static/my/icon/bankcard.png" @click="handleBankSet()"></uni-list-item>
+		    <uni-list-item title="续费" thumb="../../static/my/icon/bankcard.png" @click="handleRecharge()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<uni-list>
-			<uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item>
+			<uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" @click="handleMyorder()" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item>
 			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" show-text="true" :content="dataList.daycount"></uni-list-item>
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png"></uni-list-item>
 			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png"></uni-list-item>
@@ -42,6 +43,8 @@
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 // import adCell from '@/component/ADCell/ADCell.vue';
+import { post,tokenpost} from '@/api/user.js';
+import { api } from '@/config/common.js';
 export default {
 	components: {
 		// adCell
@@ -52,8 +55,9 @@ export default {
 		return {
 			title: '我的',
 			dataList: {
-				loginname:'',
+				loginname:'xuewei',
 				realname:'张三丰',
+				telephone:'15827068282',
 				companyname:'湖北吉奥汽车服务有限公司',
 				expiredate:'2020-11-20',
 				daycount:0,
@@ -67,16 +71,41 @@ export default {
 			uni.reLaunch({
 				url:'/pages/my/login/login'
 			})
-		}
+		};
+		this.loadData();
 	},
 	methods: {
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},
+		handlePassword(){
+			console.log("11111111111");
+			uni.navigateTo({
+				url: '/pages/my/login/editPassword'
+			});
+		},
 		handleBankSet(){
 			console.log("11111111111");
 			uni.navigateTo({
-				url: '/pages/my/bankcard'
+				url: '/pages/my/account/accountlist'
+			});
+		},
+		handleRecharge(){
+			console.log("11111111111");
+			uni.navigateTo({
+				url: '/pages/my/account/recharge'
+			});
+		},
+		handleUserManage(){
+			console.log("11111111111");
+			uni.navigateTo({
+				url: '/pages/my/user/user'
+			});
+		},
+		handleMyorder(){
+			console.log("11111111111");
+			uni.navigateTo({
+				url: '/pages/my/myorder'
 			});
 		},
 		handleGridChange(val) {
@@ -131,35 +160,21 @@ export default {
 			});
 		},
 		loadData(){
-			let userid = uni.getStorageSync('userInfo').userid;
-			let token = uni.getStorageSync('userInfo').token;
-			let url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
-			const sendData = {
-				userid:userid
+			// let userid = uni.getStorageSync('userInfo').userid;
+			// let token = uni.getStorageSync('userInfo').token;
+			// let url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
+			tokenpost(api.GetUserInfo).then(res => {
+				if (res.status == 200 && res.data.returnCode == '0000') {
+				  this.dataList = res.data.data
+				} else {
+					this.$api.msg(res.data.returnMessage) 
 				}
-			uni.request({
-				url: url,
-				data: sendData,
-				header: {
-					'Content-Type': 'application/json'
-				},
-				method: 'POST',
-				success: res => {
-					if (res.statusCode == 200 && res.data.returnCode === '0000') {
-						this.dataList =res.data.data;
-						
-					} else {
-						this.$api.msg('登录失败');
-					}
-				},
-				fail: () => {
-					this.$api.msg('请求失败fail');
-				},
-				complete: () => {
-					this.loading = false;
-					//uni.hideLoading();
-				}
-			});
+				this.loading =false;
+			}).catch(error => {
+				this.loading =false;
+				this.$api.msg('请求失败fail') 
+			})
+			
 		}
 	}
 };

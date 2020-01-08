@@ -23,21 +23,21 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-17c8d1e6 {
+.fill.data-v-2a37ad39 {
   width: 100%;
   height: 100%;
 }
-.container.data-v-17c8d1e6 {
+.container.data-v-2a37ad39 {
   height: 100vh;
   width: 100vw;
 }
-.container .header.data-v-17c8d1e6 {
+.container .header.data-v-2a37ad39 {
     height: 10%;
 }
-.container .main.data-v-17c8d1e6 {
+.container .main.data-v-2a37ad39 {
     height: 83%;
 }
-.container .main .picker.data-v-17c8d1e6 {
+.container .main .picker.data-v-2a37ad39 {
       width: 100%;
       display: -webkit-box;
       display: -webkit-flex;
@@ -46,14 +46,14 @@
       -webkit-justify-content: flex-end;
               justify-content: flex-end;
 }
-.container .footer.data-v-17c8d1e6 {
+.container .footer.data-v-2a37ad39 {
     height: 7%;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     background-color: #e9eaec;
 }
-.container .footer-text.data-v-17c8d1e6 {
+.container .footer-text.data-v-2a37ad39 {
       width: 50%;
       height: 100%;
       display: -webkit-box;
@@ -68,7 +68,7 @@
               align-items: center;
       margin-left: 30rpx;
 }
-.container .footer-btn.data-v-17c8d1e6 {
+.container .footer-btn.data-v-2a37ad39 {
       width: 50%;
       height: 100%;
 }

@@ -24,7 +24,13 @@
     "pages/my/set",
     "pages/my/login/reg",
     "pages/my/login/forget",
-    "pages/my/bankcard"
+    "pages/my/account/accountadd",
+    "pages/my/myorder",
+    "pages/my/user/user",
+    "pages/my/user/useradd",
+    "pages/my/account/accountlist",
+    "pages/my/account/recharge",
+    "pages/my/login/editPassword"
   ],
   "subPackages": [],
   "window": {
