@@ -104,7 +104,6 @@
 				showModal: false,
 				title: '销售',
 				curSelectPruduct: null,
-				checkedAccount: 0,
 				checkedUnit: 0,
 				disableSubmit: true
 			};
@@ -122,6 +121,7 @@
 				})
 			},
 			handleSearchCurrentUnit(val) {
+				console.log(val)
 				if (val.value) {
 					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
 						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
