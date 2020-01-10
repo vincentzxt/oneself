@@ -196,7 +196,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   onShow: function onShow() {
     this.$refs.checkbox.set({
-      type: 'checkbox', // 类型：复选框
+      type: 'radio', // 类型：复选框
       column: 2, // 分列：3
       list: this.list // 列表数据
     });

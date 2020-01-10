@@ -100,6 +100,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = this.handleSubmit
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -133,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 368));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 375));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 382));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 387));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 394));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -184,6 +187,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _user = __webpack_require__(/*! @/api/user.js */ 211);
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 368));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 375));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 382));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 387));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 394));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -194,38 +199,74 @@ __webpack_require__.r(__webpack_exports__);
 
   data: function data() {
     return {
+      loading: false,
       reqData: {
-        company_logo: '',
-        company_name: '湖北吉奥汽车服务有限公司',
-        contact_person: '',
-        contact_tel: '',
-        contact_qq: '',
-        contact_email: '',
-        contact_addr: '',
-        banktype: 0,
-        isForbidden: 0 },
+        cashaccountname: '',
+        cashaccountno: '',
+        cashaccounttype: '',
+        amount: '',
+        isdelete: 0 },
 
-      bankDict: ['微信', '支付宝', '银行卡', '现金'],
+      AccountTypeDict: ["", "银行账号", "微信", "支付宝", "现金"],
       title: '账户设置' };
 
   },
   onShow: function onShow() {
   },
   methods: {
-    handleBankChange: function handleBankChange(val) {
-      this.reqData.banktype = this.bankDict[val.detail.value];
+    handleAccountTypeChange: function handleAccountTypeChange(val) {
+      this.reqData.cashaccounttype = val.detail.value;
     },
     handleForbiddenChanage: function handleForbiddenChanage(val) {
-      this.reqData.isForbidden = val.detail.value;
+      this.reqData.isdelete = val.detail.value;
     },
     handleNavbarClickLeft: function handleNavbarClickLeft() {
       uni.navigateBack({
         delta: 1 });
 
     },
-    handleSubmit: function handleSubmit() {
+    handleSubmit: function handleSubmit() {var _this = this;var _this$reqData =
+      this.reqData,cashaccountname = _this$reqData.cashaccountname,cashaccountno = _this$reqData.cashaccountno,cashaccounttype = _this$reqData.cashaccounttype,amount = _this$reqData.amount,isdelete = _this$reqData.isdelete;
+      if (cashaccountname.length == 0) {
+        this.$api.msg('账户名称不能为空！！');
+        return;
+      }
+      if (cashaccountno.length == 0) {
+        this.$api.msg('账号信息不能为空！');
+        return;
+      }
+      if (cashaccounttype.length == 0) {
+        this.$api.msg('请选择账户类型！');
+        return;
+      }
+      if (amount.length == 0) {
+        this.$api.msg('账户余额不能为空！');
+        return;
+      }
+      if (isdelete.length == 0) {
+        this.$api.msg('请选择账户是否禁用！');
+        return;
+      }
+      var sendData = {
+        model: { cashaccountname: cashaccountname, cashaccountno: cashaccountno, cashaccounttype: cashaccounttype, amount: amount, isdelete: isdelete } };
 
+      console.log(sendData);
+      this.loading = true;
+      (0, _user.post)(_common.api.MyCashAccountCreate, sendData).then(function (res) {
+        console.log(res);
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this.$api.msg(res.data.returnMessage);
 
+          _this.handleNavbarClickLeft();
+
+        } else {
+          _this.$api.msg(res.data.returnMessage);
+        }
+        _this.loading = false;
+      }).catch(function (error) {
+        _this.loading = false;
+        _this.$api.msg('请求失败fail');
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

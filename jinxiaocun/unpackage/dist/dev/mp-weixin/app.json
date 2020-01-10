@@ -31,6 +31,8 @@
     "pages/my/account/accountlist",
     "pages/my/account/recharge",
     "pages/my/login/editPassword",
+    "pages/my/givetime",
+    "pages/my/share/share",
     "pages/stock/early-stage/early-stage",
     "pages/stock/inventory/inventory"
   ],
@@ -72,6 +74,5 @@
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  },
-  "sitemapLocation": "sitemap41.json"
+  }
 }

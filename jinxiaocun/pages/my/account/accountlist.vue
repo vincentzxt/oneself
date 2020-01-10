@@ -4,19 +4,20 @@
 		<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 		</uni-navbar>
 	</view>
-	<view class="top"><view><text class="text">账户设置</text> </view><view><button type="default" size="mini" @tap="handleAdd">增加</button></view></view>
-	
 	<view class="main">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
-				<view>账户名称：<text>{{item.accountName}}</text></view>
+				<view>账户名称：<text>{{item.cashaccountname}}</text></view>
 			</view>
 			<view class="list-between">
-					<view class="list_bottom_box_item"><text>账户类型：{{item.bankType}}</text></view>
-					<view class="list_bottom_box_item"><text>余额：¥{{item.money}}</text></view>
+					<view class="list_bottom_box_item"><text>账户类型：{{accounTypeList[item.cashaccounttype]}}</text></view>
+					<view class="list_bottom_box_item"><text>余额：¥{{item.amount}}</text></view>
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
+	</view>
+	<view class="footer">
+		<button class="fill" style="background-color: #2d8cf0;" type="primary"  @tap="handleAdd">新增</button>
 	</view>
 </view>
 </template>
@@ -37,15 +38,23 @@ export default {
 		return {
 			title: '账户设置 ',
 			dataList: [{
-				accountName:'湖北吉奥汽车服务有限公司',
-				money:'600',
-				bankType:'微信'
+				cashaccountname:'湖北吉奥汽车服务有限公司',
+				amount:'600',
+				cashaccounttype:0
 			},
 			{
-				accountName:'湖北吉奥汽车服务有限公司',
-				money:'600',
-				bankType:'微信'
-			}]
+				cashaccountname:'湖北吉奥汽车服务有限公司',
+				amount:'600',
+				cashaccounttype:3
+			}],
+			accounTypeList2:["","银行账号","微信","支付宝","现金"],
+			accounTypeList:{
+				'0':"",
+				'1':"银行账号",
+				'2':"微信",
+				'3':"支付宝",
+				'4':"现金"
+			}
 		};
 	},
 	onLoad(){},
@@ -55,7 +64,7 @@ export default {
 				url:'/pages/my/login/login'
 			})
 		};
-		//this.loadData();
+		this.loadData();
 	},
 	methods: {
 		handleRefreshPage() {
@@ -73,40 +82,11 @@ export default {
 			})
 			console.log('-----');
 		},
-		//退出登录
-		handleLogout() {
-			uni.showModal({
-				title: '确定要退出登录么？',
-				success: e => {
-					if (e.confirm) {
-						try {
-							uni.clearStorageSync();
-							setTimeout(() => {
-								const userInfo = uni.getStorageSync('userInfo');
-								if (!userInfo) {
-									uni.reLaunch({
-										url: '/pages/my/login/login'
-									});
-								}
-							}, 200);
-						} catch (e) {}
-					}
-				}
-			});
-		},
-		//设置
-		handleSet(){
-			uni.navigateTo({
-				url: '../my/set'
-			});
-		},
 		loadData(){
-			// let userid = uni.getStorageSync('userInfo').userid;
-			// let token = uni.getStorageSync('userInfo').token;
-			// let url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
-			tokenpost(api.GetUserInfo).then(res => {
+			tokenpost(api.MyCashAccount).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
-				  this.dataList = res.data.data
+					console.log(res.data.resultList);
+				  this.dataList = res.data.data.resultList
 				} else {
 					this.$api.msg(res.data.returnMessage) 
 				}
@@ -120,12 +100,13 @@ export default {
 	}
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.fill {
 		width: 100%;
 		height: 100%;
 	}
 	.container {
+		font-size: $uni-font-size-base;
 		height: 100vh;
 		width: 100vw;
 		.header {
@@ -142,10 +123,8 @@ export default {
 		}
 	}	
 		.main {
-			font-size: 24rpx;
 			height: 83%;
 			padding: 0 15upx;
-			margin-top: 10upx;
 			.list-item{
 				padding: 16upx 16upx;
 			}
@@ -194,7 +173,7 @@ export default {
 .list-item{
 		display: flex;
 		flex-direction: column;
-		padding: 10upx 24upx;
+		padding: 16upx 24upx;
 		background: #fff;
 		margin-bottom: 16upx;
 		.list-center{

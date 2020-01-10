@@ -7,19 +7,11 @@
 	<view class="main">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
-				<view>订单号：<text>{{item.orderNo}}</text></view>
-				<view><text>¥{{item.money}}</text></view>
+				<view>赠送类型：<text>{{item.giveType}}</text></view>
+				<view class="list_bottom_box_item"><text>赠送时长：{{item.timelenght}}</text></view>
 			</view>
 			<view class="list-between">
-					<text>订单状态</text>
-					<text class="payment" v-bind:class="item.paymentStatus=='待支付'?'payment-blue':'payment-green'">{{item.paymentStatus}}</text>
-			</view>
-			<view class="list-center">
-				<text>{{item.description}}</text>
-			</view>
-			<view class="list-between">
-					<view class="list_bottom_box_item"><text>开始日期：{{item.startDate}}</text></view>
-					<view class="list_bottom_box_item"><text>到期日期：{{item.expireDate}}</text></view>
+					<view class="list_bottom_box_item"><text>赠送时间：{{item.time}}</text></view>
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
@@ -41,24 +33,21 @@ export default {
 	},
 	data() {
 		return {
-			title: '我的订单',
+			title: '时长',
 			dataList: [{
-				orderNo:'SC2020010230003',
-				money:'600',
-				payment:'微信',
-				description:'可以通过微信开发者工具切换pages.json中condition配置的页面，或者关闭微信开发者工具，然后再从HBuilderX中启动指定页面',
-				paymentStatus:'待支付',
-				startDate:'2019-11-20',
-				expireDate:'2020-11-20'
+				giveType:'推广',
+				timelenght:'10天',
+				time:'2020-11-20 12:00:00'
 			},
 			{
-				orderNo:'SC2020010230004',
-				money:'800',
-				payment:'微信',
-				description:'可以通过微信开发者工具切换pages.json中condition配置的页面，或者关闭微信开发者工具，然后再从HBuilderX中启动指定页面',
-				paymentStatus:'已支付',
-				startDate:'2019-11-20',
-				expireDate:'2020-11-20'
+			giveType:'充值',
+			timelenght:'60天',
+			time:'2020-11-22 09:24:35'
+			},
+			{
+			giveType:'赠送',
+			timelenght:'15天',
+			time:'2020-10-03 24:00:00'
 			}]
 		};
 	},
@@ -109,13 +98,13 @@ export default {
 		height: 100%;
 	}
 	.container {
+		font-size: $uni-font-size-base;
 		height: 100vh;
 		width: 100vw;
 		.header {
 			height: 10%;
 		}
 		.main {
-			font-size: $uni-font-size-base;
 			height: 83%;
 			padding: 15upx;
 			.cu-form-group .title {
@@ -155,7 +144,7 @@ export default {
 		height: 120rpx;
 	}
 	.item_text{
-		// font-size: 24rpx;
+		font-size: 24rpx;
 		margin-top: 100rpx;
 		color: #CCCCCC;
 	}
@@ -163,7 +152,7 @@ export default {
 .list-item{
 		display: flex;
 		flex-direction: column;
-		padding: 10upx 24upx;
+		padding: 16upx 24upx;
 		background: #fff;
 		margin-bottom: 16upx;
 		.list-center{

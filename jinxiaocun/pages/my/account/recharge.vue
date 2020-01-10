@@ -61,7 +61,7 @@
 		},
 		onShow(){
 			this.$refs.checkbox.set({
-				type:'checkbox',		// 类型：复选框
+				type:'radio',		// 类型：复选框
 				column:2,				// 分列：3
 				list:this.list	// 列表数据
 			});
@@ -124,6 +124,7 @@
 
 <style lang="scss" scoped>
 .main{
+	font-size: $uni-font-size-base;
 	padding: 30rpx 20rpx;
 }
 .footer {

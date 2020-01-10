@@ -9,28 +9,28 @@
 				<cu-panel>
 					<cu-cell-group>
 						<cu-cell title="账户名称">
-							<text>{{reqData.company_name}}</text>
+							<input slot="footer" type="text" v-model="reqData.cashaccountname" placeholder-style="color:#c5c8ce" placeholder="账户名称"/>
 						</cu-cell>
 						<cu-cell title="账号信息">
-							<input slot="footer" type="text" v-model="reqData.contact_person" placeholder-style="color:#c5c8ce" placeholder="请输入联系人"/>
+							<input slot="footer" type="text" v-model="reqData.cashaccountno" placeholder-style="color:#c5c8ce" placeholder="账号信息"/>
 						</cu-cell>
 						<cu-cell title="账户类型" isLink>
 							<view style="width:80%;">
-								<picker @change="handleBankChange" :value="reqData.banktype" :range="bankDict">
+								<picker @change="handleAccountTypeChange" :range="AccountTypeDict">
 									<view class="picker">
-										<text v-if="!reqData.banktype" style="color:#c5c8ce">请选择账户类型</text>
-										<text v-else>{{reqData.banktype}}</text>
+										<text v-if="!reqData.cashaccounttype" style="color:#c5c8ce">请选择账户类型</text>
+										<text v-else>{{AccountTypeDict[reqData.cashaccounttype]}}</text>
 									</view>
 								</picker>
 							</view>
 						</cu-cell>
 						<cu-cell title="账户余额">
-							<input slot="footer" type="number" v-model="reqData.contact_qq" placeholder-style="color:#c5c8ce" placeholder="账户余额"/>
+							<input slot="footer" type="number" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="账户余额"/>
 						</cu-cell>
 						<cu-cell title="是否禁用">
 							<radio-group @change="handleForbiddenChanage">
-								<radio color="#2db7f5" value=0 :checked="reqData.isForbidden == 0">否</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.isForbidden == 1" style="margin-left: 10px;">是</radio>
+								<radio color="#2db7f5" value=0 :checked="reqData.isdelete == 0">否</radio>
+								<radio color="#2db7f5" value=1 :checked="reqData.isdelete == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
 					</cu-cell-group>
@@ -38,7 +38,7 @@
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" :loading="loading" type="primary" @click="this.handleSubmit">提交</button>
 		</view>
 	</view>
 </template>
@@ -49,6 +49,8 @@
 	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import { post } from '@/api/user.js'
+	import { api } from '@/config/common.js'
 	export default {
 		components: {
 			cuPanel,
@@ -59,29 +61,26 @@
 		},
 		data() {
 			return {
+				loading:false,
 				reqData: {
-					company_logo:'',
-					company_name:'湖北吉奥汽车服务有限公司',
-					contact_person: '',
-					contact_tel: '',
-					contact_qq:'',
-					contact_email:'',
-					contact_addr:'',
-					banktype:0,
-					isForbidden:0
+					cashaccountname:'',
+					cashaccountno:'',
+					cashaccounttype: '',
+					amount: '',
+					isdelete:0
 				},
-				bankDict: ['微信', '支付宝','银行卡', '现金'],
+				AccountTypeDict: ["","银行账号","微信","支付宝","现金"],
 				title: '账户设置'
 			};
 		},
 		onShow() {
 		},
 		methods: {
-			handleBankChange(val) {
-				this.reqData.banktype = this.bankDict[val.detail.value]
+			handleAccountTypeChange(val) {
+				this.reqData.cashaccounttype = val.detail.value
 			},
 			handleForbiddenChanage(val) {
-				this.reqData.isForbidden = val.detail.value
+				this.reqData.isdelete = val.detail.value
 			},
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -89,8 +88,47 @@
 				})
 			},
 			handleSubmit() {
-				
-				
+				const {cashaccountname,cashaccountno,cashaccounttype,amount,isdelete} = this.reqData;
+				if(cashaccountname.length==0){
+					this.$api.msg('账户名称不能为空！！')
+					return;
+				} 
+				if(cashaccountno.length==0){
+					this.$api.msg('账号信息不能为空！')
+					return;
+				} 
+										if(cashaccounttype.length==0){
+											this.$api.msg('请选择账户类型！')
+											return;
+										} 
+										if(amount.length==0){
+											this.$api.msg('账户余额不能为空！')
+											return;
+										} 
+										if(isdelete.length==0){
+											this.$api.msg('请选择账户是否禁用！')
+											return;
+										} 
+				const sendData = {
+					model:{cashaccountname,cashaccountno,cashaccounttype,amount,isdelete}
+				};
+				console.log(sendData);
+				this.loading = true;
+				post(api.MyCashAccountCreate,sendData).then(res => {
+					console.log(res);
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.$api.msg(res.data.returnMessage)
+						
+						this.handleNavbarClickLeft();
+						
+					} else {
+						this.$api.msg(res.data.returnMessage) 
+					}
+					this.loading =false;
+				}).catch(error => {
+					this.loading =false;
+					this.$api.msg('请求失败fail') 
+				})
 			}
 		}
 	}
@@ -102,6 +140,7 @@
 		height: 100%;
 	}
 	.container {
+		font-size: $uni-font-size-base;
 		height: 100vh;
 		width: 100vw;
 		.header {

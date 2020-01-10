@@ -195,19 +195,19 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
   data: function data() {
     return {
       reqData: {
-        company_logo: '',
-        company_name: '湖北吉奥汽车服务有限公司',
-        contact_person: '',
-        contact_tel: '',
-        contact_webchat: '',
-        contact_email: '',
-        contact_addr: '' },
+        companylogourl: '',
+        companyname: '湖北吉奥汽车服务有限公司',
+        contact: '',
+        telephone: '',
+        wx: '',
+        email: '',
+        address: '' },
 
       title: '设置' };
 
   },
   onShow: function onShow() {
-    //loadData();
+    this.loadData();
   },
   methods: {
     handleNavbarClickLeft: function handleNavbarClickLeft() {
@@ -228,8 +228,32 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
         _this.$api.msg('请求失败fail');
       });
     },
-    handleSubmit: function handleSubmit() {
+    handleSubmit: function handleSubmit() {var _this2 = this;var
+      companylogourl = this.companylogourl,companyname = this.companyname,contact = this.contact,telephone = this.telephone,email = this.email,address = this.address;
+      var sendData = {
+        companylogourl: companylogourl,
+        companyname: companyname,
+        contact: contact,
+        telephone: telephone,
+        email: email,
+        address: address };
 
+      (0, _user.tokenpost)(_common.api.SaveUserInfo, sendData).then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this2.$api.msg(res.data.returnMessage);
+        } else if (res.status == 200 && res.data.returnCode == '402') {
+          _this2.$api.msg(res.data.returnMessage);
+          uni.reLaunch({
+            url: '/pages/my/login/login' });
+
+        } else {
+          _this2.$api.msg(res.data.returnMessage);
+        }
+        _this2.loading = false;
+      }).catch(function (error) {
+        _this2.loading = false;
+        _this2.$api.msg('请求失败fail');
+      });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

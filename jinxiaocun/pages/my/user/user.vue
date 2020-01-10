@@ -116,19 +116,19 @@ export default {
 	}
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.fill {
 		width: 100%;
 		height: 100%;
 	}
 	.container {
+		font-size: $uni-font-size-base;
 		height: 100vh;
 		width: 100vw;
 		.header {
 			height: 10%;
 		}
 		.main {
-			font-size: 24rpx;
 			height: 83%;
 			padding: 0;
 			.top{
