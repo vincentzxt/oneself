@@ -14,6 +14,9 @@
 						<cu-cell title="产品速查码">
 							<input slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称"/>
 						</cu-cell>
+						<cu-cell title="建议零售价">
+							<input slot="footer" type="digit" v-model="reqData.price" placeholder-style="color:#c5c8ce" placeholder="请输入建议零售价"/>
+						</cu-cell>
 						<cu-cell title="新产品分类">
 							<input slot="footer" type="text" v-model="reqData.productcategory" placeholder-style="color:#c5c8ce" placeholder="请输入产品分类"/>
 						</cu-cell>
@@ -30,7 +33,7 @@
 						<cu-cell v-if="reqData.unit" title="辅计量单位" :value="reqData.subunit" isLink url="../unit/unit" params="name=subunit">
 						</cu-cell>
 						<cu-cell v-if="reqData.unit && reqData.subunit" title="计量单位倍率">
-							<input slot="footer" type="text" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位倍率"/>
+							<input slot="footer" type="digit" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位倍率"/>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
@@ -63,10 +66,11 @@
 					productid: 0,
 					productname: '',
 					querycode: '',
+					price: 0,
 					productcategory: '',
 					unit: '',
 					subunit: '',
-					unitmultiple: '',
+					unitmultiple: 0,
 					remarks: '',
 				},
 				disableSubmit: true
@@ -77,6 +81,7 @@
 			this.reqData.productid = item.productid
 			this.reqData.productname = item.productname
 			this.reqData.querycode = item.querycode
+			this.reqData.price = item.price
 			this.reqData.productcategory = item.productcategory
 			this.reqData.unit = item.unit
 			this.reqData.subunit = item.subunit
@@ -89,9 +94,9 @@
 			if (curPage.data.rName && curPage.data.datas) {
 				if (curPage.data.rName == 'type') {
 					this.reqData.productcategory = curPage.data.datas.name
-				} else if(curPage.data.rName == 'masterUnit') {
+				} else if(curPage.data.rName == 'unit') {
 					this.reqData.unit = curPage.data.datas.name
-				} else if (curPage.data.rName == 'slaveUnit') {
+				} else if (curPage.data.rName == 'subunit') {
 					this.reqData.subunit = curPage.data.datas.name
 				}
 			}
@@ -104,7 +109,7 @@
 			},
 			handleSubmit() {
 				update(api.baseProduct, {model: this.reqData }).then(res => {
-					if (res && res.data.returnCode == '0000') {
+					if (res.status == 200 && res.data.returnCode == '0000') {
 						getGlobalData.getBaseProduct().then(res => {
 							getGlobalData.getProductCategory().then(res => {
 								uni.navigateBack({

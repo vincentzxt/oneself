@@ -101,11 +101,19 @@
             "style" : {}
         }
         ,{
+<<<<<<< HEAD
             "path" : "pages/my/givetime",
             "style" : {}
         }
         ,{
             "path" : "pages/my/share/share",
+=======
+            "path" : "pages/stock/early-stage/early-stage",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/stock/inventory/inventory",
+>>>>>>> 9fe94ef172bb12d3f9cc00fc7b0da56890596501
             "style" : {}
         }
     ],

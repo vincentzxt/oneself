@@ -8,58 +8,39 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
-						<cu-cell title="业务类型" isLink>
-							<view style="width:80%;">
-								<picker @change="handleTypeChange" :value="reqData.type" :range="typeDict">
-									<view class="picker">
-										<text v-if="!reqData.type" style="color:#c5c8ce">请选择业务类型</text>
-										<text v-else>{{reqData.type}}</text>
-									</view>
-								</picker>
-							</view>
-						</cu-cell>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:65%;" @input="handleSearchCompany" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码、名称、电话" cancelButton="none"></uni-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="结算单位">
-							<input slot="footer" type="text" v-model="reqData.company" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
+						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
+							<text slot="footer">{{reqData.contactunitname}}</text>
 						</cu-cell>
-						<cu-cell title="收款方式" isLink>
-							<view style="width:80%;">
-								<picker @change="handleReceivablesChange" :value="reqData.receivables" :range="receivablesDict">
-									<view class="picker">
-										<text v-if="!reqData.receivables" style="color:#c5c8ce">请选择收款方式</text>
-										<text v-else>{{reqData.receivables}}</text>
-									</view>
-								</picker>
-							</view>
-						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="收款金额">
-							<input slot="footer" type="text" v-model="reqData.money" placeholder-style="color:#c5c8ce" placeholder="请输入收款金额"/>
-						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="是否使用预收">
-							<radio-group @change="handleAdvanceChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.isAdvance == 0">否</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.isAdvance == 1" style="margin-left: 10px;">是</radio>
+						<cu-cell v-if="!searchCurrentUnit" title="收款帐号">
+							<radio-group @change="handleCashAccountChange">
+								<radio color="#2db7f5" v-for="(item, index) in cashAccountDict" :key="index" :value="item.cashaccountid" :checked="reqData.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
 							</radio-group>
 						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="折让">
-							<input slot="footer" type="text" v-model="reqData.discount" placeholder-style="color:#c5c8ce" placeholder="请输入折让金额"/>
+						<cu-cell v-if="!searchCurrentUnit" title="收款金额">
+							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="请输入收款金额"/>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
-				<cu-panel v-if="searchCustomer">
+				<cu-panel v-if="!searchCurrentUnit">
+					<cu-cell>
+						<textarea style="height: 80px" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel v-if="searchCurrentUnit">
 					<uni-list>
-						<uni-list-item :title="item.company" :note="'电话：'+item.mobile" v-for="(item, index) in customerSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCustomer(item)">
+						<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
 						</uni-list-item>
 					</uni-list>
 				</cu-panel>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<text class="footer-text">结款金额：￥{{reqData.totalMoney}}</text>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
 		</view>
+		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
@@ -70,6 +51,8 @@
 	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import { api } from '@/config/common.js'
+	import { query, create } from '@/api/common.js'
 	export default {
 		components: {
 			uniSearchBar,
@@ -81,26 +64,31 @@
 		},
 		data() {
 			return {
-				reqData: {
-					type: 0,
-					company: '',
-					receivables: 0,
-					money: 0,
-					totalMoney: 0,
-					isAdvance: 0,
-					discount: 0
-				},
 				title: '收款单',
-				customerDatas: null,
-				customerSearchDatas: null,
-				searchCustomer: false,
-				typeDict: ['普通收款', '直接收款', '预收款'],
-				receivablesDict: ['微信', '支付宝', '网银']
+				currentUnitDatas: null,
+				currentUnitSearchDatas: null,
+				searchCurrentUnit: false,
+				reqData: {
+					contactunitid: '',
+					contactunitname: '',
+					accountid: '',
+					amount: 0
+				},
+				cashAccountDict: []
 			};
 		},
-		onShow() {
-			this.customerDatas = uni.getStorageSync('customerList')
-			this.customerSearchDatas = this.customerDatas
+		onLoad() {
+			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
+			this.currentUnitSearchDatas = this.currentUnitDatas
+			this.$refs.loading.open()
+			query(api.cashAccount).then(res => {
+				this.$refs.loading.close()
+				if (res.status == 200 && res.data.returnCode == '0000') {
+					this.cashAccountDict = res.data.data.resultList
+				}
+			}).catch(error => {
+				this.$refs.loading.close()
+			})
 		},
 		methods: {
 			handleNavbarClickLeft() {
@@ -108,51 +96,45 @@
 					delta: 1
 				})
 			},
-			handleTypeChange(val) {
-				if (val) {
-					this.reqData.type = this.typeDict[val.detail.value]
-				}
+			handleCashAccountChange(val) {
+				this.reqData.accountid = val.detail.value
 			},
-			handleReceivablesChange(val) {
-				if (val) {
-					this.reqData.receivables = this.receivablesDict[val.detail.value]
-				}
-			},
-			handleSearchCompany(val) {
+			handleSearchCurrentUnit(val) {
 				if (val.value) {
-					this.customerSearchDatas = this.customerDatas.filter((item) => {
-						return item.company.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1 || item.mobile.indexOf(val.value) !== -1
+					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
+						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
-					this.searchCustomer = true
+					this.searchCurrentUnit = true
 				} else {
-					this.customerSearchDatas = this.customerDatas
-					this.searchCustomer = false
+					this.currentUnitSearchDatas = this.currentUnitDatas
+					this.searchCurrentUnit = false
 				}
 			},
-			handleSelectCustomer(val) {
-				this.reqData.company = val.company
-				this.searchCustomer = false
+			handleSelectCurrentUnit(val) {
+				this.reqData.contactunitid = val.contactunitid
+				this.reqData.contactunitname = val.contactunitname
+				this.searchCurrentUnit = false
 				this.$refs.sc.clear()
 			},
-			handleAdvanceChange(val) {
-				this.reqData.isAdvance = val.detail.value
-			},
 			handleSubmit() {
-				
-			}
-		},
-		watch: {
-			'reqData.money': {
-				handler(val) {
-					this.reqData.totalMoney = val - this.reqData.discount
-				},
-				deep: true
-			},
-			'reqData.discount': {
-				handler(val) {
-					this.reqData.totalMoney = this.reqData.totalMoney - val
-				},
-				deep: true
+				this.$refs.loading.open()
+				create(api.capreceipt, {model: this.reqData }).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						uni.showToast({
+							title: '提交成功'
+						})
+					} else {
+						uni.showToast({
+							title: '提交失败'
+						})
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+					uni.showToast({
+						title: '提交失败'
+					})
+				})
 			}
 		}
 	}
@@ -180,19 +162,8 @@
 		.footer {
 			height: 7%;
 			display: flex;
-			background-color:$uni-split-color;
-			&-text {
-				width: 50%;
-				height: 100%;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				margin-left: $uni-spacing-row-lg;
-			}
-			&-btn	{
-				width: 50%;
-				height: 100%;
-			}
+			flex-direction: column;
+			justify-content: flex-end;
 		}
 	}
 </style>

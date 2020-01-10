@@ -7,32 +7,17 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell-group>
-						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码、名称、电话" cancelButton="none"></uni-search-bar>
-						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
-							<text slot="footer">{{reqData.contactunitname}}</text>
-						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="电话">
-							<text slot="footer">{{reqData.telephone}}</text>
-						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="选择产品">
-							<uni-search-bar ref="sp" style="width:67%;" @input="handleSearchProduct" placeholder="输入速查码、名称" cancelButton="none"></uni-search-bar>
-						</cu-cell>
-					</cu-cell-group>
+					<cu-cell v-if="!searchCurrentUnit" title="选择产品">
+						<uni-search-bar ref="sp" style="width:67%;" @input="handleSearchProduct" placeholder="输入速查码、名称" cancelButton="none"></uni-search-bar>
+					</cu-cell>
 				</cu-panel>
-				<cu-panel v-if="searchCurrentUnit || searchProduct">
-					<uni-list v-if="searchCurrentUnit">
-						<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
-						</uni-list-item>
-					</uni-list>
-					<uni-list v-if="searchProduct">
+				<cu-panel v-if="searchProduct">
+					<uni-list>
 						<uni-list-item :title="item.productname" :note="'速查码：'+item.querycode" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
 						</uni-list-item>
 					</uni-list>
 				</cu-panel>
-				<cu-panel v-if="!searchCurrentUnit && !searchProduct && reqData.productList.length > 0">
+				<cu-panel v-if="!searchProduct && reqData.productList.length > 0">
 					<cu-cell-group>
 						<cu-cell :title="item.productname" :label="'销售数量：'+item.num+'|计量单位：'+curUnit+'|建议零售价：'+item.price" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
 							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
@@ -45,7 +30,7 @@
 		</view>
 		<view class="footer">
 			<text class="footer-text">合计金额：￥{{reqData.totalPrice}}</text>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">下一步</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
@@ -89,11 +74,8 @@
 		},
 		data() {
 			return {
-				currentUnitDatas: null,
-				currentUnitSearchDatas: null,
 				productDatas: null,
 				productSearchDatas: null,
-				searchCurrentUnit: false,
 				searchProduct: false,
 				reqData: {
 					contactunitid: '',
@@ -103,7 +85,7 @@
 					totalPrice: 0.00,
 				},
 				showModal: false,
-				title: '销售',
+				title: '期初',
 				curUnit: '',
 				curSelectPruduct: null,
 				checkedUnit: 0,
@@ -111,9 +93,7 @@
 			};
 		},
 		onShow() {
-			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
 			this.productDatas = uni.getStorageSync('productList')
-			this.currentUnitSearchDatas = this.currentUnitDatas
 			this.productSearchDatas = this.productDatas
 		},
 		methods: {
@@ -121,17 +101,6 @@
 				uni.navigateBack({
 					delta: 1
 				})
-			},
-			handleSearchCurrentUnit(val) {
-				if (val.value) {
-					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
-						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
-					})
-					this.searchCurrentUnit = true
-				} else {
-					this.currentUnitSearchDatas = this.currentUnitDatas
-					this.searchCurrentUnit = false
-				}
 			},
 			handleSearchProduct(val) {
 				if (val.value) {
@@ -143,13 +112,6 @@
 					this.productSearchDatas = this.productDatas
 					this.searchProduct = false
 				}
-			},
-			handleSelectCurrentUnit(val) {
-				this.reqData.contactunitname = val.contactunitname
-				this.reqData.contactunitid = val.contactunitid
-				this.reqData.telephone = val.bseContactUnitContactModels[0].telephone
-				this.searchCurrentUnit = false
-				this.$refs.sc.clear()
 			},
 			handleSelectProduct(val) {
 				let isExists = false
@@ -211,10 +173,7 @@
 					return item.id !== val.id
 				})
 			},
-			handleNext() {
-				uni.navigateTo({
-					url: './payment/payment?reqData='+JSON.stringify(this.reqData)
-				})
+			handleSubmit() {
 			}
 		},
 		watch: {
@@ -232,7 +191,7 @@
 			},
 			reqData: {
 				handler(val) {
-					if (val.contactunitname && val.productList.length > 0 && val.totalPrice) {
+					if (val.productList.length > 0 && val.totalPrice) {
 						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true

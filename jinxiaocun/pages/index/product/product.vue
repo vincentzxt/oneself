@@ -3,7 +3,7 @@
 		<view class="header">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
-			<uni-search-bar @input="handleSearch" placeholder="输入编码、名称" cancelButton="always"></uni-search-bar>
+			<uni-search-bar @input="handleSearch" placeholder="输入速查码、名称" cancelButton="always"></uni-search-bar>
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="main-left">
@@ -14,7 +14,7 @@
 			</scroll-view>
 			<scroll-view :scroll-y="true" class="main-right">
 				<uni-list>
-					<uni-list-item :title="item.productname" :note="'编码：'+item.querycde" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					<uni-list-item :title="item.productname" :note="'速查码：'+item.querycode" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
@@ -46,7 +46,8 @@
 			}
 		},
 		onShow() {
-			this.productCategory = uni.getStorageSync('productCategory')
+			this.productCategory = uni.getStorageSync('productCategory').productCategories
+			this.productCategory.unshift('所有分类')
 			this.datas = uni.getStorageSync('productList')
 			this.searchDatas = this.datas
 		},

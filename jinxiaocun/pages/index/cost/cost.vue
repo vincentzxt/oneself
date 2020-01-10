@@ -8,62 +8,49 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
-						<cu-cell title="业务类型" isLink>
+						<cu-cell title="费用类型" isLink>
 							<view style="width:80%;">
-								<picker @change="handleTypeChange" :value="reqData.type" :range="typeDict">
+								<picker @change="handleFeeTypeChange" :value="reqData.feetype" :range="feetypeDict">
 									<view class="picker">
-										<text v-if="!reqData.type" style="color:#c5c8ce">请选择业务类型</text>
-										<text v-else>{{reqData.type}}</text>
-									</view>
-								</picker>
-							</view>
-						</cu-cell>
-						<cu-cell title="票据类型" isLink>
-							<view style="width:80%;">
-								<picker @change="handleBillTypeChange" :value="reqData.billType" :range="billDict">
-									<view class="picker">
-										<text v-if="!reqData.billType" style="color:#c5c8ce">请选择票据类型</text>
-										<text v-else>{{reqData.billType}}</text>
+										<text v-if="!reqData.feetype" style="color:#c5c8ce">请选择费用类型</text>
+										<text v-else>{{reqData.feetype}}</text>
 									</view>
 								</picker>
 							</view>
 						</cu-cell>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:65%;" @input="handleSearchCompany" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码、名称、电话" cancelButton="none"></uni-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="单位名称">
-							<input slot="footer" type="text" v-model="reqData.company" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
+						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
+							<text slot="footer">{{reqData.contactunitname}}</text>
 						</cu-cell>
-						<cu-cell title="订单" :value="reqData.order" isLink url="" params="name=masterUnit">
+						<cu-cell v-if="!searchCurrentUnit" title="收款帐号">
+							<radio-group @change="handleCashAccountChange">
+								<radio color="#2db7f5" v-for="(item, index) in cashAccountDict" :key="index" :value="item.cashaccountid" :checked="reqData.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
+							</radio-group>
 						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="发票号">
-							<input slot="footer" type="text" v-model="reqData.billCode" placeholder-style="color:#c5c8ce" placeholder="请输入发票号"/>
-						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="费用名称">
-							<input slot="footer" type="text" v-model="reqData.account" placeholder-style="color:#c5c8ce" placeholder="请输入费用名称"/>
-						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="金额">
-							<input slot="footer" type="text" v-model="reqData.money" placeholder-style="color:#c5c8ce" placeholder="请输入金额"/>
-						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="税额">
-							<input slot="footer" type="text" v-model="reqData.tax" placeholder-style="color:#c5c8ce" placeholder="请输入税额"/>
-						</cu-cell>
-						<cu-cell v-if="!searchCustomer" title="含税金额">
-							<input slot="footer" type="text" v-model="reqData.taxMoney" placeholder-style="color:#c5c8ce" placeholder="请输入含税金额"/>
+						<cu-cell v-if="!searchCurrentUnit" title="收款金额">
+							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="请输入收款金额"/>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
-				<cu-panel v-if="searchCustomer">
+				<cu-panel v-if="!searchCurrentUnit">
+					<cu-cell>
+						<textarea style="height: 80px" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel v-if="searchCurrentUnit">
 					<uni-list>
-						<uni-list-item :title="item.company" :note="'电话：'+item.mobile" v-for="(item, index) in customerSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCustomer(item)">
+						<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
 						</uni-list-item>
 					</uni-list>
 				</cu-panel>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
 		</view>
+		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
@@ -74,6 +61,8 @@
 	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import { api } from '@/config/common.js'
+	import { query, create } from '@/api/common.js'
 	export default {
 		components: {
 			uniSearchBar,
@@ -85,27 +74,33 @@
 		},
 		data() {
 			return {
-				reqData: {
-					type: 0,
-					billType: 0,
-					company: '',
-					order: '',
-					billCode: '',
-					money: 0.00,
-					tax: 0.00,
-					taxMoney: 0.00
-				},
 				title: '费用单',
-				customerDatas: null,
-				customerSearchDatas: null,
-				searchCustomer: false,
-				typeDict: ['现金费用', '往来费用'],
-				billDict: ['收据', '普通发票', '专用发票']
+				currentUnitDatas: null,
+				currentUnitSearchDatas: null,
+				searchCurrentUnit: false,
+				reqData: {
+					feetype: '',
+					contactunitid: '',
+					contactunitname: '',
+					accountid: '',
+					amount: 0
+				},
+				feetypeDict: ['公司餐费', '公司交通费', '公司办公费', '公司租金费', '公司电费', '公司快递费', '增值税'],
+				cashAccountDict: []
 			};
 		},
-		onShow() {
-			this.customerDatas = uni.getStorageSync('customerList')
-			this.customerSearchDatas = this.customerDatas
+		onLoad() {
+			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
+			this.currentUnitSearchDatas = this.currentUnitDatas
+			this.$refs.loading.open()
+			query(api.cashAccount).then(res => {
+				this.$refs.loading.close()
+				if (res.status == 200 && res.data.returnCode == '0000') {
+					this.cashAccountDict = res.data.data.resultList
+				}
+			}).catch(error => {
+				this.$refs.loading.close()
+			})
 		},
 		methods: {
 			handleNavbarClickLeft() {
@@ -113,30 +108,48 @@
 					delta: 1
 				})
 			},
-			handleTypeChange(val) {
-				this.reqData.type = this.typeDict[val.detail.value]
+			handleFeeTypeChange(val) {
+				this.reqData.feetype = this.feetypeDict[val.detail.value]
 			},
-			handleBillTypeChange(val) {
-				this.reqData.billType = this.billDict[val.detail.value]
+			handleCashAccountChange(val) {
+				this.reqData.accountid = val.detail.value
 			},
-			handleSearchCompany(val) {
+			handleSearchCurrentUnit(val) {
 				if (val.value) {
-					this.customerSearchDatas = this.customerDatas.filter((item) => {
-						return item.company.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1 || item.mobile.indexOf(val.value) !== -1
+					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
+						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
-					this.searchCustomer = true
+					this.searchCurrentUnit = true
 				} else {
-					this.customerSearchDatas = this.customerDatas
-					this.searchCustomer = false
+					this.currentUnitSearchDatas = this.currentUnitDatas
+					this.searchCurrentUnit = false
 				}
 			},
-			handleSelectCustomer(val) {
-				this.reqData.company = val.company
-				this.searchCustomer = false
+			handleSelectCurrentUnit(val) {
+				this.reqData.contactunitid = val.contactunitid
+				this.reqData.contactunitname = val.contactunitname
+				this.searchCurrentUnit = false
 				this.$refs.sc.clear()
 			},
 			handleSubmit() {
-				
+				this.$refs.loading.open()
+				create(api.capFee, {model: this.reqData }).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						uni.showToast({
+							title: '提交成功'
+						})
+					} else {
+						uni.showToast({
+							title: '提交失败'
+						})
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+					uni.showToast({
+						title: '提交失败'
+					})
+				})
 			}
 		}
 	}
@@ -164,10 +177,8 @@
 		.footer {
 			height: 7%;
 			display: flex;
-			&-btn	{
-				width: 100%;
-				height: 100%;
-			}
+			flex-direction: column;
+			justify-content: flex-end;
 		}
 	}
 </style>

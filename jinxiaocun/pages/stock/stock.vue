@@ -1,18 +1,28 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
+			<uni-navbar :title="title" background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true">
 				<cu-panel>
-					<cu-cell title="期初" isLink>
+					<cu-cell title="期初" isLink url="./early-stage/early-stage">
 						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
 					</cu-cell>
 				</cu-panel>
 				<cu-panel>
-					<cu-cell title="盘点" isLink>
+					<cu-cell title="盘点" isLink url="./inventory/inventory">
+						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel>
+					<cu-cell title="出库单" isLink url="./inventory/inventory">
+						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel>
+					<cu-cell title="库存台帐" isLink url="./inventory/inventory">
 						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
 					</cu-cell>
 				</cu-panel>
@@ -38,11 +48,6 @@
 			
 		},
 		methods: {
-			handleNavbarClickLeft() {
-				uni.navigateBack({
-					delta: 1
-				})
-			}
 		}
 	}
 </script>

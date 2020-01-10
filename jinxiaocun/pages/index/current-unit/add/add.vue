@@ -118,7 +118,7 @@
 			},
 			handleSubmit() {
 				create(api.contactUnit, {model: this.reqData }).then(res => {
-					if (res && res.data.returnCode == '0000') {
+					if (res.status == 200 && res.data.returnCode == '0000') {
 						getGlobalData.getCurrentUnit().then(res => {
 							uni.navigateBack({
 								delta: 1

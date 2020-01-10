@@ -3,7 +3,7 @@
 		<view class="header">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">				
 			</uni-navbar>
-			<uni-search-bar @input="handleSearch" placeholder="输入编码、名称、电话" cancelButton="always"></uni-search-bar>
+			<uni-search-bar @input="handleSearch" placeholder="输入速查码、名称、电话" cancelButton="always"></uni-search-bar>
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
