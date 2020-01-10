@@ -8,7 +8,7 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<uni-list>
-					<uni-list-item :title="item.contactunitname" :note="'电话：'+item.telephone" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
@@ -16,6 +16,7 @@
 		<view class="footer">
 			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleAdd">添加</button>
 		</view>
+		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
@@ -23,6 +24,7 @@
 	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import getGlobalData from '@/utils/business.js'
 	export default {
 		components: {
 			uniSearchBar,
@@ -36,9 +38,17 @@
 				searchDatas: null
 			}
 		},
+		onLoad() {
+		},
 		onShow() {
 			this.datas = uni.getStorageSync('currentUnitList')
 			this.searchDatas = this.datas
+		},
+		onPullDownRefresh() {
+			getGlobalData.getCurrentUnit()
+			this.datas = uni.getStorageSync('currentUnitList')
+			this.searchDatas = this.datas
+			uni.stopPullDownRefresh()
 		},
 		methods: {
 			handleNavbarClickLeft() {
@@ -53,14 +63,13 @@
 			},
 			handleEdit(val) {
 				uni.navigateTo({
-					url: './edit/edit?contactunitid='+val.contactunitid+'&company='+val.company+'&contacts='+val.contacts+'&type='+val.type+'&telephone='+val.telephone+'&address='+val.address+'&street='
-								+val.street+'&email='+val.email+'&remarks='+val.remarks
+					url: './edit/edit?item=' + JSON.stringify(val)
 				})
 			},
 			handleSearch(val) {
 				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
-						return item.company.indexOf(val.value) !== -1 || item.code.indexOf(val.value) !== -1 || item.mobile.indexOf(val.value) !== -1
+						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
 				} else {
 					this.searchDatas = this.datas

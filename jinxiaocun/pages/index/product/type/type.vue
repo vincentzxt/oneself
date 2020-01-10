@@ -9,7 +9,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
-						<cu-cell :title="item.name" v-for="(item, index) in searchDatas" :key="index" isReturn :rName="name" :rDatas="item">
+						<cu-cell :title="item" v-for="(item, index) in searchDatas" :key="index" isReturn :rName="name" :rDatas="filterItem(item)">
 							<view style="color:#808695" slot="footer" @tap="handleOpenEdit(item)">
 								<uni-icons type="edit" color="#2d8cf0"></uni-icons>
 							</view>
@@ -68,9 +68,9 @@
 			this.name = options.name
 		},
 		onShow() {
-			this.datas = uni.getStorageSync('productType')
+			this.datas = uni.getStorageSync('productCategory')
 			this.datas = this.datas.filter((item) => {
-				return item.name !== '所有分类'
+				return item !== '所有分类'
 			})
 			this.searchDatas = this.datas
 		},
@@ -79,6 +79,9 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			filterItem(item) {
+				return { 'name': item }
 			},
 			handleOpenAdd() {
 				this.addTypeName = ''
@@ -94,10 +97,10 @@
 			},
 			handleAdd() {
 				if (this.addTypeName) {
-					this.datas.push({ name: this.addTypeName })
+					this.datas.push(this.addTypeName)
 					uni.setStorageSync('productType', this.datas)
 					this.searchDatas = this.datas.filter((item) => {
-						return item.name !== '所有分类'
+						return item !== '所有分类'
 					})
 					this.addTypeName = ''
 				}

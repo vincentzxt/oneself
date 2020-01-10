@@ -7,11 +7,11 @@
 	<view class="main">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
-				<view>账户名称：<text>{{item.accountName}}</text></view>
+				<view>账户名称：<text>{{item.cashaccountname}}</text></view>
 			</view>
 			<view class="list-between">
-					<view class="list_bottom_box_item"><text>账户类型：{{item.bankType}}</text></view>
-					<view class="list_bottom_box_item"><text>余额：¥{{item.money}}</text></view>
+					<view class="list_bottom_box_item"><text>账户类型：{{item.cashaccounttype}}{{accounTypeList[item.cashaccounttype]}}</text></view>
+					<view class="list_bottom_box_item"><text>余额：¥{{item.amount}}</text></view>
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
@@ -38,15 +38,23 @@ export default {
 		return {
 			title: '账户设置 ',
 			dataList: [{
-				accountName:'湖北吉奥汽车服务有限公司',
-				money:'600',
-				bankType:'微信'
+				cashaccountname:'湖北吉奥汽车服务有限公司',
+				amount:'600',
+				cashaccounttype:0
 			},
 			{
-				accountName:'湖北吉奥汽车服务有限公司',
-				money:'600',
-				bankType:'微信'
-			}]
+				cashaccountname:'湖北吉奥汽车服务有限公司',
+				amount:'600',
+				cashaccounttype:3
+			}],
+			accounTypeList2:["","银行账号","微信","支付宝","现金"],
+			accounTypeList:{
+				'0':"",
+				'1':"银行账号",
+				'2':"微信",
+				'3':"支付宝",
+				'4':"现金"
+			}
 		};
 	},
 	onLoad(){},
@@ -56,7 +64,7 @@ export default {
 				url:'/pages/my/login/login'
 			})
 		};
-		//this.loadData();
+		this.loadData();
 	},
 	methods: {
 		handleRefreshPage() {
@@ -75,9 +83,10 @@ export default {
 			console.log('-----');
 		},
 		loadData(){
-			tokenpost(api.GetUserInfo).then(res => {
+			tokenpost(api.MyCashAccount).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
-				  this.dataList = res.data.data
+					console.log(res.data.resultList);
+				  this.dataList = res.data.data.resultList
 				} else {
 					this.$api.msg(res.data.returnMessage) 
 				}
@@ -97,6 +106,7 @@ export default {
 		height: 100%;
 	}
 	.container {
+		font-size: $uni-font-size-base;
 		height: 100vh;
 		width: 100vw;
 		.header {
@@ -113,7 +123,6 @@ export default {
 		}
 	}	
 		.main {
-			font-size: 24rpx;
 			height: 83%;
 			padding: 0 15upx;
 			.list-item{

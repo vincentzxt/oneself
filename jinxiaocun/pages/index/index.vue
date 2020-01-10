@@ -9,16 +9,20 @@
 				</view>
 			</uni-grid-item>
 		</uni-grid>
+		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
 <script>
 	import uniGrid from '@/components/uni-grid/uni-grid.vue'
 	import uniGridItem from '@/components/uni-grid-item/uni-grid-item.vue'
+	import cuLoading from '@/components/custom/cu-loading.vue'
+	import getGlobalData from '@/utils/business.js'
 	export default {
 		components: {
 			uniGrid,
-			uniGridItem
+			uniGridItem,
+			cuLoading
 		},
 		data() {
 			return {
@@ -36,10 +40,17 @@
 			}
 		},
 		onLoad() {
-			
+			if (uni.getStorageSync('userInfo')) {
+				getGlobalData.getCurrentUnit()
+				getGlobalData.getBaseProduct()
+				getGlobalData.getProductCategory()
+			} else {
+				uni.reLaunch({
+					url: '/pages/my/my'
+				})
+			}
 		},
 		onShow(){
-			console.log(uni.getStorageSync('userInfo'));
 		},
 		methods: {
 			handleRefreshPage() {

@@ -115,7 +115,7 @@ export default {
 			height: 10%;
 		}
 		.main {
-			font-size: 24rpx;
+			font-size: $uni-font-size-base;
 			height: 83%;
 			padding: 15upx;
 			.cu-form-group .title {
@@ -155,7 +155,7 @@ export default {
 		height: 120rpx;
 	}
 	.item_text{
-		font-size: 24rpx;
+		// font-size: 24rpx;
 		margin-top: 100rpx;
 		color: #CCCCCC;
 	}

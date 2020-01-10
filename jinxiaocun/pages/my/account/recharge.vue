@@ -124,6 +124,7 @@
 
 <style lang="scss" scoped>
 .main{
+	font-size: $uni-font-size-base;
 	padding: 30rpx 20rpx;
 }
 .footer {

@@ -23,7 +23,7 @@
     height: 10%;
 }
 .container .main.data-v-121533b4 {
-    font-size: 24rpx;
+    font-size: 32rpx;
     height: 83%;
     padding: 15rpx;
 }
@@ -83,7 +83,6 @@
     height: 120rpx;
 }
 .no_data .item_text.data-v-121533b4 {
-    font-size: 24rpx;
     margin-top: 100rpx;
     color: #CCCCCC;
 }

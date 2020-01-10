@@ -98,13 +98,13 @@ export default {
 		height: 100%;
 	}
 	.container {
+		font-size: $uni-font-size-base;
 		height: 100vh;
 		width: 100vw;
 		.header {
 			height: 10%;
 		}
 		.main {
-			font-size: 24rpx;
 			height: 83%;
 			padding: 15upx;
 			.cu-form-group .title {

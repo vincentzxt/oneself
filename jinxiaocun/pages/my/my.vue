@@ -72,6 +72,7 @@ export default {
 	onLoad(){},
 	onShow(){
 		if(!uni.getStorageSync('userInfo')){
+			console.log("!!!")
 			uni.reLaunch({
 				url:'/pages/my/login/login'
 			})

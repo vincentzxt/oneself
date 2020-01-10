@@ -131,12 +131,14 @@
 		height: 100%;
 	}
 	.container {
+		font-size: $uni-font-size-base;
 		height: 100vh;
 		width: 100vw;
 		.header {
 			height: 11%;
 		}
 		.main {
+			font-size: $uni-font-size-base;
 			height: 82%;
 		}
 	//	.textarea{width: 60%;}
