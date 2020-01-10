@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 352));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 359));};var cuUpimg = function cuUpimg() {return Promise.all(/*! import() | components/custom/cu-upimg */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/custom/cu-upimg")]).then(__webpack_require__.bind(null, /*! @/components/custom/cu-upimg.vue */ 402));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -149,26 +149,119 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-{
-  components: {
-    cuPanel: cuPanel,
-    cuCell: cuCell,
-    cuUpimg: cuUpimg },
 
-  data: function data() {
-    return {
-      title: '报表' };
 
-  },
-  onShow: function onShow() {
 
-  },
-  methods: {
-    handleNavbarClickLeft: function handleNavbarClickLeft() {
-      uni.navigateBack({
-        delta: 1 });
 
-    } } };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _uCharts = _interopRequireDefault(__webpack_require__(/*! @/components/u-charts/u-charts.js */ 418));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var scaleLine = null;var _default = { data: function data() {return { title: '报表', cWidth: '', cHeight: '', pixelRation: 1 };}, onLoad: function onLoad() {this.cWidth = uni.upx2px(750);this.cHeight = uni.upx2px(400);this.getDayData();}, onShow: function onShow() {}, methods: { showSaleLine: function showSaleLine(canvasId, chartData) {scaleLine = new _uCharts.default({ canvasId: canvasId, type: 'line', colors: ['#facc14', '#f04864', '#8543e0', '#90ed7d'], fontSize: 11, padding: [15, 15, 0, 15], legend: { show: true, padding: 5, lineHeight: 11, margin: 0 }, dataLabel: false, dataPointShape: true, background: '#FFFFFF', pixelRatio: this.pixelRatio, categories: chartData.categories, series: chartData.series, animation: true, xAxis: { type: 'grid', gridColor: '#CCCCCC', gridType: 'dash',
+          dashLength: 8 },
+
+        yAxis: {
+          gridType: 'dash',
+          gridColor: '#CCCCCC',
+          dashLength: 8 },
+
+        width: this.cWidth * this.pixelRation,
+        height: this.cHeight * this.pixelRation,
+        extra: {
+          line: {
+            type: 'straight' } } });
+
+
+
+    },
+    getDayData: function getDayData() {
+      var saleData = { categories: [], series: [] };
+      saleData.categories = ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00'];
+      saleData.series = [
+      {
+        name: '销售额',
+        data: [100, 130, 150, 130, 120, 80],
+        color: '#facc14' },
+
+      {
+        name: '利润',
+        data: [50, 80, 100, 80, 50, 30],
+        color: '#2fc25b' }];
+
+
+      this.showSaleLine("saleLine", saleData);
+    } },
+
+  touchSaleLine: function touchSaleLine(e) {
+    saleLine.showToolTip(e, {
+      format: function format(item, category) {
+        return category + ' ' + item.name + ':' + item.data;
+      } });
+
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
