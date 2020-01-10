@@ -16,7 +16,7 @@ export default {
 				console.log("#currentUnit#")
 				console.log(res)
 				this.curPage.$vm.$refs.loading.close()
-				if (res && res.data.returnCode == '0000') {
+				if (res.status == 200 && res.data.returnCode == '0000') {
 					uni.setStorageSync('currentUnitList', res.data.data.resultList)
 				} else {
 					uni.setStorageSync('currentUnitList', [])
@@ -37,7 +37,7 @@ export default {
 				this.curPage.$vm.$refs.loading.close()
 				console.log("#baseProduct#")
 				console.log(res)
-				if (res && res.data.returnCode == '0000') {
+				if (res.status == 200 && res.data.returnCode == '0000') {
 					uni.setStorageSync('productList', res.data.data.resultList)
 				} else {
 					uni.setStorageSync('productList', [])
@@ -58,8 +58,8 @@ export default {
 				this.curPage.$vm.$refs.loading.close()
 				console.log("#ProductCategory#")
 				console.log(res)
-				if (res && res.data.returnCode == '0000') {
-					uni.setStorageSync('productCategory', res.data.data.productCategories)
+				if (res.status == 200 && res.data.returnCode == '0000') {
+					uni.setStorageSync('productCategory', res.data.data)
 				} else {
 					uni.setStorageSync('productCategory', [])
 				}

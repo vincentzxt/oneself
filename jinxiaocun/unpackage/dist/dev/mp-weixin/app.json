@@ -30,7 +30,9 @@
     "pages/my/user/useradd",
     "pages/my/account/accountlist",
     "pages/my/account/recharge",
-    "pages/my/login/editPassword"
+    "pages/my/login/editPassword",
+    "pages/stock/early-stage/early-stage",
+    "pages/stock/inventory/inventory"
   ],
   "subPackages": [],
   "window": {

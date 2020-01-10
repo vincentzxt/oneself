@@ -9,32 +9,32 @@
 				<cu-panel>
 					<cu-cell-group>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:65%;" @input="handleSearchCurrentUnit" placeholder="输入编码、名称、电话" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码、名称、电话" cancelButton="none"></uni-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchcurrentUnit" title="单位名称">
-							<input slot="footer" type="text" v-model="reqData.contactunitname" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
+						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
+							<text slot="footer">{{reqData.contactunitname}}</text>
 						</cu-cell>
-						<cu-cell v-if="!searchcurrentUnit" title="电话">
-							<input slot="footer" type="text" v-model="reqData.mobile" placeholder-style="color:#c5c8ce" placeholder="请输入电话"/>
+						<cu-cell v-if="!searchCurrentUnit" title="电话">
+							<text slot="footer">{{reqData.telephone}}</text>
 						</cu-cell>
-						<cu-cell v-if="!searchcurrentUnit" title="产品">
-							<uni-search-bar ref="sp" style="width:65%;" @input="handleSearchProduct" placeholder="输入编码、名称" cancelButton="none"></uni-search-bar>
+						<cu-cell v-if="!searchCurrentUnit" title="选择产品">
+							<uni-search-bar ref="sp" style="width:67%;" @input="handleSearchProduct" placeholder="输入速查码、名称" cancelButton="none"></uni-search-bar>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
-				<cu-panel v-if="searchcurrentUnit || searchProduct">
-					<uni-list v-if="searchcurrentUnit">
-						<uni-list-item :title="item.CurrentUnit" :note="'电话：'+item.mobile" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectcurrentUnit(item)">
+				<cu-panel v-if="searchCurrentUnit || searchProduct">
+					<uni-list v-if="searchCurrentUnit">
+						<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
 						</uni-list-item>
 					</uni-list>
 					<uni-list v-if="searchProduct">
-						<uni-list-item :title="item.name" :note="'编码：'+item.code" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
+						<uni-list-item :title="item.productname" :note="'速查码：'+item.querycode" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
 						</uni-list-item>
 					</uni-list>
 				</cu-panel>
-				<cu-panel v-if="!searchcurrentUnit && !searchProduct && reqData.productList.length > 0">
+				<cu-panel v-if="!searchCurrentUnit && !searchProduct && reqData.productList.length > 0">
 					<cu-cell-group>
-						<cu-cell :title="item.name" :label="'销售数量：'+item.num+'|计量单位：'+item.unit+'|建议零售价：'+item.price" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
+						<cu-cell :title="item.productname" :label="'销售数量：'+item.num+'|计量单位：'+curUnit+'|建议零售价：'+item.price" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
 							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
 								<uni-icons type="delete" color="#ed3f14"></uni-icons>
 							</view>
@@ -96,6 +96,7 @@
 				searchCurrentUnit: false,
 				searchProduct: false,
 				reqData: {
+					contactunitid: '',
 					contactunitname: '',
 					telephone: '',
 					productList: [],
@@ -103,6 +104,7 @@
 				},
 				showModal: false,
 				title: '销售',
+				curUnit: '',
 				curSelectPruduct: null,
 				checkedUnit: 0,
 				disableSubmit: true
@@ -121,15 +123,14 @@
 				})
 			},
 			handleSearchCurrentUnit(val) {
-				console.log(val)
 				if (val.value) {
 					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
 						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
-					this.searchcurrentUnit = true
+					this.searchCurrentUnit = true
 				} else {
 					this.currentUnitSearchDatas = this.currentUnitDatas
-					this.searchcurrentUnit = false
+					this.searchCurrentUnit = false
 				}
 			},
 			handleSearchProduct(val) {
@@ -143,26 +144,32 @@
 					this.searchProduct = false
 				}
 			},
-			handleSelectcurrentUnit(val) {
-				this.reqData.CurrentUnit = val.CurrentUnit
-				this.reqData.mobile = val.mobile
-				this.searchcurrentUnit = false
+			handleSelectCurrentUnit(val) {
+				this.reqData.contactunitname = val.contactunitname
+				this.reqData.contactunitid = val.contactunitid
+				this.reqData.telephone = val.bseContactUnitContactModels[0].telephone
+				this.searchCurrentUnit = false
 				this.$refs.sc.clear()
 			},
 			handleSelectProduct(val) {
 				let isExists = false
 				for (let item of this.reqData.productList) {
-					if (item.code == val.code) {
+					if (item.querycode == val.querycode) {
 						item.num ++
 						isExists = true
 					}
 				}
 				if (!isExists) {
 					this.$set(val, 'num', 1)
+					this.curUnit = val.unit
 					this.reqData.productList.push(val)
 				}
 				this.searchProduct = false
 				this.$refs.sp.clear()
+				this.curSelectPruduct = val
+				this.$nextTick(function(){
+					this.$refs.popup.open()
+				})
 			},
 			handleShowPopup(val) {
 				this.curSelectPruduct = val
@@ -189,11 +196,13 @@
 				}
 			},
 			handleUnitChange(val) {
+				console.log(val)
+				console.log(this.curSelectPruduct)
 				this.checkedUnit = val.detail.value
 				if (this.checkedUnit == 0) {
-					this.curSelectPruduct.unit = this.curSelectPruduct.masterUnit
+					this.curSelectPruduct.unit = this.curSelectPruduct.unit
 				} else {
-					this.curSelectPruduct.unit = this.curSelectPruduct.slaveUnit
+					this.curSelectPruduct.subunit = this.curSelectPruduct.subunit
 				}
 			},
 			handleDelete(val) {
@@ -223,7 +232,7 @@
 			},
 			reqData: {
 				handler(val) {
-					if (val.CurrentUnit && val.productList.length > 0 && val.totalPrice) {
+					if (val.contactunitname && val.productList.length > 0 && val.totalPrice) {
 						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true

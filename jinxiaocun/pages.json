@@ -100,6 +100,14 @@
             "path" : "pages/my/login/editPassword",
             "style" : {}
         }
+        ,{
+            "path" : "pages/stock/early-stage/early-stage",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/stock/inventory/inventory",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

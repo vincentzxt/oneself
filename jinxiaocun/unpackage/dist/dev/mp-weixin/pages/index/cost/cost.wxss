@@ -23,21 +23,21 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-857c790a {
+.fill.data-v-1c2db627 {
   width: 100%;
   height: 100%;
 }
-.container.data-v-857c790a {
+.container.data-v-1c2db627 {
   height: 100vh;
   width: 100vw;
 }
-.container .header.data-v-857c790a {
+.container .header.data-v-1c2db627 {
     height: 10%;
 }
-.container .main.data-v-857c790a {
+.container .main.data-v-1c2db627 {
     height: 83%;
 }
-.container .main .picker.data-v-857c790a {
+.container .main .picker.data-v-1c2db627 {
       width: 100%;
       display: -webkit-box;
       display: -webkit-flex;
@@ -46,14 +46,17 @@
       -webkit-justify-content: flex-end;
               justify-content: flex-end;
 }
-.container .footer.data-v-857c790a {
+.container .footer.data-v-1c2db627 {
     height: 7%;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
-}
-.container .footer-btn.data-v-857c790a {
-      width: 100%;
-      height: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+            justify-content: flex-end;
 }
 
