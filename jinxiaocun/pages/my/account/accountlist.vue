@@ -10,7 +10,7 @@
 				<view>账户名称：<text>{{item.cashaccountname}}</text></view>
 			</view>
 			<view class="list-between">
-					<view class="list_bottom_box_item"><text>账户类型：{{item.cashaccounttype}}{{accounTypeList[item.cashaccounttype]}}</text></view>
+					<view class="list_bottom_box_item"><text>账户类型：{{accounTypeList[item.cashaccounttype]}}</text></view>
 					<view class="list_bottom_box_item"><text>余额：¥{{item.amount}}</text></view>
 			</view>
 		</view>
