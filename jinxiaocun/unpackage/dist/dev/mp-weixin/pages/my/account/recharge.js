@@ -122,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var helangCheckbox = function helangCheckbox() {return __webpack_require__.e(/*! import() | components/helang-checkbox/helang-checkbox */ "components/helang-checkbox/helang-checkbox").then(__webpack_require__.bind(null, /*! @/components/helang-checkbox/helang-checkbox.vue */ 399));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var helangCheckbox = function helangCheckbox() {return __webpack_require__.e(/*! import() | components/helang-checkbox/helang-checkbox */ "components/helang-checkbox/helang-checkbox").then(__webpack_require__.bind(null, /*! @/components/helang-checkbox/helang-checkbox.vue */ 423));};var _default =
 
 
 
@@ -185,7 +185,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   onShow: function onShow() {
     this.$refs.checkbox.set({
-      type: 'checkbox', // 类型：复选框
+      type: 'radio', // 类型：复选框
       column: 2, // 分列：3
       list: this.list // 列表数据
     });

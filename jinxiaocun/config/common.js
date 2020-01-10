@@ -14,5 +14,6 @@ export const api = {
 	token: '/api/Token',
 	login: '/api/BseUser/Login',
 	Regist:'/api/BseUser/Regist',
-	GetUserInfo:'/api/BseUser/GetUserInfo'
+	GetUserInfo:'/api/BseUser/GetUserInfo',
+	SaveUserInfo:'/api/BseUser/SaveUserInfo'
 }

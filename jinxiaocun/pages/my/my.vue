@@ -30,12 +30,16 @@
 		<view class="space"></view>
 		<uni-list>
 			<uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" @click="handleMyorder()" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item>
-			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" show-text="true" :content="dataList.daycount"></uni-list-item>
-			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png"></uni-list-item>
+			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" @click="handleTime()"  show-text="true" :content="dataList.daycount"></uni-list-item>
+			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @click="handleShare()"></uni-list-item>
 			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
-		<view class="user_bottom"><button type="primary" class="logout_btn" @tap="handleLogout">退出登录</button></view>
+		<view class="user_bottom">
+			<button type="primary" class="logout_btn" @tap="handleLogout">退出登录</button>
+			<button type="primary" class="logout_btn" open-type="getUserInfo" @tap="handlewx">获取用户信息</button>
+			<button type="primary" class="logout_btn" open-type="getPhoneNumber" @tap="handlewx">获取用户信息</button>
+			</view>
 	</view>
 </template>
 
@@ -102,10 +106,36 @@ export default {
 				url: '/pages/my/user/user'
 			});
 		},
+		handleTime(){
+			console.log("11111111111");
+			uni.navigateTo({
+				url: '/pages/my/givetime'
+			});
+		},
 		handleMyorder(){
 			console.log("11111111111");
 			uni.navigateTo({
 				url: '/pages/my/myorder'
+			});
+		},
+		handleShare(){
+			uni.navigateTo({
+				url: '/pages/my/share/share'
+			});
+		},
+		handlewx(){
+			uni.login({
+			  provider: 'weixin',
+			  success: function (loginRes) {
+			    console.log(loginRes);
+			    // 获取用户信息
+			    uni.getUserInfo({
+			      provider: 'weixin',
+			      success: function (infoRes) {
+			        console.log(infoRes);
+			      }
+			    });
+			  }
 			});
 		},
 		handleGridChange(val) {
@@ -160,13 +190,15 @@ export default {
 			});
 		},
 		loadData(){
-			// let userid = uni.getStorageSync('userInfo').userid;
-			// let token = uni.getStorageSync('userInfo').token;
-			// let url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
 			tokenpost(api.GetUserInfo).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
 				  this.dataList = res.data.data
-				} else {
+				}else if(res.status == 200 && res.data.returnCode == '402'){
+					this.$api.msg(res.data.returnMessage);
+					uni.reLaunch({
+						url:'/pages/my/login/login'
+					})
+				}else {
 					this.$api.msg(res.data.returnMessage) 
 				}
 				this.loading =false;
@@ -174,13 +206,12 @@ export default {
 				this.loading =false;
 				this.$api.msg('请求失败fail') 
 			})
-			
 		}
 	}
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../../lib/global.scss';
 .space {
 	height: 32rpx;

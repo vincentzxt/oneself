@@ -99,6 +99,14 @@
             "path" : "pages/my/login/editPassword",
             "style" : {}
         }
+        ,{
+            "path" : "pages/my/givetime",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/share/share",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

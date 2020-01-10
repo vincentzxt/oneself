@@ -80,27 +80,6 @@ export default {
 				delta: 1
 			})
 		},
-		//退出登录
-		handleLogout() {
-			uni.showModal({
-				title: '确定要退出登录么？',
-				success: e => {
-					if (e.confirm) {
-						try {
-							uni.clearStorageSync();
-							setTimeout(() => {
-								const userInfo = uni.getStorageSync('userInfo');
-								if (!userInfo) {
-									uni.reLaunch({
-										url: '/pages/my/login/login'
-									});
-								}
-							}, 200);
-						} catch (e) {}
-					}
-				}
-			});
-		},
 		//设置
 		handleSet(){
 			uni.navigateTo({
@@ -108,9 +87,6 @@ export default {
 			});
 		},
 		loadData(){
-			// let userid = uni.getStorageSync('userInfo').userid;
-			// let token = uni.getStorageSync('userInfo').token;
-			// let url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
 			tokenpost(api.GetUserInfo).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
 				  this.dataList = res.data.data
@@ -127,7 +103,7 @@ export default {
 	}
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.fill {
 		width: 100%;
 		height: 100%;

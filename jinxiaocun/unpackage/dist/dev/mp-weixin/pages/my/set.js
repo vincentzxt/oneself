@@ -172,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _user = __webpack_require__(/*! @/api/user.js */ 209);
-var _common = __webpack_require__(/*! @/config/common.js */ 46);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 342));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 349));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 356));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 361));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 368));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 46);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 369));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 376));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 383));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 388));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 395));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -184,19 +184,19 @@ var _common = __webpack_require__(/*! @/config/common.js */ 46);var cuPanel = fu
   data: function data() {
     return {
       reqData: {
-        company_logo: '',
-        company_name: '湖北吉奥汽车服务有限公司',
-        contact_person: '',
-        contact_tel: '',
-        contact_webchat: '',
-        contact_email: '',
-        contact_addr: '' },
+        companylogourl: '',
+        companyname: '湖北吉奥汽车服务有限公司',
+        contact: '',
+        telephone: '',
+        wx: '',
+        email: '',
+        address: '' },
 
       title: '设置' };
 
   },
   onShow: function onShow() {
-    //loadData();
+    this.loadData();
   },
   methods: {
     handleNavbarClickLeft: function handleNavbarClickLeft() {
@@ -217,8 +217,32 @@ var _common = __webpack_require__(/*! @/config/common.js */ 46);var cuPanel = fu
         _this.$api.msg('请求失败fail');
       });
     },
-    handleSubmit: function handleSubmit() {
+    handleSubmit: function handleSubmit() {var _this2 = this;var
+      companylogourl = this.companylogourl,companyname = this.companyname,contact = this.contact,telephone = this.telephone,email = this.email,address = this.address;
+      var sendData = {
+        companylogourl: companylogourl,
+        companyname: companyname,
+        contact: contact,
+        telephone: telephone,
+        email: email,
+        address: address };
 
+      (0, _user.tokenpost)(_common.api.SaveUserInfo, sendData).then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this2.$api.msg(res.data.returnMessage);
+        } else if (res.status == 200 && res.data.returnCode == '402') {
+          _this2.$api.msg(res.data.returnMessage);
+          uni.reLaunch({
+            url: '/pages/my/login/login' });
+
+        } else {
+          _this2.$api.msg(res.data.returnMessage);
+        }
+        _this2.loading = false;
+      }).catch(function (error) {
+        _this2.loading = false;
+        _this2.$api.msg('请求失败fail');
+      });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

@@ -126,8 +126,7 @@
 	}
 </script>
 
-<style lang="scss"> 
-//@import "../../../lib/global.scss";
+<style lang="scss" scoped>
 .space{
 	height: 120rpx;
 }

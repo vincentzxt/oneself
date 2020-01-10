@@ -8975,61 +8975,6 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 /***/ }),
 
-/***/ 304:
-/*!****************************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/components/uni-icons/icons.js ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'sale': "\uE600",
-  'cost': "\uE604",
-  'purchase': "\uE887",
-  'purchase-fill': "\uE888",
-  'stock': "\uE88F",
-  'stock-fill': "\uE890",
-  'customer': "\uE8A8",
-  'customer-fill': "\uE8A9",
-  'multiple': "\uE8B5",
-  'multiple-fill': "\uE8B4",
-  'search': "\uE8B8",
-  'home': "\uE8BA",
-  'home-fill': "\uE8B9",
-  'user': "\uE8C8",
-  'user-fill': "\uE8C9",
-  'profile': "\uE8CA",
-  'add': "\uE8E1",
-  'back': "\uE8EF",
-  'arrow': "\uE8F1",
-  'location': "\uE8FE",
-  'location-fill': "\uE8FF",
-  'data': "\uE902",
-  'data-fill': "\uE905",
-  'phone': "\uE8BD",
-  'mobile': "\uE8DC",
-  'product': "\uE8A1",
-  'product-fill': "\uE8A0",
-  'finance': "\uE8AF",
-  'finance-fill': "\uE8AE",
-  'edit': "\uE8CC",
-  'edit-fill': "\uE8CD",
-  'refresh': "\uE8FC",
-  'delete': "\uE775",
-  'email': "\uE60F",
-  'company': "\uEDB4",
-  'contacts': "\uE605",
-  'classify': "\uE898",
-  'classify-fill': "\uE897",
-  'unit': "\uE8A3",
-  'unit-fill': "\uE8A2",
-  'receipt': "\uE668",
-  'payment': "\uE691",
-  'return-order': "\uE6FE" };exports.default = _default;
-
-/***/ }),
-
 /***/ 31:
 /*!*************************************************************************************************!*\
   !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/adapters/xhr.js ***!
@@ -9215,367 +9160,19 @@ module.exports = function xhrAdapter(config) {
 
 /***/ }),
 
-/***/ 32:
-/*!************************************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/core/settle.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var createError = __webpack_require__(/*! ./createError */ 33);
-
-/**
-                                             * Resolve or reject a Promise based on response status.
-                                             *
-                                             * @param {Function} resolve A function that resolves the promise.
-                                             * @param {Function} reject A function that rejects the promise.
-                                             * @param {object} response The response.
-                                             */
-module.exports = function settle(resolve, reject, response) {
-  var validateStatus = response.config.validateStatus;
-  if (!validateStatus || validateStatus(response.status)) {
-    resolve(response);
-  } else {
-    reject(createError(
-    'Request failed with status code ' + response.status,
-    response.config,
-    null,
-    response.request,
-    response));
-
-  }
-};
-
-/***/ }),
-
-/***/ 33:
-/*!*****************************************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/core/createError.js ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var enhanceError = __webpack_require__(/*! ./enhanceError */ 34);
-
-/**
-                                               * Create an Error with the specified message, config, error code, request and response.
-                                               *
-                                               * @param {string} message The error message.
-                                               * @param {Object} config The config.
-                                               * @param {string} [code] The error code (for example, 'ECONNABORTED').
-                                               * @param {Object} [request] The request.
-                                               * @param {Object} [response] The response.
-                                               * @returns {Error} The created error.
-                                               */
-module.exports = function createError(message, config, code, request, response) {
-  var error = new Error(message);
-  return enhanceError(error, config, code, request, response);
-};
-
-/***/ }),
-
-/***/ 34:
-/*!******************************************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/core/enhanceError.js ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-               * Update an Error with the specified config, error code, and response.
-               *
-               * @param {Error} error The error to update.
-               * @param {Object} config The config.
-               * @param {string} [code] The error code (for example, 'ECONNABORTED').
-               * @param {Object} [request] The request.
-               * @param {Object} [response] The response.
-               * @returns {Error} The error.
-               */
-module.exports = function enhanceError(error, config, code, request, response) {
-  error.config = config;
-  if (code) {
-    error.code = code;
-  }
-
-  error.request = request;
-  error.response = response;
-  error.isAxiosError = true;
-
-  error.toJSON = function () {
-    return {
-      // Standard
-      message: this.message,
-      name: this.name,
-      // Microsoft
-      description: this.description,
-      number: this.number,
-      // Mozilla
-      fileName: this.fileName,
-      lineNumber: this.lineNumber,
-      columnNumber: this.columnNumber,
-      stack: this.stack,
-      // Axios
-      config: this.config,
-      code: this.code };
-
-  };
-  return error;
-};
-
-/***/ }),
-
-/***/ 35:
-/*!*********************************************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/parseHeaders.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 18);
-
-// Headers whose duplicates are ignored by node
-// c.f. https://nodejs.org/api/http.html#http_message_headers
-var ignoreDuplicateOf = [
-'age', 'authorization', 'content-length', 'content-type', 'etag',
-'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
-'last-modified', 'location', 'max-forwards', 'proxy-authorization',
-'referer', 'retry-after', 'user-agent'];
-
-
-/**
-                                          * Parse headers into an object
-                                          *
-                                          * ```
-                                          * Date: Wed, 27 Aug 2014 08:58:49 GMT
-                                          * Content-Type: application/json
-                                          * Connection: keep-alive
-                                          * Transfer-Encoding: chunked
-                                          * ```
-                                          *
-                                          * @param {String} headers Headers needing to be parsed
-                                          * @returns {Object} Headers parsed into an object
-                                          */
-module.exports = function parseHeaders(headers) {
-  var parsed = {};
-  var key;
-  var val;
-  var i;
-
-  if (!headers) {return parsed;}
-
-  utils.forEach(headers.split('\n'), function parser(line) {
-    i = line.indexOf(':');
-    key = utils.trim(line.substr(0, i)).toLowerCase();
-    val = utils.trim(line.substr(i + 1));
-
-    if (key) {
-      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
-        return;
-      }
-      if (key === 'set-cookie') {
-        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
-      } else {
-        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
-      }
-    }
-  });
-
-  return parsed;
-};
-
-/***/ }),
-
-/***/ 36:
-/*!************************************************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 18);
-
-module.exports =
-utils.isStandardBrowserEnv() ?
-
-// Standard browser envs have full support of the APIs needed to test
-// whether the request URL is of the same origin as current location.
-function standardBrowserEnv() {
-  var msie = /(msie|trident)/i.test(navigator.userAgent);
-  var urlParsingNode = document.createElement('a');
-  var originURL;
-
-  /**
-                 * Parse a URL to discover it's components
-                 *
-                 * @param {String} url The URL to be parsed
-                 * @returns {Object}
-                 */
-  function resolveURL(url) {
-    var href = url;
-
-    if (msie) {
-      // IE needs attribute set twice to normalize properties
-      urlParsingNode.setAttribute('href', href);
-      href = urlParsingNode.href;
-    }
-
-    urlParsingNode.setAttribute('href', href);
-
-    // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-    return {
-      href: urlParsingNode.href,
-      protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-      host: urlParsingNode.host,
-      search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-      hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-      hostname: urlParsingNode.hostname,
-      port: urlParsingNode.port,
-      pathname: urlParsingNode.pathname.charAt(0) === '/' ?
-      urlParsingNode.pathname :
-      '/' + urlParsingNode.pathname };
-
-  }
-
-  originURL = resolveURL(window.location.href);
-
-  /**
-                                                * Determine if a URL shares the same origin as the current location
-                                                *
-                                                * @param {String} requestURL The URL to test
-                                                * @returns {boolean} True if URL shares the same origin, otherwise false
-                                                */
-  return function isURLSameOrigin(requestURL) {
-    var parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
-    return parsed.protocol === originURL.protocol &&
-    parsed.host === originURL.host;
-  };
-}() :
-
-// Non standard browser envs (web workers, react-native) lack needed support.
-function nonStandardBrowserEnv() {
-  return function isURLSameOrigin() {
-    return true;
-  };
-}();
-
-/***/ }),
-
-/***/ 37:
-/*!****************************************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/cookies.js ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 18);
-
-module.exports =
-utils.isStandardBrowserEnv() ?
-
-// Standard browser envs support document.cookie
-function standardBrowserEnv() {
-  return {
-    write: function write(name, value, expires, path, domain, secure) {
-      var cookie = [];
-      cookie.push(name + '=' + encodeURIComponent(value));
-
-      if (utils.isNumber(expires)) {
-        cookie.push('expires=' + new Date(expires).toGMTString());
-      }
-
-      if (utils.isString(path)) {
-        cookie.push('path=' + path);
-      }
-
-      if (utils.isString(domain)) {
-        cookie.push('domain=' + domain);
-      }
-
-      if (secure === true) {
-        cookie.push('secure');
-      }
-
-      document.cookie = cookie.join('; ');
-    },
-
-    read: function read(name) {
-      var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-      return match ? decodeURIComponent(match[3]) : null;
-    },
-
-    remove: function remove(name) {
-      this.write(name, '', Date.now() - 86400000);
-    } };
-
-}() :
-
-// Non standard browser env (web workers, react-native) lack needed support.
-function nonStandardBrowserEnv() {
-  return {
-    write: function write() {},
-    read: function read() {return null;},
-    remove: function remove() {} };
-
-}();
-
-/***/ }),
-
-/***/ 38:
-/*!**********************************************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \**********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-               * Determines whether the specified URL is absolute
-               *
-               * @param {string} url The URL to test
-               * @returns {boolean} True if the specified URL is absolute, otherwise false
-               */
-module.exports = function isAbsoluteURL(url) {
-  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
-  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
-  // by any combination of letters, digits, plus, period, or hyphen.
-  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
-};
-
-/***/ }),
-
-/***/ 387:
+/***/ 314:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 388);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 315);
 
 
 /***/ }),
 
-/***/ 388:
+/***/ 315:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -9606,7 +9203,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 389);
+module.exports = __webpack_require__(/*! ./runtime */ 316);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -9623,7 +9220,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 389:
+/***/ 316:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -10355,6 +9952,409 @@ if (hadRuntime) {
 
 /***/ }),
 
+/***/ 32:
+/*!************************************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/core/settle.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var createError = __webpack_require__(/*! ./createError */ 33);
+
+/**
+                                             * Resolve or reject a Promise based on response status.
+                                             *
+                                             * @param {Function} resolve A function that resolves the promise.
+                                             * @param {Function} reject A function that rejects the promise.
+                                             * @param {object} response The response.
+                                             */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  if (!validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+    'Request failed with status code ' + response.status,
+    response.config,
+    null,
+    response.request,
+    response));
+
+  }
+};
+
+/***/ }),
+
+/***/ 33:
+/*!*****************************************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/core/createError.js ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(/*! ./enhanceError */ 34);
+
+/**
+                                               * Create an Error with the specified message, config, error code, request and response.
+                                               *
+                                               * @param {string} message The error message.
+                                               * @param {Object} config The config.
+                                               * @param {string} [code] The error code (for example, 'ECONNABORTED').
+                                               * @param {Object} [request] The request.
+                                               * @param {Object} [response] The response.
+                                               * @returns {Error} The created error.
+                                               */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+/***/ }),
+
+/***/ 331:
+/*!****************************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/components/uni-icons/icons.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  'sale': "\uE600",
+  'cost': "\uE604",
+  'purchase': "\uE887",
+  'purchase-fill': "\uE888",
+  'stock': "\uE88F",
+  'stock-fill': "\uE890",
+  'customer': "\uE8A8",
+  'customer-fill': "\uE8A9",
+  'multiple': "\uE8B5",
+  'multiple-fill': "\uE8B4",
+  'search': "\uE8B8",
+  'home': "\uE8BA",
+  'home-fill': "\uE8B9",
+  'user': "\uE8C8",
+  'user-fill': "\uE8C9",
+  'profile': "\uE8CA",
+  'add': "\uE8E1",
+  'back': "\uE8EF",
+  'arrow': "\uE8F1",
+  'location': "\uE8FE",
+  'location-fill': "\uE8FF",
+  'data': "\uE902",
+  'data-fill': "\uE905",
+  'phone': "\uE8BD",
+  'mobile': "\uE8DC",
+  'product': "\uE8A1",
+  'product-fill': "\uE8A0",
+  'finance': "\uE8AF",
+  'finance-fill': "\uE8AE",
+  'edit': "\uE8CC",
+  'edit-fill': "\uE8CD",
+  'refresh': "\uE8FC",
+  'delete': "\uE775",
+  'email': "\uE60F",
+  'company': "\uEDB4",
+  'contacts': "\uE605",
+  'classify': "\uE898",
+  'classify-fill': "\uE897",
+  'unit': "\uE8A3",
+  'unit-fill': "\uE8A2",
+  'receipt': "\uE668",
+  'payment': "\uE691",
+  'return-order': "\uE6FE" };exports.default = _default;
+
+/***/ }),
+
+/***/ 34:
+/*!******************************************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/core/enhanceError.js ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+               * Update an Error with the specified config, error code, and response.
+               *
+               * @param {Error} error The error to update.
+               * @param {Object} config The config.
+               * @param {string} [code] The error code (for example, 'ECONNABORTED').
+               * @param {Object} [request] The request.
+               * @param {Object} [response] The response.
+               * @returns {Error} The error.
+               */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function () {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code };
+
+  };
+  return error;
+};
+
+/***/ }),
+
+/***/ 35:
+/*!*********************************************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ 18);
+
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = [
+'age', 'authorization', 'content-length', 'content-type', 'etag',
+'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+'referer', 'retry-after', 'user-agent'];
+
+
+/**
+                                          * Parse headers into an object
+                                          *
+                                          * ```
+                                          * Date: Wed, 27 Aug 2014 08:58:49 GMT
+                                          * Content-Type: application/json
+                                          * Connection: keep-alive
+                                          * Transfer-Encoding: chunked
+                                          * ```
+                                          *
+                                          * @param {String} headers Headers needing to be parsed
+                                          * @returns {Object} Headers parsed into an object
+                                          */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) {return parsed;}
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
+    }
+  });
+
+  return parsed;
+};
+
+/***/ }),
+
+/***/ 36:
+/*!************************************************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ 18);
+
+module.exports =
+utils.isStandardBrowserEnv() ?
+
+// Standard browser envs have full support of the APIs needed to test
+// whether the request URL is of the same origin as current location.
+function standardBrowserEnv() {
+  var msie = /(msie|trident)/i.test(navigator.userAgent);
+  var urlParsingNode = document.createElement('a');
+  var originURL;
+
+  /**
+                 * Parse a URL to discover it's components
+                 *
+                 * @param {String} url The URL to be parsed
+                 * @returns {Object}
+                 */
+  function resolveURL(url) {
+    var href = url;
+
+    if (msie) {
+      // IE needs attribute set twice to normalize properties
+      urlParsingNode.setAttribute('href', href);
+      href = urlParsingNode.href;
+    }
+
+    urlParsingNode.setAttribute('href', href);
+
+    // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+    return {
+      href: urlParsingNode.href,
+      protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+      host: urlParsingNode.host,
+      search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+      hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+      hostname: urlParsingNode.hostname,
+      port: urlParsingNode.port,
+      pathname: urlParsingNode.pathname.charAt(0) === '/' ?
+      urlParsingNode.pathname :
+      '/' + urlParsingNode.pathname };
+
+  }
+
+  originURL = resolveURL(window.location.href);
+
+  /**
+                                                * Determine if a URL shares the same origin as the current location
+                                                *
+                                                * @param {String} requestURL The URL to test
+                                                * @returns {boolean} True if URL shares the same origin, otherwise false
+                                                */
+  return function isURLSameOrigin(requestURL) {
+    var parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
+    return parsed.protocol === originURL.protocol &&
+    parsed.host === originURL.host;
+  };
+}() :
+
+// Non standard browser envs (web workers, react-native) lack needed support.
+function nonStandardBrowserEnv() {
+  return function isURLSameOrigin() {
+    return true;
+  };
+}();
+
+/***/ }),
+
+/***/ 37:
+/*!****************************************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/cookies.js ***!
+  \****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ 18);
+
+module.exports =
+utils.isStandardBrowserEnv() ?
+
+// Standard browser envs support document.cookie
+function standardBrowserEnv() {
+  return {
+    write: function write(name, value, expires, path, domain, secure) {
+      var cookie = [];
+      cookie.push(name + '=' + encodeURIComponent(value));
+
+      if (utils.isNumber(expires)) {
+        cookie.push('expires=' + new Date(expires).toGMTString());
+      }
+
+      if (utils.isString(path)) {
+        cookie.push('path=' + path);
+      }
+
+      if (utils.isString(domain)) {
+        cookie.push('domain=' + domain);
+      }
+
+      if (secure === true) {
+        cookie.push('secure');
+      }
+
+      document.cookie = cookie.join('; ');
+    },
+
+    read: function read(name) {
+      var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+      return match ? decodeURIComponent(match[3]) : null;
+    },
+
+    remove: function remove(name) {
+      this.write(name, '', Date.now() - 86400000);
+    } };
+
+}() :
+
+// Non standard browser env (web workers, react-native) lack needed support.
+function nonStandardBrowserEnv() {
+  return {
+    write: function write() {},
+    read: function read() {return null;},
+    remove: function remove() {} };
+
+}();
+
+/***/ }),
+
+/***/ 38:
+/*!**********************************************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+               * Determines whether the specified URL is absolute
+               *
+               * @param {string} url The URL to test
+               * @returns {boolean} True if the specified URL is absolute, otherwise false
+               */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+/***/ }),
+
 /***/ 39:
 /*!********************************************************************************************************!*\
   !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/helpers/combineURLs.js ***!
@@ -10772,7 +10772,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   token: '/api/Token',
   login: '/api/BseUser/Login',
   Regist: '/api/BseUser/Regist',
-  GetUserInfo: '/api/BseUser/GetUserInfo' };exports.api = api;
+  GetUserInfo: '/api/BseUser/GetUserInfo',
+  SaveUserInfo: '/api/BseUser/SaveUserInfo' };exports.api = api;
 
 /***/ }),
 
@@ -11809,7 +11810,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@^2.0.0-alpha-24420191128001","_id"
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item" } }, "pages/index/sale/sale": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" } }, "pages/index/sale/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/purchase/purchase": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" } }, "pages/index/purchase/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/current-unit/current-unit": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/current-unit/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/current-unit/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/product/product": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/product/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/product/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/product/type/type": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/product/unit/unit": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/receipt/receipt": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/payment/payment": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/cost/cost": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/return-order/return-order": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/stock/stock": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell" } }, "pages/data/data": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-upimg": "/components/custom/cu-upimg" } }, "pages/my/my": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/login/login": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" } }, "pages/my/set": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/login/reg": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" } }, "pages/my/login/forget": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" } }, "pages/my/account/accountadd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/myorder": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/user/user": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/user/useradd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/account/accountlist": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/account/recharge": { "usingComponents": { "helang-checkbox": "/components/helang-checkbox/helang-checkbox" } }, "pages/my/login/editPassword": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": {}, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/stock/stock": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 
