@@ -18,5 +18,7 @@ export const api = {
 	SaveUserInfo:'/api/BseUser/SaveUserInfo',
 	MyCashAccount: '/api/CashAccount/Query',
 	MyCashAccountCreate: '/api/CashAccount/Create',
+	MyCashAccountGet: '/api/CashAccount/Get/',
+	MyCashAccountUpdate: '/api/CashAccount/Update',
 	
 }

@@ -49,7 +49,7 @@
 	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
-	import { post } from '@/api/user.js'
+	import { post,tokenpost } from '@/api/user.js'
 	import { api } from '@/config/common.js'
 	export default {
 		components: {
@@ -114,7 +114,7 @@
 				};
 				console.log(sendData);
 				this.loading = true;
-				post(api.MyCashAccountCreate,sendData).then(res => {
+				tokenpost(api.MyCashAccountCreate,sendData).then(res => {
 					console.log(res);
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.$api.msg(res.data.returnMessage)
