@@ -1,0 +1,57 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.fill.data-v-707ed527 {
+  width: 100%;
+  height: 100%;
+}
+.container.data-v-707ed527 {
+  height: 100vh;
+  width: 100vw;
+}
+.container .header.data-v-707ed527 {
+    height: 15%;
+}
+.container .main.data-v-707ed527 {
+    height: 78%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
+}
+.container .main .main-left.data-v-707ed527 {
+      width: 30%;
+}
+.container .main .main-left .menuSelect.data-v-707ed527 {
+        background-color: #5cadff;
+        color: #fff;
+}
+.container .main .main-right.data-v-707ed527 {
+      width: 68%;
+}
+.container .footer.data-v-707ed527 {
+    height: 7%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+}
+
