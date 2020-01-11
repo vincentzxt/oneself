@@ -79,7 +79,8 @@
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						let userInfo = {
 										"token":res.data.data.token,
-										"exp":res.data.data.exp
+										"exp":res.data.data.exp,
+										"userId":res.data.data.userId
 									};
 									uni.setStorage({
 									    key: 'userInfo',

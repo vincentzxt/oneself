@@ -13,12 +13,17 @@ export const api = {
 	salesOrder: '/api/SalesOrder',
 	token: '/api/Token',
 	login: '/api/BseUser/Login',
+	ChangePassword:'/api/BseUser/ChangePassword',
 	Regist:'/api/BseUser/Regist',
 	GetUserInfo:'/api/BseUser/GetUserInfo',
 	SaveUserInfo:'/api/BseUser/SaveUserInfo',
+	GetUserList:'/api/BseUser/GetUserList',
+	SaveUser:'/api/BseUser/SaveUser',
+	CustomerSave:'/api/Customer/SaveCustomer',
 	MyCashAccount: '/api/CashAccount/Query',
 	MyCashAccountCreate: '/api/CashAccount/Create',
 	MyCashAccountGet: '/api/CashAccount/Get/',
 	MyCashAccountUpdate: '/api/CashAccount/Update',
+	UploadImg:'/api/BseUser/UploadImg'
 	
 }

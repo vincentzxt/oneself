@@ -5,14 +5,15 @@
 		</uni-navbar>
 	</view>
 	<view class="main">
+			<scroll-view :scroll-y="true" class="fill">
 		<view class="top"><view><text class="text">权限设置</text> </view><view><button type="default" size="mini" @tap="handleAdd">增加</button></view></view>
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 		<cu-panel>
 			<cu-cell-group>
 			<cu-cell :title="item.realname">
 				<radio-group @change="handleForbiddenChanage" :id="index">
-					<radio color="#2db7f5" value=0 :checked="item.isForbidden == 0">否</radio>
-					<radio color="#2db7f5" value=1 :checked="item.isForbidden == 1" style="margin-left: 10px;">是</radio>
+					<radio color="#2db7f5" value=0 :checked="item.isdelete == 0">否</radio>
+					<radio color="#2db7f5" value=1 :checked="item.isdelete == 1" style="margin-left: 10px;">是</radio>
 				</radio-group>
 			</cu-cell>
 			</cu-cell-group>
@@ -20,6 +21,7 @@
 		</view>
 	
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
+		</scroll-view>
 	</view>
 </view>
 </template>
@@ -43,27 +45,7 @@ export default {
 	data() {
 		return {
 			title: '员工管理',
-			dataList: [{
-				realname:'刘老板',
-				userid:1,
-				isForbidden:0
-			},
-			{
-				realname:'李老板',
-				userid:2,
-				isForbidden:0
-			},
-			{
-				realname:'陈会计',
-				userid:3,
-				isForbidden:0
-			},
-			{
-				realname:'刘出纳',
-				userid:4,
-				isForbidden:0
-			},
-			]
+			dataList: []
 		};
 	},
 	onLoad(){},
@@ -73,7 +55,7 @@ export default {
 				url:'/pages/my/login/login'
 			})
 		};
-		//this.loadData();
+		this.loadData();
 	},
 	methods: {
 
@@ -88,21 +70,15 @@ export default {
 			})
 		},
 		handleForbiddenChanage(val) {
-			//this.reqData.isForbidden = val.detail.value
-			//console.log(val.detail.value);
 			this.setUserLock(val.currentTarget.id,val.detail.value);
-			//console.log(val.currentTarget.id);
 		},
 		setUserLock(id,value){
 			
 		},
 		loadData(){
-			// let userid = uni.getStorageSync('userInfo').userid;
-			// let token = uni.getStorageSync('userInfo').token;
-			// let url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
-			tokenpost(api.GetUserInfo).then(res => {
+			tokenpost(api.GetUserList).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
-				  this.dataList = res.data.data
+				  this.dataList = res.data.data.resultList
 				} else {
 					this.$api.msg(res.data.returnMessage) 
 				}
@@ -163,5 +139,23 @@ export default {
 			flex-direction: column;
 			justify-content: flex-end;
 		}
-	}	
+	}
+	.no_data{
+		
+		display: flex;
+		//flex-direction: column;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		justify-content: center;
+		.item_img{
+			width: 120rpx;
+			height: 120rpx;
+		}
+		.item_text{
+			font-size: 24rpx;
+			margin-top: 100rpx;
+			color: #CCCCCC;
+		}
+	}
 	</style>

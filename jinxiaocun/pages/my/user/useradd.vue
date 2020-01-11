@@ -26,21 +26,15 @@
 						<cu-cell title="确认密码">
 							<input slot="footer" type="text" v-model="reqData.re_password" placeholder-style="color:#c5c8ce" placeholder="请再次输入密码"/>
 						</cu-cell>
-						<cu-cell title="性别">
-							<radio-group @change="handleSexChanage">
-								<radio color="#2db7f5" value=0 :checked="reqData.sex == 0">男</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.sex == 1" style="margin-left: 10px;">女</radio>
-							</radio-group>
-						</cu-cell>
 						<cu-cell title="分配角色">
 						</cu-cell>
 						<view>
 							 <radio-group @change="handleRoleChanage" class="uni-list-cell">
-							 	<radio color="#2db7f5" value=0 :checked="reqData.role == 0" style="margin: 10upx 16upx;">老板</radio>
-							 	<radio color="#2db7f5" value=1 :checked="reqData.role == 1" style="margin: 10upx 16upx;">超级业务员</radio>
-							 	<radio color="#2db7f5" value=1 :checked="reqData.role == 2" style="margin: 10upx 16upx;">业务员</radio>
-							 	<radio color="#2db7f5" value=1 :checked="reqData.role == 3" style="margin: 10upx 16upx;">采购人员</radio>
-							 	<radio color="#2db7f5" value=1 :checked="reqData.role == 4" style="margin: 10upx 16upx;">仓库人员</radio>
+							 	<radio color="#2db7f5" value=0 :checked="reqData.roleid == 0" style="margin: 10upx 16upx;">老板</radio>
+							 	<radio color="#2db7f5" value=1 :checked="reqData.roleid == 1" style="margin: 10upx 16upx;">超级业务员</radio>
+							 	<radio color="#2db7f5" value=2 :checked="reqData.roleid == 2" style="margin: 10upx 16upx;">业务员</radio>
+							 	<radio color="#2db7f5" value=3 :checked="reqData.roleid == 3" style="margin: 10upx 16upx;">采购人员</radio>
+							 	<radio color="#2db7f5" value=4 :checked="reqData.roleid == 4" style="margin: 10upx 16upx;">仓库人员</radio>
 							 </radio-group>
 						</view>
 					</cu-cell-group>
@@ -48,7 +42,7 @@
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">提交</button>
 		</view>
 	</view>
 </template>
@@ -59,6 +53,8 @@
 	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import { post,tokenpost} from '@/api/user.js';
+	import { api } from '@/config/common.js';
 	export default {
 		components: {
 			cuPanel,
@@ -70,15 +66,16 @@
 		data() {
 			return {
 				reqData: {
-					loginname:'xuewei',
+					userid:0,
+					loginname:'xuewei5',
 					realname:'张三丰',
 					telephone:'15827068282',
-					email:'',
+					email:'171720926@qq.com',
 					password:'',
-					sex:0,
-					role:0
+					re_password:'',
+					roleid:0
 				},
-				bankDict: ['微信', '支付宝','银行卡', '现金'],
+				loading:false,
 				title: '增加账号'
 			};
 		},
@@ -88,8 +85,8 @@
 			handleSexChanage(val) {
 				this.reqData.sex = val.detail.value
 			},
-			handleSexChanage(val) {
-							this.reqData.role = val.detail.value
+			handleRoleChanage(val) {
+					this.reqData.roleid = val.detail.value
 						},
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -97,7 +94,58 @@
 				})
 			},
 			handleSubmit() {
-				
+				const {userid, loginname, realname, telephone, email, password,re_password,roleid} = this.reqData;
+				if (loginname.length == 0) {
+					this.$api.msg('登录账号不能为空！');
+					return;
+				}
+				if (realname.length == 0) {
+					this.$api.msg('姓名不能为空！');
+					return;
+				}
+				if (password.length == 0) {
+					this.$api.msg('登录密码不能为空！');
+					return;
+				}
+				if (re_password.length == 0) {
+					this.$api.msg('重复密码不能为空！');
+					return;
+				}
+				if(password!= re_password){
+					this.$api.msg('两次密码不一致！');
+					return;
+				}
+				if (telephone.length!= 11) {
+					this.$api.msg('手机号码不正确！');
+					return;
+				}
+				if (email.length== 0) {
+					this.$api.msg('电子邮箱不能为空！');
+					return;
+				}
+				const sendData ={userid,loginname, realname, telephone, email, password,roleid};
+				this.loading = true;
+				tokenpost(api.SaveUser, sendData)
+					.then(res => {
+						if (res.status == 200 && res.data.returnCode == '0000') {
+							this.$api.msg(res.data.returnMessage);
+							uni.navigateBack({
+								delta: 1
+							})
+						} else if (res.status == 200 && res.data.returnCode == '402') {
+							this.$api.msg(res.data.returnMessage);
+							uni.reLaunch({
+								url: '/pages/my/login/login'
+							});
+						} else {
+							this.$api.msg(res.data.returnMessage);
+						}
+						this.loading = false;
+					})
+					.catch(error => {
+						this.loading = false;
+						this.$api.msg('请求失败fail');
+				});
 				
 			}
 		}

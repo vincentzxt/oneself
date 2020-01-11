@@ -57,12 +57,6 @@ export default {
 	},
 	components: { uniIcon },
 	methods: {
-		login_action(){
-			uni.reLaunch({
-				url:'/pages/my/login/login'
-			})
-		},
-
 		handleReg() {
 			const { loginname, password ,telephone,re_password} = this;
 			if (loginname.length == 0) {
@@ -97,7 +91,20 @@ export default {
 			
 			post(api.Regist,sendData).then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-					this.login_action();
+					let userInfo = {
+									"token":res.data.data.token,
+									"exp":res.data.data.exp,
+									"userId":res.data.data.userId
+								};
+								uni.setStorage({
+								    key: 'userInfo',
+								    data: userInfo,
+								    success: function () {
+								        uni.switchTab({
+								        	url:'/pages/index/index'
+								        }) 
+								    }
+								});
 					} else {
 						this.$api.msg(res.data.returnMessage) 
 					}

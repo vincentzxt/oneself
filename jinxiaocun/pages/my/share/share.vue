@@ -19,6 +19,7 @@ export default {
 	data() {
 		return {
 			title: '分享',
+			userId:0,
 			shareText: '一账通，邀请你一起体验！',
 			href: 'https://uniapp.dcloud.io',
 			image: 'http://allchain.oss-cn-shanghai.aliyuncs.com/uploads/20190521/f57ebce8a72b823912904fe76eda0909.png',
@@ -42,17 +43,16 @@ export default {
 	onShareAppMessage() {
 		return {
 			title: this.shareText,
-			path: '/pages/index/index',
+			path: '/pages/index/index?userId='+uni.getStorageSync('userInfo').userId,
 			imageUrl: this.image,
-			success: function (res) {
-			console.log('分享成功！');
-				  },
-			//complete:this.shareSuccess
+			complete:this.shareSuccess
 		};
 	},
 	onUnload: function() {
 	},
 	onLoad: function() {
+		this.userId= uni.getStorageSync('userInfo').userId;
+		console.log(this.userId);
 		uni.getProvider({
 			service: 'share',
 			success: e => {
