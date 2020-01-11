@@ -94,7 +94,7 @@ export default {
 			tokenget(api.MyCashAccountGet, this.accountid)
 				.then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						this.reqData = res.data.data.data;
+						this.reqData = res.data.data;
 					} else {
 						this.$api.msg(res.data.returnMessage);
 					}
@@ -127,9 +127,7 @@ export default {
 				this.$api.msg('请选择账户是否禁用！');
 				return;
 			}
-			const sendData = {
-				model: { cashaccountname, cashaccountid, cashaccountno, cashaccounttype, amount, isdelete }
-			};
+			const sendData = {cashaccountname, cashaccountid, cashaccountno, cashaccounttype, amount, isdelete};
 			console.log(sendData);
 			this.loading = true;
 			tokenpost(api.MyCashAccountUpdate,sendData).then(res => {

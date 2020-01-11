@@ -82,7 +82,7 @@ export default {
 			tokenget(api.MyCashAccountGet, this.accountid)
 				.then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						this.reqData = res.data.data.data;
+						this.reqData = res.data.data;
 					} else {
 						this.$api.msg(res.data.returnMessage);
 					}

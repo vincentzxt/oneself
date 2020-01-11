@@ -1,5 +1,5 @@
 export const api = {
-	baseUrl: 'http://120.210.132.94:5599',
+	baseUrl: 'http://39.100.64.45',
 	contactUnit: '/api/ContactUnit',
 	baseArea: '/api/BseArea',
 	baseProduct: '/api/BseProduct',
