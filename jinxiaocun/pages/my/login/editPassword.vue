@@ -1,49 +1,54 @@
 <template>
 	<view class="login">
-		<view class="header"><uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar></view>
+		<view class="header">
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
+		</view>
 		<view class="space"></view>
 		<!-- <view class="tou"><img src="@/static/image/logo.png"/></img></view> -->
 
 		<view class="con">
-			<view class="con_01">
-				<view class="con_01_l"><uni-icon type="contact" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_01_r"><input v-model="loginname" class="uni-input" focus placeholder="请输入用户名" style="height: 35px;background-color: #fff;" /></view>
+			<view class="con_02">
+				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
+				<view class="con_02_r"><input v-model="oldpassword" password="true" class="uni-input" placeholder="请输入原密码" style="height: 35px;background-color: #fff;" /></view>
 			</view>
 			<view class="con_02">
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_02_r"><input v-model="password" password="true" class="uni-input" placeholder="请输入原密码" style="height: 35px;background-color: #fff;" /></view>
+				<view class="con_02_r">
+					<input v-model="password" password="true" class="uni-input" placeholder="请输入新密码" style="height: 35px;background-color: #fff;" />
+				</view>
 			</view>
 			<view class="con_02">
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_02_r"><input v-model="new_password" password="true" class="uni-input" placeholder="请输入新密码" style="height: 35px;background-color: #fff;" /></view>
-			</view>
-			<view class="con_02">
-				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_02_r"><input v-model="re_new_password" password="true" class="uni-input" placeholder="请再次输入新密码" style="height: 35px;background-color: #fff;" /></view>
+				<view class="con_02_r">
+					<input v-model="re_password" password="true" class="uni-input" placeholder="请再次输入新密码" style="height: 35px;background-color: #fff;" />
+				</view>
 			</view>
 			<view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;"><view @click="login_action()">返回登录？</view></view>
 			<!-- 	<view class="user_bottom" style="margin-top: 50px;display: flex;justify-content: space-between;">
 				<button type="primary" class="logout_btn" @tap="handleLogin">提交</button>
 			</view> -->
-			<view class="user_bottom"><button type="primary" :loading="loading"  class="send_btn" @tap="handleReg">提交</button></view>
-		<view><text></text><text></text></view>
+			<view class="user_bottom"><button type="primary" :loading="loading" class="send_btn" @tap="handleReg">提交</button></view>
+			<view>
+				<text></text>
+				<text></text>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
 import uniIcon from '@/components/uni-icon/uni-icon.vue';
-import { post } from '@/api/user.js'
-import { api } from '@/config/common.js'
+import { post } from '@/api/user.js';
+import { api } from '@/config/common.js';
 export default {
 	data() {
 		return {
 			loading: false,
 			stop: false,
 			miao: 60,
+			oldpassword: '',
 			password: '',
-			new_password: '',
-			re_new_password: '',
+			re_password: '',
 			title: '修改密码'
 		};
 	},
@@ -52,54 +57,53 @@ export default {
 		handleNavbarClickLeft() {
 			uni.navigateBack({
 				delta: 1
-			})
+			});
 		},
-		login_action(){
+		login_action() {
 			uni.reLaunch({
-				url:'/pages/my/login/login'
-			})
+				url: '/pages/my/login/login'
+			});
 		},
 
 		handleReg() {
-			const { password ,new_password,re_new_password} = this;
-			if (password.length == 0) {
+			const { oldpassword, password, re_password } = this;
+			if (oldpassword.length == 0) {
 				this.$api.msg('原登录密码不能为空！');
 				return;
 			}
-			if (new_password.length == 0) {
-							this.$api.msg('新登录密码不能为空！');
-							return;
-						}
-			if (re_new_password.length == 0) {
+			if (password.length == 0) {
+				this.$api.msg('新登录密码不能为空！');
+				return;
+			}
+			if (re_password.length == 0) {
 				this.$api.msg('重复密码不能为空！');
 				return;
 			}
-			if(new_password!=re_new_password){
+			if (password != re_password) {
 				this.$api.msg('两次密码不一致！');
 				return;
 			}
 			const sendData = {
 				password,
-				new_password
+				oldpassword
 			};
 			this.loading = true;
-			// uni.showLoading({
-			//             title: '正在请求中'
-			//         });
-			
-			post(api.Regist,sendData).then(res => {
+			post(api.ChangePassword, sendData)
+				.then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-					this.login_action();
+						this.$api.msg('密码修改成功！');
+						uni.navigateBack({
+							delta: 1
+						});
 					} else {
-						this.$api.msg(res.data.returnMessage) 
+						this.$api.msg(res.data.returnMessage);
 					}
-					this.loading =false;
-				}).catch(error => {
-					this.loading =false;
-					this.$api.msg('请求失败fail') 
+					this.loading = false;
 				})
-			
-			
+				.catch(error => {
+					this.loading = false;
+					this.$api.msg('请求失败fail');
+				});
 		},
 		send() {
 			const mobile = this.mobile;

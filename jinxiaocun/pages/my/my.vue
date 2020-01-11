@@ -69,6 +69,8 @@ export default {
 	},
 	onLoad(){},
 	onShow(){
+		const userInfo = uni.getStorageSync('userInfo');
+		console.log(userInfo);
 		if(!uni.getStorageSync('userInfo')){
 			console.log("!!!")
 			uni.reLaunch({
@@ -171,6 +173,7 @@ export default {
 							uni.clearStorageSync();
 							setTimeout(() => {
 								const userInfo = uni.getStorageSync('userInfo');
+								console.log(userInfo);
 								if (!userInfo) {
 									uni.reLaunch({
 										url: '/pages/my/login/login'
@@ -191,6 +194,7 @@ export default {
 		loadData(){
 			tokenpost(api.GetUserInfo).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
+					console.log(res);
 				  this.dataList = res.data.data
 				}else if(res.status == 200 && res.data.returnCode == '402'){
 					this.$api.msg(res.data.returnMessage);

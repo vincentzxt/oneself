@@ -5,7 +5,7 @@
 			</uni-navbar>
 		</view>
 		<view style="margin-bottom: 20rpx;">
-			续费
+			
 			<!-- <view v-if="pickerIndex >= 0" style="margin-top: 20rpx;">
 				<view style="font-size: 28rpx;">操作：</view>
 				<button type="default" size="mini" @tap="getData">获取已选数据</button>
