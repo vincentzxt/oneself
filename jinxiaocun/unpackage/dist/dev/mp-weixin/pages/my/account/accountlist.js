@@ -161,6 +161,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 var _user = __webpack_require__(/*! @/api/user.js */ 212);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 404));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 411));};var _default =
 {
@@ -182,6 +187,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
         amount: '600',
         cashaccounttype: 3 }],
 
+      isdeleteDict: ['正常', '禁用'],
       accounTypeList2: ["", "银行账号", "微信", "支付宝", "现金"],
       accounTypeList: {
         '0': "",
@@ -217,10 +223,21 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
 
       console.log('-----');
     },
+    handleDetail: function handleDetail(id) {
+      console.log('---222--');
+      uni.navigateTo({
+        url: '/pages/my/account/accountdetail?id=' + id });
+
+    },
+    handleEdit: function handleEdit(id) {
+      console.log('-----');
+      uni.navigateTo({
+        url: '/pages/my/account/accountedit?id=' + id });
+
+    },
     loadData: function loadData() {var _this = this;
       (0, _user.tokenpost)(_common.api.MyCashAccount).then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
-          console.log(res.data.resultList);
           _this.dataList = res.data.data.resultList;
         } else {
           _this.$api.msg(res.data.returnMessage);
@@ -230,7 +247,6 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
         _this.loading = false;
         _this.$api.msg('请求失败fail');
       });
-
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -36,9 +36,7 @@
 		</uni-list>
 		<view class="space"></view>
 		<view class="user_bottom">
-			<button type="primary" class="logout_btn" @tap="handleLogout">退出登录</button>
-			<button type="primary" class="logout_btn" open-type="getUserInfo" @tap="handlewx">获取用户信息</button>
-			<button type="primary" class="logout_btn" open-type="getPhoneNumber" @tap="handlewx">获取用户信息</button>
+			<button type="default" class="logout_btn" @tap="handleLogout">退出登录</button>
 			</view>
 	</view>
 </template>
@@ -265,12 +263,11 @@ export default {
 	}
 }
 .user_bottom {
-	padding-left: 20rpx;
-	padding-right: 20rpx;
+	padding-left: 16upx;
+	padding-right: 16upx;
 	.logout_btn {
-		background-color: #2d8cf0;
-		height: 88rpx;
-		line-height: 88rpx;
+		background-color: #FFFFFF;
+		//border: $uni-border-color;
 	}
 }
 </style>

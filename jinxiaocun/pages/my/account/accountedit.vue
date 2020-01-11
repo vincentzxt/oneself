@@ -15,7 +15,7 @@
 						</cu-cell>
 						<cu-cell title="账户类型" isLink>
 							<view style="width:80%;">
-								<picker @change="handleAccountTypeChange" :range="AccountTypeDict">
+								<picker @change="handleAccountTypeChange" :value="reqData.cashaccounttype" :range="AccountTypeDict">
 									<view class="picker">
 										<text v-if="!reqData.cashaccounttype" style="color:#c5c8ce">请选择账户类型</text>
 										<text v-else>{{ AccountTypeDict[reqData.cashaccounttype] }}</text>
@@ -23,7 +23,9 @@
 								</picker>
 							</view>
 						</cu-cell>
-						<cu-cell title="账户余额"><input slot="footer" type="number" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="账户余额" /></cu-cell>
+						<cu-cell title="账户余额">
+							<text>{{ reqData.amount }}</text>
+						</cu-cell>
 						<cu-cell title="是否禁用">
 							<radio-group @change="handleForbiddenChanage">
 								<radio color="#2db7f5" value="0" :checked="reqData.isdelete == 0">否</radio>
@@ -34,7 +36,7 @@
 				</cu-panel>
 			</scroll-view>
 		</view>
-		<view class="footer"><button class="footer-btn" style="background-color: #2d8cf0;" :loading="loading" type="primary" @click="this.handleSubmit">提交</button></view>
+		<view class="footer"><button class="footer-btn" style="background-color: #2d8cf0;" :loading="loading" type="primary" @click="this.handleSubmit">保存</button></view>
 	</view>
 </template>
 
@@ -44,7 +46,7 @@ import cuCell from '@/components/custom/cu-cell.vue';
 import cuCellGroup from '@/components/custom/cu-cell-group.vue';
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
-import { post, tokenpost } from '@/api/user.js';
+import { tokenget,tokenpost } from '@/api/user.js';
 import { api } from '@/config/common.js';
 export default {
 	components: {
@@ -64,11 +66,18 @@ export default {
 				amount: '',
 				isdelete: 0
 			},
+			accountid: 0,
 			AccountTypeDict: ['', '银行账号', '微信', '支付宝', '现金'],
-			title: '账户设置'
+			title: '账户编辑'
 		};
 	},
 	onShow() {},
+	onLoad: function(option) {
+		//option为object类型，会序列化上个页面传递的参数
+		console.log(option);
+		this.accountid = option.id;
+		this.loadData();
+	},
 	methods: {
 		handleAccountTypeChange(val) {
 			this.reqData.cashaccounttype = val.detail.value;
@@ -81,8 +90,27 @@ export default {
 				delta: 1
 			});
 		},
+		loadData() {
+			tokenget(api.MyCashAccountGet, this.accountid)
+				.then(res => {
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.reqData = res.data.data;
+					} else {
+						this.$api.msg(res.data.returnMessage);
+					}
+					this.loading = false;
+				})
+				.catch(error => {
+					this.loading = false;
+					this.$api.msg('请求失败fail');
+				});
+		},
 		handleSubmit() {
-			const { cashaccountname, cashaccountno, cashaccounttype, amount, isdelete } = this.reqData;
+			const { cashaccountname, cashaccountid, cashaccountno, cashaccounttype, amount, isdelete } = this.reqData;
+			if (cashaccountid == 0) {
+				this.$api.msg('账户id为空！');
+				return;
+			}
 			if (cashaccountname.length == 0) {
 				this.$api.msg('账户名称不能为空！！');
 				return;
@@ -95,33 +123,26 @@ export default {
 				this.$api.msg('请选择账户类型！');
 				return;
 			}
-			if (amount.length == 0) {
-				this.$api.msg('账户余额不能为空！');
-				return;
-			}
 			if (isdelete.length == 0) {
 				this.$api.msg('请选择账户是否禁用！');
 				return;
 			}
-			const sendData = {cashaccountname, cashaccountno, cashaccounttype, amount, isdelete};
+			const sendData = {cashaccountname, cashaccountid, cashaccountno, cashaccounttype, amount, isdelete};
 			console.log(sendData);
 			this.loading = true;
-			tokenpost(api.MyCashAccountCreate, sendData)
-				.then(res => {
-					console.log(res);
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						this.$api.msg(res.data.returnMessage);
-
-						this.handleNavbarClickLeft();
-					} else {
-						this.$api.msg(res.data.returnMessage);
-					}
-					this.loading = false;
-				})
-				.catch(error => {
-					this.loading = false;
-					this.$api.msg('请求失败fail');
-				});
+			tokenpost(api.MyCashAccountUpdate,sendData).then(res => {
+				if (res.status == 200 && res.data.returnCode == '0000') {
+					this.$api.msg(res.data.returnMessage)
+					this.handleNavbarClickLeft();
+					
+				} else {
+					this.$api.msg(res.data.returnMessage) 
+				}
+				this.loading =false;
+			}).catch(error => {
+				this.loading =false;
+				this.$api.msg('请求失败fail') 
+			})
 		}
 	}
 };

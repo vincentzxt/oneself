@@ -4,20 +4,20 @@
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-	<!-- 	<view style="margin-bottom: 20rpx;">
+		<view style="margin-bottom: 20rpx;">
 			续费
-			<view v-if="pickerIndex >= 0" style="margin-top: 20rpx;">
+			<!-- <view v-if="pickerIndex >= 0" style="margin-top: 20rpx;">
 				<view style="font-size: 28rpx;">操作：</view>
 				<button type="default" size="mini" @tap="getData">获取已选数据</button>
 				<button type="default" size="mini" @tap="check" style="margin-left: 10rpx;">全选</button>
 				<button type="default" size="mini" @tap="invert" style="margin-left: 10rpx;">反选</button>
 				<button type="default" size="mini" @tap="cancel" style="margin-left: 10rpx;">取消</button>
 				<view style="font-size: 28rpx;margin-top: 20rpx;padding-top: 20rpx;border-top: #e5e5e5 solid 1px;">组件演示：</view>
-			</view>
-		</view> -->
-		<view class="main"><helang-checkbox ref="checkbox" @change="onChange"></helang-checkbox></view>
+			</view> -->
+		</view>
+		<view class="main"><helang-checkbox ref="checkbox"></helang-checkbox></view>
 		<view class="footer">
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">购买</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">购买</button>
 		</view>
 	</view>
 	
@@ -32,26 +32,31 @@
 		data() {
 			return {
 				title:'续费',
+				loading:false,
 				pickerIndex:-1,
 				list: [{
 					id:1,
 					text:'一周',
-					sontext:'30元'
+					sontext:'30元',
+					value:1
 				},
 				{
 					id:2,
 					text:'一个月',
-					sontext:'150元'
+					sontext:'150元',
+					value:2
 				},
 				{
 					id:3,
 					text:'半年',
-					sontext:'300元'
+					sontext:'300元',
+					value:3
 				},
 				{
 					id:4,
 					text:'一年',
-					sontext:'500元'
+					sontext:'500元',
+					value:4
 				}
 				]
 			}
@@ -73,50 +78,77 @@
 				uni.navigateBack({
 					delta: 1
 				})
-			},
-			creatorList(){
-				let arr=[];
-				for(let i=1; i<16;i++){
-					arr.push({
-						id:i,
-						text:`第${i}项`,
-						sontext:'30元'
-					});
-				}
-				return arr;
-			},
-			
-			/* 获取数据 */
-			getData(){
+			},			
+			/* 发起数据 */
+			handleSubmit() {
 				let data = this.$refs.checkbox.get();	// 组件返回的数据
-				uni.showToast({
-					title:'在控制台看数据',
-					icon:'none',
-					duration:1000,
-					mask:false,
-					success:()=>{
-						console.log(data);
-					}
-				});
-			},
-			/* 选项切换事件 */
-			onChange(data){
-				console.log(data);
-			},
-			/* 全选 */
-			check(){
-				this.$refs.checkbox.checkAll();		// 该功能在单选框模式下无效
-				this.getData();
-			},
-			/* 取消全选 */
-			cancel(){
-				this.$refs.checkbox.cancelAll();	// 该功能在单选框模式下为取消当前选中项
-				this.getData();
-			},
-			/* 反选 */
-			invert(){
-				this.$refs.checkbox.invertAll();	// 该功能在单选框模式下为取消当前选中项
-				this.getData();
+			    console.log("发起支付:"+data.value);
+			    this.loading = true;
+			    uni.login({
+			        success: (e) => {
+			            console.log("login success", e);
+			            uni.request({
+			                url: `https://unidemo.dcloud.net.cn/payment/wx/mp?code=${e.code}&amount=${data.value}`,
+			                success: (res) => {
+			                    console.log("pay request success", res);
+			                    if (res.statusCode !== 200) {
+			                        uni.showModal({
+			                            content: "支付失败，请重试！",
+			                            showCancel: false
+			                        });
+			                        return;
+			                    }
+			                    if (res.data.ret === 0) {
+			                        console.log("得到接口prepay_id", res.data.payment);
+			                        let paymentData = res.data.payment;
+			                        uni.requestPayment({
+			                            timeStamp: paymentData.timeStamp,
+			                            nonceStr: paymentData.nonceStr,
+			                            package: paymentData.package,
+			                            signType: 'MD5',
+			                            paySign: paymentData.paySign,
+			                            success: (res) => {
+			                                uni.showToast({
+			                                    title: "感谢您的赞助!"
+			                                })
+			                            },
+			                            fail: (res) => {
+			                                uni.showModal({
+			                                    content: "支付失败,原因为: " + res
+			                                        .errMsg,
+			                                    showCancel: false
+			                                })
+			                            },
+			                            complete: () => {
+			                                this.loading = false;
+			                            }
+			                        })
+			                    } else {
+			                        uni.showModal({
+			                            content: res.data.desc,
+			                            showCancel: false
+			                        })
+			                    }
+			                },
+			                fail: (e) => {
+			                    console.log("fail", e);
+			                    this.loading = false;
+			                    uni.showModal({
+			                        content: "支付失败,原因为: " + e.errMsg,
+			                        showCancel: false
+			                    })
+			                }
+			            })
+			        },
+			        fail: (e) => {
+			            console.log("fail", e);
+			            this.loading = false;
+			            uni.showModal({
+			                content: "支付失败,原因为: " + e.errMsg,
+			                showCancel: false
+			            })
+			        }
+			    })
 			}
 		}
 	}
@@ -132,7 +164,7 @@
 			height: 7%;
 			display: flex;
 			&-btn	{
-				width: 80%;
+				width: 100%;
 				height: 100%;
 			}
 		}

@@ -5,16 +5,21 @@
 		</uni-navbar>
 	</view>
 	<view class="main">
-		<view v-for="(item,index) in dataList" :key="index" class="list-item">
+			<scroll-view :scroll-y="true" class="fill">
+		<view v-for="(item,index) in dataList" :key="index" class="list-item" @tap="handleDetail(item.cashaccountid)">
 			<view class="list-between">
-				<view>账户名称：<text>{{item.cashaccountname}}</text></view>
+				<view>账户名称：<text>{{item.cashaccountname}}</text></view> <view><button type="default" size="mini" style="line-height: 1.5;" @tap="handleEdit(item.cashaccountid)">编辑</button></view>
 			</view>
 			<view class="list-between">
-					<view class="list_bottom_box_item"><text>账户类型：{{accounTypeList[item.cashaccounttype]}}</text></view>
-					<view class="list_bottom_box_item"><text>余额：¥{{item.amount}}</text></view>
+				<view>账户信息：<text>{{item.cashaccountno}}</text></view> <view>账户状态：<text>{{isdeleteDict[item.isdelete]}}</text></view>
+			</view>
+			<view class="list-between">
+					<view><text>账户类型：{{accounTypeList[item.cashaccounttype]}}</text></view>
+					<view><text>余额：¥{{item.amount}}</text></view>
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
+		</scroll-view>
 	</view>
 	<view class="footer">
 		<button class="fill" style="background-color: #2d8cf0;" type="primary"  @tap="handleAdd">新增</button>
@@ -47,6 +52,7 @@ export default {
 				amount:'600',
 				cashaccounttype:3
 			}],
+			isdeleteDict: ['正常','禁用'],
 			accounTypeList2:["","银行账号","微信","支付宝","现金"],
 			accounTypeList:{
 				'0':"",
@@ -82,10 +88,21 @@ export default {
 			})
 			console.log('-----');
 		},
+		handleDetail(id) {
+			console.log('---222--');
+			uni.navigateTo({
+				url:'/pages/my/account/accountdetail?id='+id
+			})
+		},		
+		handleEdit(id) {
+			console.log('-----');
+			uni.navigateTo({
+				url:'/pages/my/account/accountedit?id='+id
+			})
+		},
 		loadData(){
 			tokenpost(api.MyCashAccount).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
-					console.log(res.data.resultList);
 				  this.dataList = res.data.data.resultList
 				} else {
 					this.$api.msg(res.data.returnMessage) 
@@ -95,7 +112,6 @@ export default {
 				this.loading =false;
 				this.$api.msg('请求失败fail') 
 			})
-			
 		}
 	}
 };

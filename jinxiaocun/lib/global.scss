@@ -18,8 +18,7 @@ page {
 view,textarea,input,label,form,button,image{box-sizing: border-box;}
 /* 按钮样式处理 */
 button{font-size: 28rpx;}
-/* 取消按钮默认的边框线效果 */
-button:after{border:none;}
+
 /* 设置图片默认样式，取消默认尺寸 */
 image{display: block;height: auto;width: auto;}
 /* 输入框默认字体大小 */

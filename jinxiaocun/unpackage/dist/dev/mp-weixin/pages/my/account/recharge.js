@@ -167,26 +167,31 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       title: '续费',
+      loading: false,
       pickerIndex: -1,
       list: [{
         id: 1,
         text: '一周',
-        sontext: '30元' },
+        sontext: '30元',
+        value: 1 },
 
       {
         id: 2,
         text: '一个月',
-        sontext: '150元' },
+        sontext: '150元',
+        value: 2 },
 
       {
         id: 3,
         text: '半年',
-        sontext: '300元' },
+        sontext: '300元',
+        value: 3 },
 
       {
         id: 4,
         text: '一年',
-        sontext: '500元' }] };
+        sontext: '500元',
+        value: 4 }] };
 
 
 
@@ -209,49 +214,76 @@ __webpack_require__.r(__webpack_exports__);
         delta: 1 });
 
     },
-    creatorList: function creatorList() {
-      var arr = [];
-      for (var i = 1; i < 16; i++) {
-        arr.push({
-          id: i,
-          text: "\u7B2C".concat(i, "\u9879"),
-          sontext: '30元' });
-
-      }
-      return arr;
-    },
-
-    /* 获取数据 */
-    getData: function getData() {
+    /* 发起数据 */
+    handleSubmit: function handleSubmit() {var _this = this;
       var data = this.$refs.checkbox.get(); // 组件返回的数据
-      uni.showToast({
-        title: '在控制台看数据',
-        icon: 'none',
-        duration: 1000,
-        mask: false,
-        success: function success() {
-          console.log(data);
+      console.log("发起支付:" + data.value);
+      this.loading = true;
+      uni.login({
+        success: function success(e) {
+          console.log("login success", e);
+          uni.request({
+            url: "https://unidemo.dcloud.net.cn/payment/wx/mp?code=".concat(e.code, "&amount=").concat(data.value),
+            success: function success(res) {
+              console.log("pay request success", res);
+              if (res.statusCode !== 200) {
+                uni.showModal({
+                  content: "支付失败，请重试！",
+                  showCancel: false });
+
+                return;
+              }
+              if (res.data.ret === 0) {
+                console.log("得到接口prepay_id", res.data.payment);
+                var paymentData = res.data.payment;
+                uni.requestPayment({
+                  timeStamp: paymentData.timeStamp,
+                  nonceStr: paymentData.nonceStr,
+                  package: paymentData.package,
+                  signType: 'MD5',
+                  paySign: paymentData.paySign,
+                  success: function success(res) {
+                    uni.showToast({
+                      title: "感谢您的赞助!" });
+
+                  },
+                  fail: function fail(res) {
+                    uni.showModal({
+                      content: "支付失败,原因为: " + res.
+                      errMsg,
+                      showCancel: false });
+
+                  },
+                  complete: function complete() {
+                    _this.loading = false;
+                  } });
+
+              } else {
+                uni.showModal({
+                  content: res.data.desc,
+                  showCancel: false });
+
+              }
+            },
+            fail: function fail(e) {
+              console.log("fail", e);
+              _this.loading = false;
+              uni.showModal({
+                content: "支付失败,原因为: " + e.errMsg,
+                showCancel: false });
+
+            } });
+
+        },
+        fail: function fail(e) {
+          console.log("fail", e);
+          _this.loading = false;
+          uni.showModal({
+            content: "支付失败,原因为: " + e.errMsg,
+            showCancel: false });
+
         } });
 
-    },
-    /* 选项切换事件 */
-    onChange: function onChange(data) {
-      console.log(data);
-    },
-    /* 全选 */
-    check: function check() {
-      this.$refs.checkbox.checkAll(); // 该功能在单选框模式下无效
-      this.getData();
-    },
-    /* 取消全选 */
-    cancel: function cancel() {
-      this.$refs.checkbox.cancelAll(); // 该功能在单选框模式下为取消当前选中项
-      this.getData();
-    },
-    /* 反选 */
-    invert: function invert() {
-      this.$refs.checkbox.invertAll(); // 该功能在单选框模式下为取消当前选中项
-      this.getData();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

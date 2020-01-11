@@ -34,7 +34,9 @@
     "pages/my/givetime",
     "pages/my/share/share",
     "pages/stock/early-stage/early-stage",
-    "pages/stock/inventory/inventory"
+    "pages/stock/inventory/inventory",
+    "pages/my/account/accountedit",
+    "pages/my/account/accountdetail"
   ],
   "subPackages": [],
   "window": {
@@ -74,6 +76,5 @@
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  },
-  "sitemapLocation": "sitemap8.json"
+  }
 }

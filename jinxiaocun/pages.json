@@ -115,6 +115,14 @@
 	    "path" : "pages/stock/inventory/inventory",
 	    "style" : {}
 	}	
+        ,{
+            "path" : "pages/my/account/accountedit",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/account/accountdetail",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"
