@@ -196,7 +196,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _currentUnit = __webpack_require__(/*! @/api/current-unit.js */ 114);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 368));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 375));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 382));};var simpleAddress = function simpleAddress() {return Promise.all(/*! import() | components/simple-address/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address/simple-address")]).then(__webpack_require__.bind(null, /*! @/components/simple-address/simple-address.nvue */ 408));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 385));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 392));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 399));};var simpleAddress = function simpleAddress() {return Promise.all(/*! import() | components/simple-address/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address/simple-address")]).then(__webpack_require__.bind(null, /*! @/components/simple-address/simple-address.nvue */ 425));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -218,7 +218,8 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         address: '',
         bseContactUnitContactModels: [
         {
-          contactunitid: 0,
+          contactunitid: '',
+          contactid: '',
           contactname: '',
           telephone: '',
           email: '' }],
@@ -241,6 +242,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     this.reqData.district = item.district;
     this.reqData.address = item.address;
     this.reqData.bseContactUnitContactModels[0].contactunitid = this.reqData.contactunitid;
+    this.reqData.bseContactUnitContactModels[0].contactid = item.bseContactUnitContactModels[0].contactid;
     this.reqData.bseContactUnitContactModels[0].contactname = item.bseContactUnitContactModels[0].contactname;
     this.reqData.bseContactUnitContactModels[0].telephone = item.bseContactUnitContactModels[0].telephone;
     this.reqData.bseContactUnitContactModels[0].email = item.bseContactUnitContactModels[0].email;

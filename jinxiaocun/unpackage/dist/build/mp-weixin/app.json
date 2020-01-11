@@ -1,0 +1,79 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/sale/sale",
+    "pages/index/sale/payment/payment",
+    "pages/index/purchase/purchase",
+    "pages/index/purchase/payment/payment",
+    "pages/index/current-unit/current-unit",
+    "pages/index/current-unit/add/add",
+    "pages/index/current-unit/edit/edit",
+    "pages/index/product/product",
+    "pages/index/product/add/add",
+    "pages/index/product/edit/edit",
+    "pages/index/product/type/type",
+    "pages/index/product/unit/unit",
+    "pages/index/receipt/receipt",
+    "pages/index/payment/payment",
+    "pages/index/cost/cost",
+    "pages/index/return-order/return-order",
+    "pages/stock/stock",
+    "pages/data/data",
+    "pages/my/my",
+    "pages/my/login/login",
+    "pages/my/set",
+    "pages/my/login/reg",
+    "pages/my/login/forget",
+    "pages/my/account/accountadd",
+    "pages/my/myorder",
+    "pages/my/user/user",
+    "pages/my/user/useradd",
+    "pages/my/account/accountlist",
+    "pages/my/account/recharge",
+    "pages/my/login/editPassword",
+    "pages/my/givetime",
+    "pages/my/share/share",
+    "pages/stock/early-stage/early-stage",
+    "pages/stock/inventory/inventory"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#88909f",
+    "selectedColor": "#2d8cf0",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/image/business.png",
+        "selectedIconPath": "static/image/business_selected.png",
+        "text": "买卖"
+      },
+      {
+        "pagePath": "pages/stock/stock",
+        "iconPath": "static/image/stock.png",
+        "selectedIconPath": "static/image/stock_selected.png",
+        "text": "库存"
+      },
+      {
+        "pagePath": "pages/data/data",
+        "iconPath": "static/image/data.png",
+        "selectedIconPath": "static/image/data_selected.png",
+        "text": "报表"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/image/my.png",
+        "selectedIconPath": "static/image/my_selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "cu-loading": "/components/custom/cu-loading"
+  },
+  "sitemapLocation": "sitemap.json"
+}

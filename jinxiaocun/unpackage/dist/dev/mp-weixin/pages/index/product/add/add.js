@@ -187,7 +187,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _common = __webpack_require__(/*! @/api/common.js */ 22);
 var _common2 = __webpack_require__(/*! @/config/common.js */ 56);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 368));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 375));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 382));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 385));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 392));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 399));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -230,7 +230,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
 
     },
     handleSubmit: function handleSubmit() {
-      (0, _common.create)(_common2.api.baseProduct, { model: this.reqData }).then(function (res) {
+      (0, _common.create)(_common2.api.baseProduct, this.reqData).then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
           _business.default.getBaseProduct().then(function (res) {
             _business.default.getProductCategory().then(function (res) {

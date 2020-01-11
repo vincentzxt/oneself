@@ -22,6 +22,7 @@
   position: relative;
   padding: 10rpx;
   background-color: #fff;
+  height: 44px;
 }
 .uni-searchbar__box.data-v-420f3066 {
   display: -webkit-box;
@@ -45,9 +46,8 @@
           align-items: center;
   height: 36px;
   padding: 5px 8px 5px 0px;
-  border-width: 0px;
+  border-width: 1px;
   border-style: solid;
-  border-color: #dddee1;
 }
 .uni-searchbar__box-icon-search.data-v-420f3066 {
   display: -webkit-box;

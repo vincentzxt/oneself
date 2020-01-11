@@ -125,6 +125,7 @@
 		position: relative;
 		padding: $uni-spacing-col-base;
 		background-color: #fff;
+		height: 44px;
 	}
 
 	.uni-searchbar__box {
@@ -140,9 +141,8 @@
 		align-items: center;
 		height: $uni-searchbar-height;
 		padding: 5px 8px 5px 0px;
-		border-width: 0px;
+		border-width: 1px;
 		border-style: solid;
-		border-color: $uni-border-color;
 	}
 
 	.uni-searchbar__box-icon-search {

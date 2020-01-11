@@ -83,7 +83,8 @@
 					address: '',
 					bseContactUnitContactModels:[
 						{
-							contactunitid: 0,
+							contactunitid: '',
+							contactid: '',
 							contactname: '',
 							telephone: '',
 							email: ''
@@ -106,6 +107,7 @@
 			this.reqData.district = item.district
 			this.reqData.address = item.address
 			this.reqData.bseContactUnitContactModels[0].contactunitid = this.reqData.contactunitid
+			this.reqData.bseContactUnitContactModels[0].contactid = item.bseContactUnitContactModels[0].contactid
 			this.reqData.bseContactUnitContactModels[0].contactname = item.bseContactUnitContactModels[0].contactname
 			this.reqData.bseContactUnitContactModels[0].telephone = item.bseContactUnitContactModels[0].telephone
 			this.reqData.bseContactUnitContactModels[0].email = item.bseContactUnitContactModels[0].email

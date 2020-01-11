@@ -8,6 +8,7 @@
 		onLaunch: function() {
 			uni.getSystemInfo({
 				success: (res) => {
+					Vue.prototype.$statusBarHeight = res.statusBarHeight
 					console.log(res)
 				}
 			})
