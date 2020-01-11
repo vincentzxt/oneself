@@ -41,6 +41,9 @@
 .uni-list-item--hover.data-v-0be73b92 {
   background-color: #5cadff;
 }
+.uni-list-item--hover text.data-v-0be73b92, .uni-list-item--hover uni-icons.data-v-0be73b92 {
+    color: #FFFFFF;
+}
 .uni-list-item__container.data-v-0be73b92 {
   display: -webkit-box;
   display: -webkit-flex;

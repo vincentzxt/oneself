@@ -34,7 +34,9 @@
     "pages/my/givetime",
     "pages/my/share/share",
     "pages/stock/early-stage/early-stage",
-    "pages/stock/inventory/inventory"
+    "pages/stock/inventory/inventory",
+    "pages/my/account/accountedit",
+    "pages/my/account/accountdetail"
   ],
   "subPackages": [],
   "window": {

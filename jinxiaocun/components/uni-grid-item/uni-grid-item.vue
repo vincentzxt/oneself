@@ -68,6 +68,7 @@
 		height: 100%;
 		display: flex;
 		/* #endif */
+		color: $uni-title-color;
 	}
 
 	.uni-grid-item__box {
@@ -104,5 +105,6 @@
 
 	.uni-highlight:active {
 		background-color: $uni-color-link-hover;
+		color: #FFFFFF;
 	}
 </style>

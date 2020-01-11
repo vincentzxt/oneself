@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
@@ -116,6 +116,14 @@
 			this.currentUnitSearchDatas = this.currentUnitDatas
 			this.productSearchDatas = this.productDatas
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -192,8 +200,6 @@
 				}
 			},
 			handleUnitChange(val) {
-				console.log(val)
-				console.log(this.curSelectPruduct)
 				this.checkedUnit = val.detail.value
 				if (this.checkedUnit == 0) {
 					this.curSelectPruduct.unit = this.curSelectPruduct.unit
@@ -246,16 +252,11 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 10%;
-		}
 		.main {
-			height: 83%;
+			margin-top: 5px;
 		}
 		.footer {
-			height: 7%;
+			height: 48px;
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {

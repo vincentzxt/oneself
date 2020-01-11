@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
@@ -14,9 +14,9 @@
 								<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
-						<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号" isLink>
+						<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号">
 							<radio-group @change="handleCashAccountChange">
-								<radio color="#2db7f5" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.payAccountId == item.cashaccountid">{{item.cashaccountname}}</radio>
+								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.payAccountId == item.cashaccountid">{{item.cashaccountname}}</radio>
 							</radio-group>
 						</cu-cell>
 						<cu-cell title="是否生成入库单">
@@ -94,6 +94,14 @@
 				this.$refs.loading.close()
 			})
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -142,13 +150,8 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 10%;
-		}
 		.main {
-			height: 83%;
+			margin-top: 5px;
 			.picker {
 				width: 100%;
 				display: flex;
@@ -156,7 +159,7 @@
 			}
 		}
 		.footer {
-			height: 7%;
+			height: 48px;
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {

@@ -1,16 +1,16 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 					<view class="main-header">
 						<radio-group @change="handleTypeChange">
 							<radio color="#2d8cf0" value=1 :checked="reqData.contactunittype == 1">客户</radio>
-							<radio color="#2d8cf0" style="margin-left: 10px;" value=2 :checked="reqData.contactunittype == 2">供应商</radio>
-							<radio color="#2d8cf0" style="margin-left: 10px;" value=3 :checked="reqData.contactunittype == 3">所有</radio>
+							<radio color="#2d8cf0" style="margin-left: 20px;" value=2 :checked="reqData.contactunittype == 2">供应商</radio>
+							<radio color="#2d8cf0" style="margin-left: 20px;" value=3 :checked="reqData.contactunittype == 3">所有</radio>
 						</radio-group>
 					</view>
 					<cu-panel>
@@ -116,6 +116,14 @@
 			this.addressArray.push(this.reqData.city)
 			this.addressArray.push(this.reqData.district)
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -182,13 +190,8 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 10%;
-		}
 		.main {
-			height: 83%;
+			margin-top: 5px;
 			.cu-form-group .title {
 				min-width: calc(5em + 30px);
 			}
@@ -206,10 +209,7 @@
 			}
 		}
 		.footer {
-			height: 7%;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
+			height: 48px;
 		}
 	}
 </style>

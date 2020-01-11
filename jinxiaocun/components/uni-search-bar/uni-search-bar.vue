@@ -115,17 +115,17 @@
 </script>
 
 <style lang="scss" scoped>
-	$uni-searchbar-height: 36px;
-
+	$uni-searchbar-height: 40px;
 	.uni-searchbar {
 		/* #ifndef APP-NVUE */
 		display: flex;
 		/* #endif */
 		flex-direction: row;
 		position: relative;
-		padding: $uni-spacing-col-base;
-		background-color: #fff;
-		height: 44px;
+		padding: 5px;
+		background-color: #FFFFFF;
+		height: 50px;
+		align-items: center;
 	}
 
 	.uni-searchbar__box {
@@ -140,9 +140,10 @@
 		flex-direction: row;
 		align-items: center;
 		height: $uni-searchbar-height;
-		padding: 5px 8px 5px 0px;
-		border-width: 1px;
+		padding: 5px 5px 5px 0px;
+		border-width: 0px;
 		border-style: solid;
+		margin-right: 5px;
 	}
 
 	.uni-searchbar__box-icon-search {
@@ -175,7 +176,6 @@
 	}
 
 	.uni-searchbar__cancel {
-		padding-left: 10px;
 		line-height: $uni-searchbar-height;
 		font-size: 14px;
 		color: $uni-color-link;

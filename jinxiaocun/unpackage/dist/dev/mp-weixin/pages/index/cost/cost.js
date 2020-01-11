@@ -197,7 +197,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 371));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 385));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 392));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 399));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 404));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 411));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 387));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 401));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 408));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 415));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 420));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 427));};var _default =
 {
   components: {
     uniSearchBar: uniSearchBar,
@@ -217,7 +217,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
         feetype: '',
         contactunitid: '',
         contactunitname: '',
-        accountid: '',
+        payaccountid: '',
         amount: 0 },
 
       feetypeDict: ['公司餐费', '公司交通费', '公司办公费', '公司租金费', '公司电费', '公司快递费', '增值税'],
@@ -237,6 +237,14 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
       _this.$refs.loading.close();
     });
   },
+  computed: {
+    headerHeight: function headerHeight() {
+      return this.$headerHeight;
+    },
+    mainHeight: function mainHeight() {
+      return this.$mainHeight;
+    } },
+
   methods: {
     handleNavbarClickLeft: function handleNavbarClickLeft() {
       uni.navigateBack({
@@ -247,7 +255,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
       this.reqData.feetype = this.feetypeDict[val.detail.value];
     },
     handleCashAccountChange: function handleCashAccountChange(val) {
-      this.reqData.accountid = val.detail.value;
+      this.reqData.payaccountid = val.detail.value;
     },
     handleSearchCurrentUnit: function handleSearchCurrentUnit(val) {
       if (val.value) {
@@ -268,7 +276,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
     },
     handleSubmit: function handleSubmit() {var _this2 = this;
       this.$refs.loading.open();
-      (0, _common2.create)(_common.api.capFee, { model: this.reqData }).then(function (res) {
+      (0, _common2.create)(_common.api.capFee, this.reqData).then(function (res) {
         _this2.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
           uni.showToast({

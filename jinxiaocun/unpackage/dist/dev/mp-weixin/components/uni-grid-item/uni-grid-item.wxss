@@ -16,6 +16,7 @@
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  color: #1c2438;
 }
 .uni-grid-item__box.data-v-c9b8f37c {
   display: -webkit-box;
@@ -49,5 +50,6 @@
 }
 .uni-highlight.data-v-c9b8f37c:active {
   background-color: #5cadff;
+  color: #FFFFFF;
 }
 

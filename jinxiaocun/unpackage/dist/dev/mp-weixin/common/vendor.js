@@ -14492,7 +14492,54 @@ module.exports = function dispatchRequest(config) {
 
 /***/ }),
 
-/***/ 347:
+/***/ 35:
+/*!*************************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/transformData.js ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ 28);
+
+/**
+                                    * Transform the data for a request or a response
+                                    *
+                                    * @param {Object|String} data The data to be transformed
+                                    * @param {Array} headers The headers for the request or response
+                                    * @param {Array|Function} fns A single function or Array of functions
+                                    * @returns {*} The resulting transformed data
+                                    */
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+
+  return data;
+};
+
+/***/ }),
+
+/***/ 36:
+/*!**********************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/cancel/isCancel.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+/***/ }),
+
+/***/ 363:
 /*!**********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
   \**********************************************************************************************/
@@ -14544,53 +14591,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'receipt': "\uE668",
   'payment': "\uE691",
   'return-order': "\uE6FE" };exports.default = _default;
-
-/***/ }),
-
-/***/ 35:
-/*!*************************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/transformData.js ***!
-  \*************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 28);
-
-/**
-                                    * Transform the data for a request or a response
-                                    *
-                                    * @param {Object|String} data The data to be transformed
-                                    * @param {Array} headers The headers for the request or response
-                                    * @param {Array|Function} fns A single function or Array of functions
-                                    * @returns {*} The resulting transformed data
-                                    */
-module.exports = function transformData(data, headers, fns) {
-  /*eslint no-param-reassign:0*/
-  utils.forEach(fns, function transform(fn) {
-    data = fn(data, headers);
-  });
-
-  return data;
-};
-
-/***/ }),
-
-/***/ 36:
-/*!**********************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/cancel/isCancel.js ***!
-  \**********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-};
 
 /***/ }),
 
@@ -15266,7 +15266,60 @@ module.exports = function createError(message, config, code, request, response) 
 
 /***/ }),
 
-/***/ 430:
+/***/ 44:
+/*!************************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/enhanceError.js ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+               * Update an Error with the specified config, error code, and response.
+               *
+               * @param {Error} error The error to update.
+               * @param {Object} config The config.
+               * @param {string} [code] The error code (for example, 'ECONNABORTED').
+               * @param {Object} [request] The request.
+               * @param {Object} [response] The response.
+               * @returns {Error} The error.
+               */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function () {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code };
+
+  };
+  return error;
+};
+
+/***/ }),
+
+/***/ 446:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/province.js ***!
   \****************************************************************************************************************/
@@ -15420,7 +15473,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 431:
+/***/ 447:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/city.js ***!
   \************************************************************************************************************/
@@ -16938,7 +16991,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 432:
+/***/ 448:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/area.js ***!
   \************************************************************************************************************/
@@ -29497,59 +29550,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 44:
-/*!************************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/core/enhanceError.js ***!
-  \************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-               * Update an Error with the specified config, error code, and response.
-               *
-               * @param {Error} error The error to update.
-               * @param {Object} config The config.
-               * @param {string} [code] The error code (for example, 'ECONNABORTED').
-               * @param {Object} [request] The request.
-               * @param {Object} [response] The response.
-               * @returns {Error} The error.
-               */
-module.exports = function enhanceError(error, config, code, request, response) {
-  error.config = config;
-  if (code) {
-    error.code = code;
-  }
-
-  error.request = request;
-  error.response = response;
-  error.isAxiosError = true;
-
-  error.toJSON = function () {
-    return {
-      // Standard
-      message: this.message,
-      name: this.name,
-      // Microsoft
-      description: this.description,
-      number: this.number,
-      // Mozilla
-      fileName: this.fileName,
-      lineNumber: this.lineNumber,
-      columnNumber: this.columnNumber,
-      stack: this.stack,
-      // Axios
-      config: this.config,
-      code: this.code };
-
-  };
-  return error;
-};
-
-/***/ }),
-
 /***/ 45:
 /*!***************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/parseHeaders.js ***!
@@ -31120,7 +31120,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item", "cu-loading": "/components/custom/cu-loading" }, "usingAutoImportComponents": {} }, "pages/index/sale/sale": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/sale/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/purchase/purchase": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/purchase/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true, "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "simple-address": "/components/simple-address/simple-address" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "simple-address": "/components/simple-address/simple-address" }, "usingAutoImportComponents": {} }, "pages/index/product/product": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/product/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/product/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/product/type/type": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/product/unit/unit": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/receipt/receipt": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/payment/payment": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/cost/cost": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/return-order/return-order": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/stock/stock": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell" }, "usingAutoImportComponents": {} }, "pages/data/data": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/my/my": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/login/login": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/set": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/login/reg": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/login/forget": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/account/accountadd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/myorder": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/user/user": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/user/useradd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/account/accountlist": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/account/recharge": { "usingComponents": { "helang-checkbox": "/components/helang-checkbox/helang-checkbox" }, "usingAutoImportComponents": {} }, "pages/my/login/editPassword": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/givetime": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/share/share": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/stock/early-stage/early-stage": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/stock/inventory/inventory": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/stock/stock": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/stock/early-stage/early-stage": {}, "pages/stock/inventory/inventory": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 

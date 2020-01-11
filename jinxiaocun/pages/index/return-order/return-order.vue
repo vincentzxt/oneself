@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
@@ -15,18 +15,12 @@
 							</radio-group>
 						</cu-cell>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码、名称、电话" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码/名称/电话" cancelButton="none"></uni-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
 							<text slot="footer">{{reqData.contactunitname}}</text>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="收款帐号">
-							<radio-group @change="handleCashAccountChange">
-								<radio color="#2db7f5" v-for="(item, index) in cashAccountDict" :key="index" :value="item.cashaccountid" :checked="reqData.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-							</radio-group>
-						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="收款金额">
-							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="请输入收款金额"/>
+						<cu-cell v-if="!searchCurrentUnit" title="选择订单" isLink>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
@@ -98,6 +92,14 @@
 				this.$refs.loading.close()
 			})
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -157,13 +159,8 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 10%;
-		}
 		.main {
-			height: 83%;
+			margin-top: 5px;
 			.picker {
 				width: 100%;
 				display: flex;
@@ -171,10 +168,7 @@
 			}
 		}
 		.footer {
-			height: 7%;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
+			height: 48px;
 		}
 	}
 </style>

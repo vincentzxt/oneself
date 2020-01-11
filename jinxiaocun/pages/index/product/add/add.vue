@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
@@ -88,6 +88,14 @@
 				}
 			}
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -148,22 +156,14 @@
 		min-width: calc(4em + 15px);
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 10%;
-		}
 		.main {
-			height: 83%;
+			margin-top: 5px;
 			.cu-form-group .title {
 				min-width: calc(6em + 30px);
 			}
 		}
 		.footer {
-			height: 7%;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
+			height: 48px;
 		}
 	}
 </style>

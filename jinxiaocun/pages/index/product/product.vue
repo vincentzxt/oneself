@@ -1,11 +1,11 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
-			<uni-search-bar @input="handleSearch" placeholder="输入速查码、名称" cancelButton="always"></uni-search-bar>
+			<uni-search-bar @input="handleSearch" placeholder="输入速查码/名称" cancelButton="always"></uni-search-bar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="main-left">
 				<uni-list>
 					<uni-list-item :title="item" :class="item==curSelectType?'menuSelect':''" :show-arrow="false" v-for="(item, index) in productCategory" :key="index" @tap="handleSelectType(item)">
@@ -51,6 +51,14 @@
 			this.datas = uni.getStorageSync('productList')
 			this.searchDatas = this.datas
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerIsSearchHeight
+			},
+			mainHeight() {
+				return this.$mainIsSearchHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -95,15 +103,10 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 15%;
-		}
 		.main {
-			height: 78%;
 			display: flex;
 			justify-content: space-between;
+			margin-top: 5px;
 			.main-left {
 				width: 30%;
 				.menuSelect {
@@ -112,14 +115,11 @@
 				}
 			}
 			.main-right {
-				width: 68%;
+				width: 69%;
 			}
 		}
 		.footer {
-			height: 7%;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
+			height: 48px;
 		}
 	}
 </style>

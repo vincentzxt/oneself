@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell title="盘点类型">
@@ -16,7 +16,7 @@
 				</cu-panel>
 				<cu-panel>
 					<cu-cell v-if="!searchCurrentUnit" title="选择产品">
-						<uni-search-bar ref="sp" style="width:67%;" @input="handleSearchProduct" placeholder="输入速查码、名称" cancelButton="none"></uni-search-bar>
+						<uni-search-bar ref="sp" style="width:67%;" @input="handleSearchProduct" placeholder="输入速查码/名称" cancelButton="none"></uni-search-bar>
 					</cu-cell>
 				</cu-panel>
 				<cu-panel v-if="searchProduct">
@@ -104,6 +104,14 @@
 		onShow() {
 			this.productDatas = uni.getStorageSync('productList')
 			this.productSearchDatas = this.productDatas
+		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
 		},
 		methods: {
 			handleNavbarClickLeft() {
@@ -225,16 +233,11 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 10%;
-		}
 		.main {
-			height: 83%;
+			margin-top: 5px;
 		}
 		.footer {
-			height: 7%;
+			height: 48px;
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {

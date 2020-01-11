@@ -152,8 +152,11 @@
 		opacity: 0.3;
 	}
 
-	.uni-list-item--hover {
+	.uni-list-item--hover{
 		background-color: $uni-bg-color-hover;
+		text,uni-icons {
+			color: #FFFFFF;
+		}
 	}
 
 	.uni-list-item__container {

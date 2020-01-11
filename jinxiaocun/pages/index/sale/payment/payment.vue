@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
@@ -16,7 +16,7 @@
 						</cu-cell>
 						<cu-cell v-if="reqData.order.isOnCredit == 0" title="收款帐号">
 							<radio-group @change="handleCashAccountChange">
-								<radio color="#2db7f5" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountId == item.cashaccountid">{{item.cashaccountname}}</radio>
+								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountId == item.cashaccountid">{{item.cashaccountname}}</radio>
 							</radio-group>
 						</cu-cell>
 						<cu-cell title="是否生成出库单">
@@ -94,6 +94,14 @@
 				this.$refs.loading.close()
 			})
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -114,7 +122,7 @@
 			},
 			handleSubmit() {
 				this.$refs.loading.open()
-				create(api.salesOrder, {model: this.reqData }).then(res => {
+				create(api.salesOrder, this.reqData).then(res => {
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						uni.showToast({
@@ -142,13 +150,8 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 10%;
-		}
 		.main {
-			height: 83%;
+			margin-top: 5px;
 			.picker {
 				width: 100%;
 				display: flex;
@@ -156,7 +159,7 @@
 			}
 		}
 		.footer {
-			height: 7%;
+			height: 48px;
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {

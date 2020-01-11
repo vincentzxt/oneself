@@ -18,30 +18,13 @@
 .cu-form-group .title.data-v-595bdc6b {
   min-width: calc(4em + 15px);
 }
-.container.data-v-595bdc6b {
-  height: 100vh;
-  width: 100vw;
-}
-.container .header.data-v-595bdc6b {
-    height: 10%;
-}
 .container .main.data-v-595bdc6b {
-    height: 83%;
+  margin-top: 5px;
 }
 .container .main .cu-form-group .title.data-v-595bdc6b {
-      min-width: calc(6em + 30px);
+    min-width: calc(6em + 30px);
 }
 .container .footer.data-v-595bdc6b {
-    height: 7%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-            justify-content: flex-end;
+  height: 48px;
 }
 
