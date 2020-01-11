@@ -108,7 +108,7 @@
 				})
 			},
 			handleSubmit() {
-				update(api.baseProduct, {model: this.reqData }).then(res => {
+				update(api.baseProduct, this.reqData).then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						getGlobalData.getBaseProduct().then(res => {
 							getGlobalData.getProductCategory().then(res => {

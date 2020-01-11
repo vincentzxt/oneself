@@ -14,7 +14,7 @@
 								<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
-						<cu-cell v-if="reqData.order.isOnCredit == 0" title="收款帐号" isLink>
+						<cu-cell v-if="reqData.order.isOnCredit == 0" title="收款帐号">
 							<radio-group @change="handleCashAccountChange">
 								<radio color="#2db7f5" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountId == item.cashaccountid">{{item.cashaccountname}}</radio>
 							</radio-group>

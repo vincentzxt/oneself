@@ -40,6 +40,7 @@
 			}
 		},
 		onLoad() {
+			console.log(this.$statusBarHeight)
 			if (uni.getStorageSync('userInfo')) {
 				getGlobalData.getCurrentUnit()
 				getGlobalData.getBaseProduct()

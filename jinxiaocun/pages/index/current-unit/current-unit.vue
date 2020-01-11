@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">				
 			</uni-navbar>
 			<uni-search-bar @input="handleSearch" placeholder="输入速查码、名称、电话" cancelButton="always"></uni-search-bar>
@@ -50,6 +50,14 @@
 			this.searchDatas = this.datas
 			uni.stopPullDownRefresh()
 		},
+		computed: {
+			headerHeight() {
+				return this.$statusBarHeight + 88
+			},
+			mainHeight() {
+				return 
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -88,12 +96,8 @@
 	.container {
 		height: 100vh;
 		width: 100vw;
-		.header {
-			height: 15%;
-		}
 		.main {
 			height: 78%;
-			
 		}
 		.footer {
 			height: 7%;
