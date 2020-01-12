@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.uni-grid-item.data-v-c9b8f37c {
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  color: #1c2438;
+}
+.uni-grid-item__box.data-v-c9b8f37c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+}
+.uni-grid-item--border.data-v-c9b8f37c {
+  position: relative;
+  border-bottom-color: #dddee1;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-right-color: #dddee1;
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+.uni-grid-item--border-top.data-v-c9b8f37c {
+  border-top-color: #dddee1;
+  border-top-style: solid;
+  border-top-width: 1px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.uni-highlight.data-v-c9b8f37c:active {
+  background-color: #5cadff;
+  color: #FFFFFF;
+}
+

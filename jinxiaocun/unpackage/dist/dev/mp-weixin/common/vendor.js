@@ -13444,7 +13444,7 @@ var _common2 = __webpack_require__(/*! @/config/common.js */ 56);var _default =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.tokenpost = exports.tokenget = exports.post = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.tokenpost = exports.tokenget = exports.post = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 var post = function post(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return _http.default.request({
     url: url,
@@ -13460,19 +13460,17 @@ var tokenget = function tokenget(url) {var id = arguments.length > 1 && argument
 
 };exports.tokenget = tokenget;
 var tokenpost = function tokenpost(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var token = uni.getStorageSync('userInfo').token;
-  var headers = {
-    'Content-Type': 'application/json',
-    'Authorization': "Bearer " + token };
-
+  // const token = uni.getStorageSync('userInfo').token;
+  // const headers = {
+  //  'Content-Type': 'application/json',
+  //  'Authorization': "Bearer "+ token
+  // }
   return _http.default.request({
     url: url,
     data: data,
-    headers: headers,
     method: 'post' });
 
 };exports.tokenpost = tokenpost;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -31048,6 +31046,24 @@ function _classCallCheck(instance, Constructor) {if (!(instance instanceof Const
 
 /***/ }),
 
+/***/ 550:
+/*!*******************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/utils/tools.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.cloneObj = void 0; /**
+                                                                                                       * @description 克隆一个对象，去除它跟原对象的关联性
+                                                                                                       * @param (Object) obj 原对象
+                                                                                                      */
+var cloneObj = function cloneObj(obj) {
+  return JSON.parse(JSON.stringify(obj));
+};exports.cloneObj = cloneObj;
+
+/***/ }),
+
 /***/ 56:
 /*!*********************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/config/common.js ***!
@@ -31071,13 +31087,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   salesOrder: '/api/SalesOrder',
   token: '/api/Token',
   login: '/api/BseUser/Login',
+  ChangePassword: '/api/BseUser/ChangePassword',
   Regist: '/api/BseUser/Regist',
   GetUserInfo: '/api/BseUser/GetUserInfo',
   SaveUserInfo: '/api/BseUser/SaveUserInfo',
+  GetUserList: '/api/BseUser/GetUserList',
+  SaveUser: '/api/BseUser/SaveUser',
+  CustomerSave: '/api/Customer/SaveCustomer',
   MyCashAccount: '/api/CashAccount/Query',
   MyCashAccountCreate: '/api/CashAccount/Create',
   MyCashAccountGet: '/api/CashAccount/Get/',
-  MyCashAccountUpdate: '/api/CashAccount/Update' };exports.api = api;
+  MyCashAccountUpdate: '/api/CashAccount/Update',
+  UploadImg: '/api/BseUser/UploadImg' };exports.api = api;
 
 /***/ }),
 

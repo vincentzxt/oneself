@@ -177,29 +177,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
 var _user = __webpack_require__(/*! @/api/user.js */ 212);
-var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 401));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 408));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 415));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 420));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 427));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 401));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 408));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 415));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 420));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 427));};var ImageCropper = function ImageCropper() {return __webpack_require__.e(/*! import() | components/invinbg-image-cropper/invinbg-image-cropper */ "components/invinbg-image-cropper/invinbg-image-cropper").then(__webpack_require__.bind(null, /*! @/components/invinbg-image-cropper/invinbg-image-cropper.vue */ 458));};var _default =
+
 {
   components: {
     cuPanel: cuPanel,
     cuCell: cuCell,
     cuCellGroup: cuCellGroup,
     uniList: uniList,
-    uniListItem: uniListItem },
+    uniListItem: uniListItem,
+    ImageCropper: ImageCropper },
 
   data: function data() {
     return {
+      tempFilePath: '',
+      cropFilePath: '',
+      loading: false,
       reqData: {
         companylogourl: '',
         companyname: '湖北吉奥汽车服务有限公司',
         contact: '',
         telephone: '',
-        wx: '',
         email: '',
         address: '' },
 
@@ -215,21 +214,61 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
         delta: 1 });
 
     },
-    loadData: function loadData() {var _this = this;
-      (0, _user.tokenpost)(_common.api.GetUserInfo).then(function (res) {
+    upload: function upload() {var _this = this;
+      uni.chooseImage({
+        count: 1, //默认9
+        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album'], //从相册选择
+        success: function success(res) {
+          _this.tempFilePath = res.tempFilePaths.shift();
+        } });
+
+    },
+    confirm: function confirm(e) {var _this2 = this;
+      //this.tempFilePath = ''
+      //this.reqData.companylogourl = e.detail.tempFilePath;
+      var token = uni.getStorageSync('userInfo').token;
+      var header = {
+        'content-type': 'multipart/form-data',
+        Authorization: 'Bearer ' + token };
+
+      uni.uploadFile({
+        url: _common.api.baseUrl + _common.api.UploadImg, //仅为示例，非真实的接口地址
+        filePath: e.detail.tempFilePath,
+        name: 'file',
+        header: header,
+        formData: {},
+        success: function success(uploadFileRes) {
+          var res = JSON.parse(uploadFileRes.data);
+          if (uploadFileRes.statusCode == 200 && res.returnCode == '0000') {
+            _this2.reqData.companylogourl = _common.api.baseUrl + res.data.linkUrl;
+          } else {
+            _this2.$api.msg(res.returnMessage);
+          }
+        } });
+
+    },
+    cancel: function cancel() {
+      console.log('canceled');
+    },
+    loadData: function loadData() {var _this3 = this;
+      (0, _user.tokenpost)(_common.api.GetUserInfo).
+      then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this.dataList = res.data.data;
+          console.log(res.data.data);
+          _this3.reqData = res.data.data;
         } else {
-          _this.$api.msg(res.data.returnMessage);
+          _this3.$api.msg(res.data.returnMessage);
         }
-        _this.loading = false;
-      }).catch(function (error) {
-        _this.loading = false;
-        _this.$api.msg('请求失败fail');
+        _this3.loading = false;
+      }).
+      catch(function (error) {
+        _this3.loading = false;
+        _this3.$api.msg('请求失败fail');
       });
     },
-    handleSubmit: function handleSubmit() {var _this2 = this;var
-      companylogourl = this.companylogourl,companyname = this.companyname,contact = this.contact,telephone = this.telephone,email = this.email,address = this.address;
+    handleSubmit: function handleSubmit() {var _this4 = this;var _this$reqData =
+      this.reqData,companylogourl = _this$reqData.companylogourl,companyname = _this$reqData.companyname,contact = _this$reqData.contact,telephone = _this$reqData.telephone,email = _this$reqData.email,address = _this$reqData.address;
       var sendData = {
         companylogourl: companylogourl,
         companyname: companyname,
@@ -238,23 +277,25 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
         email: email,
         address: address };
 
-      (0, _user.tokenpost)(_common.api.SaveUserInfo, sendData).then(function (res) {
+      this.loading = true;
+      (0, _user.tokenpost)(_common.api.CustomerSave, sendData).
+      then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this2.$api.msg(res.data.returnMessage);
+          _this4.$api.msg('保存成功！');
         } else if (res.status == 200 && res.data.returnCode == '402') {
-          _this2.$api.msg(res.data.returnMessage);
+          _this4.$api.msg(res.data.returnMessage);
           uni.reLaunch({
             url: '/pages/my/login/login' });
 
         } else {
-          _this2.$api.msg(res.data.returnMessage);
+          _this4.$api.msg(res.data.returnMessage);
         }
-        _this2.loading = false;
-      }).catch(function (error) {
-        _this2.loading = false;
-        _this2.$api.msg('请求失败fail');
+        _this4.loading = false;
+      }).
+      catch(function (error) {
+        _this4.loading = false;
+        _this4.$api.msg('请求失败fail');
       });
-
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

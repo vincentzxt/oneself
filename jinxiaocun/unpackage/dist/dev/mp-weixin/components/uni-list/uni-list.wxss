@@ -1,0 +1,31 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.uni-list.data-v-ef9aa034 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  background-color: #fff;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+}
+.uni-list.data-v-ef9aa034:before {
+  height: 0;
+}
+.uni-list.data-v-ef9aa034:after {
+  height: 0;
+}
+

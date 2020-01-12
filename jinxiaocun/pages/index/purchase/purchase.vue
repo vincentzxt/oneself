@@ -9,7 +9,7 @@
 				<cu-panel>
 					<cu-cell-group>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码、名称、电话" cancelButton="none"></uni-search-bar>
+							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码/名称/电话" cancelButton="none"></uni-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
 							<text slot="footer">{{reqData.contactunitname}}</text>
@@ -17,8 +17,8 @@
 						<cu-cell v-if="!searchCurrentUnit" title="电话">
 							<text slot="footer">{{reqData.telephone}}</text>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="产品">
-							<uni-search-bar ref="sp" style="width:67%;" @input="handleSearchProduct" placeholder="输入速查码、名称" cancelButton="none"></uni-search-bar>
+						<cu-cell v-if="!searchCurrentUnit" title="选择产品">
+							<uni-search-bar ref="sp" style="width:67%;" @input="handleSearchProduct" placeholder="输入速查码/名称" cancelButton="none"></uni-search-bar>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
@@ -34,7 +34,7 @@
 				</cu-panel>
 				<cu-panel v-if="!searchCurrentUnit && !searchProduct && reqData.productList.length > 0">
 					<cu-cell-group>
-						<cu-cell :title="item.productname" :label="'销售数量：'+item.num+'|计量单位：'+curUnit+'|建议零售价：'+item.price" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
+						<cu-cell :title="item.productname" :label="'销售数量：'+item.salesqty+'|计量单位：'+item.unit+'|建议零售价：'+item.price+'|销售单价：'+item.salesunitprice" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
 							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
 								<uni-icons type="delete" color="#ed3f14"></uni-icons>
 							</view>
@@ -50,16 +50,16 @@
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
 				<cu-cell title="数量">
-					<uni-number-box :min="1" :value="curSelectPruduct.num" @change="handleNumChange"></uni-number-box>
+					<uni-number-box :min="1" :value="curSelectPruduct.salesqty" @change="handleSalesqtyChange"></uni-number-box>
 				</cu-cell>
 				<cu-cell title="计量单位">
 					<radio-group @change="handleUnitChange">
-						<radio color="#2db7f5" value=0 :checked="checkedUnit == 0">主计量单位</radio>
-						<radio color="#2db7f5" value=1 :checked="checkedUnit == 1" style="margin-left: 10px;">辅计量单位</radio>
+						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">主计量单位</radio>
+						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">辅计量单位</radio>
 					</radio-group>
 				</cu-cell>
 				<cu-cell title="单价">
-					<input slot="footer" type="text" v-model="curSelectPruduct.price"/>
+					<input slot="footer" type="text" v-model="curSelectPruduct.salesunitprice"/>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
@@ -76,6 +76,7 @@
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
+	import { cloneObj } from '@/utils/tools.js'
 	export default {
 		components: {
 			uniSearchBar,
@@ -104,8 +105,7 @@
 				},
 				showModal: false,
 				title: '采购',
-				curUnit: '',
-				curSelectPruduct: null,
+				curSelectPruduct: {},
 				checkedUnit: 0,
 				disableSubmit: true
 			};
@@ -157,60 +157,73 @@
 				this.reqData.contactunitid = val.contactunitid
 				this.reqData.telephone = val.bseContactUnitContactModels[0].telephone
 				this.searchCurrentUnit = false
-				this.$refs.sc.clear()
+				this.$refs.sc.cancel()
 			},
 			handleSelectProduct(val) {
+				this.$set(this.curSelectPruduct, 'productid', val.productid)
+				this.$set(this.curSelectPruduct, 'productname', val.productname)
+				this.$set(this.curSelectPruduct, 'unit', val.unit)
+				this.$set(this.curSelectPruduct, 'mainUnit', val.unit)
+				this.$set(this.curSelectPruduct, 'subUnit', val.subunit)
+				this.$set(this.curSelectPruduct, 'price', val.price)
+				this.$set(this.curSelectPruduct, 'salesunitprice', 0)
+				this.$set(this.curSelectPruduct, 'salesqty', 1)
+				this.$set(this.curSelectPruduct, 'ismainunit', 1)
+				this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple)
 				let isExists = false
 				for (let item of this.reqData.productList) {
-					if (item.querycode == val.querycode) {
-						item.num ++
+					if (item.productid == this.curSelectPruduct.productid) {
+						item.salesqty ++
 						isExists = true
 					}
 				}
 				if (!isExists) {
-					this.$set(val, 'num', 1)
-					this.curUnit = val.unit
-					this.reqData.productList.push(val)
+					this.reqData.productList.push(cloneObj(this.curSelectPruduct))
 				}
 				this.searchProduct = false
-				this.$refs.sp.clear()
+				this.$refs.sp.cancel()
+				this.$nextTick(function(){
+					this.$refs.popup.open()
+				})
 			},
 			handleShowPopup(val) {
-				this.curSelectPruduct = val
+				this.curSelectPruduct = cloneObj(val)
 				this.$nextTick(function(){
 					this.$refs.popup.open()
 				})
 			},
 			handleEdit() {
 				for (let item of this.reqData.productList) {
-					if (item.code == this.curSelectPruduct.code) {
-						item.price = this.curSelectPruduct.price
-						item.num = this.curSelectPruduct.num
+					if (item.productid == this.curSelectPruduct.productid) {
+						item.salesqty = this.curSelectPruduct.salesqty
 						item.unit = this.curSelectPruduct.unit
+						item.ismainunit = this.curSelectPruduct.ismainunit
+						item.salesunitprice = this.curSelectPruduct.salesunitprice
 					}
 				}
-				this.curSelectPruduct = null
+				this.curSelectPruduct = {}
 				this.$nextTick(function(){
 					this.$refs.popup.close()
 				})
 			},
-			handleNumChange(val) {
+			handleSalesqtyChange(val) {
 				if (this.curSelectPruduct) {
-					this.curSelectPruduct.num = val
+					this.curSelectPruduct.salesqty = val
 				}
 			},
 			handleUnitChange(val) {
-				this.checkedUnit = val.detail.value
-				if (this.checkedUnit == 0) {
-					this.curSelectPruduct.unit = this.curSelectPruduct.unit
+				if (val.detail.value == 1) {
+					this.curSelectPruduct.unit = this.curSelectPruduct.mainUnit
+					this.curSelectPruduct.ismainunit = 1
 				} else {
-					this.curSelectPruduct.subunit = this.curSelectPruduct.subunit
+					this.curSelectPruduct.unit = this.curSelectPruduct.subUnit
+					this.curSelectPruduct.ismainunit = 0
 				}
 			},
 			handleDelete(val) {
-				this.reqData.totalPrice = parseFloat(this.reqData.totalPrice - val.num * parseFloat(val.price)).toFixed(2)
+				this.reqData.totalPrice = parseFloat(this.reqData.totalPrice - val.salesqty * parseFloat(val.salesunitprice)).toFixed(2)
 				this.reqData.productList = this.reqData.productList.filter((item) => {
-					return item.id !== val.id
+					return item.productid !== val.productid
 				})
 			},
 			handleNext() {
@@ -225,7 +238,11 @@
 					this.reqData.totalPrice = 0
 					if (val && val.length > 0) {
 						for (let item of val) {
-							this.reqData.totalPrice += item.num * parseFloat(item.price)
+							if (item.ismainunit == 1) {
+								this.reqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice)
+							} else {
+								this.reqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice) * parseFloat(item.unitmultiple)
+							}
 						}
 						this.reqData.totalPrice = parseFloat(this.reqData.totalPrice).toFixed(2)
 					}
@@ -234,8 +251,16 @@
 			},
 			reqData: {
 				handler(val) {
-					if (val.contactunitname && val.productList.length > 0 && val.totalPrice) {
-						this.disableSubmit = false
+					if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
+						if (val.productList.some((item) => {
+							return item.salesunitprice == 0
+						})) {
+							console.log("1")
+							this.disableSubmit = true
+						} else {
+							console.log("2")
+							this.disableSubmit = false
+						}
 					} else {
 						this.disableSubmit = true
 					}

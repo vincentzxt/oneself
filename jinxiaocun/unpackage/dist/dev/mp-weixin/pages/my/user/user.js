@@ -165,6 +165,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _user = __webpack_require__(/*! @/api/user.js */ 212);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 420));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 427));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 401));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 408));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 415));};var _default =
 {
@@ -178,27 +180,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
   data: function data() {
     return {
       title: '员工管理',
-      dataList: [{
-        realname: '刘老板',
-        userid: 1,
-        isForbidden: 0 },
-
-      {
-        realname: '李老板',
-        userid: 2,
-        isForbidden: 0 },
-
-      {
-        realname: '陈会计',
-        userid: 3,
-        isForbidden: 0 },
-
-      {
-        realname: '刘出纳',
-        userid: 4,
-        isForbidden: 0 }] };
-
-
+      dataList: [] };
 
   },
   onLoad: function onLoad() {},
@@ -208,7 +190,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
         url: '/pages/my/login/login' });
 
     };
-    //this.loadData();
+    this.loadData();
   },
   methods: {
 
@@ -223,21 +205,15 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
 
     },
     handleForbiddenChanage: function handleForbiddenChanage(val) {
-      //this.reqData.isForbidden = val.detail.value
-      //console.log(val.detail.value);
       this.setUserLock(val.currentTarget.id, val.detail.value);
-      //console.log(val.currentTarget.id);
     },
     setUserLock: function setUserLock(id, value) {
 
     },
     loadData: function loadData() {var _this = this;
-      // let userid = uni.getStorageSync('userInfo').userid;
-      // let token = uni.getStorageSync('userInfo').token;
-      // let url = 'http://120.210.132.94:5599/api/BseUser/GetUserInfo';
-      (0, _user.tokenpost)(_common.api.GetUserInfo).then(function (res) {
+      (0, _user.tokenpost)(_common.api.GetUserList).then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this.dataList = res.data.data;
+          _this.dataList = res.data.data.resultList;
         } else {
           _this.$api.msg(res.data.returnMessage);
         }

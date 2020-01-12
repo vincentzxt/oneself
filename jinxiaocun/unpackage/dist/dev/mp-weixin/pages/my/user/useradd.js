@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _methods;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 401));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 408));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 415));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 420));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 427));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -188,12 +188,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
+var _user = __webpack_require__(/*! @/api/user.js */ 212);
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 401));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 408));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 415));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 420));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 427));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -205,36 +201,88 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       reqData: {
-        loginname: 'xuewei',
+        userid: 0,
+        loginname: 'xuewei5',
         realname: '张三丰',
         telephone: '15827068282',
-        email: '',
+        email: '171720926@qq.com',
         password: '',
-        sex: 0,
-        role: 0 },
+        re_password: '',
+        roleid: 0 },
 
-      bankDict: ['微信', '支付宝', '银行卡', '现金'],
+      loading: false,
       title: '增加账号' };
 
   },
   onShow: function onShow() {
   },
-  methods: (_methods = {
+  methods: {
     handleSexChanage: function handleSexChanage(val) {
       this.reqData.sex = val.detail.value;
-    } }, _defineProperty(_methods, "handleSexChanage", function handleSexChanage(
-  val) {
-    this.reqData.role = val.detail.value;
-  }), _defineProperty(_methods, "handleNavbarClickLeft", function handleNavbarClickLeft()
-  {
-    uni.navigateBack({
-      delta: 1 });
+    },
+    handleRoleChanage: function handleRoleChanage(val) {
+      this.reqData.roleid = val.detail.value;
+    },
+    handleNavbarClickLeft: function handleNavbarClickLeft() {
+      uni.navigateBack({
+        delta: 1 });
 
-  }), _defineProperty(_methods, "handleSubmit", function handleSubmit()
-  {
+    },
+    handleSubmit: function handleSubmit() {var _this = this;var _this$reqData =
+      this.reqData,userid = _this$reqData.userid,loginname = _this$reqData.loginname,realname = _this$reqData.realname,telephone = _this$reqData.telephone,email = _this$reqData.email,password = _this$reqData.password,re_password = _this$reqData.re_password,roleid = _this$reqData.roleid;
+      if (loginname.length == 0) {
+        this.$api.msg('登录账号不能为空！');
+        return;
+      }
+      if (realname.length == 0) {
+        this.$api.msg('姓名不能为空！');
+        return;
+      }
+      if (password.length == 0) {
+        this.$api.msg('登录密码不能为空！');
+        return;
+      }
+      if (re_password.length == 0) {
+        this.$api.msg('重复密码不能为空！');
+        return;
+      }
+      if (password != re_password) {
+        this.$api.msg('两次密码不一致！');
+        return;
+      }
+      if (telephone.length != 11) {
+        this.$api.msg('手机号码不正确！');
+        return;
+      }
+      if (email.length == 0) {
+        this.$api.msg('电子邮箱不能为空！');
+        return;
+      }
+      var sendData = { userid: userid, loginname: loginname, realname: realname, telephone: telephone, email: email, password: password, roleid: roleid };
+      this.loading = true;
+      (0, _user.tokenpost)(_common.api.SaveUser, sendData).
+      then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this.$api.msg(res.data.returnMessage);
+          uni.navigateBack({
+            delta: 1 });
 
+        } else if (res.status == 200 && res.data.returnCode == '402') {
+          _this.$api.msg(res.data.returnMessage);
+          uni.reLaunch({
+            url: '/pages/my/login/login' });
 
-  }), _methods) };exports.default = _default;
+        } else {
+          _this.$api.msg(res.data.returnMessage);
+        }
+        _this.loading = false;
+      }).
+      catch(function (error) {
+        _this.loading = false;
+        _this.$api.msg('请求失败fail');
+      });
+
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
