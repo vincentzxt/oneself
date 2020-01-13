@@ -187,13 +187,27 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
       code: '',
       password: '',
       re_password: '',
-      title: '注册' };
+      title: '注册',
+      promoterid: 0 };
 
   },
   components: { uniIcon: uniIcon },
+  onLoad: function onLoad() {
+    if (uni.getStorageSync('promoterid')) {
+      this.promoterid = uni.getStorageSync('promoterid');
+      console.log(this.promoterid);
+    } else {
+      console.log('没有推荐人');
+    }
+  },
   methods: {
+    login_action: function login_action() {
+      uni.reLaunch({
+        url: '/pages/my/login/login' });
+
+    },
     handleReg: function handleReg() {var _this = this;var
-      loginname = this.loginname,password = this.password,telephone = this.telephone,re_password = this.re_password;
+      loginname = this.loginname,password = this.password,telephone = this.telephone,re_password = this.re_password,promoterid = this.promoterid;
       if (loginname.length == 0) {
         this.$api.msg('登录账号不能为空！');
         return;
@@ -217,13 +231,10 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
       var sendData = {
         loginname: loginname,
         password: password,
-        telephone: telephone };
+        telephone: telephone,
+        promoterid: promoterid };
 
       this.loading = true;
-      // uni.showLoading({
-      //             title: '正在请求中'
-      //         });
-
       (0, _user.post)(_common.api.Regist, sendData).then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
           var userInfo = {

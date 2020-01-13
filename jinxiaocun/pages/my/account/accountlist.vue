@@ -6,7 +6,7 @@
 	</view>
 	<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-		<view v-for="(item,index) in dataList" :key="index" class="list-item" @tap="handleDetail(item.cashaccountid)">
+		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
 				<view>账户名称：<text>{{item.cashaccountname}}</text></view> <view><button type="default" size="mini" style="line-height: 1.5;" @tap="handleEdit(item.cashaccountid)">编辑</button></view>
 			</view>

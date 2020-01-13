@@ -25443,6 +25443,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   GetUserInfo: '/api/BseUser/GetUserInfo',
   SaveUserInfo: '/api/BseUser/SaveUserInfo',
   GetUserList: '/api/BseUser/GetUserList',
+  GetRoleList: 'api/BseRole/GetUserList',
   SaveUser: '/api/BseUser/SaveUser',
   CustomerSave: '/api/Customer/SaveCustomer',
   MyCashAccount: '/api/CashAccount/Query',

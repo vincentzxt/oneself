@@ -162,6 +162,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
   data: function data() {
     return {
       title: '买卖',
+      promoterid: 0,
       lists: [
       { id: '1', name: '销售', icon: 'sale', color: '#ed3f14' },
       { id: '2', name: '采购', icon: 'purchase-fill', color: '#2d8cf0' },
@@ -174,7 +175,10 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
 
 
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad(option) {
+    if (option.promoterid) {
+      this.promoterid = option.promoterid;
+    };
     if (uni.getStorageSync('userInfo')) {
       _business.default.getCurrentUnit();
       _business.default.getBaseProduct();
@@ -186,6 +190,16 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     }
   },
   onShow: function onShow() {
+    console.log(this.promoterid);
+    uni.setStorage({
+      key: 'promoterid',
+      data: this.promoterid,
+      success: function success() {
+        console.log("设置promoterid成功！");
+      } });
+
+    console.log(uni.getStorageSync('promoterid'));
+
   },
   methods: {
     handleRefreshPage: function handleRefreshPage() {

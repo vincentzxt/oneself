@@ -215,6 +215,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
 
   },
   onShow: function onShow() {
+    this.loadRole();
   },
   methods: {
     handleSexChanage: function handleSexChanage(val) {
@@ -228,7 +229,24 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
         delta: 1 });
 
     },
-    handleSubmit: function handleSubmit() {var _this = this;var _this$reqData =
+    loadRole: function loadRole() {var _this = this;
+      var sendData = {
+        'currentPage': 1 };
+
+      (0, _user.tokenpost)(_common.api.GetRoleList, sendData).then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          console.log(res.data.data.resultList);
+          // this.dataList = res.data.data.resultList
+        } else {
+          _this.$api.msg(res.data.returnMessage);
+        }
+        _this.loading = false;
+      }).catch(function (error) {
+        _this.loading = false;
+        _this.$api.msg('请求失败fail');
+      });
+    },
+    handleSubmit: function handleSubmit() {var _this2 = this;var _this$reqData =
       this.reqData,userid = _this$reqData.userid,loginname = _this$reqData.loginname,realname = _this$reqData.realname,telephone = _this$reqData.telephone,email = _this$reqData.email,password = _this$reqData.password,re_password = _this$reqData.re_password,roleid = _this$reqData.roleid;
       if (loginname.length == 0) {
         this.$api.msg('登录账号不能为空！');
@@ -263,23 +281,23 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
       (0, _user.tokenpost)(_common.api.SaveUser, sendData).
       then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this.$api.msg(res.data.returnMessage);
+          _this2.$api.msg(res.data.returnMessage);
           uni.navigateBack({
             delta: 1 });
 
         } else if (res.status == 200 && res.data.returnCode == '402') {
-          _this.$api.msg(res.data.returnMessage);
+          _this2.$api.msg(res.data.returnMessage);
           uni.reLaunch({
             url: '/pages/my/login/login' });
 
         } else {
-          _this.$api.msg(res.data.returnMessage);
+          _this2.$api.msg(res.data.returnMessage);
         }
-        _this.loading = false;
+        _this2.loading = false;
       }).
       catch(function (error) {
-        _this.loading = false;
-        _this.$api.msg('请求失败fail');
+        _this2.loading = false;
+        _this2.$api.msg('请求失败fail');
       });
 
     } } };exports.default = _default;

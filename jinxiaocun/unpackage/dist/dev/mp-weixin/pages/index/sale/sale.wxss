@@ -11,21 +11,21 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-7a625b32 {
+.fill.data-v-63e2dfbb {
   width: 100%;
   height: 100%;
 }
-.container .main.data-v-7a625b32 {
+.container .main.data-v-63e2dfbb {
   margin-top: 5px;
 }
-.container .footer.data-v-7a625b32 {
+.container .footer.data-v-63e2dfbb {
   height: 48px;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   background-color: #e9eaec;
 }
-.container .footer-text.data-v-7a625b32 {
+.container .footer-text.data-v-63e2dfbb {
     width: 50%;
     height: 100%;
     display: -webkit-box;
@@ -40,7 +40,7 @@
             align-items: center;
     margin-left: 30rpx;
 }
-.container .footer-btn.data-v-7a625b32 {
+.container .footer-btn.data-v-63e2dfbb {
     width: 50%;
     height: 100%;
 }

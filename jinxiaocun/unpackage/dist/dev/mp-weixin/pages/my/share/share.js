@@ -178,7 +178,7 @@ var _default =
   onShareAppMessage: function onShareAppMessage() {
     return {
       title: this.shareText,
-      path: '/pages/index/index?userId=' + uni.getStorageSync('userInfo').userId,
+      path: '/pages/index/index?promoterid=' + uni.getStorageSync('userInfo').userId,
       imageUrl: this.image,
       complete: this.shareSuccess };
 

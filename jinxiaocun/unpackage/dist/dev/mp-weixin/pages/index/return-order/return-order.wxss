@@ -11,13 +11,14 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-297702b2 {
+.fill.data-v-0749380a {
   width: 100%;
   height: 100%;
 }
-.container .main.data-v-297702b2 {
+.container .main.data-v-0749380a {
   margin-top: 5px;
 }
+<<<<<<< HEAD
 .container .footer.data-v-297702b2 {
   height: 48px;
   display: -webkit-box;
@@ -28,6 +29,10 @@
 .container .footer-text.data-v-297702b2 {
     width: 50%;
     height: 100%;
+=======
+.container .main .picker.data-v-0749380a {
+    width: 100%;
+>>>>>>> eda04efdf18fad34f7b28128c36107e05c240fab
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -40,8 +45,13 @@
             align-items: center;
     margin-left: 30rpx;
 }
+<<<<<<< HEAD
 .container .footer-btn.data-v-297702b2 {
     width: 50%;
     height: 100%;
+=======
+.container .footer.data-v-0749380a {
+  height: 48px;
+>>>>>>> eda04efdf18fad34f7b28128c36107e05c240fab
 }
 

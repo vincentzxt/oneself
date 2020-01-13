@@ -11,7 +11,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.container.data-v-1e5597d2 {
+.container.data-v-bfc63204 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -33,21 +33,21 @@
   font-size: 28rpx;
   text-align: center;
 }
-.container > view.data-v-1e5597d2 {
+.container > view.data-v-bfc63204 {
     margin-bottom: 20rpx;
     padding-right: 20rpx;
     box-sizing: border-box;
 }
-.container.col_1 > view.data-v-1e5597d2 {
+.container.col_1 > view.data-v-bfc63204 {
     width: 100%;
 }
-.container.col_2 > view.data-v-1e5597d2 {
+.container.col_2 > view.data-v-bfc63204 {
     width: 50%;
 }
-.container.col_3 > view.data-v-1e5597d2 {
+.container.col_3 > view.data-v-bfc63204 {
     width: 33.3333333%;
 }
-.container .item.data-v-1e5597d2 {
+.container .item.data-v-bfc63204 {
     line-height: 50rpx;
     padding: 0 20rpx;
     box-sizing: border-box;
@@ -66,12 +66,12 @@
     -webkit-flex-direction: column;
             flex-direction: column;
 }
-.container .item.active.data-v-1e5597d2 {
+.container .item.active.data-v-bfc63204 {
       background-color: #f5fff9;
       color: #42b983;
       border: #42b983 solid 1px;
 }
-.container .item.active.data-v-1e5597d2::before {
+.container .item.active.data-v-bfc63204::before {
         content: '';
         display: block;
         width: 20px;
@@ -84,7 +84,7 @@
         -webkit-clip-path: polygon(100% 0, 0% 100%, 100% 100%);
                 clip-path: polygon(100% 0, 0% 100%, 100% 100%);
 }
-.container .item.active.data-v-1e5597d2::after {
+.container .item.active.data-v-bfc63204::after {
         content: '';
         display: block;
         width: 4px;
