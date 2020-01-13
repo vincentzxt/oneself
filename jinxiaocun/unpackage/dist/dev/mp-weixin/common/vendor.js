@@ -25424,7 +25424,7 @@ function _classCallCheck(instance, Constructor) {if (!(instance instanceof Const
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.api = void 0;var api = {
-  baseUrl: 'https://test.saas.yunmengzhu.com/help/index',
+  baseUrl: 'https://test.saas.yunmengzhu.com',
   contactUnit: '/api/ContactUnit',
   baseArea: '/api/BseArea',
   baseProduct: '/api/BseProduct',

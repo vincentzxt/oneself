@@ -11,25 +11,25 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.cu-panel.data-v-7931f90a {
+.cu-panel.data-v-61225c44 {
   position: relative;
   overflow: hidden;
 }
-.cu-panel-title.data-v-7931f90a {
+.cu-panel-title.data-v-61225c44 {
     font-size: 32rpx;
     line-height: 1;
     color: #1c2438;
     padding: 20px 16px 10px;
 }
-.cu-panel-title-hide-top.data-v-7931f90a {
+.cu-panel-title-hide-top.data-v-61225c44 {
       padding-top: 0;
 }
-.cu-panel-content.data-v-7931f90a {
+.cu-panel-content.data-v-61225c44 {
     position: relative;
     background: #fff;
     overflow: hidden;
 }
-.cu-panel-content.data-v-7931f90a::after {
+.cu-panel-content.data-v-61225c44::after {
       content: '';
       position: absolute;
       top: 0;
@@ -46,7 +46,7 @@
       border-top-width: 1px;
       border-bottom-width: 1px;
 }
-.cu-panel-without-border.data-v-7931f90a {
+.cu-panel-without-border.data-v-61225c44 {
     border: 0 none;
 }
 

@@ -11,7 +11,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.cu-cell.data-v-121156cc {
+.cu-cell.data-v-5f2c1378 {
   position: relative;
   padding: 12px 15px;
   display: -webkit-box;
@@ -25,7 +25,7 @@
   font-size: 32rpx;
   overflow: hidden;
 }
-.cu-cell.data-v-121156cc::after {
+.cu-cell.data-v-5f2c1378::after {
     content: '';
     position: absolute;
     top: 0;
@@ -43,16 +43,16 @@
     left: 15px;
     right: 0;
 }
-.cu-cell-last.data-v-121156cc::after {
+.cu-cell-last.data-v-5f2c1378::after {
     display: none;
 }
-.cu-cell-icon.data-v-121156cc {
+.cu-cell-icon.data-v-5f2c1378 {
     margin-right: 5px;
 }
-.cu-cell-icon.data-v-121156cc:empty {
+.cu-cell-icon.data-v-5f2c1378:empty {
       display: none;
 }
-.cu-cell-bd.data-v-121156cc {
+.cu-cell-bd.data-v-5f2c1378 {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -66,17 +66,17 @@
     -webkit-flex: 1;
             flex: 1;
 }
-.cu-cell-bd-title.data-v-121156cc {
+.cu-cell-bd-title.data-v-5f2c1378 {
       -webkit-box-flex: 1;
       -webkit-flex: 1;
               flex: 1;
 }
-.cu-cell-text.data-v-121156cc {
+.cu-cell-text.data-v-5f2c1378 {
     line-height: 24px;
     font-size: 32rpx;
     color: #495060;
 }
-.cu-cell-desc.data-v-121156cc {
+.cu-cell-desc.data-v-5f2c1378 {
     line-height: 1.2;
     font-size: 28rpx;
     color: #808695;
@@ -87,18 +87,18 @@
     -webkit-flex-wrap: wrap;
             flex-wrap: wrap;
 }
-.cu-cell-desc-item.data-v-121156cc {
+.cu-cell-desc-item.data-v-5f2c1378 {
       width: 50%;
 }
-.cu-cell-ft.data-v-121156cc {
+.cu-cell-ft.data-v-5f2c1378 {
     position: relative;
     text-align: right;
     color: #495060;
 }
-.cu-cell-access .cu-cell-ft.data-v-121156cc {
+.cu-cell-access .cu-cell-ft.data-v-5f2c1378 {
     padding-right: 13px;
 }
-.cu-cell-access .cu-cell-ft.data-v-121156cc::after {
+.cu-cell-access .cu-cell-ft.data-v-5f2c1378::after {
       content: " ";
       display: inline-block;
       width: 6px;
