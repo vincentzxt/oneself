@@ -18,6 +18,7 @@ export const api = {
 	GetUserInfo:'/api/BseUser/GetUserInfo',
 	SaveUserInfo:'/api/BseUser/SaveUserInfo',
 	GetUserList:'/api/BseUser/GetUserList',
+	GetRoleList:'api/BseRole/GetUserList',
 	SaveUser:'/api/BseUser/SaveUser',
 	CustomerSave:'/api/Customer/SaveCustomer',
 	MyCashAccount: '/api/CashAccount/Query',

@@ -80,6 +80,7 @@
 			};
 		},
 		onShow() {
+			this.loadRole();
 		},
 		methods: {
 			handleSexChanage(val) {
@@ -91,6 +92,23 @@
 			handleNavbarClickLeft() {
 				uni.navigateBack({
 					delta: 1
+				})
+			},
+			loadRole(){
+				const sendData = {
+					'currentPage':1
+				};
+				tokenpost(api.GetRoleList,sendData).then(res => {
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						console.log(res.data.data.resultList);
+					 // this.dataList = res.data.data.resultList
+					} else {
+						this.$api.msg(res.data.returnMessage) 
+					}
+					this.loading =false;
+				}).catch(error => {
+					this.loading =false;
+					this.$api.msg('请求失败fail') 
 				})
 			},
 			handleSubmit() {

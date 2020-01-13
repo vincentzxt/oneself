@@ -27,6 +27,7 @@
 		data() {
 			return {
 				title: '买卖',
+				promoterid:0,
 				lists: [
 					{id: '1', name: '销售', icon: 'sale', color: '#ed3f14' },
 					{id: '2', name: '采购', icon: 'purchase-fill', color: '#2d8cf0' },
@@ -39,7 +40,12 @@
 				]
 			}
 		},
-		onLoad() {
+		onLoad(option) {
+			 if(option.promoterid){
+				this.promoterid = option.promoterid;
+			 };
+			console.log(option);
+			console.log(uni.getStorageSync('promoterid'));
 			console.log(this.$statusBarHeight)
 			if (uni.getStorageSync('userInfo')) {
 				getGlobalData.getCurrentUnit()
@@ -52,6 +58,14 @@
 			}
 		},
 		onShow(){
+			uni.setStorage({
+			    key: 'promoterid',
+			    data: this.promoterid,
+			    success: function () {
+					console.log("设置prpromoterid成功！");
+			    },
+				});
+				console.log(uni.getStorageSync('promoterid'));
 		},
 		methods: {
 			handleRefreshPage() {

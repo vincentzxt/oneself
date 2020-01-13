@@ -52,13 +52,27 @@ export default {
 			code: '',
 			password: '',
 			re_password: '',
-			title: '注册'
+			title: '注册',
+			promoterid:0
 		};
 	},
 	components: { uniIcon },
+	onLoad() {
+		if(uni.getStorageSync('promoterid')){
+			this.promoterid = uni.getStorageSync('promoterid');
+			console.log(this.promoterid);
+		}else{
+			console.log('没有推荐人');
+		}
+	},
 	methods: {
+		login_action(){
+			uni.reLaunch({
+				url:'/pages/my/login/login'
+			})
+		},
 		handleReg() {
-			const { loginname, password ,telephone,re_password} = this;
+			const { loginname, password ,telephone,re_password,promoterid} = this;
 			if (loginname.length == 0) {
 				this.$api.msg('登录账号不能为空！');
 				return;
@@ -82,19 +96,16 @@ export default {
 			const sendData = {
 				loginname,
 				password,
-				telephone
+				telephone,
+				promoterid
 			};
-			this.loading = true;
-			// uni.showLoading({
-			//             title: '正在请求中'
-			//         });
-			
+			this.loading = true;		
 			post(api.Regist,sendData).then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
 					let userInfo = {
 									"token":res.data.data.token,
 									"exp":res.data.data.exp,
-									"userId":res.data.data.userId
+									"userId":res.data.data.userId,
 								};
 								uni.setStorage({
 								    key: 'userInfo',
