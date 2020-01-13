@@ -1,5 +1,5 @@
 export const api = {
-	baseUrl: 'http://39.100.64.45',
+	baseUrl: 'https://test.saas.yunmengzhu.com/help/index',
 	contactUnit: '/api/ContactUnit',
 	baseArea: '/api/BseArea',
 	baseProduct: '/api/BseProduct',

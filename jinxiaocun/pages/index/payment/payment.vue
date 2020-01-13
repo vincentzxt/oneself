@@ -9,7 +9,7 @@
 				<cu-panel>
 					<cu-cell-group>
 						<cu-cell title="搜索单位">
-							<uni-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码/名称/电话" cancelButton="none"></uni-search-bar>
+							<cu-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
 							<text slot="footer">{{reqData.contactunitname}}</text>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
+	import cuSearchBar from '@/components/custom/cu-search-bar.vue'
 	import cuPanel from '@/components/custom/cu-panel.vue'
 	import cuCell from '@/components/custom/cu-cell.vue'
 	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
@@ -55,7 +55,7 @@
 	import { query, create } from '@/api/common.js'
 	export default {
 		components: {
-			uniSearchBar,
+			cuSearchBar,
 			cuPanel,
 			cuCell,
 			cuCellGroup,

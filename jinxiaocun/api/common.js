@@ -8,10 +8,9 @@ export const query = (url, data = {}) => {
   })
 }
 
-export const get = (url, id, data = {}) => {
+export const get = (url, id) => {
   return http.request({
-    url: url + '/id',
-		data: data,
+    url: url + '/Get/' + id,
 		method: 'post'
   })
 }

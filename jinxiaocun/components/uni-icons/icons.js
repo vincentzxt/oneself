@@ -41,5 +41,7 @@ export default {
 	'unit-fill': '\ue8a2',
 	'receipt': '\ue668',
 	'payment': '\ue691',
-	'return-order': '\ue6fe'
+	'return-order': '\ue6fe',
+	'chart-line': '\ue906',
+	'chart-column': '\ue904'
 }
