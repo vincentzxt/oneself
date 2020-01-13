@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<uni-navbar :title="title" left-icon="refresh" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleRefreshPage"></uni-navbar>
+		<uni-navbar :title="title" leftText="微账通" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleRefreshPage"></uni-navbar>
 		<uni-grid :column="2" :square="false">
-			<uni-grid-item v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)">
+			<uni-grid-item v-for="(item,index) in lists" :key="index" @tap="handleGridChange(item)" :index="index">
 				<view class="item-content">
 					<uni-icons :type="item.icon" :color="item.color" size=32></uni-icons>
 					<text class="item-content-text"> {{item.name}}</text>
@@ -44,9 +44,6 @@
 			 if(option.promoterid){
 				this.promoterid = option.promoterid;
 			 };
-			console.log(option);
-			console.log(uni.getStorageSync('promoterid'));
-			console.log(this.$statusBarHeight)
 			if (uni.getStorageSync('userInfo')) {
 				getGlobalData.getCurrentUnit()
 				getGlobalData.getBaseProduct()
@@ -58,14 +55,16 @@
 			}
 		},
 		onShow(){
+			console.log(this.promoterid);
 			uni.setStorage({
 			    key: 'promoterid',
 			    data: this.promoterid,
 			    success: function () {
-					console.log("设置prpromoterid成功！");
+					console.log("设置promoterid成功！");
 			    },
 				});
 				console.log(uni.getStorageSync('promoterid'));
+				
 		},
 		methods: {
 			handleRefreshPage() {
@@ -130,7 +129,6 @@
 		align-items: center;
 		&-text {
 			font-size: $uni-font-size-lg;
-			color: $uni-title-color;
 			margin-top: $uni-spacing-col-base;
 		}
 	}

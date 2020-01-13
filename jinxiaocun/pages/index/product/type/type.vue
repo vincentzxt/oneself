@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 			<uni-search-bar @input="handleSearch" placeholder="输入名称" cancelButton="always"></uni-search-bar>
@@ -48,6 +48,11 @@
 			})
 			this.searchDatas = this.datas
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerIsSearchHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -75,13 +80,8 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 15%;
-		}
 		.main {
-			height: 85%;
+			margin-top: 5px;
 		}
 	}
 </style>

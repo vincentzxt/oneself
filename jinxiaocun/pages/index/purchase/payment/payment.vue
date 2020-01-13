@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view class="header">
+		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
@@ -14,25 +14,25 @@
 								<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
-						<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号" isLink>
+						<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号">
 							<radio-group @change="handleCashAccountChange">
-								<radio color="#2db7f5" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.payAccountId == item.cashaccountid">{{item.cashaccountname}}</radio>
+								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
 							</radio-group>
 						</cu-cell>
 						<cu-cell title="是否生成入库单">
-							<radio-group @change="handleOrderChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.order.isOrder == 0">否</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.order.isOrder == 1" style="margin-left: 10px;">是</radio>
+							<radio-group @change="handleStatusChange">
+								<radio color="#2db7f5" value=1 :checked="reqData.order.status == 1">否</radio>
+								<radio color="#2db7f5" value=2 :checked="reqData.order.status == 2" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
 						<cu-cell title="是否打印单据">
 							<radio-group @change="handlePrintChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.order.isPrint == 0">否</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.order.isPrint == 1" style="margin-left: 10px;">是</radio>
+								<radio color="#2db7f5" value=0 :checked="reqData.order.isprint == 0">否</radio>
+								<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
 						<cu-cell title="抹零">
-							<input slot="footer" type="text" v-model="reqData.order.amount"/>
+							<input slot="footer" type="text" v-model="reqData.order.discountamount"/>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
@@ -67,10 +67,14 @@
 				title: '采购付款',
 				reqData: {
 					order: {
+						billtype: 1,
 						isOnCredit: 0,
-						payAccountId: '',
+						accountid: '',
 						contactunitid: '',
-						amount: 0
+						amount: 0,
+						discountamount: 0,
+						isprint: 0,
+						status: 1
 					},
 					orderlist: []
 				},
@@ -82,6 +86,7 @@
 				let data = JSON.parse(options.reqData)
 				this.reqData.order.contactunitid = data.contactunitid
 				this.reqData.order.amount = data.totalPrice
+				this.reqData.order.discountamount = data.totalPrice
 				this.reqData.orderlist = data.productList
 			}
 			this.$refs.loading.open()
@@ -94,6 +99,14 @@
 				this.$refs.loading.close()
 			})
 		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -104,17 +117,17 @@
 				this.reqData.order.isOnCredit = val.detail.value
 			},
 			handleCashAccountChange(val) {
-				this.reqData.order.payAccountId = val.detail.value
+				this.reqData.order.accountid = val.detail.value
 			},
-			handleOrderChange(val) {
-				this.reqData.order.isOrder = val.detail.value
+			handleStatusChange(val) {
+				this.reqData.order.status = val.detail.value
 			},
 			handlePrintChange(val) {
-				this.reqData.order.isPrint = val.detail.value
+				this.reqData.order.isprint = val.detail.value
 			},
 			handleSubmit() {
 				this.$refs.loading.open()
-				create(api.purPurchaseOrder, {model: this.reqData }).then(res => {
+				create(api.purPurchaseOrder, this.reqData).then(res => {
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						uni.showToast({
@@ -142,13 +155,8 @@
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
-		.header {
-			height: 10%;
-		}
 		.main {
-			height: 83%;
+			margin-top: 5px;
 			.picker {
 				width: 100%;
 				display: flex;
@@ -156,7 +164,7 @@
 			}
 		}
 		.footer {
-			height: 7%;
+			height: 48px;
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {

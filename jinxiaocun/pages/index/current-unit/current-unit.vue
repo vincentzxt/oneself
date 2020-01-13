@@ -3,9 +3,9 @@
 		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">				
 			</uni-navbar>
-			<uni-search-bar @input="handleSearch" placeholder="输入速查码、名称、电话" cancelButton="always"></uni-search-bar>
+			<uni-search-bar @input="handleSearch" placeholder="输入速查码/名称/电话" cancelButton="always"></uni-search-bar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<uni-list>
 					<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
@@ -52,10 +52,10 @@
 		},
 		computed: {
 			headerHeight() {
-				return this.$statusBarHeight + 88
+				return this.$headerIsSearchHeight
 			},
 			mainHeight() {
-				return 
+				return this.$mainIsSearchHeight
 			}
 		},
 		methods: {
@@ -88,22 +88,16 @@
 </script>
 
 <style lang="scss" scoped>
-	@import '~@/uni.scss';
 	.fill {
 		width: 100%;
 		height: 100%;
 	}
 	.container {
-		height: 100vh;
-		width: 100vw;
 		.main {
-			height: 78%;
+			margin-top: 5px;
 		}
 		.footer {
-			height: 7%;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
+			height: 48px;
 		}
 	}
 </style>
