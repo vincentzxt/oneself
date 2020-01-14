@@ -18,13 +18,14 @@ export const api = {
 	GetUserInfo:'/api/BseUser/GetUserInfo',
 	SaveUserInfo:'/api/BseUser/SaveUserInfo',
 	GetUserList:'/api/BseUser/GetUserList',
-	GetRoleList:'api/BseRole/GetUserList',
+	GetRoleList:'api/BseRole/GetRoleList',
 	SaveUser:'/api/BseUser/SaveUser',
 	CustomerSave:'/api/Customer/SaveCustomer',
 	MyCashAccount: '/api/CashAccount/Query',
 	MyCashAccountCreate: '/api/CashAccount/Create',
 	MyCashAccountGet: '/api/CashAccount/Get/',
 	MyCashAccountUpdate: '/api/CashAccount/Update',
-	UploadImg:'/api/BseUser/UploadImg'
+	UploadImg:'/api/BseUser/UploadImg',
+	GetMyDayLogList:'/api/BseUser/GetMyDayLogList'
 	
 }

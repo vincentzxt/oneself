@@ -8,7 +8,7 @@
 		<!-- <uni-navbar :title="title" left-icon="back" @refreshPage="handleRefreshPage"> </uni-navbar>-->
 		<view class="user_info">
 			<!-- <view class="user_title color_fff size_16">我的</view> -->
-			<view class="user_blank"></view>
+	<!-- 		<view class="user_blank"></view> -->
 			<view class="flex_col color_fff">
 				<image src="../../static/image/missing-face.png" mode="aspectFill" class="pic"></image>
 				<view class="flex_grow">
@@ -222,7 +222,7 @@ export default {
 .user_info {
 	background-color: #2d8cf0;
 	background-image: linear-gradient(to right, #2d8cf0, #3d8cf0);
-	padding: 20rpx 20rpx 100rpx 20rpx;
+	padding: 40rpx 20rpx 60rpx 20rpx;
 	line-height: normal;
 
 	.user_title {
@@ -234,7 +234,7 @@ export default {
 	}
 
 	.user_blank {
-		height: 64rpx;
+		height: 48rpx;
 	}
 
 	.pic {
