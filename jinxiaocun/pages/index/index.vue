@@ -49,9 +49,9 @@
 				getGlobalData.getBaseProduct()
 				getGlobalData.getProductCategory()
 			} else {
-				uni.reLaunch({
-					url: '/pages/my/my'
-				})
+				// uni.reLaunch({
+				// 	url: '/pages/my/my'
+				// })
 			}
 		},
 		onShow(){
