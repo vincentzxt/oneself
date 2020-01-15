@@ -1,0 +1,24 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+@font-face {
+  font-family: uniicons;
+  src: url("//at.alicdn.com/t/font_1563314_2giii4u2uwk.eot");
+  src: url("//at.alicdn.com/t/font_1563314_2giii4u2uwk.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1563314_2giii4u2uwk.woff2") format("woff2"), url("//at.alicdn.com/t/font_1563314_2giii4u2uwk.woff") format("woff"), url("//at.alicdn.com/t/font_1563314_2giii4u2uwk.ttf") format("truetype"), url("//at.alicdn.com/t/font_1563314_2giii4u2uwk.svg#iconfont") format("svg");
+}
+.uni-icons.data-v-639e642e {
+  font-family: uniicons;
+  text-decoration: none;
+  text-align: center;
+}
+

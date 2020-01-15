@@ -26,6 +26,7 @@ export const api = {
 	MyCashAccountGet: '/api/CashAccount/Get/',
 	MyCashAccountUpdate: '/api/CashAccount/Update',
 	UploadImg:'/api/BseUser/UploadImg',
-	GetMyDayLogList:'/api/BseUser/GetMyDayLogList'
+	GetMyDayLogList:'/api/BseUser/GetMyDayLogList',
+	GetOrderList:'/api/SysOrder/GetOrderList'
 	
 }

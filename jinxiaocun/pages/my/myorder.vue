@@ -7,12 +7,12 @@
 	<view class="main">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
-				<view>订单号：<text>{{item.orderNo}}</text></view>
-				<view><text>¥{{item.money}}</text></view>
+				<view>订单号：<text>{{item.ordercode}}</text></view>
+				<view><text>¥{{item.orderamount}}</text></view>
 			</view>
 			<view class="list-between">
 					<text>订单状态</text>
-					<text class="payment" v-bind:class="item.paymentStatus=='待支付'?'payment-blue':'payment-green'">{{item.paymentStatus}}</text>
+					<text class="payment" v-bind:class="item.orderstatus==0?'payment-blue':'payment-green'">{{OrderStatusList[item.orderstatus]}}</text>
 			</view>
 			<view class="list-center">
 				<text>{{item.description}}</text>
@@ -43,23 +43,24 @@ export default {
 		return {
 			title: '我的订单',
 			dataList: [{
-				orderNo:'SC2020010230003',
-				money:'600',
+				ordercode:'SC2020010230003',
+				orderamount:'600',
 				payment:'微信',
 				description:'可以通过微信开发者工具切换pages.json中condition配置的页面，或者关闭微信开发者工具，然后再从HBuilderX中启动指定页面',
-				paymentStatus:'待支付',
+				orderstatus:0,
 				startDate:'2019-11-20',
 				expireDate:'2020-11-20'
 			},
 			{
-				orderNo:'SC2020010230004',
-				money:'800',
+				ordercode:'SC2020010230004',
+				orderamount:'800',
 				payment:'微信',
 				description:'可以通过微信开发者工具切换pages.json中condition配置的页面，或者关闭微信开发者工具，然后再从HBuilderX中启动指定页面',
-				paymentStatus:'已支付',
+				orderstatus:1,
 				startDate:'2019-11-20',
 				expireDate:'2020-11-20'
-			}]
+			}],
+			OrderStatusList:['待支付','已支付']
 		};
 	},
 	onLoad(){},
@@ -69,7 +70,7 @@ export default {
 				url:'/pages/my/login/login'
 			})
 		};
-		//this.loadData();
+		// this.loadData();
 	},
 	methods: {
 		handleRefreshPage() {
@@ -87,9 +88,9 @@ export default {
 			});
 		},
 		loadData(){
-			tokenpost(api.GetUserInfo).then(res => {
+			tokenpost(api.GetOrderList).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
-				  this.dataList = res.data.data
+				  this.dataList = res.data.data.resultList
 				} else {
 					this.$api.msg(res.data.returnMessage) 
 				}
