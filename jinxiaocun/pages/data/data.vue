@@ -39,7 +39,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="main-sale-charts">
+			<view>
 				<canvas canvas-id="saleLine" id="saleLine" class="main-sale-charts"></canvas>
 			</view>
 			<view class="main-recpay">
@@ -68,30 +68,93 @@
 				<uni-icons type="finance" color="#ff9900" size=20></uni-icons>
 				<text style="margin-left: 10px">收款情况</text>
 			</view>
-			<view class="main-account-charts">
-				<canvas canvas-id="accountRing" id="accountRing" class="main-account-charts"></canvas>
+			<view class="main-account-content">
+				<canvas canvas-id="accountRing" id="accountRing" class="main-account-content-charts"></canvas>
+				<view class="main-account-content-lables">
+					<text class="main-account-content-lables-lable" v-for="(item, index) in accountRingArr" :key="index">{{item.data}}(元)</text>
+				</view>
 			</view>
 		</view>
+		<view class="main-warning">
+			<view class="main-warning-header">
+				<uni-icons type="yujing-fill" color="#ef5a62" size=20></uni-icons>
+				<text style="margin-left: 10px">预警情况</text>
+			</view>
+			<view class="main-warning-content">
+				<view class="main-warning-content-wrap" style="background-color: #f9e6dc;">
+					<text class="main-warning-content-wrap-desc">100条</text>
+					<text>客户预警</text>
+				</view>
+				<view class="main-warning-content-wrap" style="background-color: #e8fdd9;">
+					<text class="main-warning-content-wrap-desc">50条</text>
+					<text>库存预警</text>
+				</view>
+			</view>
+		</view>
+		<view class="main-top">
+			<view class="main-top-wrap">
+				<view class="main-top-wrap-header">
+					<uni-icons type="rexiao" color="#f29d6e" size=20></uni-icons>
+					<text style="margin-left: 10px">热销商品(top5)</text>
+				</view>
+				<view class="main-top-wrap-content">
+					<view class="main-top-wrap-content-list">
+						<view class="main-top-wrap-content-list-item" v-for="(item, index) in top1" :key="index">
+							<uni-icons type="circle" color="#f29d6e" size=10></uni-icons>
+							<text style="margin-left: 10px;">{{item}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="main-top-wrap">
+				<view class="main-top-wrap-header">
+					<uni-icons type="zhixiao" color="#51a9f3" size=20></uni-icons>
+					<text style="margin-left: 10px">滞销商品(top5)</text>
+				</view>
+				<view class="main-top-wrap-content">
+					<view class="main-top-wrap-content-list">
+						<view class="main-top-wrap-content-list-item" v-for="(item, index) in top2" :key="index">
+							<uni-icons type="circle" color="#51a9f3" size=10></uni-icons>
+							<text style="margin-left: 10px;">{{item}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view style="height: 5px;background-color: #ffffff;"></view>
 	</view>
 </template>
 
 <script>
 	import uCharts from '@/components/u-charts/u-charts.min.js'
+	import uniList from '@/components/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	var scaleLine = null
 	var accountRing = null
 	export default {
+		components: {
+			uniList,
+			uniListItem
+		},
 		data() {
 			return {
 				title: '报表',
 				cWidth: '',
 				cHeight: '',
+				rWidth: '',
+				rHeight: '',
 				pixelRation: 1,
-				date: 'day'
+				date: 'day',
+				accountRingArr: [],
+				top1: ['牛肉', '大葱', '皮蛋豆腐', '金针菇', '拖鞋'],
+				top2: ['猪肉', '白菜', '香肠', '羽绒服', '棉裤']
 			};
 		},
 		onLoad() {
 			this.cWidth = uni.upx2px(750)
 			this.cHeight = uni.upx2px(400)
+			this.rWidth = uni.upx2px(550)
+			this.rHeight = uni.upx2px(400)
 			this.getDayData()
 			this.getAccountData()
 		},
@@ -105,7 +168,7 @@
 				scaleLine = new uCharts({
 					canvasId: canvasId,
 					type: 'line',
-			    colors:['#facc14', '#f04864', '#8543e0', '#90ed7d'],
+			    colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'],
 					fontSize:11,
 					padding:[15,15,0,15],
 					legend:{
@@ -147,21 +210,20 @@
 					canvasId: canvasId,
 					type: 'ring',
 					fontSize:11,
+					colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'],
 					legend:{
 					    show:true,
 					    position:'right',
 					    float:'center',
 					    itemGap:10,
-					    padding:20,
+					    padding:5,
 					    lineHeight:26,
 					    margin:5,
 					    borderWidth :1,
-							format: (val) => {
-								console.log(val)
-							}
+							fontSize: 14
 					  },
 					title: {
-						name: '70%',
+						name: '9999',
 						color: '#1c2438',
 						fontSize: 20,
 						offsetY:-8
@@ -183,11 +245,11 @@
 					pixelRatio:1,
 					series: chartData.series,
 					animation: true,
-					width: this.cWidth * this.pixelRation,
-					height: this.cHeight * this.pixelRation,
-					disablePieStroke: true,
+					width: this.rWidth * this.pixelRation,
+					height: this.rHeight * this.pixelRation,
 					dataLabel: false
 				})
+				this.accountRingArr = accountRing.opts.series
 			},
 			getDayData() {
 				let saleData={categories:[], series:[]}
@@ -325,10 +387,82 @@
 					padding: 10px 0;
 					font-size: $uni-font-size-sm;
 				}
-				&-charts {
-					width: 750upx;
-					height: 400upx;
-					background-color: #FFFFFF;
+				&-content {
+					display: flex;
+					align-items: center;
+					&-charts {
+						width: 550upx;
+						height: 400upx;
+						background-color: #FFFFFF;
+					}
+					&-lables {
+						width: 200upx;
+						display: flex;
+						flex-direction: column;
+						align-items: flex-end;
+						margin-top: 10upx;
+						margin-right: 20upx;
+						&-lable {
+							font-size: 14px;
+							margin-bottom: 13upx;
+						}
+					}
+				}
+			}
+			&-warning {
+				margin-top: $uni-spacing-col-lg;
+				background-color: #FFFFFF;
+				&-header {
+					margin-left: 10px;
+					display: flex;
+					align-items: center;
+					padding: 10px 0;
+					font-size: $uni-font-size-sm;
+				}
+				&-content {
+					display: flex;
+					justify-content: space-around;
+					font-size: $uni-font-size-sm;
+					&-wrap {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						width: 45%;
+						padding: 20upx 0;
+						margin-bottom: 10px;
+						&-desc {
+							color: $uni-title-color;
+							margin-bottom: 10upx;
+						}
+					}
+				}
+			}
+			&-top {
+				margin-top: $uni-spacing-col-lg;
+				background-color: #FFFFFF;
+				display: flex;
+				justify-content: space-around;
+				&-wrap {
+					width: 45%;
+					display: flex;
+					flex-direction: column;
+					font-size: $uni-font-size-sm;
+					&-header {
+						margin-left: 10px;
+						display: flex;
+						align-items: center;
+						padding: 10px 0;
+						font-size: $uni-font-size-sm;
+						border-bottom: 0.5px solid #f3f3f3;
+					}
+					&-content {
+						&-list {
+							margin-left: 40px;
+							&-item {
+								margin-top: 10px;
+							}
+						}
+					}
 				}
 			}
 		}

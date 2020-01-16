@@ -43,5 +43,10 @@ export default {
 	'payment': '\ue691',
 	'return-order': '\ue6fe',
 	'chart-line': '\ue906',
-	'chart-column': '\ue904'
+	'chart-column': '\ue904',
+	'yujing': '\ue8ed',
+	'yujing-fill': '\ue8ec',
+	'rexiao': '\ue606',
+	'zhixiao': '\ue607',
+	'circle': '\ue601'
 }

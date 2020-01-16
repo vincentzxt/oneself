@@ -9108,7 +9108,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'payment': "\uE691",
   'return-order': "\uE6FE",
   'chart-line': "\uE906",
-  'chart-column': "\uE904" };exports.default = _default;
+  'chart-column': "\uE904",
+  'yujing': "\uE8ED",
+  'yujing-fill': "\uE8EC",
+  'rexiao': "\uE606",
+  'zhixiao': "\uE607",
+  'circle': "\uE601" };exports.default = _default;
 
 /***/ }),
 

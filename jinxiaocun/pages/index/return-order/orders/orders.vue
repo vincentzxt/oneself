@@ -25,7 +25,7 @@
 	import cuCell from '@/components/custom/cu-cell.vue'
 	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import { api } from '@/config/common.js'
-	import { get } from '@/api/common.js'
+	import { query } from '@/api/common.js'
 	export default {
 		components: {
 			uniSearchBar,
@@ -51,7 +51,7 @@
 				this.$refs.loading.open()
 				if (this.businessType == '0') {
 					console.log("2")
-					get(api.purPurchaseOrder, this.currentUnitId).then(res => {
+					query(api.purPurchaseOrder, { contactunitid: this.currentUnitId }).then(res => {
 						this.$refs.loading.close()
 						if (res.status == 200 && res.data.returnCode == '0000') {
 							this.datas = res.data.data.resultList

@@ -17,6 +17,8 @@
     "pages/index/payment/payment",
     "pages/index/cost/cost",
     "pages/index/return-order/return-order",
+    "pages/index/return-order/payment/payment",
+    "pages/index/return-order/orders/orders",
     "pages/stock/stock",
     "pages/data/data",
     "pages/my/my",

@@ -211,6 +211,56 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _uChartsMin = _interopRequireDefault(__webpack_require__(/*! @/components/u-charts/u-charts.min.js */ 220));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -288,45 +338,57 @@ var _uChartsMin = _interopRequireDefault(__webpack_require__(/*! @/components/u-
 //
 //
 //
-var scaleLine = null;var accountRing = null;var _default = { data: function data() {return { title: '报表', cWidth: '', cHeight: '', pixelRation: 1, date: 'day' };}, onLoad: function onLoad() {this.cWidth = uni.upx2px(750);this.cHeight = uni.upx2px(400);this.getDayData();this.getAccountData();}, onShow: function onShow() {}, methods: { handleDateChange: function handleDateChange(val) {this.date = val;}, showSaleLine: function showSaleLine(canvasId, chartData) {scaleLine = new _uChartsMin.default({ canvasId: canvasId, type: 'line', colors: ['#facc14', '#f04864', '#8543e0', '#90ed7d'], fontSize: 11, padding: [15, 15, 0, 15], legend: { show: true, padding: 10, lineHeight: 11, margin: 0, fontColor: '#808695' }, dataLabel: false, dataPointShape: true, background: '#FFFFFF', pixelRatio: this.pixelRatio, categories: chartData.categories, series: chartData.series, animation: true, xAxis: { disableGrid: true, axisLineColor: '#808695', fontColor: '#808695' }, yAxis: { gridType: 'solid', gridColor: '#f3f3f3', axisLineColor: '#808695', fontColor: '#808695' }, width: this.cWidth * this.pixelRation, height: this.cHeight * this.pixelRation, extra: { line: { type: 'straight' } } });}, showAccountRing: function showAccountRing(canvasId, chartData) {accountRing = new _uChartsMin.default({ canvasId: canvasId, type: 'ring', fontSize: 11, legend: { show: true, position: 'right', float: 'center', itemGap: 10, padding: 20, lineHeight: 26,
-          margin: 5,
-          borderWidth: 1,
-          format: function format(val) {
-            console.log(val);
-          } },
-
-        title: {
-          name: '70%',
-          color: '#1c2438',
-          fontSize: 20,
-          offsetY: -8 },
-
-        subtitle: {
-          name: '收款金额(元)',
-          color: '#808695',
-          fontSize: 12,
-          offsetY: -3 },
-
-        extra: {
-          pie: {
-            offsetAngle: -45,
-            ringWidth: 10,
-            labelWidth: 15 } },
-
-
-        background: '#FFFFFF',
-        pixelRatio: 1,
-        series: chartData.series,
-        animation: true,
-        width: this.cWidth * this.pixelRation,
-        height: this.cHeight * this.pixelRation,
-        disablePieStroke: true,
-        dataLabel: false });
-
-    },
-    getDayData: function getDayData() {
-      var saleData = { categories: [], series: [] };
-      saleData.categories = ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00'];
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 437));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 444));};var scaleLine = null;var accountRing = null;var _default = { components: { uniList: uniList, uniListItem: uniListItem }, data: function data() {return { title: '报表', cWidth: '', cHeight: '', rWidth: '', rHeight: '', pixelRation: 1, date: 'day', accountRingArr: [], top1: ['牛肉', '大葱', '皮蛋豆腐', '金针菇', '拖鞋'], top2: ['猪肉', '白菜', '香肠', '羽绒服', '棉裤'] };}, onLoad: function onLoad() {this.cWidth = uni.upx2px(750);this.cHeight = uni.upx2px(400);this.rWidth = uni.upx2px(550);this.rHeight = uni.upx2px(400);this.getDayData();this.getAccountData();}, onShow: function onShow() {}, methods: { handleDateChange: function handleDateChange(val) {this.date = val;}, showSaleLine: function showSaleLine(canvasId, chartData) {scaleLine = new _uChartsMin.default({ canvasId: canvasId, type: 'line', colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'], fontSize: 11, padding: [15, 15, 0, 15], legend: { show: true, padding: 10, lineHeight: 11, margin: 0, fontColor: '#808695' }, dataLabel: false, dataPointShape: true, background: '#FFFFFF', pixelRatio: this.pixelRatio, categories: chartData.categories, series: chartData.series, animation: true, xAxis: { disableGrid: true, axisLineColor: '#808695', fontColor: '#808695' }, yAxis: { gridType: 'solid', gridColor: '#f3f3f3', axisLineColor: '#808695', fontColor: '#808695' }, width: this.cWidth * this.pixelRation, height: this.cHeight * this.pixelRation, extra: { line: { type: 'straight' } } });}, showAccountRing: function showAccountRing(canvasId, chartData) {accountRing = new _uChartsMin.default({ canvasId: canvasId, type: 'ring', fontSize: 11, colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'], legend: { show: true, position: 'right', float: 'center', itemGap: 10, padding: 5, lineHeight: 26, margin: 5, borderWidth: 1, fontSize: 14 }, title: { name: '9999', color: '#1c2438', fontSize: 20, offsetY: -8 }, subtitle: { name: '收款金额(元)', color: '#808695', fontSize: 12, offsetY: -3 }, extra: { pie: { offsetAngle: -45, ringWidth: 10, labelWidth: 15 } }, background: '#FFFFFF', pixelRatio: 1, series: chartData.series, animation: true, width: this.rWidth * this.pixelRation, height: this.rHeight * this.pixelRation, dataLabel: false });this.accountRingArr = accountRing.opts.series;}, getDayData: function getDayData() {var saleData = { categories: [], series: [] };saleData.categories = ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00'];
       saleData.series = [
       {
         name: '销售额',

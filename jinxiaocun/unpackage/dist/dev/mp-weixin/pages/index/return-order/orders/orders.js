@@ -202,7 +202,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
       this.$refs.loading.open();
       if (this.businessType == '0') {
         console.log("2");
-        (0, _common2.get)(_common.api.purPurchaseOrder, this.currentUnitId).then(function (res) {
+        (0, _common2.query)(_common.api.purPurchaseOrder, { contactunitid: this.currentUnitId }).then(function (res) {
           _this.$refs.loading.close();
           if (res.status == 200 && res.data.returnCode == '0000') {
             _this.datas = res.data.data.resultList;
@@ -213,7 +213,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
         });
       } else {
         console.log("3");
-        (0, _common2.get)(_common.api.salesOrder, this.currentUnitId).then(function (res) {
+        get(_common.api.salesOrder, this.currentUnitId).then(function (res) {
           _this.$refs.loading.close();
           if (res.status == 200 && res.data.returnCode == '0000') {
             _this.datas = res.data.data.resultList;
