@@ -32,6 +32,7 @@
 				</cu-panel>
 			</scroll-view>
 		</view>
+		<cu-loading ref="loading"></cu-loading>
 		<view class="footer"><button class="footer-btn" style="background-color: #2d8cf0;"  :loading="loading"  type="primary" @click="handleSubmit">提交</button></view>
 	</view>
 </template>
@@ -45,6 +46,7 @@ import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { post, tokenpost } from '@/api/user.js';
 import { api } from '@/config/common.js';
 import ImageCropper from '@/components/invinbg-image-cropper/invinbg-image-cropper.vue';
+import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
 	components: {
 		cuPanel,
@@ -61,7 +63,7 @@ export default {
 			loading:false,
 			reqData: {
 				companylogourl: '',
-				companyname: '湖北吉奥汽车服务有限公司',
+				companyname: '',
 				contact: '',
 				telephone: '',
 				email: '',
@@ -117,18 +119,19 @@ export default {
 			console.log('canceled');
 		},
 		loadData() {
+			this.$refs.loading.open();
 			tokenpost(api.GetUserInfo)
 				.then(res => {
+					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						console.log(res.data.data);
 						this.reqData = res.data.data;
 					} else {
 						this.$api.msg(res.data.returnMessage);
 					}
-					this.loading = false;
 				})
 				.catch(error => {
-					this.loading = false;
+					this.$refs.loading.close();
 					this.$api.msg('请求失败fail');
 				});
 		},

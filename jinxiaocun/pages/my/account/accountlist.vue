@@ -24,6 +24,7 @@
 	<view class="footer">
 		<button class="fill" style="background-color: #2d8cf0;" type="primary"  @tap="handleAdd">新增</button>
 	</view>
+	<cu-loading ref="loading"></cu-loading>
 </view>
 </template>
 
@@ -33,6 +34,7 @@ import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 // import adCell from '@/component/ADCell/ADCell.vue';
 import { post,tokenpost} from '@/api/user.js';
 import { api } from '@/config/common.js';
+import cuLoading from '@/components/custom/cu-loading.vue'
 export default {
 	components: {
 		// adCell
@@ -42,16 +44,7 @@ export default {
 	data() {
 		return {
 			title: '账户设置 ',
-			dataList: [{
-				cashaccountname:'湖北吉奥汽车服务有限公司',
-				amount:'600',
-				cashaccounttype:0
-			},
-			{
-				cashaccountname:'湖北吉奥汽车服务有限公司',
-				amount:'600',
-				cashaccounttype:3
-			}],
+			dataList: [],
 			isdeleteDict: ['正常','禁用'],
 			accounTypeList2:["","银行账号","微信","支付宝","现金"],
 			accounTypeList:{
@@ -101,15 +94,16 @@ export default {
 			})
 		},
 		loadData(){
+			this.$refs.loading.open();
 			tokenpost(api.MyCashAccount).then(res => {
+				this.$refs.loading.close();
 				if (res.status == 200 && res.data.returnCode == '0000') {
 				  this.dataList = res.data.data.resultList
 				} else {
 					this.$api.msg(res.data.returnMessage) 
 				}
-				this.loading =false;
 			}).catch(error => {
-				this.loading =false;
+				this.$refs.loading.close();
 				this.$api.msg('请求失败fail') 
 			})
 		}

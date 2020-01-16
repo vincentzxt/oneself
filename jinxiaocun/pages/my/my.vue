@@ -1,20 +1,17 @@
 <template>
 	<view>
-		<view class="header">
-			<uni-navbar :title="title"  background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
-			</uni-navbar>
-		</view>
+		<view class="header"><uni-navbar :title="title" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar></view>
 		<!-- <uni-navbar :title="title" left-icon="refresh" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleRefreshPage"></uni-navbar> -->
 		<!-- <uni-navbar :title="title" left-icon="back" @refreshPage="handleRefreshPage"> </uni-navbar>-->
 		<view class="user_info">
 			<!-- <view class="user_title color_fff size_16">我的</view> -->
-	<!-- 		<view class="user_blank"></view> -->
+			<!-- 		<view class="user_blank"></view> -->
 			<view class="flex_col color_fff">
 				<image src="../../static/image/missing-face.png" mode="aspectFill" class="pic"></image>
 				<view class="flex_grow" v-if="login_status">
-					<view class="size_16">{{dataList.loginname}}({{dataList.telephone}})</view>
-					<view class="size_16">{{dataList.companyname}}</view>
-					<view class="size_16">到期日期：{{dataList.expiredate}}</view>
+					<view class="size_16">{{ dataList.loginname }}({{ dataList.telephone }})</view>
+					<view class="size_16">{{ dataList.companyname }}</view>
+					<view class="size_16">到期日期：{{ dataList.expiredate }}</view>
 				</view>
 				<view class="flex_grow" v-if="!login_status">
 					<view class="size_16">游客</view>
@@ -29,19 +26,18 @@
  -->
 			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @click="handlePassword()"></uni-list-item>
 			<uni-list-item title="账户设置" thumb="../../static/my/icon/bankcard.png" @click="handleBankSet()"></uni-list-item>
-		    <uni-list-item title="续费" thumb="../../static/my/icon/recharge.png" @click="handleRecharge()"></uni-list-item>
+			<uni-list-item title="续费" thumb="../../static/my/icon/recharge.png" @click="handleRecharge()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<uni-list>
 			<uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" @click="handleMyorder()" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item>
-			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" @click="handleTime()"  show-text="true" :content="dataList.daycount"></uni-list-item>
+			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" @click="handleTime()" show-text="true" :content="dataList.daycount"></uni-list-item>
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @click="handleShare()"></uni-list-item>
 			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
-		<view class="user_bottom" v-if="login_status">
-			<button type="default" class="logout_btn" @tap="handleLogout">退出登录</button>
-			</view>
+		<view class="user_bottom" v-if="login_status"><button type="default" class="logout_btn" @tap="handleLogout">退出登录</button></view>
+		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
@@ -49,8 +45,9 @@
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 // import adCell from '@/component/ADCell/ADCell.vue';
-import { post,tokenpost} from '@/api/user.js';
+import { post, tokenpost } from '@/api/user.js';
 import { api } from '@/config/common.js';
+import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
 	components: {
 		// adCell
@@ -62,28 +59,27 @@ export default {
 			title: '我的',
 			login_status: false,
 			dataList: {
-				loginname:'',
-				realname:'',
-				telephone:'',
-				companyname:'',
-				expiredate:'',
-				daycount:0,
-				ordercount:'0'
+				loginname: '',
+				realname: '',
+				telephone: '',
+				companyname: '',
+				expiredate: '',
+				daycount: 0,
+				ordercount: '0'
 			}
 		};
 	},
-	onLoad(){
-	},
-	onShow(){
-		this.login_status = this.$api.login_status();
+	onLoad() {},
+	onShow() {
+		//this.login_status = this.$api.login_status();
 		this.loadData();
 	},
 	methods: {
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},
-		handlePassword(){
-			if(!this.login_status){
+		handlePassword() {
+			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
@@ -91,8 +87,8 @@ export default {
 				url: '/pages/my/login/editPassword'
 			});
 		},
-		handleBankSet(){
-			if(!this.login_status){
+		handleBankSet() {
+			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
@@ -100,8 +96,8 @@ export default {
 				url: '/pages/my/account/accountlist'
 			});
 		},
-		handleRecharge(){
-			if(!this.login_status){
+		handleRecharge() {
+			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
@@ -109,8 +105,8 @@ export default {
 				url: '/pages/my/account/recharge'
 			});
 		},
-		handleUserManage(){
-			if(!this.login_status){
+		handleUserManage() {
+			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
@@ -118,17 +114,17 @@ export default {
 				url: '/pages/my/user/user'
 			});
 		},
-		handleTime(){
-			if(!this.login_status){
-				this.$api.login_check();
+		handleTime() {
+			if (!this.login_status) {
+				this.$api.login();
 				return;
 			}
 			uni.navigateTo({
 				url: '/pages/my/givetime'
 			});
 		},
-		handleMyorder(){
-			if(!this.login_status){
+		handleMyorder() {
+			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
@@ -136,8 +132,8 @@ export default {
 				url: '/pages/my/myorder'
 			});
 		},
-		handleShare(){
-			if(!this.login_status){
+		handleShare() {
+			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
@@ -145,23 +141,23 @@ export default {
 				url: '/pages/my/share/share'
 			});
 		},
-		handlewx(){
-			if(!this.login_status){
+		handlewx() {
+			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
 			uni.login({
-			  provider: 'weixin',
-			  success: function (loginRes) {
-			    console.log(loginRes);
-			    // 获取用户信息
-			    uni.getUserInfo({
-			      provider: 'weixin',
-			      success: function (infoRes) {
-			        console.log(infoRes);
-			      }
-			    });
-			  }
+				provider: 'weixin',
+				success: function(loginRes) {
+					console.log(loginRes);
+					// 获取用户信息
+					uni.getUserInfo({
+						provider: 'weixin',
+						success: function(infoRes) {
+							console.log(infoRes);
+						}
+					});
+				}
 			});
 		},
 		//退出登录
@@ -187,8 +183,8 @@ export default {
 			});
 		},
 		//设置
-		handleSet(){
-			if(!this.login_status){
+		handleSet() {
+			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
@@ -196,22 +192,28 @@ export default {
 				url: '../my/set'
 			});
 		},
-		loadData(){
-			tokenpost(api.GetUserInfo).then(res => {
-				if (res.status == 200) {
-					if(res.data.returnCode == '0000'){
-						this.dataList = res.data.data;
-						this.login_status = true;
-					}else{
+		loadData() {
+			this.$refs.loading.open()
+			tokenpost(api.GetUserInfo)
+				.then(res => {
+					if (res.status == 200) {
+						this.$refs.loading.close()
+						if (res.data.returnCode == '0000') {
+							this.dataList = res.data.data;
+							this.login_status = true;
+						} else {
+							//this.$api.msg(res.data.returnMessage);
+							this.dataList = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
+							this.login_status = false;
+						}
+					} else {
 						this.$api.msg(res.data.returnMessage);
-						this.login_status = false;
 					}
-				}else {
-					this.$api.msg(res.data.returnMessage) 
-				}
-			}).catch(error => {
-				this.$api.msg('请求失败fail') 
-			})
+				})
+				.catch(error => {
+					this.$refs.loading.close()
+					this.$api.msg('请求失败fail');
+				});
 		}
 	}
 };
@@ -273,7 +275,7 @@ export default {
 	padding-left: 16upx;
 	padding-right: 16upx;
 	.logout_btn {
-		background-color: #FFFFFF;
+		background-color: #ffffff;
 		//border: $uni-border-color;
 	}
 }
