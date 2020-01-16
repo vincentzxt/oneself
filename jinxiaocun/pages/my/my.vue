@@ -1,20 +1,21 @@
 <template>
 	<view>
-		<view class="header">
-			<uni-navbar :title="title"  background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
-			</uni-navbar>
-		</view>
+		<view class="header"><uni-navbar :title="title" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar></view>
 		<!-- <uni-navbar :title="title" left-icon="refresh" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleRefreshPage"></uni-navbar> -->
 		<!-- <uni-navbar :title="title" left-icon="back" @refreshPage="handleRefreshPage"> </uni-navbar>-->
 		<view class="user_info">
 			<!-- <view class="user_title color_fff size_16">我的</view> -->
-			<view class="user_blank"></view>
+			<!-- 		<view class="user_blank"></view> -->
 			<view class="flex_col color_fff">
 				<image src="../../static/image/missing-face.png" mode="aspectFill" class="pic"></image>
-				<view class="flex_grow">
-					<view class="size_16">{{dataList.loginname}}({{dataList.telephone}})</view>
-					<view class="size_16">{{dataList.companyname || "湖北吉奥汽车服务有限公司"}}</view>
-					<view class="size_16">到期日期：{{dataList.expiredate}}</view>
+				<view class="flex_grow" v-if="login_status">
+					<view class="size_16">{{ dataList.loginname }}({{ dataList.telephone }})</view>
+					<view class="size_16">{{ dataList.companyname }}</view>
+					<view class="size_16">到期日期：{{ dataList.expiredate }}</view>
+				</view>
+				<view class="flex_grow" v-if="!login_status">
+					<view class="size_16">游客</view>
+					<view class="size_16" @click="this.$api.login">点击登录</view>
 				</view>
 				<view class="edit size_16" @click="handleSet()">设置</view>
 			</view>
@@ -25,19 +26,18 @@
  -->
 			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @click="handlePassword()"></uni-list-item>
 			<uni-list-item title="账户设置" thumb="../../static/my/icon/bankcard.png" @click="handleBankSet()"></uni-list-item>
-		    <uni-list-item title="续费" thumb="../../static/my/icon/recharge.png" @click="handleRecharge()"></uni-list-item>
+			<uni-list-item title="续费" thumb="../../static/my/icon/recharge.png" @click="handleRecharge()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<uni-list>
 			<uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" @click="handleMyorder()" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item>
-			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" @click="handleTime()"  show-text="true" :content="dataList.daycount"></uni-list-item>
+			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" @click="handleTime()" show-text="true" :content="dataList.daycount"></uni-list-item>
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @click="handleShare()"></uni-list-item>
 			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
-		<view class="user_bottom">
-			<button type="default" class="logout_btn" @tap="handleLogout">退出登录</button>
-			</view>
+		<view class="user_bottom" v-if="login_status"><button type="default" class="logout_btn" @tap="handleLogout">退出登录</button></view>
+		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
@@ -45,8 +45,9 @@
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 // import adCell from '@/component/ADCell/ADCell.vue';
-import { post,tokenpost} from '@/api/user.js';
+import { post, tokenpost } from '@/api/user.js';
 import { api } from '@/config/common.js';
+import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
 	components: {
 		// adCell
@@ -56,112 +57,108 @@ export default {
 	data() {
 		return {
 			title: '我的',
+			login_status: false,
 			dataList: {
-				loginname:'xuewei',
-				realname:'张三丰',
-				telephone:'15827068282',
-				companyname:'湖北吉奥汽车服务有限公司',
-				expiredate:'2020-11-20',
-				daycount:0,
-				ordercount:'30'
+				loginname: '',
+				realname: '',
+				telephone: '',
+				companyname: '',
+				expiredate: '',
+				daycount: 0,
+				ordercount: '0'
 			}
 		};
 	},
-	onLoad(){},
-	onShow(){
-		const userInfo = uni.getStorageSync('userInfo');
-		console.log(userInfo);
-		if(!uni.getStorageSync('userInfo')){
-			console.log("!!!")
-			uni.reLaunch({
-				url:'/pages/my/login/login'
-			})
-		};
+	onLoad() {},
+	onShow() {
+		//this.login_status = this.$api.login_status();
 		this.loadData();
 	},
 	methods: {
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},
-		handlePassword(){
-			console.log("11111111111");
+		handlePassword() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
 			uni.navigateTo({
 				url: '/pages/my/login/editPassword'
 			});
 		},
-		handleBankSet(){
-			console.log("11111111111");
+		handleBankSet() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
 			uni.navigateTo({
 				url: '/pages/my/account/accountlist'
 			});
 		},
-		handleRecharge(){
-			console.log("11111111111");
+		handleRecharge() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
 			uni.navigateTo({
 				url: '/pages/my/account/recharge'
 			});
 		},
-		handleUserManage(){
-			console.log("11111111111");
+		handleUserManage() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
 			uni.navigateTo({
 				url: '/pages/my/user/user'
 			});
 		},
-		handleTime(){
-			console.log("11111111111");
+		handleTime() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
 			uni.navigateTo({
 				url: '/pages/my/givetime'
 			});
 		},
-		handleMyorder(){
-			console.log("11111111111");
+		handleMyorder() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
 			uni.navigateTo({
 				url: '/pages/my/myorder'
 			});
 		},
-		handleShare(){
+		handleShare() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
 			uni.navigateTo({
 				url: '/pages/my/share/share'
 			});
 		},
-		handlewx(){
-			uni.login({
-			  provider: 'weixin',
-			  success: function (loginRes) {
-			    console.log(loginRes);
-			    // 获取用户信息
-			    uni.getUserInfo({
-			      provider: 'weixin',
-			      success: function (infoRes) {
-			        console.log(infoRes);
-			      }
-			    });
-			  }
-			});
-		},
-		handleGridChange(val) {
-			switch (val.id) {
-				case '1':
-					uni.navigateTo({
-						url: '../sale/sale'
-					});
-					break;
-				case '2':
-					uni.navigateTo({
-						url: '../purchase/purchase'
-					});
-					break;
-				case '3':
-					uni.navigateTo({
-						url: '../current_unit/current_unit'
-					});
-					break;
-				case '4':
-					uni.navigateTo({
-						url: '../product/product'
-					});
-					break;
+		handlewx() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
 			}
+			uni.login({
+				provider: 'weixin',
+				success: function(loginRes) {
+					console.log(loginRes);
+					// 获取用户信息
+					uni.getUserInfo({
+						provider: 'weixin',
+						success: function(infoRes) {
+							console.log(infoRes);
+						}
+					});
+				}
+			});
 		},
 		//退出登录
 		handleLogout() {
@@ -176,7 +173,7 @@ export default {
 								console.log(userInfo);
 								if (!userInfo) {
 									uni.reLaunch({
-										url: '/pages/my/login/login'
+										url: '/pages/my/my'
 									});
 								}
 							}, 200);
@@ -186,29 +183,37 @@ export default {
 			});
 		},
 		//设置
-		handleSet(){
+		handleSet() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
 			uni.navigateTo({
 				url: '../my/set'
 			});
 		},
-		loadData(){
-			tokenpost(api.GetUserInfo).then(res => {
-				if (res.status == 200 && res.data.returnCode == '0000') {
-					console.log(res);
-				  this.dataList = res.data.data
-				}else if(res.status == 200 && res.data.returnCode == '402'){
-					this.$api.msg(res.data.returnMessage);
-					uni.reLaunch({
-						url:'/pages/my/login/login'
-					})
-				}else {
-					this.$api.msg(res.data.returnMessage) 
-				}
-				this.loading =false;
-			}).catch(error => {
-				this.loading =false;
-				this.$api.msg('请求失败fail') 
-			})
+		loadData() {
+			this.$refs.loading.open()
+			tokenpost(api.GetUserInfo)
+				.then(res => {
+					if (res.status == 200) {
+						this.$refs.loading.close()
+						if (res.data.returnCode == '0000') {
+							this.dataList = res.data.data;
+							this.login_status = true;
+						} else {
+							//this.$api.msg(res.data.returnMessage);
+							this.dataList = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
+							this.login_status = false;
+						}
+					} else {
+						this.$api.msg(res.data.returnMessage);
+					}
+				})
+				.catch(error => {
+					this.$refs.loading.close()
+					this.$api.msg('请求失败fail');
+				});
 		}
 	}
 };
@@ -222,7 +227,7 @@ export default {
 .user_info {
 	background-color: #2d8cf0;
 	background-image: linear-gradient(to right, #2d8cf0, #3d8cf0);
-	padding: 20rpx 20rpx 100rpx 20rpx;
+	padding: 40rpx 20rpx 60rpx 20rpx;
 	line-height: normal;
 
 	.user_title {
@@ -234,7 +239,7 @@ export default {
 	}
 
 	.user_blank {
-		height: 64rpx;
+		height: 48rpx;
 	}
 
 	.pic {
@@ -270,7 +275,7 @@ export default {
 	padding-left: 16upx;
 	padding-right: 16upx;
 	.logout_btn {
-		background-color: #FFFFFF;
+		background-color: #ffffff;
 		//border: $uni-border-color;
 	}
 }

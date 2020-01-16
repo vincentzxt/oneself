@@ -178,23 +178,24 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
     return {
       title: '我的订单',
       dataList: [{
-        orderNo: 'SC2020010230003',
-        money: '600',
+        ordercode: 'SC2020010230003',
+        orderamount: '600',
         payment: '微信',
         description: '可以通过微信开发者工具切换pages.json中condition配置的页面，或者关闭微信开发者工具，然后再从HBuilderX中启动指定页面',
-        paymentStatus: '待支付',
+        orderstatus: 0,
         startDate: '2019-11-20',
         expireDate: '2020-11-20' },
 
       {
-        orderNo: 'SC2020010230004',
-        money: '800',
+        ordercode: 'SC2020010230004',
+        orderamount: '800',
         payment: '微信',
         description: '可以通过微信开发者工具切换pages.json中condition配置的页面，或者关闭微信开发者工具，然后再从HBuilderX中启动指定页面',
-        paymentStatus: '已支付',
+        orderstatus: 1,
         startDate: '2019-11-20',
-        expireDate: '2020-11-20' }] };
+        expireDate: '2020-11-20' }],
 
+      OrderStatusList: ['待支付', '已支付'] };
 
   },
   onLoad: function onLoad() {},
@@ -204,7 +205,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
         url: '/pages/my/login/login' });
 
     };
-    //this.loadData();
+    // this.loadData();
   },
   methods: {
     handleRefreshPage: function handleRefreshPage() {
@@ -222,9 +223,9 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
 
     },
     loadData: function loadData() {var _this = this;
-      (0, _user.tokenpost)(_common.api.GetUserInfo).then(function (res) {
+      (0, _user.tokenpost)(_common.api.GetOrderList).then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this.dataList = res.data.data;
+          _this.dataList = res.data.data.resultList;
         } else {
           _this.$api.msg(res.data.returnMessage);
         }

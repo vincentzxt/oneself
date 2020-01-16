@@ -5,17 +5,21 @@
 		</uni-navbar>
 	</view>
 	<view class="main">
+		<scroll-view :scroll-y="true" class="fill">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
-				<view>赠送类型：<text>{{item.giveType}}</text></view>
-				<view class="list_bottom_box_item"><text>赠送时长：{{item.timelenght}}</text></view>
+				<view>赠送类型：<text>{{item.source}}</text></view>
+				<view class="list_bottom_box_item"><text>赠送时长：{{item.daycount}}天</text></view>
 			</view>
 			<view class="list-between">
-					<view class="list_bottom_box_item"><text>赠送时间：{{item.time}}</text></view>
+					<view class="list_bottom_box_item"><text>赠送时间：{{item.createtime}}</text></view>
 			</view>
 		</view>
+		
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
+		</scroll-view>
 	</view>
+<cu-loading ref="loading"></cu-loading>
 </view>
 </template>
 
@@ -25,6 +29,7 @@ import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 // import adCell from '@/component/ADCell/ADCell.vue';
 import { post,tokenpost} from '@/api/user.js';
 import { api } from '@/config/common.js';
+import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
 	components: {
 		// adCell
@@ -34,21 +39,7 @@ export default {
 	data() {
 		return {
 			title: '时长',
-			dataList: [{
-				giveType:'推广',
-				timelenght:'10天',
-				time:'2020-11-20 12:00:00'
-			},
-			{
-			giveType:'充值',
-			timelenght:'60天',
-			time:'2020-11-22 09:24:35'
-			},
-			{
-			giveType:'赠送',
-			timelenght:'15天',
-			time:'2020-10-03 24:00:00'
-			}]
+			dataList: []
 		};
 	},
 	onLoad(){},
@@ -58,7 +49,7 @@ export default {
 				url:'/pages/my/login/login'
 			})
 		};
-		//this.loadData();
+		this.loadData();
 	},
 	methods: {
 		handleRefreshPage() {
@@ -76,15 +67,17 @@ export default {
 			});
 		},
 		loadData(){
-			tokenpost(api.GetUserInfo).then(res => {
+				this.$refs.loading.open();
+			tokenpost(api.GetMyDayLogList).then(res => {
+				this.$refs.loading.close();
 				if (res.status == 200 && res.data.returnCode == '0000') {
-				  this.dataList = res.data.data
+				  this.dataList = res.data.data.resultList
 				} else {
 					this.$api.msg(res.data.returnMessage) 
 				}
-				this.loading =false;
+				
 			}).catch(error => {
-				this.loading =false;
+				this.$refs.loading.close();
 				this.$api.msg('请求失败fail') 
 			})
 			

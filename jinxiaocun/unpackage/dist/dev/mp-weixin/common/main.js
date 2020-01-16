@@ -22,6 +22,25 @@ _vue.default.config.productionTip = false;
 
 _App.default.mpType = 'app';
 //统一提示方便全局修改
+var login_check = function login_check() {
+  if (!uni.getStorageSync('userInfo')) {
+    uni.reLaunch({
+      url: '/pages/my/login/login' });
+
+  };
+};
+var login_status = function login_status() {
+  if (!uni.getStorageSync('userInfo')) {
+    return false;
+  } else {
+    return true;
+  };
+};
+var login = function login() {
+  uni.navigateTo({
+    url: '/pages/my/login/login' });
+
+};
 var msg = function msg(title) {var icon = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'none';var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2000;var mask = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   if (Boolean(title) === false) {
     return;
@@ -33,7 +52,7 @@ var msg = function msg(title) {var icon = arguments.length > 1 && arguments[1] !
     icon: icon });
 
 };
-_vue.default.prototype.$api = { msg: msg };
+_vue.default.prototype.$api = { msg: msg, login_status: login_status, login: login, login_check: login_check };
 
 var app = new _vue.default(_objectSpread({},
 _App.default));

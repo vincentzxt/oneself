@@ -155,7 +155,7 @@ var _default =
     return {
       title: '分享',
       userId: 0,
-      shareText: '一账通，邀请你一起体验！',
+      shareText: '微账通，邀请你一起体验！',
       href: 'https://uniapp.dcloud.io',
       image: 'http://allchain.oss-cn-shanghai.aliyuncs.com/uploads/20190521/f57ebce8a72b823912904fe76eda0909.png',
       shareType: 1,

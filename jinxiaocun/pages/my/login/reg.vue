@@ -1,6 +1,6 @@
 <template>
 	<view class="login">
-		<view class="header"><uni-navbar :title="title" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar></view>
+		<view class="header"><uni-navbar :title="title" left-icon="back"  background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar></view>
 		<view class="space"></view>
 		<!-- <view class="tou"><img src="@/static/image/logo.png"/></img></view> -->
 
@@ -66,6 +66,11 @@ export default {
 		}
 	},
 	methods: {
+		handleNavbarClickLeft() {
+			uni.switchTab({
+				url:'/pages/my/my'
+			}) 
+		},
 		login_action(){
 			uni.reLaunch({
 				url:'/pages/my/login/login'

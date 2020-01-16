@@ -184,9 +184,9 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       _business.default.getBaseProduct();
       _business.default.getProductCategory();
     } else {
-      uni.reLaunch({
-        url: '/pages/my/my' });
-
+      // uni.reLaunch({
+      // 	url: '/pages/my/my'
+      // })
     }
   },
   onShow: function onShow() {

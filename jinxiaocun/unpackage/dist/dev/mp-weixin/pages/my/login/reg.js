@@ -201,6 +201,11 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
     }
   },
   methods: {
+    handleNavbarClickLeft: function handleNavbarClickLeft() {
+      uni.switchTab({
+        url: '/pages/my/my' });
+
+    },
     login_action: function login_action() {
       uni.reLaunch({
         url: '/pages/my/login/login' });

@@ -124,9 +124,12 @@
   padding: 10px 0 8px;
   background-color: #FFFFFF;
 }
+.user_bottom.data-v-6f3928ca {
+  margin-top: 30rpx;
+}
 .user_bottom .send_btn.data-v-6f3928ca {
-  background-color: #2d8cf0;
-  height: 76rpx;
-  line-height: 76rpx;
+    background-color: #2d8cf0;
+    height: 76rpx;
+    line-height: 76rpx;
 }
 

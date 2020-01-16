@@ -23,7 +23,7 @@
 					<input v-model="re_password" password="true" class="uni-input" placeholder="请再次输入新密码" style="height: 35px;background-color: #fff;" />
 				</view>
 			</view>
-			<view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;"><view @click="login_action()">返回登录？</view></view>
+			<!-- <view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;"><view @click="login_action()">返回登录？</view></view> -->
 			<!-- 	<view class="user_bottom" style="margin-top: 50px;display: flex;justify-content: space-between;">
 				<button type="primary" class="logout_btn" @tap="handleLogin">提交</button>
 			</view> -->
@@ -236,6 +236,7 @@ export default {
 	}
 }
 .user_bottom {
+	margin-top: 60upx;
 	// padding-left:20rpx;padding-right:20rpx;
 	.send_btn {
 		background-color: #2d8cf0;

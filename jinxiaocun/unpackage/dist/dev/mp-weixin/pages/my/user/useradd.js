@@ -231,7 +231,8 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
     },
     loadRole: function loadRole() {var _this = this;
       var sendData = {
-        'currentPage': 1 };
+        'pageIndex': 1,
+        'pageRows': -1 };
 
       (0, _user.tokenpost)(_common.api.GetRoleList, sendData).then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {

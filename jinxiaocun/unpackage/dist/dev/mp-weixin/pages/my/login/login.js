@@ -184,7 +184,15 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
 
   },
   components: { uniIcon: uniIcon },
+  onShow: function onShow() {
+    console.log("2213123123123");
+  },
   methods: {
+    handleNavbarClickLeft: function handleNavbarClickLeft() {
+      uni.switchTab({
+        url: '/pages/my/my' });
+
+    },
     reg_action: function reg_action() {
       uni.reLaunch({
         url: '/pages/my/login/reg' });
