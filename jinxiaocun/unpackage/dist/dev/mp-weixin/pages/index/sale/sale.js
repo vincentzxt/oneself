@@ -309,6 +309,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
         for (var _iterator = this.reqData.productList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
           if (item.productid == this.curSelectPruduct.productid) {
             item.salesqty++;
+            this.curSelectPruduct.salesqty = item.salesqty;
             isExists = true;
           }
         }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}

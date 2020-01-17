@@ -25450,6 +25450,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   dept: '/api/Dept',
   purPurchaseOrder: '/api/PurPurchaseOrder',
   salesOrder: '/api/SalesOrder',
+  stkStock: '/api/StkStock',
   token: '/api/Token',
   login: '/api/BseUser/Login',
   ChangePassword: '/api/BseUser/ChangePassword',
@@ -25487,6 +25488,26 @@ var queryProductCategory = function queryProductCategory(url) {var data = argume
     method: 'post' });
 
 };exports.queryProductCategory = queryProductCategory;
+
+/***/ }),
+
+/***/ 593:
+/*!********************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/stkstock.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.stockCheck = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var stockCheck = function stockCheck(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/StockCheck',
+    data: data,
+    method: 'post' });
+
+};exports.stockCheck = stockCheck;
 
 /***/ }),
 

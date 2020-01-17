@@ -34,7 +34,7 @@
 				</cu-panel>
 				<cu-panel v-if="!searchCurrentUnit && !searchProduct && reqData.productList.length > 0">
 					<cu-cell-group>
-						<cu-cell :title="item.productname" :label="'销售数量：'+item.qty+'|计量单位：'+item.unit+'|建议零售价：'+item.price+'|销售单价：'+item.purchaseunitprice" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
+						<cu-cell :title="item.productname" :label="'采购数量：'+item.qty+'|计量单位：'+item.unit+'|建议零售价：'+item.price+'|采购单价：'+item.purchaseunitprice" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
 							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
 								<uni-icons type="delete" color="#ed3f14"></uni-icons>
 							</view>
@@ -174,6 +174,7 @@
 				for (let item of this.reqData.productList) {
 					if (item.productid == this.curSelectPruduct.productid) {
 						item.qty ++
+						this.curSelectPruduct.qty = item.qty
 						isExists = true
 					}
 				}
