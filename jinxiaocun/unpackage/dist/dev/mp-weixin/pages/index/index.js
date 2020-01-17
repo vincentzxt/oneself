@@ -152,7 +152,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 390));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 397));};var cuLoading = function cuLoading() {return __webpack_require__.e(/*! import() | components/custom/cu-loading */ "components/custom/cu-loading").then(__webpack_require__.bind(null, /*! @/components/custom/cu-loading.vue */ 383));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 390));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 397));};var cuLoading = function cuLoading() {return __webpack_require__.e(/*! import() | components/custom/cu-loading */ "components/custom/cu-loading").then(__webpack_require__.bind(null, /*! @/components/custom/cu-loading.vue */ 230));};var _default =
 {
   components: {
     uniGrid: uniGrid,
@@ -184,13 +184,12 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       _business.default.getBaseProduct();
       _business.default.getProductCategory();
     } else {
-      // uni.reLaunch({
-      // 	url: '/pages/my/my'
-      // })
+      uni.reLaunch({
+        url: '/pages/my/my' });
+
     }
   },
   onShow: function onShow() {
-    console.log(this.promoterid);
     uni.setStorage({
       key: 'promoterid',
       data: this.promoterid,

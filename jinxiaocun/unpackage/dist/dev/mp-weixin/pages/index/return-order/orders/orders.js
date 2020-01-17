@@ -100,19 +100,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.searchDatas, function(item, index) {
-    var m0 = _vm.filterItem(item)
-    return {
-      $orig: _vm.__get_orig(item),
-      m0: m0
-    }
-  })
-
+  var a0 = {
+    type: "payment",
+    color: "#ff9900",
+    size: 15
+  }
+  var a1 = {
+    type: "payment",
+    color: "#ff9900",
+    size: 15
+  }
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        l0: l0
+        a0: a0,
+        a1: a1
       }
     }
   )
@@ -175,14 +178,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 458));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 418));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 425));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 432));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 458));};var uniCollapse = function uniCollapse() {return __webpack_require__.e(/*! import() | components/uni-collapse/uni-collapse */ "components/uni-collapse/uni-collapse").then(__webpack_require__.bind(null, /*! @/components/uni-collapse/uni-collapse.vue */ 475));};var uniCollapseItem = function uniCollapseItem() {return __webpack_require__.e(/*! import() | components/uni-collapse-item/uni-collapse-item */ "components/uni-collapse-item/uni-collapse-item").then(__webpack_require__.bind(null, /*! @/components/uni-collapse-item/uni-collapse-item.vue */ 482));};var _default =
 {
   components: {
     uniSearchBar: uniSearchBar,
-    cuPanel: cuPanel,
-    cuCell: cuCell,
-    cuCellGroup: cuCellGroup },
+    uniCollapse: uniCollapse,
+    uniCollapseItem: uniCollapseItem },
 
   data: function data() {
     return {
@@ -194,36 +215,37 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
 
   },
   onLoad: function onLoad(options) {var _this = this;
-    console.log(options);
     this.businessType = options.businessType;
     this.currentUnitId = options.currentUnitId;
     if (this.currentUnitId) {
-      console.log("1");
       this.$refs.loading.open();
       if (this.businessType == '0') {
-        console.log("2");
         (0, _common2.query)(_common.api.purPurchaseOrder, { contactunitid: this.currentUnitId }).then(function (res) {
           _this.$refs.loading.close();
           if (res.status == 200 && res.data.returnCode == '0000') {
             _this.datas = res.data.data.resultList;
+            _this.$set(_this.datas, 'productList', []);
             _this.searchDatas = _this.datas;
+            console.log("1");
+            console.log(_this.datas);
           }
         }).catch(function (error) {
           _this.$refs.loading.close();
         });
       } else {
-        console.log("3");
-        get(_common.api.salesOrder, this.currentUnitId).then(function (res) {
+        (0, _common2.query)(_common.api.salesOrder, { contactunitid: this.currentUnitId }).then(function (res) {
           _this.$refs.loading.close();
           if (res.status == 200 && res.data.returnCode == '0000') {
             _this.datas = res.data.data.resultList;
+            _this.$set(_this.datas, 'productList', []);
             _this.searchDatas = _this.datas;
+            console.log("2");
+            console.log(_this.datas);
           }
         }).catch(function (error) {
           _this.$refs.loading.close();
         });
       }
-      console.log(this.datas);
     }
   },
   onShow: function onShow() {
@@ -239,13 +261,104 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
         delta: 1 });
 
     },
+    getPurchaseOrderById: function getPurchaseOrderById(id, oper) {var _this2 = this;
+      this.$refs.loading.open();
+      (0, _common2.getForReturn)(_common.api.purPurchaseOrder, id).then(function (res) {
+        _this2.$refs.loading.close();
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this2.searchDatas = _this2.searchDatas.map(function (item) {
+            if (item.purchaseorderid == id && !item.productList) {
+              _this2.$set(item, 'productList', res.data.data.detailModels);
+            }
+            return item;
+          });
+          _this2.datas = _this2.datas.map(function (item) {
+            if (item.purchaseorderid == id && !item.productList) {
+              _this2.$set(item, 'productList', res.data.data.detailModels);
+            }
+            return item;
+          });
+          if (oper == 'return') {
+            var pages = getCurrentPages();
+            var prevPage = pages[pages.length - 2];
+            prevPage.setData({
+              productList: res.data.data.detailModels });
+
+            uni.navigateBack({
+              delta: 1 });
+
+          }
+        }
+      }).catch(function (error) {
+        _this2.$refs.loading.close();
+      });
+    },
+    getSaleOrderById: function getSaleOrderById(id, oper) {var _this3 = this;
+      this.$refs.loading.open();
+      (0, _common2.getForReturn)(_common.api.salesOrder, id).then(function (res) {
+        _this3.$refs.loading.close();
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this3.searchDatas = _this3.searchDatas.map(function (item) {
+            if (item.salesorderid == id && !item.productList) {
+              _this3.$set(item, 'productList', res.data.data.detailModels);
+            }
+            return item;
+          });
+          _this3.datas = _this3.datas.map(function (item) {
+            if (item.salesorderid == id && !item.productList) {
+              _this3.$set(item, 'productList', res.data.data.detailModels);
+            }
+            return item;
+          });
+          if (oper == 'return') {
+            var pages = getCurrentPages();
+            var prevPage = pages[pages.length - 2];
+            prevPage.setData({
+              productList: res.data.data.detailModels });
+
+            uni.navigateBack({
+              delta: 1 });
+
+          }
+        }
+      }).catch(function (error) {
+        _this3.$refs.loading.close();
+      });
+    },
+    handleOnArrow: function handleOnArrow(item) {
+      if (!item.productList) {
+        if (this.businessType == 0) {
+          this.getPurchaseOrderById(item.purchaseorderid, 'load');
+        } else {
+          this.getSaleOrderById(item.salesorderid, 'load');
+        }
+      }
+    },
+    handleOnReturn: function handleOnReturn(item) {
+      if (!item.productList) {
+        if (this.businessType == 0) {
+          this.getPurchaseOrderById(item.purchaseorderid, 'return');
+        } else {
+          this.getSaleOrderById(item.salesorderid, 'return');
+        }
+      } else {
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2];
+        prevPage.setData({
+          productList: item.productList });
+
+        uni.navigateBack({
+          delta: 1 });
+
+      }
+    },
     filterItem: function filterItem(item) {
       return { 'name': item };
     },
     handleSearch: function handleSearch(val) {
       if (val.value) {
         this.searchDatas = this.datas.filter(function (item) {
-          return item.indexOf(val.value) !== -1;
+          return String(item.amount).indexOf(val.value) !== -1 || item.createtime.indexOf(val.value) !== -1;
         });
       } else {
         this.searchDatas = this.datas;

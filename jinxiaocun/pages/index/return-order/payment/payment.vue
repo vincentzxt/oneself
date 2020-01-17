@@ -8,18 +8,15 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell-group>
-						<cu-cell title="是否赊账">
-							<radio-group @change="handleCreditChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.order.isOnCredit == 0">否</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
+						<cu-cell title="退款帐号">
+							<radio-group v-if="businessType == 0" @change="handleCashAccountChange">
+								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.payaccountid == item.cashaccountid">{{item.cashaccountname}}</radio>
 							</radio-group>
-						</cu-cell>
-						<cu-cell v-if="reqData.order.isOnCredit == 0" title="收款帐号">
-							<radio-group @change="handleCashAccountChange">
+							<radio-group v-else @change="handleCashAccountChange">
 								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
 							</radio-group>
 						</cu-cell>
-						<cu-cell title="是否生成出库单">
+						<cu-cell title="是否生成退货单">
 							<radio-group @change="handleStatusChange">
 								<radio color="#2db7f5" value=1 :checked="reqData.order.status == 1">否</radio>
 								<radio color="#2db7f5" value=2 :checked="reqData.order.status == 2" style="margin-left: 10px;">是</radio>
@@ -30,9 +27,6 @@
 								<radio color="#2db7f5" value=0 :checked="reqData.order.isprint == 0">否</radio>
 								<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
-						</cu-cell>
-						<cu-cell title="优惠金额">
-							<input slot="footer" type="digit" v-model="reqData.order.discountamount" @blur="handleDisCount"/>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
@@ -64,17 +58,17 @@
 		},
 		data() {
 			return {
-				title: '销售收款',
+				title: '采购退款',
+				businessType: 0,
 				reqData: {
 					order: {
-						billtype: 1,
-						isOnCredit: 0,
+						billtype: 2,
 						accountid: '',
 						contactunitid: '',
+						payaccountid: '',
 						amount: 0.00,
 						isprint: 0,
-						status: 1,
-						discountamount: 0.00
+						status: 1
 					},
 					orderlist: []
 				},
@@ -83,6 +77,10 @@
 		},
 		onLoad(options) {
 			if (options) {
+				this.businessType = options.businessType
+				if (this.businessType == 1) {
+					this.title = '销售退款'
+				}
 				let data = JSON.parse(options.reqData)
 				this.reqData.order.contactunitid = data.contactunitid
 				this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2)
@@ -112,11 +110,12 @@
 					delta: 1
 				})
 			},
-			handleCreditChange(val) {
-				this.reqData.order.isOnCredit = val.detail.value
-			},
 			handleCashAccountChange(val) {
-				this.reqData.order.accountid = val.detail.value
+				if (this.businessType == 0) {
+					this.reqData.order.payaccountid = val.detail.value
+				} else {
+					this.reqData.order.accountid = val.detail.value
+				}
 			},
 			handleStatusChange(val) {
 				this.reqData.order.status = val.detail.value
@@ -124,29 +123,46 @@
 			handlePrintChange(val) {
 				this.reqData.order.isprint = val.detail.value
 			},
-			handleDisCount(e) {
-				this.reqData.order.discountamount = parseFloat(e.detail.value).toFixed(2)
-				this.reqData.order.amount = parseFloat(this.reqData.order.amount - this.reqData.order.discountamount).toFixed(2)
-			},
 			handleSubmit() {
-				this.$refs.loading.open()
-				create(api.salesOrder, this.reqData).then(res => {
-					this.$refs.loading.close()
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						uni.showToast({
-							title: '提交成功'
-						})
-					} else {
+				if (this.businessType == 0) {
+					this.$refs.loading.open()
+					create(api.purPurchaseOrder, this.reqData).then(res => {
+						this.$refs.loading.close()
+						if (res.status == 200 && res.data.returnCode == '0000') {
+							uni.showToast({
+								title: '提交成功'
+							})
+						} else {
+							uni.showToast({
+								title: '提交失败'
+							})
+						}
+					}).catch(error => {
+						this.$refs.loading.close()
 						uni.showToast({
 							title: '提交失败'
 						})
-					}
-				}).catch(error => {
-					this.$refs.loading.close()
-					uni.showToast({
-						title: '提交失败'
 					})
-				})
+				} else {
+					this.$refs.loading.open()
+					create(api.salesOrder, this.reqData).then(res => {
+						this.$refs.loading.close()
+						if (res.status == 200 && res.data.returnCode == '0000') {
+							uni.showToast({
+								title: '提交成功'
+							})
+						} else {
+							uni.showToast({
+								title: '提交失败'
+							})
+						}
+					}).catch(error => {
+						this.$refs.loading.close()
+						uni.showToast({
+							title: '提交失败'
+						})
+					})
+				}
 			}
 		}
 	}

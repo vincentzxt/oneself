@@ -10,33 +10,41 @@
 					<cu-cell-group>
 						<cu-cell title="业务类型">
 							<radio-group @change="handleTypeChange">
-								<radio color="#2d8cf0" value=0 :checked="reqData.businessType == 0">采购退货</radio>
-								<radio color="#2d8cf0" style="margin-left: 10px;" value=1 :checked="reqData.businessType == 1">销售退货</radio>
+								<radio color="#2d8cf0" value=0 :checked="businessType == 0">采购退货</radio>
+								<radio color="#2d8cf0" style="margin-left: 10px;" value=1 :checked="businessType == 1">销售退货</radio>
 							</radio-group>
 						</cu-cell>
 						<cu-cell title="搜索单位">
 							<cu-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
-							<text slot="footer">{{reqData.contactunitname}}</text>
+							<text v-if="businessType == 0" slot="footer">{{purchaseReqData.contactunitname}}</text>
+							<text v-else slot="footer">{{salesReqData.contactunitname}}</text>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + reqData.businessType + '&currentUnitId=' + reqData.contactunitid">
+						<cu-cell v-if="!searchCurrentUnit && businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid">
+						</cu-cell>
+						<cu-cell v-else-if="!searchCurrentUnit && businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid">
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
-				<cu-panel v-if="searchCurrentUnit || searchProduct">
-					<uni-list v-if="searchCurrentUnit">
+				<cu-panel v-if="searchCurrentUnit">
+					<uni-list>
 						<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
 						</uni-list-item>
 					</uni-list>
-					<uni-list v-if="searchProduct">
-						<uni-list-item :title="item.productname" :note="'速查码：'+item.querycode" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
-						</uni-list-item>
-					</uni-list>
 				</cu-panel>
-				<cu-panel v-if="!searchCurrentUnit && reqData.productList.length > 0">
+				<cu-panel v-if="!searchCurrentUnit && purchaseReqData.productList.length > 0">
 					<cu-cell-group>
-						<cu-cell :title="item.productname" :label="'销售数量：'+item.salesqty+'|计量单位：'+item.unit+'|建议零售价：'+item.price+'|销售单价：'+item.salesunitprice" v-for="(item, index) in reqData.productList" :key="index" @tap="handleShowPopup(item)">
+						<cu-cell :title="item.productname" :label="'销售数量：'+item.qty+'|计量单位：'+item.unit+'|销售单价：'+item.purchaseunitprice" v-for="(item, index) in purchaseReqData.productList" :key="index" @tap="handleShowPopup(item)">
+							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
+								<uni-icons type="delete" color="#ed3f14"></uni-icons>
+							</view>
+						</cu-cell>
+					</cu-cell-group>
+				</cu-panel>
+				<cu-panel v-if="!searchCurrentUnit && salesReqData.productList.length > 0">
+					<cu-cell-group>
+						<cu-cell :title="item.productname" :label="'销售数量：'+item.salesqty+'|计量单位：'+item.unit+'|销售单价：'+item.salesunitprice" v-for="(item, index) in salesReqData.productList" :key="index" @tap="handleShowPopup(item)">
 							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
 								<uni-icons type="delete" color="#ed3f14"></uni-icons>
 							</view>
@@ -46,22 +54,22 @@
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<text class="footer-text">合计金额：￥{{reqData.totalPrice}}</text>
+			<text v-if="businessType == 0" class="footer-text">合计金额：￥{{purchaseReqData.totalPrice}}</text>
+			<text v-else class="footer-text">合计金额：￥{{salesReqData.totalPrice}}</text>
 			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">下一步</button>
 		</view>
-		<uni-popup ref="popup" type="bottom">
+		<uni-popup ref="purchasePopup" type="bottom">
 			<cu-panel>
 				<cu-cell title="数量">
-					<uni-number-box :min="1" :value="curSelectPruduct.salesqty" @change="handleSalesqtyChange"></uni-number-box>
+					<uni-number-box :min="1" :max="maxNum" :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
 				</cu-cell>
-				<cu-cell title="计量单位">
-					<radio-group @change="handleUnitChange">
-						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
-						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
-					</radio-group>
-				</cu-cell>
-				<cu-cell title="单价">
-					<input slot="footer" type="digit" v-model="curSelectPruduct.salesunitprice"/>
+			</cu-panel>
+			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
+		</uni-popup>
+		<uni-popup ref="salePopup" type="bottom">
+			<cu-panel>
+				<cu-cell title="数量">
+					<uni-number-box :min="1"  :max="maxNum" :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
@@ -94,15 +102,17 @@
 			return {
 				currentUnitDatas: null,
 				currentUnitSearchDatas: null,
-				productDatas: null,
-				productSearchDatas: null,
 				searchCurrentUnit: false,
-				searchProduct: false,
-				reqData: {
-					businessType: 0,
+				businessType: 0,
+				purchaseReqData: {
 					contactunitid: '',
 					contactunitname: '',
-					telephone: '',
+					productList: [],
+					totalPrice: 0.00,
+				},
+				salesReqData: {
+					contactunitid: '',
+					contactunitname: '',
 					productList: [],
 					totalPrice: 0.00,
 				},
@@ -110,14 +120,23 @@
 				title: '退款单',
 				curSelectPruduct: {},
 				checkedUnit: 0,
-				disableSubmit: true
+				disableSubmit: true,
+				maxNum: 0
 			};
 		},
 		onShow() {
 			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
-			this.productDatas = uni.getStorageSync('productList')
 			this.currentUnitSearchDatas = this.currentUnitDatas
-			this.productSearchDatas = this.productDatas
+			let pages =  getCurrentPages()
+			let curPage = pages[pages.length - 1]
+			if (curPage.data.productList) {
+				if (this.businessType == 0) {
+					this.purchaseReqData.productList = curPage.data.productList
+				} else {
+					this.salesReqData.productList = curPage.data.productList
+				}
+			}
+			console.log(this.salesReqData)
 		},
 		computed: {
 			headerHeight() {
@@ -133,6 +152,24 @@
 					delta: 1
 				})
 			},
+			handleTypeChange(val) {
+				this.businessType = val.detail.value
+				if (this.businessType == 0) {
+					this.salesReqData = {
+						contactunitid: '',
+						contactunitname: '',
+						productList: [],
+						totalPrice: 0.00,
+					}
+				} else {
+					this.purchaseReqData = {
+						contactunitid: '',
+						contactunitname: '',
+						productList: [],
+						totalPrice: 0.00,
+					}
+				}
+			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
 					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
@@ -144,111 +181,131 @@
 					this.searchCurrentUnit = false
 				}
 			},
-			handleSearchProduct(val) {
-				if (val.value) {
-					this.productSearchDatas = this.productDatas.filter((item) => {
-						return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1
-					})
-					this.searchProduct = true
-				} else {
-					this.productSearchDatas = this.productDatas
-					this.searchProduct = false
-				}
-			},
 			handleSelectCurrentUnit(val) {
-				this.reqData.contactunitname = val.contactunitname
-				this.reqData.contactunitid = val.contactunitid
-				this.reqData.telephone = val.bseContactUnitContactModels[0].telephone
+				if (this.businessType == 0) {
+					this.purchaseReqData.contactunitname = val.contactunitname
+					this.purchaseReqData.contactunitid = val.contactunitid
+				} else {
+					this.salesReqData.contactunitname = val.contactunitname
+					this.salesReqData.contactunitid = val.contactunitid
+				}
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
-			},
-			handleSelectProduct(val) {
-				this.$set(this.curSelectPruduct, 'productid', val.productid)
-				this.$set(this.curSelectPruduct, 'productname', val.productname)
-				this.$set(this.curSelectPruduct, 'unit', val.unit)
-				this.$set(this.curSelectPruduct, 'mainUnit', val.unit)
-				this.$set(this.curSelectPruduct, 'subUnit', val.subunit)
-				this.$set(this.curSelectPruduct, 'price', val.price)
-				this.$set(this.curSelectPruduct, 'salesunitprice', 0)
-				this.$set(this.curSelectPruduct, 'salesqty', 1)
-				this.$set(this.curSelectPruduct, 'ismainunit', 1)
-				this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple)
-				let isExists = false
-				for (let item of this.reqData.productList) {
-					if (item.productid == this.curSelectPruduct.productid) {
-						item.salesqty ++
-						isExists = true
-					}
-				}
-				if (!isExists) {
-					this.reqData.productList.push(cloneObj(this.curSelectPruduct))
-				}
-				this.searchProduct = false
-				this.$refs.sp.cancel()
-				this.$nextTick(function(){
-					this.$refs.popup.open()
-				})
 			},
 			handleShowPopup(val) {
 				this.curSelectPruduct = cloneObj(val)
 				this.$nextTick(function(){
-					this.$refs.popup.open()
+					if (this.businessType == 0) {
+						this.maxNum = val.qty
+						this.$refs.purchasePopup.open()
+					} else {
+						this.maxNum = val.salesqty
+						this.$refs.salePopup.open()
+					}
 				})
 			},
 			handleEdit() {
-				for (let item of this.reqData.productList) {
-					if (item.productid == this.curSelectPruduct.productid) {
-						item.salesqty = this.curSelectPruduct.salesqty
-						item.unit = this.curSelectPruduct.unit
-						item.ismainunit = this.curSelectPruduct.ismainunit
-						item.salesunitprice = this.curSelectPruduct.salesunitprice
+				if (this.businessType == 0) {
+					for (let item of this.purchaseReqData.productList) {
+						if (item.productid == this.curSelectPruduct.productid) {
+							item.qty = this.curSelectPruduct.qty
+						}
+					}
+				} else {
+					for (let item of this.salesReqData.productList) {
+						if (item.productid == this.curSelectPruduct.productid) {
+							item.salesqty = this.curSelectPruduct.salesqty
+						}
 					}
 				}
 				this.curSelectPruduct = {}
+				this.maxNum = 0
 				this.$nextTick(function(){
-					this.$refs.popup.close()
+					if (this.businessType == 0) {
+						this.$refs.purchasePopup.close()
+					} else {
+						this.$refs.salePopup.close()
+					}
 				})
 			},
-			handleSalesqtyChange(val) {
+			handleQtyChange(val) {
 				if (this.curSelectPruduct) {
-					this.curSelectPruduct.salesqty = val
-				}
-			},
-			handleUnitChange(val) {
-				if (val.detail.value == 1) {
-					this.curSelectPruduct.unit = this.curSelectPruduct.mainUnit
-					this.curSelectPruduct.ismainunit = 1
-				} else {
-					this.curSelectPruduct.unit = this.curSelectPruduct.subUnit
-					this.curSelectPruduct.ismainunit = 0
+					if (this.businessType == 0) {
+						this.curSelectPruduct.qty = val
+					} else {
+						this.curSelectPruduct.salesqty = val
+					}
 				}
 			},
 			handleDelete(val) {
-				this.reqData.totalPrice = parseFloat(this.reqData.totalPrice - val.salesqty * parseFloat(val.salesunitprice)).toFixed(2)
-				this.reqData.productList = this.reqData.productList.filter((item) => {
-					return item.productid !== val.productid
-				})
+				if (this.businessType == 0) {
+					this.purchaseReqData.totalPrice = parseFloat(this.purchaseReqData.totalPrice - val.qty * parseFloat(val.purchaseunitprice)).toFixed(2)
+					this.purchaseReqData.productList = this.purchaseReqData.productList.filter((item) => {
+						return item.productid !== val.productid
+					})
+				} else {
+					this.salesReqData.totalPrice = parseFloat(this.salesReqData.totalPrice - val.salesqty * parseFloat(val.salesunitprice)).toFixed(2)
+					this.salesReqData.productList = this.salesReqData.productList.filter((item) => {
+						return item.productid !== val.productid
+					})
+				}
 			},
 			handleNext() {
-				uni.navigateTo({
-					url: './payment/payment?reqData='+JSON.stringify(this.reqData)
-				})
+				if (this.businessType == 0) {
+					uni.navigateTo({
+						url: './payment/payment?reqData='+JSON.stringify(this.purchaseReqData)+'&businessType='+this.businessType
+					})
+				} else {
+					uni.navigateTo({
+						url: './payment/payment?reqData='+JSON.stringify(this.salesReqData)+'&businessType='+this.businessType
+					})
+				}
 			}
 		},
 		watch: {
-			'reqData.productList': {
+			'purchaseReqData.productList': {
 				handler(val) {
-					this.reqData.totalPrice = 0
+					this.purchaseReqData.totalPrice = 0
 					if (val && val.length > 0) {
 						for (let item of val) {
-							this.reqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice)
+							this.purchaseReqData.totalPrice += item.qty * parseFloat(item.purchaseunitprice)
 						}
-						this.reqData.totalPrice = parseFloat(this.reqData.totalPrice).toFixed(2)
+						this.purchaseReqData.totalPrice = parseFloat(this.purchaseReqData.totalPrice).toFixed(2)
 					}
 				},
 				deep: true
 			},
-			reqData: {
+			'salesReqData.productList': {
+				handler(val) {
+					console.log(val)
+					console.log("n")
+					this.salesReqData.totalPrice = 0
+					if (val && val.length > 0) {
+						for (let item of val) {
+							this.salesReqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice)
+						}
+						this.salesReqData.totalPrice = parseFloat(this.salesReqData.totalPrice).toFixed(2)
+					}
+				},
+				deep: true
+			},
+			purchaseReqData: {
+				handler(val) {
+					if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
+						if (val.productList.some((item) => {
+							return item.purchaseunitprice == 0
+						})) {
+							this.disableSubmit = true
+						} else {
+							this.disableSubmit = false
+						}
+					} else {
+						this.disableSubmit = true
+					}
+				},
+				deep: true
+			},
+			salesReqData: {
 				handler(val) {
 					if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
 						if (val.productList.some((item) => {

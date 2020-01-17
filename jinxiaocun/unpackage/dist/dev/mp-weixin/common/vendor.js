@@ -7799,7 +7799,7 @@ var _common2 = __webpack_require__(/*! @/config/common.js */ 56);var _default =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.create = exports.update = exports.get = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.create = exports.update = exports.getForReturn = exports.get = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return _http.default.request({
@@ -7815,6 +7815,13 @@ var get = function get(url, id) {
     method: 'post' });
 
 };exports.get = get;
+
+var getForReturn = function getForReturn(url, id) {
+  return _http.default.request({
+    url: url + '/GetForReturn/' + id,
+    method: 'post' });
+
+};exports.getForReturn = getForReturn;
 
 var update = function update(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return _http.default.request({
@@ -9055,7 +9062,7 @@ exports.features = {};
 
 /***/ }),
 
-/***/ 380:
+/***/ 387:
 /*!**********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
   \**********************************************************************************************/
@@ -9083,6 +9090,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'add': "\uE8E1",
   'back': "\uE8EF",
   'arrow': "\uE8F1",
+  'arrow-down': "\uE8F2",
+  'arrow-up': "\uE8F5",
   'location': "\uE8FE",
   'location-fill': "\uE8FF",
   'data': "\uE902",
