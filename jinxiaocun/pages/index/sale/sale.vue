@@ -174,6 +174,7 @@
 				for (let item of this.reqData.productList) {
 					if (item.productid == this.curSelectPruduct.productid) {
 						item.salesqty ++
+						this.curSelectPruduct.salesqty = item.salesqty
 						isExists = true
 					}
 				}

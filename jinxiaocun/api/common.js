@@ -15,6 +15,13 @@ export const get = (url, id) => {
   })
 }
 
+export const getForReturn = (url, id) => {
+  return http.request({
+    url: url + '/GetForReturn/' + id,
+		method: 'post'
+  })
+}
+
 export const update = (url, data = {}) => {
   return http.request({
     url: url + '/Update',

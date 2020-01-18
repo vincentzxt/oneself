@@ -49,13 +49,12 @@
 				getGlobalData.getBaseProduct()
 				getGlobalData.getProductCategory()
 			} else {
-				// uni.reLaunch({
-				// 	url: '/pages/my/my'
-				// })
+				 uni.reLaunch({
+				 	url: '/pages/my/my'
+				 })
 			}
 		},
 		onShow(){
-			console.log(this.promoterid);
 			uni.setStorage({
 			    key: 'promoterid',
 			    data: this.promoterid,

@@ -18,6 +18,8 @@ export default {
 	'add': '\ue8e1',
 	'back': '\ue8ef',
 	'arrow': '\ue8f1',
+	'arrow-down': '\ue8f2',
+	'arrow-up': '\ue8f5',
 	'location': '\ue8fe',
 	'location-fill': '\ue8ff',
 	'data': '\ue902',
