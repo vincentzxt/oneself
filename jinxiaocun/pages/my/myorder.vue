@@ -7,19 +7,24 @@
 	<view class="main">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
-				<view>订单号：<text>{{item.ordercode}}</text></view>
-				<view><text>¥{{item.orderamount}}</text></view>
+				<view>订单号：<text style="font-weight: 600;">{{item.ordercode}}</text></view>
 			</view>
 			<view class="list-between">
-					<text>订单状态</text>
+					<view>商名名称：<text>{{item.ordertitle}}</text></view>
+			</view>
+			<view class="list-between">
+				 <view>订单金额：<text>¥{{item.orderamount}}</text></view>
 					<text class="payment" v-bind:class="item.orderstatus==0?'payment-blue':'payment-green'">{{OrderStatusList[item.orderstatus]}}</text>
 			</view>
-			<view class="list-center">
-				<text>{{item.description}}</text>
+			<view class="list-between">
+				 <view>付款类型：<text>{{PayTypeList[item.paytype]}}</text></view>
+				  <view>购买时长：<text>{{item.daycount}}天</text></view>
 			</view>
 			<view class="list-between">
-					<view class="list_bottom_box_item"><text>开始日期：{{item.startDate}}</text></view>
-					<view class="list_bottom_box_item"><text>到期日期：{{item.expireDate}}</text></view>
+					<view class="list_bottom_box_item"><text>下单时间：{{item.createtime}}</text></view>
+			</view>
+			<view class="list-between">
+					<view class="list_bottom_box_item"><text>付款时间：{{item.paysuccesstime || ''}}</text></view>
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
@@ -42,25 +47,15 @@ export default {
 	data() {
 		return {
 			title: '我的订单',
-			dataList: [{
-				ordercode:'SC2020010230003',
-				orderamount:'600',
-				payment:'微信',
-				description:'可以通过微信开发者工具切换pages.json中condition配置的页面，或者关闭微信开发者工具，然后再从HBuilderX中启动指定页面',
-				orderstatus:0,
-				startDate:'2019-11-20',
-				expireDate:'2020-11-20'
-			},
-			{
-				ordercode:'SC2020010230004',
-				orderamount:'800',
-				payment:'微信',
-				description:'可以通过微信开发者工具切换pages.json中condition配置的页面，或者关闭微信开发者工具，然后再从HBuilderX中启动指定页面',
-				orderstatus:1,
-				startDate:'2019-11-20',
-				expireDate:'2020-11-20'
-			}],
-			OrderStatusList:['待支付','已支付']
+			dataList: [],
+			OrderStatusList:['待支付','已支付'],
+			PayTypeList:{
+				'0': '',
+				'1': '银行账号',
+				'2': '微信',
+				'3': '支付宝',
+				'4': '现金'
+			}
 		};
 	},
 	onLoad(){},
@@ -70,7 +65,7 @@ export default {
 				url:'/pages/my/login/login'
 			})
 		};
-		// this.loadData();
+		this.loadData();
 	},
 	methods: {
 		handleRefreshPage() {
@@ -88,6 +83,10 @@ export default {
 			});
 		},
 		loadData(){
+			const senddata ={
+					  'pageIndex':1,
+					  'pageRows':10
+			}
 			tokenpost(api.GetOrderList).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
 				  this.dataList = res.data.data.resultList

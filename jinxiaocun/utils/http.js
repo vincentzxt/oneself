@@ -41,7 +41,24 @@ http.interceptors.response.use(response => {
             // data: cookie.split(';')[0]
         // })
     // }
-    return response
+	// 
+	
+	const url =response.config.url;
+	if(url.includes("GetUserInfo")== false){
+		if (response.status == 200){
+			if(response.data.returnCode == '401'){		
+				uni.navigateTo({
+					url: '/pages/my/login/login'
+				});
+			}
+			if(response.data.returnCode == '402'){
+				uni.navigateTo({
+					url: '/pages/my/login/login'
+				});
+			}
+		}
+	}
+    return response;
 }, error => {
     return Promise.reject(error.message)
 })
