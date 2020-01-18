@@ -117,7 +117,7 @@
 					totalPrice: 0.00,
 				},
 				showModal: false,
-				title: '退款单',
+				title: '退货单',
 				curSelectPruduct: {},
 				checkedUnit: 0,
 				disableSubmit: true,

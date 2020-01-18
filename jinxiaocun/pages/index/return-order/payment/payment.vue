@@ -130,17 +130,20 @@
 						this.$refs.loading.close()
 						if (res.status == 200 && res.data.returnCode == '0000') {
 							uni.showToast({
+								icon: 'success',
 								title: '提交成功'
 							})
 						} else {
 							uni.showToast({
-								title: '提交失败'
+								icon: 'none',
+								title: res.data.returnMessage
 							})
 						}
 					}).catch(error => {
 						this.$refs.loading.close()
 						uni.showToast({
-							title: '提交失败'
+							icon: 'none',
+							title: error
 						})
 					})
 				} else {
@@ -149,17 +152,20 @@
 						this.$refs.loading.close()
 						if (res.status == 200 && res.data.returnCode == '0000') {
 							uni.showToast({
+								icon: 'success',
 								title: '提交成功'
 							})
 						} else {
 							uni.showToast({
-								title: '提交失败'
+								icon: 'none',
+								title: res.data.returnMessage
 							})
 						}
 					}).catch(error => {
 						this.$refs.loading.close()
 						uni.showToast({
-							title: '提交失败'
+							icon: 'none',
+							title: error
 						})
 					})
 				}
