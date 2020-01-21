@@ -6,7 +6,7 @@
 		<view class="main">
 			<view class="uni-title">分享内容</view>
 			<view class="uni-textarea"><textarea class="textarea" v-model="shareText" /></view>
-			<view class="uni-title">分享图片：</view>
+			<!-- <view class="uni-title">分享图片：</view> -->
 			<view class="uni-uploader" style="padding:15upx; background:#FFF;"><image class="uni-uploader__img" v-if="image" :src="image"></image></view>
 			<!-- #ifdef MP -->
 			<view class="uni-btn-v uni-common-mt"><button type="primary" style="background-color: #2d8cf0;" open-type="share" >分享</button></view>
@@ -15,16 +15,19 @@
 	</view>
 </template>
 <script>
+	import { post,tokenpost} from '@/api/user.js';
+	import { api } from '@/config/common.js';
 export default {
-	data() {
+		data() {
 		return {
 			title: '分享',
 			userId:0,
 			shareText: '微账通，邀请你一起体验！',
-			href: 'https://uniapp.dcloud.io',
+			href: '',
 			image: 'http://allchain.oss-cn-shanghai.aliyuncs.com/uploads/20190521/f57ebce8a72b823912904fe76eda0909.png',
 			shareType: 1,
-			providerList: []
+			providerList: [],
+			dataList:{}
 		};
 	},
 	computed: {
@@ -51,6 +54,7 @@ export default {
 	onUnload: function() {
 	},
 	onLoad: function() {
+		this.loadData();
 		this.userId= uni.getStorageSync('userInfo').userId;
 		console.log(this.userId);
 		uni.getProvider({
@@ -104,11 +108,28 @@ export default {
 			}
 		});
 	},
+	onShow() {
+		//this.loadData();
+	},
 	methods: {
 		handleNavbarClickLeft() {
 			uni.navigateBack({
 				delta: 1
 			});
+		},
+		loadData(){
+			tokenpost(api.GetCurrentActivity).then(res => {
+				if (res.status == 200 && res.data.returnCode == '0000') {
+				  this.shareText = res.data.data.activityexplain;
+				  this.image = res.data.data.imgurl;
+				} else {
+					this.$api.msg(res.data.returnMessage) 
+				}
+				this.loading =false;
+			}).catch(error => {
+				this.loading =false;
+				this.$api.msg('请求失败fail') 
+			})
 		},
 		shareSuccess(){
 			console.log('成功2222222');
@@ -133,6 +154,11 @@ export default {
 		height: 90%;
 		padding: 0 15upx;
 		background-color: #ffffff;
+		.uni-textarea{
+			margin:10upx 0;
+			padding: 10upx;
+			background-color: #f2f2f2;
+		}
 		.picker {
 			width: 100%;
 			display: flex;

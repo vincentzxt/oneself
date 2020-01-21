@@ -67,7 +67,7 @@ export default {
 			});
 		},
 		loadData(){
-				this.$refs.loading.open();
+			this.$refs.loading.open();
 			tokenpost(api.GetMyDayLogList).then(res => {
 				this.$refs.loading.close();
 				if (res.status == 200 && res.data.returnCode == '0000') {
