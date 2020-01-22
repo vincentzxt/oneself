@@ -10,6 +10,7 @@ export const api = {
 	cashAccount: '/api/CashAccount',
 	dept: '/api/Dept',
 	purPurchaseOrder: '/api/PurPurchaseOrder',
+	report: '/api/Report',
 	salesOrder: '/api/SalesOrder',
 	stkStock: '/api/StkStock',
 	token: '/api/Token',

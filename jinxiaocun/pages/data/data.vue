@@ -5,20 +5,6 @@
 			</uni-navbar>
 		</view>
 		<view class="main">
-			<view class="main-header">
-				<view class="main-header-wrap" :class="date == 'day' ? 'main-header-wrap-hover' : ''" @tap="handleDateChange('day')">
-					<text>今日</text>
-					<view :class="date == 'day' ? 'main-header-wrap-sline' : 'main-header-wrap-nline'"></view>
-				</view>
-				<view class="main-header-wrap" :class="date == 'yesterday' ? 'main-header-wrap-hover' : ''" @tap="handleDateChange('yesterday')">
-					<text>昨日</text>
-					<view :class="date == 'yesterday' ? 'main-header-wrap-sline' : 'main-header-wrap-nline'"></view>
-				</view>
-				<view class="main-header-wrap" :class="date == 'month' ? 'main-header-wrap-hover' : ''" @tap="handleDateChange('month')">
-					<text>本月</text>
-					<view :class="date == 'month' ? 'main-header-wrap-sline' : 'main-header-wrap-nline'"></view>
-				</view>
-			</view>
 			<view class="main-sale">
 				<view class="main-sale-header">
 					<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
@@ -26,16 +12,16 @@
 				</view>
 				<view class="main-sale-content">
 					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">50</text>
-						<text class="main-sale-content-block-des">销货(元)</text>
+						<text class="main-sale-content-block-title">{{datas.salesAmount}}</text>
+						<text class="main-sale-content-block-des">今日销货(元)</text>
 					</view>
 					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">5</text>
-						<text class="main-sale-content-block-des">退货(元)</text>
+						<text class="main-sale-content-block-title">{{datas.salesReturnAmount}}</text>
+						<text class="main-sale-content-block-des">今日退货(元)</text>
 					</view>
 					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">30</text>
-						<text class="main-sale-content-block-des">利润(元)</text>
+						<text class="main-sale-content-block-title">{{datas.grossProfit}}</text>
+						<text class="main-sale-content-block-des">今日利润(元)</text>
 					</view>
 				</view>
 			</view>
@@ -43,38 +29,78 @@
 				<canvas canvas-id="saleLine" id="saleLine" class="main-sale-charts"></canvas>
 			</view>
 			<view class="main-recpay">
-				<view class="main-recpay-wrap" style="width:45%">
-					<view>
-						<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
-						<text style="margin-left: 10px">应收金额</text>
+				<view class="main-recpay-header">
+					<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
+					<text style="margin-left: 10px">收付情况</text>
+				</view>
+				<view class="main-recpay-content">
+					<view class="main-recpay-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%">
+						<view>
+							<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
+							<text style="margin-left: 10px">应收金额</text>
+						</view>
+						<view class="main-recpay-content-wrap-content">
+							<text>￥{{datas.receivableAmount}}</text>
+						</view>
 					</view>
-					<view class="main-recpay-wrap-content">
-						<text>￥100</text>
+					<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;">
+						<view style="margin-left: 10px;">
+							<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
+							<text style="margin-left: 10px">应付金额</text>
+						</view>
+						<view class="main-recpay-content-wrap-content">
+							<text>￥{{datas.payableAmount}}</text>
+						</view>
+					</view>
+					<view class="main-recpay-content-wrap" style="width:45%">
+						<view>
+							<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
+							<text style="margin-left: 10px">已收金额</text>
+						</view>
+						<view class="main-recpay-content-wrap-content">
+							<text>￥{{datas.receivedAmount}}</text>
+						</view>
+					</view>
+					<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;width:45%;">
+						<view style="margin-left: 10px;">
+							<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
+							<text style="margin-left: 10px">已付金额</text>
+						</view>
+						<view class="main-recpay-content-wrap-content">
+							<text>￥{{datas.paymentAmount}}</text>
+						</view>
 					</view>
 				</view>
-				<view class="main-recpay-wrap" style="border-left:0.5px solid #f3f3f3;width:55%;">
-					<view style="margin-left: 10px;">
-						<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
-						<text style="margin-left: 10px">应付金额</text>
-					</view>
-					<view class="main-recpay-wrap-content">
-						<text>￥100</text>
-					</view>
-				</view>	
 			</view>
 		</view>
 		<view class="main-account">
-			<view class="main-account-header">
-				<uni-icons type="finance" color="#ff9900" size=20></uni-icons>
-				<text style="margin-left: 10px">收款情况</text>
-			</view>
-			<view class="main-account-content">
-				<canvas canvas-id="accountRing" id="accountRing" class="main-account-content-charts"></canvas>
-				<view class="main-account-content-lables">
-					<text class="main-account-content-lables-lable" v-for="(item, index) in accountRingArr" :key="index">{{item.data}}(元)</text>
-				</view>
-			</view>
-		</view>
+			<swiper class="main-account-swiper" :indicator-dots="true" :autoplay="true">
+				<swiper-item>
+					<view class="main-account-header">
+						<uni-icons type="finance" color="#ff9900" size=20></uni-icons>
+						<text style="margin-left: 10px">收款情况</text>
+					</view>
+					<view class="main-account-content">
+						<canvas canvas-id="receivableRing" id="receivableRing" class="main-account-content-charts"></canvas>
+						<view class="main-account-content-lables">
+							<text class="main-account-content-lables-lable" v-for="(item, index) in receivableRingArr" :key="index">{{item.data}}(元)</text>
+						</view>
+					</view>
+				</swiper-item>
+				<swiper-item>
+					<view class="main-account-header">
+						<uni-icons type="finance" color="#ff9900" size=20></uni-icons>
+						<text style="margin-left: 10px">付款情况</text>
+					</view>
+					<view class="main-account-content">
+						<canvas canvas-id="paymentRing" id="paymentRing" class="main-account-content-charts"></canvas>
+						<view class="main-account-content-lables">
+							<text class="main-account-content-lables-lable" v-for="(item, index) in paymentRingArr" :key="index">{{item.data}}(元)</text>
+						</view>
+					</view>
+				</swiper-item>
+			</swiper>
+		</view>	
 		<view class="main-warning">
 			<view class="main-warning-header">
 				<uni-icons type="yujing-fill" color="#ef5a62" size=20></uni-icons>
@@ -82,11 +108,11 @@
 			</view>
 			<view class="main-warning-content">
 				<view class="main-warning-content-wrap" style="background-color: #f9e6dc;">
-					<text class="main-warning-content-wrap-desc">100条</text>
+					<text class="main-warning-content-wrap-desc">{{datas.warningContactUnitQty}}条</text>
 					<text>客户预警</text>
 				</view>
 				<view class="main-warning-content-wrap" style="background-color: #e8fdd9;">
-					<text class="main-warning-content-wrap-desc">50条</text>
+					<text class="main-warning-content-wrap-desc">{{datas.warningStockQty}}条</text>
 					<text>库存预警</text>
 				</view>
 			</view>
@@ -99,13 +125,19 @@
 				</view>
 				<view class="main-top-wrap-content">
 					<view class="main-top-wrap-content-list">
-						<view class="main-top-wrap-content-list-item" v-for="(item, index) in top1" :key="index">
-							<uni-icons type="circle" color="#f29d6e" size=10></uni-icons>
-							<text style="margin-left: 10px;">{{item}}</text>
+						<view class="main-top-wrap-content-list-item" v-for="(item, index) in hotSellingProduct" :key="index">
+							<uni-icons type="circle" color="#f29d6e" size=10 style="width:10%;"></uni-icons>
+							<view class="main-top-wrap-content-list-item-text" style="width:90%;">
+								<text style="display:inline-block;width:50%;">{{item.productName}}</text>
+								<text style="display:inline-block;width:25%;">{{item.qty}}</text>
+								<text style="display:inline-block;width:25%;">{{item.amount}}(元)</text>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
+		</view>
+		<view class="main-top">
 			<view class="main-top-wrap">
 				<view class="main-top-wrap-header">
 					<uni-icons type="zhixiao" color="#51a9f3" size=20></uni-icons>
@@ -113,15 +145,20 @@
 				</view>
 				<view class="main-top-wrap-content">
 					<view class="main-top-wrap-content-list">
-						<view class="main-top-wrap-content-list-item" v-for="(item, index) in top2" :key="index">
-							<uni-icons type="circle" color="#51a9f3" size=10></uni-icons>
-							<text style="margin-left: 10px;">{{item}}</text>
+						<view class="main-top-wrap-content-list-item" v-for="(item, index) in slowSellingProduct" :key="index">
+							<uni-icons type="circle" color="#51a9f3" size=10 style="width:10%;"></uni-icons>
+							<view class="main-top-wrap-content-list-item-text" style="width:90%;">
+								<text style="display:inline-block;width:50%;">{{item.productName}}</text>
+								<text style="display:inline-block;width:25%;">{{item.qty}}</text>
+								<text style="display:inline-block;width:25%;">{{item.amount}}(元)</text>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view style="height: 5px;background-color: #ffffff;"></view>
+		<view style="height: 2px;background-color: #ffffff;"></view>
+		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
@@ -129,8 +166,11 @@
 	import uCharts from '@/components/u-charts/u-charts.min.js'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import { api } from '@/config/common.js'
+	import { query } from '@/api/common.js'
 	var scaleLine = null
-	var accountRing = null
+	var receivableRing = null
+	var paymentRing = null
 	export default {
 		components: {
 			uniList,
@@ -138,6 +178,7 @@
 		},
 		data() {
 			return {
+				datas: {},
 				title: '报表',
 				cWidth: '',
 				cHeight: '',
@@ -145,9 +186,12 @@
 				rHeight: '',
 				pixelRation: 1,
 				date: 'day',
-				accountRingArr: [],
-				top1: ['牛肉', '大葱', '皮蛋豆腐', '金针菇', '拖鞋'],
-				top2: ['猪肉', '白菜', '香肠', '羽绒服', '棉裤']
+				receivableRingArr: [],
+				paymentRingArr: [],
+				receivableRingTotal: 0,
+				paymentRingTotal: 0,
+				hotSellingProduct: [],
+				slowSellingProduct: []
 			};
 		},
 		onLoad() {
@@ -155,8 +199,19 @@
 			this.cHeight = uni.upx2px(400)
 			this.rWidth = uni.upx2px(550)
 			this.rHeight = uni.upx2px(400)
-			this.getDayData()
-			this.getAccountData()
+			this.$refs.loading.open()
+			query(api.report).then(res => {
+				this.$refs.loading.close()
+				if (res.status == 200 && res.data.returnCode == '0000') {
+					this.datas = res.data.data
+					this.hotSellingProduct = this.datas.hotSellingProduct
+					this.slowSellingProduct = this.datas.slowSellingProduct
+					this.getDayData()
+					this.getAccountData()
+				}
+			}).catch(error => {
+				this.$refs.loading.close()
+			})
 		},
 		onShow() {
 		},
@@ -205,8 +260,8 @@
 					}
 				})
 			},
-			showAccountRing(canvasId, chartData) {
-				accountRing = new uCharts({
+			showReceivableRing(canvasId, chartData) {
+				receivableRing = new uCharts({
 					canvasId: canvasId,
 					type: 'ring',
 					fontSize:11,
@@ -223,7 +278,7 @@
 							fontSize: 14
 					  },
 					title: {
-						name: '9999',
+						name: this.receivableRingTotal,
 						color: '#1c2438',
 						fontSize: 20,
 						offsetY:-8
@@ -249,34 +304,89 @@
 					height: this.rHeight * this.pixelRation,
 					dataLabel: false
 				})
-				this.accountRingArr = accountRing.opts.series
+				this.receivableRingArr = receivableRing.opts.series
+			},
+			showPaymentRing(canvasId, chartData) {
+				paymentRing = new uCharts({
+					canvasId: canvasId,
+					type: 'ring',
+					fontSize:11,
+					colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'],
+					legend:{
+					    show:true,
+					    position:'right',
+					    float:'center',
+					    itemGap:10,
+					    padding:5,
+					    lineHeight:26,
+					    margin:5,
+					    borderWidth :1,
+							fontSize: 14
+					  },
+					title: {
+						name: this.paymentRingTotal,
+						color: '#1c2438',
+						fontSize: 20,
+						offsetY:-8
+					},
+					subtitle: {
+						name: '付款金额(元)',
+						color: '#808695',
+						fontSize: 12,
+						offsetY:-3
+					},
+					extra: {
+						pie: {
+							offsetAngle: -45,
+							ringWidth: 10,
+							labelWidth:15
+						}
+					},
+					background:'#FFFFFF',
+					pixelRatio:1,
+					series: chartData.series,
+					animation: true,
+					width: this.rWidth * this.pixelRation,
+					height: this.rHeight * this.pixelRation,
+					dataLabel: false
+				})
+				this.paymentRingArr = paymentRing.opts.series
 			},
 			getDayData() {
 				let saleData={categories:[], series:[]}
-				saleData.categories = ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00']
-				saleData.series= [
+				saleData.series = [
 					{
 						name: '销售额',
-						data: [100, 130, 150, 130, 120, 80],
+						data: [],
 						color: '#facc14'
 					},
 					{
 						name: '利润',
-						data: [50, 80, 100, 80, 50, 30],
+						data: [],
 						color: '#2fc25b'
 					}
 				]
+				for (let item of this.datas.last7DaySalesList) {
+					saleData.categories.push(item.date)
+					saleData.series[0].data.push(parseInt(item.salesAmount))
+					saleData.series[1].data.push(parseInt(item.grossProfit))
+				}
+				console.log(saleData)
 				this.showSaleLine("saleLine", saleData)
 			},
 			getAccountData() {
-				let accountData = { series:[] }
-				accountData.series = [
-					{ name:'现金', data: 600 },
-					{ name:'微信', data: 100 },
-					{ name:'支付宝', data: 200 },
-					{ name:'信用卡', data: 300 }
-				]
-				this.showAccountRing("accountRing", accountData)
+				let receivableData = { series:[] }
+				let paymentData = { series:[] }
+				for (let item of this.datas.receivedList) {
+					receivableData.series.push({ name: item.cashaccounttypedisplay, data: item.amount })
+					this.receivableRingTotal += item.amount
+				}
+				for (let item of this.datas.paymentList) {
+					paymentData.series.push({ name: item.cashaccounttypedisplay, data: item.amount })
+					this.paymentRingTotal += item.amount
+				}
+				this.showReceivableRing("receivableRing", receivableData)
+				this.showPaymentRing("paymentRing", paymentData)
 			}
 		}
 	}
@@ -286,40 +396,9 @@
 	.container {
 		height: 100vh;
 		width: 100vw;
-		.header {
-			
-		}
 		.main {
 			margin-top: $uni-spacing-col-base;
-			&-header {
-				background-color: #FFFFFF;
-				display: flex;
-				justify-content: space-around;
-				align-items: center;
-				&-wrap {
-					display: flex;
-					width: 33.33%;
-					flex-direction: column;
-					align-items: center;
-					margin-top: $uni-spacing-col-lg;
-					margin-bottom: $uni-spacing-col-lg;
-					&-hover {
-						color: #f29c6e;
-					}
-					&-sline {
-						width: 30px;
-						height: 3px;
-						background-color: #f29c6e;
-					}
-					&-nline {
-						width: 30px;
-						height: 3px;
-						background-color: #FFFFFF;
-					}
-				}
-			}
 			&-sale {
-				margin-top: $uni-spacing-col-lg;
 				background-color: #FFFFFF;
 				&-header {
 					margin-left: 10px;
@@ -362,24 +441,38 @@
 				margin-top: $uni-spacing-col-lg;
 				background-color: #FFFFFF;
 				font-size: $uni-font-size-sm;
-				display: flex;
-				&-wrap {
+				&-header {
 					margin-left: 10px;
 					display: flex;
-					flex-direction: column;
+					align-items: center;
 					padding: 10px 0;
-					&-content {
+				}
+				&-content {
+					display: flex;
+					align-items: center;
+					flex-wrap: wrap;
+					&-wrap {
+						margin-left: 10px;
 						display: flex;
-						justify-content: center;
-						font-size: $uni-font-size-base;
-						color: $uni-title-color;
-						margin-top: 10px;
+						flex-direction: column;
+						padding: 10px 0;
+						&-content {
+							display: flex;
+							justify-content: center;
+							font-size: $uni-font-size-base;
+							color: $uni-title-color;
+							margin-top: 10px;
+						}
 					}
 				}
 			}
 			&-account {
 				margin-top: $uni-spacing-col-lg;
 				background-color: #FFFFFF;
+				&-swiper {
+					width: 750upx;
+					height: 500upx;
+				}
 				&-header {
 					margin-left: 10px;
 					display: flex;
@@ -440,10 +533,7 @@
 			&-top {
 				margin-top: $uni-spacing-col-lg;
 				background-color: #FFFFFF;
-				display: flex;
-				justify-content: space-around;
 				&-wrap {
-					width: 45%;
 					display: flex;
 					flex-direction: column;
 					font-size: $uni-font-size-sm;
@@ -456,10 +546,13 @@
 						border-bottom: 0.5px solid #f3f3f3;
 					}
 					&-content {
+						margin-bottom: 10px;
 						&-list {
 							margin-left: 40px;
 							&-item {
 								margin-top: 10px;
+								display: flex;
+								align-items: center;
 							}
 						}
 					}
