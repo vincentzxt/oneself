@@ -57,6 +57,9 @@ export default {
 		});
 		console.log(uni.getStorageSync('promoterid'));
 	},
+	onUnload(){
+		uni.$off('tokenchange')
+	},
 	methods: {
 		load(){
 			getGlobalData.getCurrentUnit();
