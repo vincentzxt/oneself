@@ -114,6 +114,10 @@
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.searchDatas = this.searchDatas.map((item) => {
 							if (item.purchaseorderid == id && !item.productList) {
+								for (let d of res.data.data.detailModels) {
+									d.billid = d.purchaseorderdetailid
+									d.purchaseorderdetailid = 0
+								}
 								this.$set(item, 'productList', res.data.data.detailModels)
 							}
 							return item
@@ -146,6 +150,10 @@
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.searchDatas = this.searchDatas.map((item) => {
 							if (item.salesorderid == id && !item.productList) {
+								for (let d of res.data.data.detailModels) {
+									d.billid = d.salesorderdetailid
+									d.salesorderdetailid = 0
+								}
 								this.$set(item, 'productList', res.data.data.detailModels)
 							}
 							return item
