@@ -201,6 +201,11 @@ export default {
 						if (res.data.returnCode == '0000') {
 							this.dataList = res.data.data;
 							this.login_status = true;
+							if(this.dataList.companyname ==""){
+								uni.navigateTo({
+									url: '../my/set'
+								});
+							}
 						} else {
 							//this.$api.msg(res.data.returnMessage);
 							this.dataList = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };

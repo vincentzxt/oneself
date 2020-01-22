@@ -34,6 +34,7 @@
 		{ "path" : "pages/my/myorder" },
 		{ "path" : "pages/my/user/user" },
 		{ "path" : "pages/my/user/useradd" },
+		{ "path" : "pages/my/user/useredit" },
 		{ "path" : "pages/my/account/accountlist" },
 		{ "path" : "pages/my/account/recharge" },
 		{ "path" : "pages/my/login/editPassword" },

@@ -21,7 +21,7 @@
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
 		</scroll-view>
 	</view>
-	<view class="footer">
+	<view class="footer"> 
 		<button class="fill" style="background-color: #2d8cf0;" type="primary"  @tap="handleAdd">新增</button>
 	</view>
 	<cu-loading ref="loading"></cu-loading>

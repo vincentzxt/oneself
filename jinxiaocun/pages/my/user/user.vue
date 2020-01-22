@@ -6,11 +6,11 @@
 	</view>
 	<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-		<view class="top"><view><text class="text">权限设置</text> </view><view><button type="default" size="mini" @tap="handleAdd">增加</button></view></view>
-		<view v-for="(item,index) in dataList" :key="index" class="list-item">
+		<!-- <view class="top"><view><text class="text">权限设置</text> </view><view><button type="default" size="mini" @tap="handleAdd">增加</button></view></view> -->
+		<view v-for="(item,index) in dataList" :key="index" class="list-item" @click="handleEdit(item)">
 		<cu-panel>
 			<cu-cell-group>
-			<cu-cell :title="item.realname">
+			<cu-cell :title="item.loginname">
 				<radio-group @change="handleForbiddenChanage" :id="index">
 					<radio color="#2db7f5" value=0 :checked="item.isdelete == 0">否</radio>
 					<radio color="#2db7f5" value=1 :checked="item.isdelete == 1" style="margin-left: 10px;">是</radio>
@@ -22,6 +22,9 @@
 	
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
 		</scroll-view>
+	</view>
+	<view class="footer">
+		<button class="fill" style="background-color: #2d8cf0;" type="primary"  @tap="handleAdd">新增</button>
 	</view>
 </view>
 </template>
@@ -58,11 +61,16 @@ export default {
 		this.loadData();
 	},
 	methods: {
-
 		handleAdd() {
 			uni.navigateTo({
 				url:'/pages/my/user/useradd'
 			})
+		},
+		handleEdit(val){
+			uni.navigateTo({
+				url:'/pages/my/user/useredit'
+			})
+			
 		},
 		handleNavbarClickLeft() {
 			uni.navigateBack({
@@ -73,7 +81,6 @@ export default {
 			this.setUserLock(val.currentTarget.id,val.detail.value);
 		},
 		setUserLock(id,value){
-			
 		},
 		loadData(){
 			tokenpost(api.GetUserList).then(res => {
