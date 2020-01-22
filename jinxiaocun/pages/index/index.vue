@@ -41,21 +41,11 @@ export default {
 		};
 	},
 	onLoad(option) {
-		uni.$on('tokenchage', function(data) {
-			if (uni.getStorageSync('userInfo')) {
-				getGlobalData.getCurrentUnit();
-				getGlobalData.getBaseProduct();
-				getGlobalData.getProductCategory();
-			} else {
-				uni.reLaunch({
-					url: '/pages/my/my'
-				});
-			}
-		});
-
-		if (option.promoterid) {
-			this.promoterid = option.promoterid;
-		}
+		 this.load();
+		 uni.$on('tokenchange', this.load);
+		 if (option.promoterid) {
+				this.promoterid = option.promoterid;
+		 }
 	},
 	onShow() {
 		uni.setStorage({
@@ -68,6 +58,11 @@ export default {
 		console.log(uni.getStorageSync('promoterid'));
 	},
 	methods: {
+		load(){
+			getGlobalData.getCurrentUnit();
+			getGlobalData.getBaseProduct();
+			getGlobalData.getProductCategory();
+		},
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},

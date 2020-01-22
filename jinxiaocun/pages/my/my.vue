@@ -57,6 +57,7 @@ export default {
 	data() {
 		return {
 			title: '我的',
+			changestatus:0,
 			login_status: false,
 			dataList: {
 				loginname: '',
@@ -69,10 +70,18 @@ export default {
 			}
 		};
 	},
-	onLoad() {},
+	onLoad() {
+		uni.$on('changecompany', this.loadData)
+		uni.$on('tokenchange', this.loadData)
+		this.loadData();
+	},
 	onShow() {
 		//this.login_status = this.$api.login_status();
-		this.loadData();
+		//this.loadData();
+	},
+	onUnload(){
+		uni.$off('changecompany')
+		uni.$off('tokenchange')
 	},
 	methods: {
 		handleRefreshPage() {
