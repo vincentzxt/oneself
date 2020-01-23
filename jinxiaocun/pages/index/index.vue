@@ -42,7 +42,7 @@ export default {
 	},
 	onLoad(option) {
 		 this.load();
-		 uni.$on('tokenchange', this.load);
+		 // uni.$on('tokenchange', this.load);
 		 if (option.promoterid) {
 				this.promoterid = option.promoterid;
 		 }
@@ -58,7 +58,7 @@ export default {
 		console.log(uni.getStorageSync('promoterid'));
 	},
 	onUnload(){
-		uni.$off('tokenchange')
+		// uni.$off('tokenchange')
 	},
 	methods: {
 		load(){

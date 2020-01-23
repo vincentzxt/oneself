@@ -17,6 +17,11 @@
 					</cu-cell>
 				</cu-panel>
 				<cu-panel>
+					<cu-cell title="库存列表" isLink url="./stock-list/stock-list">
+						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel>
 					<cu-cell title="出库单" isLink url="./inventory/inventory">
 						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
 					</cu-cell>

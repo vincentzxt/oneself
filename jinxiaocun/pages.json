@@ -44,7 +44,11 @@
 		{ "path" : "pages/stock/inventory/inventory" },
 		{ "path" : "pages/my/account/accountedit" },
 		{	"path" : "pages/my/account/accountdetail" }
-	],
+	    ,{
+            "path" : "pages/stock/stock-list/stock-list",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

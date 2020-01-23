@@ -5,6 +5,7 @@
 		</uni-navbar>
 	</view>
 	<view class="main">
+		<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
 				<view>订单号：<text style="font-weight: 600;">{{item.ordercode}}</text></view>
@@ -28,6 +29,8 @@
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
+		<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
+		</scroll-view>
 	</view>
 </view>
 </template>
@@ -35,17 +38,20 @@
 <script>
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
-// import adCell from '@/component/ADCell/ADCell.vue';
+import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue"
 import { post,tokenpost} from '@/api/user.js';
 import { api } from '@/config/common.js';
 export default {
 	components: {
-		// adCell
+		uniLoadMore,
 		uniList,
 		uniListItem
 	},
 	data() {
 		return {
+			loadmore:'more',
+			pageIndex: 0,
+			pageRows: 15,
 			title: '我的订单',
 			dataList: [],
 			OrderStatusList:['待支付','已支付'],
@@ -58,14 +64,16 @@ export default {
 			}
 		};
 	},
-	onLoad(){},
+	onLoad(){
+		this.loadData();
+	},
 	onShow(){
 		if(!uni.getStorageSync('userInfo')){
 			uni.reLaunch({
 				url:'/pages/my/login/login'
 			})
 		};
-		this.loadData();
+		
 	},
 	methods: {
 		handleRefreshPage() {
@@ -83,21 +91,34 @@ export default {
 			});
 		},
 		loadData(){
-			const senddata ={
-					  'pageIndex':1,
-					  'pageRows':10
-			}
-			tokenpost(api.GetOrderList).then(res => {
+			this.loadmore = 'loading',
+			this.$refs.loading.open();
+			const senddata = {
+				pageIndex: this.pageIndex+1,
+				pageRows: this.pageRows
+			};
+			tokenpost(api.GetOrderList,senddata).then(res => {
+				this.$refs.loading.close();
 				if (res.status == 200 && res.data.returnCode == '0000') {
-				  this.dataList = res.data.data.resultList
+					if(res.data.data.resultList.length ===0){
+						this.loadmore = "noMore"
+						return;
+					}else{
+						this.dataList =this.dataList.concat(res.data.data.resultList);
+						this.pageIndex = this.pageIndex+1 ;
+						this.loadmore = "more"
+					}
+					
 				} else {
-					this.$api.msg(res.data.returnMessage) 
+					this.loadmore = 'more',
+					this.$api.msg(res.data.returnMessage);
 				}
-				this.loading =false;
-			}).catch(error => {
-				this.loading =false;
-				this.$api.msg('请求失败fail') 
 			})
+			.catch(error => {
+				this.loadmore = 'more',
+				this.$refs.loading.close();
+				this.$api.msg('请求失败fail');
+			});
 			
 		}
 	}
@@ -116,7 +137,7 @@ export default {
 		}
 		.main {
 			font-size: $uni-font-size-base;
-			height: 83%;
+			height: 90%;
 			padding: 15upx;
 			.cu-form-group .title {
 				min-width: calc(5em + 30px);

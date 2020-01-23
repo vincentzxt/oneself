@@ -11,6 +11,7 @@
 				<view class="flex_grow" v-if="login_status">
 					<view class="size_16">{{ dataList.loginname }}({{ dataList.telephone }})</view>
 					<view class="size_16">{{ dataList.companyname }}</view>
+					<view class="size_16">总积分：{{ dataList.integral }}</view>
 					<view class="size_16">到期日期：{{ dataList.expiredate }}</view>
 				</view>
 				<view class="flex_grow" v-if="!login_status">
@@ -63,6 +64,7 @@ export default {
 				loginname: '',
 				realname: '',
 				telephone: '',
+				integral:0,
 				companyname: '',
 				expiredate: '',
 				daycount: 0,
@@ -72,7 +74,6 @@ export default {
 	},
 	onLoad() {
 		uni.$on('changecompany', this.loadData)
-		uni.$on('tokenchange', this.loadData)
 		this.loadData();
 	},
 	onShow() {
@@ -81,7 +82,6 @@ export default {
 	},
 	onUnload(){
 		uni.$off('changecompany')
-		uni.$off('tokenchange')
 	},
 	methods: {
 		handleRefreshPage() {

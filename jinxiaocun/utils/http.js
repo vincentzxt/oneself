@@ -47,12 +47,12 @@ http.interceptors.response.use(response => {
 	if(url.includes("GetUserInfo")== false){
 		if (response.status == 200){
 			if(response.data.returnCode == '401'){		
-				uni.navigateTo({
+				uni.reLaunch({
 					url: '/pages/my/login/login'
 				});
 			}
 			if(response.data.returnCode == '402'){
-				uni.navigateTo({
+				uni.reLaunch({
 					url: '/pages/my/login/login'
 				});
 			}
