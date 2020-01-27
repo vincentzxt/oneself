@@ -7722,11 +7722,15 @@ var _common2 = __webpack_require__(/*! @/config/common.js */ 56);var _default =
   curPage: '',
   getCurrentPage: function getCurrentPage() {
     var pages = getCurrentPages();
+    console.log(pages);
     this.curPage = pages[pages.length - 1];
+    console.log(this.curPage);
   },
   getCurrentUnit: function getCurrentUnit() {var _this = this;
+    console.log('------getCurrentUnit1-----');
     this.getCurrentPage();
     this.curPage.$vm.$refs.loading.open();
+    console.log('------getCurrentUnit2-----');
     return new Promise(function (resolve, reject) {
       (0, _common.query)(_common2.api.contactUnit).then(function (res) {
         console.log("#currentUnit#");
@@ -8907,7 +8911,23 @@ module.exports = function transformData(data, headers, fns) {
 
 /***/ }),
 
-/***/ 357:
+/***/ 36:
+/*!**********************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/cancel/isCancel.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+/***/ }),
+
+/***/ 365:
 /*!********************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/stkstock.js ***!
   \********************************************************************************/
@@ -8924,22 +8944,6 @@ var stockCheck = function stockCheck(url) {var data = arguments.length > 1 && ar
     method: 'post' });
 
 };exports.stockCheck = stockCheck;
-
-/***/ }),
-
-/***/ 36:
-/*!**********************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/cancel/isCancel.js ***!
-  \**********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-};
 
 /***/ }),
 
@@ -9091,70 +9095,6 @@ exports.uptime = exports.memoryUsage =
 exports.uvCounters = function() {};
 exports.features = {};
 
-
-/***/ }),
-
-/***/ 388:
-/*!**********************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'sale': "\uE600",
-  'cost': "\uE604",
-  'purchase': "\uE887",
-  'purchase-fill': "\uE888",
-  'stock': "\uE88F",
-  'stock-fill': "\uE890",
-  'customer': "\uE8A8",
-  'customer-fill': "\uE8A9",
-  'multiple': "\uE8B5",
-  'multiple-fill': "\uE8B4",
-  'search': "\uE8B8",
-  'home': "\uE8BA",
-  'home-fill': "\uE8B9",
-  'user': "\uE8C8",
-  'user-fill': "\uE8C9",
-  'profile': "\uE8CA",
-  'add': "\uE8E1",
-  'back': "\uE8EF",
-  'arrow': "\uE8F1",
-  'arrow-down': "\uE8F2",
-  'arrow-up': "\uE8F5",
-  'location': "\uE8FE",
-  'location-fill': "\uE8FF",
-  'data': "\uE902",
-  'data-fill': "\uE905",
-  'phone': "\uE8BD",
-  'mobile': "\uE8DC",
-  'product': "\uE8A1",
-  'product-fill': "\uE8A0",
-  'finance': "\uE8AF",
-  'finance-fill': "\uE8AE",
-  'edit': "\uE8CC",
-  'edit-fill': "\uE8CD",
-  'refresh': "\uE8FC",
-  'delete': "\uE775",
-  'email': "\uE60F",
-  'company': "\uEDB4",
-  'contacts': "\uE605",
-  'classify': "\uE898",
-  'classify-fill': "\uE897",
-  'unit': "\uE8A3",
-  'unit-fill': "\uE8A2",
-  'receipt': "\uE668",
-  'payment': "\uE691",
-  'return-order': "\uE6FE",
-  'chart-line': "\uE906",
-  'chart-column': "\uE904",
-  'yujing': "\uE8ED",
-  'yujing-fill': "\uE8EC",
-  'rexiao': "\uE606",
-  'zhixiao': "\uE607",
-  'circle': "\uE601" };exports.default = _default;
 
 /***/ }),
 
@@ -9426,6 +9366,70 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
     }
   });
 };
+
+/***/ }),
+
+/***/ 404:
+/*!**********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  'sale': "\uE600",
+  'cost': "\uE604",
+  'purchase': "\uE887",
+  'purchase-fill': "\uE888",
+  'stock': "\uE88F",
+  'stock-fill': "\uE890",
+  'customer': "\uE8A8",
+  'customer-fill': "\uE8A9",
+  'multiple': "\uE8B5",
+  'multiple-fill': "\uE8B4",
+  'search': "\uE8B8",
+  'home': "\uE8BA",
+  'home-fill': "\uE8B9",
+  'user': "\uE8C8",
+  'user-fill': "\uE8C9",
+  'profile': "\uE8CA",
+  'add': "\uE8E1",
+  'back': "\uE8EF",
+  'arrow': "\uE8F1",
+  'arrow-down': "\uE8F2",
+  'arrow-up': "\uE8F5",
+  'location': "\uE8FE",
+  'location-fill': "\uE8FF",
+  'data': "\uE902",
+  'data-fill': "\uE905",
+  'phone': "\uE8BD",
+  'mobile': "\uE8DC",
+  'product': "\uE8A1",
+  'product-fill': "\uE8A0",
+  'finance': "\uE8AF",
+  'finance-fill': "\uE8AE",
+  'edit': "\uE8CC",
+  'edit-fill': "\uE8CD",
+  'refresh': "\uE8FC",
+  'delete': "\uE775",
+  'email': "\uE60F",
+  'company': "\uEDB4",
+  'contacts': "\uE605",
+  'classify': "\uE898",
+  'classify-fill': "\uE897",
+  'unit': "\uE8A3",
+  'unit-fill': "\uE8A2",
+  'receipt': "\uE668",
+  'payment': "\uE691",
+  'return-order': "\uE6FE",
+  'chart-line': "\uE906",
+  'chart-column': "\uE904",
+  'yujing': "\uE8ED",
+  'yujing-fill': "\uE8EC",
+  'rexiao': "\uE606",
+  'zhixiao': "\uE607",
+  'circle': "\uE601" };exports.default = _default;
 
 /***/ }),
 
@@ -9937,7 +9941,32 @@ function nonStandardBrowserEnv() {
 
 /***/ }),
 
-/***/ 471:
+/***/ 48:
+/*!****************************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+               * Determines whether the specified URL is absolute
+               *
+               * @param {string} url The URL to test
+               * @returns {boolean} True if the specified URL is absolute, otherwise false
+               */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+/***/ }),
+
+/***/ 487:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/province.js ***!
   \****************************************************************************************************************/
@@ -10091,7 +10120,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 472:
+/***/ 488:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/city.js ***!
   \************************************************************************************************************/
@@ -11609,7 +11638,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 473:
+/***/ 489:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/area.js ***!
   \************************************************************************************************************/
@@ -24168,31 +24197,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 48:
-/*!****************************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-               * Determines whether the specified URL is absolute
-               *
-               * @param {string} url The URL to test
-               * @returns {boolean} True if the specified URL is absolute, otherwise false
-               */
-module.exports = function isAbsoluteURL(url) {
-  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
-  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
-  // by any combination of letters, digits, plus, period, or hyphen.
-  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
-};
-
-/***/ }),
-
 /***/ 49:
 /*!**************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/combineURLs.js ***!
@@ -25562,7 +25566,7 @@ var cloneObj = function cloneObj(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/stock/stock": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/stock/early-stage/early-stage": {}, "pages/stock/inventory/inventory": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/stock/stock": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/stock/early-stage/early-stage": {}, "pages/stock/inventory/inventory": {}, "pages/stock/list/list": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 

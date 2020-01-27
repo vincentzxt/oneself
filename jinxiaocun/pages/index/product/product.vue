@@ -3,7 +3,7 @@
 		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
-			<uni-search-bar @input="handleSearch" placeholder="输入速查码/名称" cancelButton="always"></uni-search-bar>
+			<uni-search-bar @input="handleSearch" placeholder="输入速查码/名称"></uni-search-bar>
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="main-left">

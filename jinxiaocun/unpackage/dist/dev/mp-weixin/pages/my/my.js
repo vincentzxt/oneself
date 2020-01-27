@@ -185,7 +185,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _user = __webpack_require__(/*! @/api/user.js */ 229);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 230));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 438));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 445));};var _default =
+var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 230));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 454));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 461));};var _default =
 {
   components: {
     // adCell
@@ -339,6 +339,11 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
           if (res.data.returnCode == '0000') {
             _this.dataList = res.data.data;
             _this.login_status = true;
+            if (_this.dataList.companyname == "") {
+              uni.navigateTo({
+                url: '../my/set' });
+
+            }
           } else {
             //this.$api.msg(res.data.returnMessage);
             _this.dataList = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };

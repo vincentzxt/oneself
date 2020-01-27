@@ -166,7 +166,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _user = __webpack_require__(/*! @/api/user.js */ 229);
-var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 490));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 506));};var _default =
 {
   data: function data() {
     return {
@@ -229,7 +229,8 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
             key: 'userInfo',
             data: userInfo,
             success: function success() {
-              uni.switchTab({
+              //uni.$emit('tokenchage',{msg:'token变化了'});
+              uni.reLaunch({
                 url: '/pages/index/index' });
 
             } });

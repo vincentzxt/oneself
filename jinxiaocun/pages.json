@@ -42,9 +42,10 @@
 		{ "path" : "pages/my/share/share" },
 		{ "path" : "pages/stock/early-stage/early-stage" },
 		{ "path" : "pages/stock/inventory/inventory" },
+		{ "path" : "pages/stock/list/list" },
 		{ "path" : "pages/my/account/accountedit" },
 		{	"path" : "pages/my/account/accountdetail" }
-	],
+   ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

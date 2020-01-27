@@ -94,10 +94,10 @@
 									    key: 'userInfo',
 									    data: userInfo,
 									    success: function () {
-											uni.$emit('tokenchage',{msg:'token变化了'});
-									        uni.switchTab({
+											//uni.$emit('tokenchage',{msg:'token变化了'});
+									        uni.reLaunch({
 									        	url:'/pages/index/index'
-									        }) 
+									        })
 									    }
 									});
 					} else {

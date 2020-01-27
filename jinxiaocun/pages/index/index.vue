@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<uni-navbar :title="title" leftText="微账通" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleRefreshPage"></uni-navbar>
+		<uni-navbar :title="title" leftText="一格云单" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleRefreshPage"></uni-navbar>
 		<uni-grid :column="2" :square="false">
 			<uni-grid-item v-for="(item, index) in lists" :key="index" @tap="handleGridChange(item)" :index="index">
 				<view class="item-content">
-					<uni-icons :type="item.icon" :color="item.color" size="32"></uni-icons>
+					<uni-icons :type="item.icon" :color="item.color" size="36"></uni-icons>
 					<text class="item-content-text">{{ item.name }}</text>
 				</view>
 			</uni-grid-item>
@@ -41,18 +41,15 @@ export default {
 		};
 	},
 	onLoad(option) {
-		uni.$on('tokenchage', function(data) {
-			if (uni.getStorageSync('userInfo')) {
-				getGlobalData.getCurrentUnit();
-				getGlobalData.getBaseProduct();
-				getGlobalData.getProductCategory();
-			} else {
-				uni.reLaunch({
-					url: '/pages/my/my'
-				});
-			}
-		});
-
+		if (uni.getStorageSync('userInfo')) {
+			getGlobalData.getCurrentUnit();
+			getGlobalData.getBaseProduct();
+			getGlobalData.getProductCategory();
+		} else {
+			uni.reLaunch({
+				url: '/pages/my/my'
+			});
+		}
 		if (option.promoterid) {
 			this.promoterid = option.promoterid;
 		}

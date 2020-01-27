@@ -30,6 +30,7 @@
     "pages/my/myorder",
     "pages/my/user/user",
     "pages/my/user/useradd",
+    "pages/my/user/useredit",
     "pages/my/account/accountlist",
     "pages/my/account/recharge",
     "pages/my/login/editPassword",
@@ -37,6 +38,7 @@
     "pages/my/share/share",
     "pages/stock/early-stage/early-stage",
     "pages/stock/inventory/inventory",
+    "pages/stock/list/list",
     "pages/my/account/accountedit",
     "pages/my/account/accountdetail"
   ],
@@ -79,5 +81,5 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap21.json"
 }

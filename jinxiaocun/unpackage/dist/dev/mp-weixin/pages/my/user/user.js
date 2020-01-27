@@ -167,8 +167,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _user = __webpack_require__(/*! @/api/user.js */ 229);
-var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 438));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 445));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 419));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 426));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 433));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 454));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 461));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 449));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -193,10 +196,15 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
     this.loadData();
   },
   methods: {
-
     handleAdd: function handleAdd() {
       uni.navigateTo({
         url: '/pages/my/user/useradd' });
+
+    },
+    handleEdit: function handleEdit(val) {
+      uni.navigateTo({
+        url: '/pages/my/user/useredit' });
+
 
     },
     handleNavbarClickLeft: function handleNavbarClickLeft() {
@@ -208,7 +216,6 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
       this.setUserLock(val.currentTarget.id, val.detail.value);
     },
     setUserLock: function setUserLock(id, value) {
-
     },
     loadData: function loadData() {var _this = this;
       (0, _user.tokenpost)(_common.api.GetUserList).then(function (res) {

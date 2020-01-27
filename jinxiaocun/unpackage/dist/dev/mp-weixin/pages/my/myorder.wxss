@@ -23,7 +23,7 @@
     height: 10%;
 }
 .container .main.data-v-3f21100c {
-    font-size: 32rpx;
+    font-size: 36rpx;
     height: 83%;
     padding: 15rpx;
 }

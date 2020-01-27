@@ -30,7 +30,7 @@
           align-items: center;
 }
 .item-content-text.data-v-1f1d1caa {
-    font-size: 36rpx;
+    font-size: 40rpx;
     margin-top: 10rpx;
 }
 
