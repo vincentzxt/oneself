@@ -27,7 +27,7 @@ const login_status = function (){
 	};
 }
 const login =function(){
-	uni.navigateTo({
+	uni.reLaunch({
 		url: '/pages/my/login/login'
 	});
 }

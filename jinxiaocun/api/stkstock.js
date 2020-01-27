@@ -7,3 +7,10 @@ export const stockCheck = (url, data = {}) => {
 		method: 'post'
   })
 }
+export const stockQuery = (url, data = {}) => {
+  return http.request({
+    url: url+'/Query',
+		data: data,
+		method: 'post'
+  })
+}

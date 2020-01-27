@@ -17,7 +17,11 @@
 					</cu-cell>
 				</cu-panel>
 				<cu-panel>
+<<<<<<< HEAD
 					<cu-cell title="库存列表" isLink url="./list/list">
+=======
+					<cu-cell title="库存列表" isLink url="./stock-list/stock-list">
+>>>>>>> dd54b4b5df030677e2cf1191e89945a4b59766e2
 						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
 					</cu-cell>
 				</cu-panel>

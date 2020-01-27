@@ -94,8 +94,12 @@
 									    key: 'userInfo',
 									    data: userInfo,
 									    success: function () {
+<<<<<<< HEAD
 											//uni.$emit('tokenchage',{msg:'token变化了'});
 									        uni.reLaunch({
+=======
+									        uni.switchTab({
+>>>>>>> dd54b4b5df030677e2cf1191e89945a4b59766e2
 									        	url:'/pages/index/index'
 									        })
 									    }

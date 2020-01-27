@@ -37,7 +37,7 @@ var login_status = function login_status() {
   };
 };
 var login = function login() {
-  uni.navigateTo({
+  uni.reLaunch({
     url: '/pages/my/login/login' });
 
 };

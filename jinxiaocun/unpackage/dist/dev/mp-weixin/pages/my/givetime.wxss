@@ -113,8 +113,8 @@
     height: 10%;
 }
 .container .main.data-v-239cc7b6 {
-    height: 83%;
-    padding: 15rpx;
+    height: 90%;
+    padding: 0;
 }
 .container .main .cu-form-group .title.data-v-239cc7b6 {
       min-width: calc(5em + 30px);

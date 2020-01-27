@@ -171,16 +171,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _user = __webpack_require__(/*! @/api/user.js */ 229);
-var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 454));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 461));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 454));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 461));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 612));};var _default =
 {
   components: {
-    // adCell
+    uniLoadMore: uniLoadMore,
     uniList: uniList,
     uniListItem: uniListItem },
 
   data: function data() {
     return {
+      loadmore: 'more',
+      pageIndex: 0,
+      pageRows: 15,
       title: '我的订单',
       dataList: [],
       OrderStatusList: ['待支付', '已支付'],
@@ -193,14 +199,16 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
 
 
   },
-  onLoad: function onLoad() {},
+  onLoad: function onLoad() {
+    this.loadData();
+  },
   onShow: function onShow() {
     if (!uni.getStorageSync('userInfo')) {
       uni.reLaunch({
         url: '/pages/my/login/login' });
 
     };
-    this.loadData();
+
   },
   methods: {
     handleRefreshPage: function handleRefreshPage() {
@@ -218,19 +226,32 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
 
     },
     loadData: function loadData() {var _this = this;
+      this.loadmore = 'loading',
+      this.$refs.loading.open();
       var senddata = {
-        'pageIndex': 1,
-        'pageRows': 10 };
+        pageIndex: this.pageIndex + 1,
+        pageRows: this.pageRows };
 
-      (0, _user.tokenpost)(_common.api.GetOrderList).then(function (res) {
+      (0, _user.tokenpost)(_common.api.GetOrderList, senddata).then(function (res) {
+        _this.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this.dataList = res.data.data.resultList;
+          if (res.data.data.resultList.length === 0) {
+            _this.loadmore = "noMore";
+            return;
+          } else {
+            _this.dataList = _this.dataList.concat(res.data.data.resultList);
+            _this.pageIndex = _this.pageIndex + 1;
+            _this.loadmore = "more";
+          }
+
         } else {
+          _this.loadmore = 'more',
           _this.$api.msg(res.data.returnMessage);
         }
-        _this.loading = false;
-      }).catch(function (error) {
-        _this.loading = false;
+      }).
+      catch(function (error) {
+        _this.loadmore = 'more',
+        _this.$refs.loading.close();
         _this.$api.msg('请求失败fail');
       });
 

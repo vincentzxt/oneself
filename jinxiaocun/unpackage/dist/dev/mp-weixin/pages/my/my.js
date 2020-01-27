@@ -183,6 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _user = __webpack_require__(/*! @/api/user.js */ 229);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 230));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 454));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 461));};var _default =
@@ -195,11 +196,13 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
   data: function data() {
     return {
       title: '我的',
+      changestatus: 0,
       login_status: false,
       dataList: {
         loginname: '',
         realname: '',
         telephone: '',
+        integral: 0,
         companyname: '',
         expiredate: '',
         daycount: 0,
@@ -207,10 +210,16 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
 
 
   },
-  onLoad: function onLoad() {},
+  onLoad: function onLoad() {
+    uni.$on('changecompany', this.loadData);
+    this.loadData();
+  },
   onShow: function onShow() {
     //this.login_status = this.$api.login_status();
-    this.loadData();
+    //this.loadData();
+  },
+  onUnload: function onUnload() {
+    uni.$off('changecompany');
   },
   methods: {
     handleRefreshPage: function handleRefreshPage() {

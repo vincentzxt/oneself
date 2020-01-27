@@ -41,6 +41,7 @@ export default {
 		};
 	},
 	onLoad(option) {
+<<<<<<< HEAD
 		if (uni.getStorageSync('userInfo')) {
 			getGlobalData.getCurrentUnit();
 			getGlobalData.getBaseProduct();
@@ -53,6 +54,13 @@ export default {
 		if (option.promoterid) {
 			this.promoterid = option.promoterid;
 		}
+=======
+		 this.load();
+		 // uni.$on('tokenchange', this.load);
+		 if (option.promoterid) {
+				this.promoterid = option.promoterid;
+		 }
+>>>>>>> dd54b4b5df030677e2cf1191e89945a4b59766e2
 	},
 	onShow() {
 		uni.setStorage({
@@ -64,7 +72,15 @@ export default {
 		});
 		console.log(uni.getStorageSync('promoterid'));
 	},
+	onUnload(){
+		// uni.$off('tokenchange')
+	},
 	methods: {
+		load(){
+			getGlobalData.getCurrentUnit();
+			getGlobalData.getBaseProduct();
+			getGlobalData.getProductCategory();
+		},
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},
