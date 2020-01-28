@@ -40,7 +40,8 @@
     "pages/stock/inventory/inventory",
     "pages/stock/list/list",
     "pages/my/account/accountedit",
-    "pages/my/account/accountdetail"
+    "pages/my/account/accountdetail",
+    "pages/stock/stock-list/stock-list"
   ],
   "subPackages": [],
   "window": {

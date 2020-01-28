@@ -36,31 +36,18 @@ export default {
 				{ id: '5', name: '收款单', icon: 'receipt', color: '#ed3f14' },
 				{ id: '6', name: '付款单', icon: 'payment', color: '#ff9900' },
 				{ id: '7', name: '费用单', icon: 'cost', color: '#19be6b' },
-				{ id: '8', name: '退货单', icon: 'return-order', color: '#19be6b' }
+				{ id: '8', name: '退货单', icon: 'return-order', color: '#19be6b' },
+				{ id: '9', name: '期初', icon: 'product-fill', color: '#2d8cf0' },
+				{ id: '10', name: '盘点', icon: 'purchase-fill', color: '#ed3f14' }
 			]
 		};
 	},
 	onLoad(option) {
-<<<<<<< HEAD
-		if (uni.getStorageSync('userInfo')) {
-			getGlobalData.getCurrentUnit();
-			getGlobalData.getBaseProduct();
-			getGlobalData.getProductCategory();
-		} else {
-			uni.reLaunch({
-				url: '/pages/my/my'
-			});
-		}
-		if (option.promoterid) {
-			this.promoterid = option.promoterid;
-		}
-=======
 		 this.load();
 		 // uni.$on('tokenchange', this.load);
 		 if (option.promoterid) {
 				this.promoterid = option.promoterid;
 		 }
->>>>>>> dd54b4b5df030677e2cf1191e89945a4b59766e2
 	},
 	onShow() {
 		uni.setStorage({
@@ -126,6 +113,16 @@ export default {
 						url: './return-order/return-order'
 					});
 					break;
+				case '9':
+					uni.navigateTo({
+						url: './early-stage/early-stage'
+					});
+					break;
+				case '10':
+					uni.navigateTo({
+						url: './inventory/inventory'
+					});
+					break;
 			}
 		}
 	}
@@ -136,7 +133,7 @@ export default {
 .item-content {
 	width: 100%;
 	height: 100%;
-	padding: 30px 0px;
+	padding: 44upx 0upx;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

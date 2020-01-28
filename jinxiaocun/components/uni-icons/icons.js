@@ -50,5 +50,18 @@ export default {
 	'yujing-fill': '\ue8ec',
 	'rexiao': '\ue606',
 	'zhixiao': '\ue607',
-	'circle': '\ue601'
+	'circle': '\ue601',
+	'c-phone': '\ue6cb',
+	'c-position': '\ue611',
+	'c-search': '\ue736',
+	'c-search-log': '\ue631',
+	'c-home': '\ue610',
+	'c-email': '\ue626',
+	'c-right': '\ue69e',
+	'c-product': '\ue655',
+	'c-unit': '\ue630',
+	'c-print': '\ue68b',
+	'c-contacts': '\ue61c',
+	'c-discount': '\ue62f',
+	'c-account': '\ue621'
 }

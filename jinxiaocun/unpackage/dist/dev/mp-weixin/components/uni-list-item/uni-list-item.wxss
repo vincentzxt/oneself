@@ -96,7 +96,15 @@
   margin-top: 10rpx;
   color: #808695;
   font-size: 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
   overflow: hidden;
+}
+.uni-list-item__content-note-item.data-v-0be73b92 {
+    width: 50%;
 }
 .uni-list-item__extra.data-v-0be73b92 {
   display: -webkit-box;
@@ -114,11 +122,10 @@
           align-items: center;
 }
 .uni-list-item__icon.data-v-0be73b92 {
-  margin-right: 18rpx;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-          flex-direction: row;
+  width: 10%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;

@@ -23,7 +23,10 @@
 		{ "path": "pages/index/return-order/return-order" },
 		{ "path": "pages/index/return-order/payment/payment" },
 		{ "path" : "pages/index/return-order/orders/orders" },
-		{ "path": "pages/stock/stock" },
+		{ "path" : "pages/index/early-stage/early-stage" },
+		{ "path" : "pages/index/inventory/inventory" },
+		{ "path": "pages/bill/bill" },
+		{ "path" : "pages/bill/stock-list/stock-list" },
 		{ "path": "pages/data/data" },
 		{ "path": "pages/my/my" },
 		{ "path": "pages/my/login/login" },
@@ -40,21 +43,9 @@
 		{ "path" : "pages/my/login/editPassword" },
 		{ "path" : "pages/my/givetime" },
 		{ "path" : "pages/my/share/share" },
-		{ "path" : "pages/stock/early-stage/early-stage" },
-		{ "path" : "pages/stock/inventory/inventory" },
-		{ "path" : "pages/stock/list/list" },
 		{ "path" : "pages/my/account/accountedit" },
-<<<<<<< HEAD
 		{	"path" : "pages/my/account/accountdetail" }
    ],
-=======
-		{	"path" : "pages/my/account/accountdetail" }
-	    ,{
-            "path" : "pages/stock/stock-list/stock-list",
-            "style" : {}
-        }
-    ],
->>>>>>> dd54b4b5df030677e2cf1191e89945a4b59766e2
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},
@@ -68,10 +59,10 @@
 				"text": "买卖"
 			},
 			{
-				"pagePath": "pages/stock/stock",
+				"pagePath": "pages/bill/bill",
 				"iconPath": "static/image/stock.png",
 				"selectedIconPath": "static/image/stock_selected.png",
-				"text": "库存"
+				"text": "单据"
 			},
 			{
 				"pagePath": "pages/data/data",

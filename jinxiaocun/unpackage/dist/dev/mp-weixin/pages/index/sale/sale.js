@@ -100,6 +100,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var a0 = {
+    type: "delete",
+    color: "#ef5a62",
+    size: "20"
+  }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        a0: a0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -134,6 +147,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -301,7 +329,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
       this.$set(this.curSelectPruduct, 'mainUnit', val.unit);
       this.$set(this.curSelectPruduct, 'subUnit', val.subunit);
       this.$set(this.curSelectPruduct, 'price', val.price);
-      this.$set(this.curSelectPruduct, 'salesunitprice', 0);
+      this.$set(this.curSelectPruduct, 'salesunitprice', '');
       this.$set(this.curSelectPruduct, 'salesqty', 1);
       this.$set(this.curSelectPruduct, 'ismainunit', 1);
       this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple);
@@ -374,7 +402,11 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
         this.reqData.totalPrice = 0;
         if (val && val.length > 0) {var _iteratorNormalCompletion3 = true;var _didIteratorError3 = false;var _iteratorError3 = undefined;try {
             for (var _iterator3 = val[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {var item = _step3.value;
-              this.reqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice);
+              if (item.salesunitprice) {
+                this.reqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice);
+              } else {
+                this.reqData.totalPrice += item.salesqty * 0;
+              }
             }} catch (err) {_didIteratorError3 = true;_iteratorError3 = err;} finally {try {if (!_iteratorNormalCompletion3 && _iterator3.return != null) {_iterator3.return();}} finally {if (_didIteratorError3) {throw _iteratorError3;}}}
           this.reqData.totalPrice = parseFloat(this.reqData.totalPrice).toFixed(2);
         }

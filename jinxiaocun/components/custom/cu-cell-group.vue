@@ -10,7 +10,6 @@
 		mounted() {
 			const cells = this.$children
 			const len = cells.length
-			
 			if (len > 0) {
 				let lastIndex = len - 1
 				cells.forEach((cell, index) => {

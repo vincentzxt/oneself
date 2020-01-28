@@ -108,13 +108,14 @@
 <style lang="scss" scoped>
 	.cu-cell {
 		position: relative;
-		padding: 12px 15px;
+		padding: 0 15px 0 15px;
 		display: flex;
 		background: #fff;
 		align-items: center;
 		line-height: 1.4;
 		font-size: $uni-font-size-base;
 		overflow: hidden;
+		height: 70px;
 		&::after{
 			content: '';
 			position: absolute;
@@ -136,12 +137,17 @@
 		}
 		&-icon{
 			margin-right: 5px;
+			width: 10%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			&:empty{
 				display: none
 			}
 		}
 		&-bd{
 			display: flex;
+			width: 30%;
 			justify-content: space-between;
 			align-items: center;
 			flex: 1;
@@ -166,6 +172,7 @@
 			}
 		}
 		&-ft{
+			width: 60%;
 			position: relative;
 			text-align: right;
 			color: $uni-text-color;
