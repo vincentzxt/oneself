@@ -13,37 +13,34 @@
 							<radio color="#2d8cf0" style="margin-left: 20px;" value=3 :checked="reqData.contactunittype == 3">所有</radio>
 						</radio-group>
 					</view>
-					<cu-panel>
-						<cu-cell-group>
-							<cu-cell title="单位名称">
+					<view style="margin-top:5px">
+						<cu-panel>
+							<cu-cell title="单位名称" isIcon :icon="{ type: 'c-unit', color: '#59bffb', 'size': 18 }">
 								<input slot="footer" type="text" v-model="reqData.contactunitname" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
 							</cu-cell>
-							<cu-cell title="速查码">
+							<cu-cell title="速查码" isIcon :icon="{ type: 'c-search-log', color: '#59bffb', 'size': 18 }">
 								<input slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="请输入单位速查码"/>
 							</cu-cell>
-							<cu-cell title="联系人名称">
+							<cu-cell title="联系人名称" isIcon :icon="{ type: 'c-contacts', color: '#59bffb', 'size': 18 }">
 								<input slot="footer" type="text" v-model="reqData.bseContactUnitContactModels[0].contactname" placeholder-style="color:#c5c8ce" placeholder="请输入联系人名称"/>
 							</cu-cell>
-							<cu-cell title="电话">
+							<cu-cell title="电话" isIcon :icon="{ type: 'c-phone', color: '#59bffb', 'size': 18 }">
 								<input slot="footer" type="text" v-model="reqData.bseContactUnitContactModels[0].telephone" placeholder-style="color:#c5c8ce" placeholder="请输入电话"/>
 							</cu-cell>
-							<cu-cell title="位置" isLink @tap="handleOpenAddress">
+							<cu-cell title="位置" isLink @tap="handleOpenAddress" isIcon :icon="{ type: 'c-position', color: '#59bffb', 'size': 18 }">
 								<text v-if="reqData.province" slot="footer">{{reqData.province}}, {{reqData.city}}, {{reqData.district}}</text>
 							</cu-cell>
-							<cu-cell title="街道">
+							<cu-cell title="街道" isIcon :icon="{ type: 'c-home', color: '#59bffb', 'size': 18 }">
 								<input slot="footer" type="text" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="请输入街道"/>
 							</cu-cell>
-							<cu-cell title="邮箱">
+							<cu-cell title="邮箱" isIcon :icon="{ type: 'c-email', color: '#59bffb', 'size': 18 }" isLastCell>
 								<input slot="footer" type="text" v-model="reqData.bseContactUnitContactModels[0].email" placeholder-style="color:#c5c8ce" placeholder="请输入邮箱"/>
 							</cu-cell>
-						</cu-cell-group>
-						<cu-panel>
-							<cu-cell>
-								<textarea style="height: 80px" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
-							</cu-cell>
 						</cu-panel>
-					</cu-panel>
-				</form>
+					</view>
+					<view class="main-remarks">
+						<textarea style="height: 80px;margin-left:20px;" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+					</view>
 			</scroll-view>
 		</view>
 		<view class="footer">
@@ -57,7 +54,6 @@
 <script>
 	import cuPanel from '@/components/custom/cu-panel.vue'
 	import cuCell from '@/components/custom/cu-cell.vue'
-	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import simpleAddress from '@/components/simple-address/simple-address.nvue'
 	import { create } from '@/api/common.js'
 	import { api } from '@/config/common.js'
@@ -66,7 +62,6 @@
 		components: {
 			cuPanel,
 			cuCell,
-			cuCellGroup,
 			simpleAddress
 		},
 		data() {
@@ -180,6 +175,11 @@
 				background-color: #ffffff;
 				justify-content: center;
 				align-items: center;
+			}
+			.main-remarks {
+				background-color: #ffffff;
+				margin-top: 5px;
+				padding-top: 5px;
 			}
 			.picker {
 				width: 100%;

@@ -131,62 +131,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+var _default2 =
 {
   name: 'cu-cell',
   props: {
+    height: {
+      type: Number,
+      default: 70 },
+
     title: {
-      type: String },
+      type: String,
+      default: '' },
 
-    label: {
-      type: String },
+    isIcon: {
+      type: Boolean,
+      default: false },
 
-    value: {
-      type: String },
+    icon: {
+      type: Object,
+      default: function _default() {
+        return {
+          type: '',
+          color: '',
+          size: 0 };
+
+      } },
 
     isLink: {
       type: Boolean,
-      value: false },
+      default: false },
 
     url: {
       type: String,
-      value: '' },
+      default: '' },
 
     params: {
       type: String,
-      value: '' },
+      default: '' },
 
-    isReturn: {
+    isLastCell: {
       type: Boolean,
-      value: false },
-
-    rName: {
-      type: String,
-      value: '' },
-
-    rDatas: {
-      type: Object,
-      value: {} } },
+      default: false } },
 
 
   data: function data() {
-    return {
-      isLastCell: true };
+    return {};
 
   },
-  computed: {
-    filterLabel: function filterLabel() {
-      return this.label.split('|');
-    } },
-
   methods: {
     navigateTo: function navigateTo() {
       var url = this.url;
@@ -197,28 +188,13 @@ var _default =
         url: url });
 
     },
-    navigateReturn: function navigateReturn() {
-      var pages = getCurrentPages();
-      var prevPage = pages[pages.length - 2];
-      prevPage.setData({
-        rName: this.rName,
-        datas: this.rDatas });
-
-      uni.navigateBack({
-        delta: 1 });
-
-    },
-    handleTap: function handleTap() {
+    handleCell: function handleCell() {
       if (this.isLink) {
         this.navigateTo();
+      } else {
+        this.$emit('clickCell');
       }
-      if (this.isReturn) {
-        this.navigateReturn();
-      }
-    },
-    updateIsLastCell: function updateIsLastCell(isLastCell) {
-      this.isLastCell = isLastCell;
-    } } };exports.default = _default;
+    } } };exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

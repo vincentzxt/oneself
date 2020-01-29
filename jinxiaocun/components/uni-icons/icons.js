@@ -63,5 +63,5 @@ export default {
 	'c-print': '\ue68b',
 	'c-contacts': '\ue61c',
 	'c-discount': '\ue62f',
-	'c-account': '\ue621'
+	'c-amount': '\ue621'
 }

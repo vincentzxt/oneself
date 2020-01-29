@@ -18,7 +18,12 @@
 .container .main.data-v-1c2db627 {
   margin-top: 5px;
 }
-.container .main .picker.data-v-1c2db627 {
+.container .main-remarks.data-v-1c2db627 {
+    background-color: #ffffff;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+.container .main-picker.data-v-1c2db627 {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;

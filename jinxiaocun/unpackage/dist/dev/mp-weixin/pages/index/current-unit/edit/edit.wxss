@@ -34,6 +34,11 @@
     -webkit-align-items: center;
             align-items: center;
 }
+.container .main .main-remarks.data-v-cb60f960 {
+    background-color: #ffffff;
+    margin-top: 5px;
+    padding-top: 5px;
+}
 .container .main .picker.data-v-cb60f960 {
     width: 100%;
     display: -webkit-box;

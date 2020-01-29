@@ -6,52 +6,82 @@
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
-				<cu-panel>
-					<cu-cell-group>
-						<cu-cell title="业务类型">
-							<radio-group @change="handleTypeChange">
-								<radio color="#2d8cf0" value=0 :checked="businessType == 0">采购退货</radio>
-								<radio color="#2d8cf0" style="margin-left: 10px;" value=1 :checked="businessType == 1">销售退货</radio>
+				<view>
+					<cu-panel>
+						<cu-cell title="业务类型" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+							<radio-group slot="footer" @change="handleTypeChange">
+								<radio color="#2d8cf0" value=0 :checked="businessType == 0">采购</radio>
+								<radio color="#2d8cf0" style="margin-left: 10px;" value=1 :checked="businessType == 1">销售</radio>
 							</radio-group>
 						</cu-cell>
-						<cu-cell title="搜索单位">
-							<cu-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码/名称/电话" cancelButton="none"></cu-search-bar>
+					</cu-panel>
+				</view>
+				<view style="margin-top: 5px;">
+					<cu-panel>
+						<cu-cell :isLastCell="!salesReqData.contactunitname || !purchaseReqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#59bffb', 'size': 18 }">
+							<cu-search-bar slot="footer" ref="sc" style="width:100%;" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
+						<cu-cell v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)" title="单位名称" isIcon :icon="{ type: 'c-unit', color: '#f7d767', 'size': 18 }" isLastCell>
 							<text v-if="businessType == 0" slot="footer">{{purchaseReqData.contactunitname}}</text>
 							<text v-else slot="footer">{{salesReqData.contactunitname}}</text>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit && businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid">
+					</cu-panel>
+				</view>
+				<view style="margin-top: 5px;">
+					<cu-panel>
+						<cu-cell v-if="!searchCurrentUnit && businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
 						</cu-cell>
-						<cu-cell v-else-if="!searchCurrentUnit && businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid">
+						<cu-cell v-else-if="!searchCurrentUnit && businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
 						</cu-cell>
-					</cu-cell-group>
-				</cu-panel>
-				<cu-panel v-if="searchCurrentUnit">
+					</cu-panel>
+				</view>
+				<view v-if="searchCurrentUnit">
 					<uni-list>
-						<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
+						<uni-list-item :title="item.contactunitname" :note="['电话：'+item.bseContactUnitContactModels[0].telephone]" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
 						</uni-list-item>
 					</uni-list>
-				</cu-panel>
-				<cu-panel v-if="!searchCurrentUnit && purchaseReqData.productList.length > 0">
-					<cu-cell-group>
-						<cu-cell :title="item.productname" :label="'采购数量：'+item.qty+'|计量单位：'+item.unit+'|采购单价：'+item.purchaseunitprice" v-for="(item, index) in purchaseReqData.productList" :key="index" @tap="handleShowPopup(item)">
-							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
-								<uni-icons type="delete" color="#ed3f14"></uni-icons>
-							</view>
-						</cu-cell>
-					</cu-cell-group>
-				</cu-panel>
-				<cu-panel v-if="!searchCurrentUnit && salesReqData.productList.length > 0">
-					<cu-cell-group>
-						<cu-cell :title="item.productname" :label="'销售数量：'+item.salesqty+'|计量单位：'+item.unit+'|销售单价：'+item.salesunitprice" v-for="(item, index) in salesReqData.productList" :key="index" @tap="handleShowPopup(item)">
-							<view style="color:#808695" slot="footer" @tap="handleDelete(item)">
-								<uni-icons type="delete" color="#ed3f14"></uni-icons>
-							</view>
-						</cu-cell>
-					</cu-cell-group>
-				</cu-panel>
+				</view>
+				<view>
+					<uni-list v-if="!searchCurrentUnit && purchaseReqData.productList.length > 0">
+						<uni-list-item
+							style="margin-left:10px;"
+							:title="item.productname"
+							:showArrow="false"
+							showIcon
+							:icon="{type: 'delete', color:'#ef5a62', size: '20'}"
+							:note="['采购数量：'+item.qty, '计量单位：'+item.unit, '采购单价：'+item.purchaseunitprice]"
+							v-for="(item, index) in purchaseReqData.productList"
+							:key="index"
+							@clickContent="handleShowPopup(item)"
+							@clickFt="handleDelete(item)">
+						</uni-list-item>
+					</uni-list>
+				</view>
+				<view>
+					<uni-list v-if="!searchCurrentUnit && salesReqData.productList.length > 0">
+						<uni-list-item
+							style="margin-left:10px;"
+							:title="item.productname"
+							:showArrow="false"
+							showIcon
+							:icon="{type: 'delete', color:'#ef5a62', size: '20'}"
+							:note="['销售数量：'+item.salesqty, '计量单位：'+item.unit, '采购单价：'+item.salesunitprice]"
+							v-for="(item, index) in salesReqData.productList"
+							:key="index"
+							@clickContent="handleShowPopup(item)"
+							@clickFt="handleDelete(item)">
+						</uni-list-item>
+					</uni-list>
+				</view>
 			</scroll-view>
+		</view>
+		<view class="footer">
+			<view class="footer-text">
+				<text>合计金额：</text>
+				<text v-if="businessType == 0" style="color:#ef5a62">￥{{purchaseReqData.totalPrice}}</text>
+				<text v-else style="color:#ef5a62">￥{{salesReqData.totalPrice}}</text>
+			</view>
+			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">下一步</button>
 		</view>
 		<view class="footer">
 			<text v-if="businessType == 0" class="footer-text">合计金额：￥{{purchaseReqData.totalPrice}}</text>
@@ -60,16 +90,36 @@
 		</view>
 		<uni-popup ref="purchasePopup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量">
-					<uni-number-box :min="1" :max="maxNum" :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
+				<cu-cell title="数量" height=110 isLastCell>
+					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
+						<view class="popup-qty">
+							<uni-number-box :min="1" :max="maxNum" :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
+							<view class="popup-qty-items">
+								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fbe490;" @tap="handleSelectQty(50)">50</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #bffe94;" @tap="handleSelectQty(100)">100</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd969c;" @tap="handleSelectQty(300)">300</view>
+							</view>
+						</view>
+					</view>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
 		</uni-popup>
 		<uni-popup ref="salePopup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量">
-					<uni-number-box :min="1"  :max="maxNum" :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
+				<cu-cell title="数量" height=110 isLastCell>
+					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
+						<view class="popup-qty">
+							<uni-number-box :min="1" :max="maxNum" :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
+							<view class="popup-qty-items">
+								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fbe490;" @tap="handleSelectQty(50)">50</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #bffe94;" @tap="handleSelectQty(100)">100</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd969c;" @tap="handleSelectQty(300)">300</view>
+							</view>
+						</view>
+					</view>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
@@ -82,7 +132,6 @@
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	import cuPanel from '@/components/custom/cu-panel.vue'
 	import cuCell from '@/components/custom/cu-cell.vue'
-	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
@@ -93,7 +142,6 @@
 			uniPopup,
 			cuPanel,
 			cuCell,
-			cuCellGroup,
 			uniList,
 			uniListItem,
 			uniNumberBox
@@ -237,6 +285,15 @@
 					}
 				}
 			},
+			handleSelectQty(val) {
+				if (this.curSelectPruduct) {
+					if (this.businessType == 0) {
+						this.curSelectPruduct.qty = val
+					} else {
+						this.curSelectPruduct.salesqty = val
+					}
+				}
+			},
 			handleDelete(val) {
 				if (this.businessType == 0) {
 					this.purchaseReqData.totalPrice = parseFloat(this.purchaseReqData.totalPrice - val.qty * parseFloat(val.purchaseunitprice)).toFixed(2)
@@ -339,7 +396,7 @@
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {
-				width: 50%;
+				width: 60%;
 				height: 100%;
 				display: flex;
 				flex-direction: row;
@@ -347,8 +404,26 @@
 				margin-left: $uni-spacing-row-lg;
 			}
 			&-btn	{
-				width: 50%;
+				width: 40%;
 				height: 100%;
+			}
+		}
+		.popup-qty {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			&-items {
+				margin-top: 20px;
+				display: flex;
+				align-items: center;
+				&-item {
+					width: 100upx;
+					height: 50upx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					color: #ffffff;
+				}
 			}
 		}
 	}

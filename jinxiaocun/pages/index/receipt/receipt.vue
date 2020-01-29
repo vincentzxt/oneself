@@ -6,35 +6,37 @@
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
-				<cu-panel>
-					<cu-cell-group>
-						<cu-cell title="搜索单位">
-							<cu-search-bar ref="sc" style="width:67%;" @input="handleSearchCurrentUnit" placeholder="输入速查码/名称/电话" cancelButton="none"></cu-search-bar>
+				<view>
+					<cu-panel>
+						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#59bffb', 'size': 18 }">
+							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="单位名称">
+						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isIcon :icon="{ type: 'c-unit', color: '#ff9900', 'size': 18 }" isLastCell>
 							<text slot="footer">{{reqData.contactunitname}}</text>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="收款帐号">
-							<radio-group @change="handleCashAccountChange">
+					</cu-panel>
+				</view>
+				<view style="margin-top:5px;">
+					<cu-panel>
+						<cu-cell v-if="!searchCurrentUnit" title="收款帐号" isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
+							<radio-group slot="footer" @change="handleCashAccountChange">
 								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :key="index" :value="item.cashaccountid" :checked="reqData.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
 							</radio-group>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="收款金额">
-							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="请输入收款金额"/>
+						<cu-cell v-if="!searchCurrentUnit" title="收款金额" isIcon :icon="{ type: 'c-amount', color: '#b37fec', 'size': 18 }" isLastCell>
+							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0"/>
 						</cu-cell>
-					</cu-cell-group>
-				</cu-panel>
-				<cu-panel v-if="!searchCurrentUnit">
-					<cu-cell>
-						<textarea style="height: 80px" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel v-if="searchCurrentUnit">
+					</cu-panel>
+				</view>
+				<view v-if="!searchCurrentUnit" class="main-remarks">
+					<textarea style="height: 80px;margin-left:20px;" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+				</view>
+				<view v-if="searchCurrentUnit">
 					<uni-list>
-						<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
+						<uni-list-item :title="item.contactunitname" :note="['电话：'+item.bseContactUnitContactModels[0].telephone]" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
 						</uni-list-item>
 					</uni-list>
-				</cu-panel>
+				</view>
 			</scroll-view>
 		</view>
 		<view class="footer">
@@ -48,7 +50,6 @@
 	import cuSearchBar from '@/components/custom/cu-search-bar.vue'
 	import cuPanel from '@/components/custom/cu-panel.vue'
 	import cuCell from '@/components/custom/cu-cell.vue'
-	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import { api } from '@/config/common.js'
@@ -58,7 +59,6 @@
 			cuSearchBar,
 			cuPanel,
 			cuCell,
-			cuCellGroup,
 			uniList,
 			uniListItem
 		},
@@ -72,7 +72,7 @@
 					contactunitid: '',
 					contactunitname: '',
 					accountid: '',
-					amount: 0
+					amount: ''
 				},
 				cashAccountDict: []
 			};
@@ -122,7 +122,7 @@
 				this.reqData.contactunitid = val.contactunitid
 				this.reqData.contactunitname = val.contactunitname
 				this.searchCurrentUnit = false
-				this.$refs.sc.clear()
+				this.$refs.sc.cancel()
 			},
 			handleSubmit() {
 				this.$refs.loading.open()
@@ -156,10 +156,10 @@
 	.container {
 		.main {
 			margin-top: 5px;
-			.picker {
-				width: 100%;
-				display: flex;
-				justify-content: flex-end;
+			&-remarks {
+				background-color: #ffffff;
+				margin-top: 5px;
+				padding-top: 5px;
 			}
 		}
 		.footer {

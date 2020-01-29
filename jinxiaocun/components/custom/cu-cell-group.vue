@@ -9,6 +9,8 @@
 		name: 'cu-cell-group',
 		mounted() {
 			const cells = this.$children
+			console.log("child")
+			console.log(cells)
 			const len = cells.length
 			if (len > 0) {
 				let lastIndex = len - 1

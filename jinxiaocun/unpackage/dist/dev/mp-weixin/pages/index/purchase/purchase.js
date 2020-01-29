@@ -100,6 +100,43 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var a0 = {
+    type: "c-search",
+    color: "#59bffb",
+    size: 18
+  }
+  var a1 = {
+    type: "c-unit",
+    color: "#ff9900",
+    size: 18
+  }
+  var a2 = {
+    type: "c-phone",
+    color: "#19be6b",
+    size: 18
+  }
+  var a3 = {
+    type: "c-product",
+    color: "#b37fec",
+    size: 18
+  }
+  var a4 = {
+    type: "delete",
+    color: "#ef5a62",
+    size: "20"
+  }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        a0: a0,
+        a1: a1,
+        a2: a2,
+        a3: a3,
+        a4: a4
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -211,14 +248,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 421));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 428));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 449));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 454));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 461));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 468));};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 421));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 428));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 449));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 456));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 463));};var _default =
 {
   components: {
     cuSearchBar: cuSearchBar,
     uniPopup: uniPopup,
     cuPanel: cuPanel,
     cuCell: cuCell,
-    cuCellGroup: cuCellGroup,
     uniList: uniList,
     uniListItem: uniListItem,
     uniNumberBox: uniNumberBox },
@@ -301,7 +360,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
       this.$set(this.curSelectPruduct, 'mainUnit', val.unit);
       this.$set(this.curSelectPruduct, 'subUnit', val.subunit);
       this.$set(this.curSelectPruduct, 'price', val.price);
-      this.$set(this.curSelectPruduct, 'purchaseunitprice', 0);
+      this.$set(this.curSelectPruduct, 'purchaseunitprice', '');
       this.$set(this.curSelectPruduct, 'qty', 1);
       this.$set(this.curSelectPruduct, 'ismainunit', 1);
       this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple);
@@ -347,6 +406,11 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
         this.curSelectPruduct.qty = val;
       }
     },
+    handleSelectQty: function handleSelectQty(val) {
+      if (this.curSelectPruduct) {
+        this.curSelectPruduct.qty = val;
+      }
+    },
     handleUnitChange: function handleUnitChange(val) {
       if (val.detail.value == 1) {
         this.curSelectPruduct.unit = this.curSelectPruduct.mainUnit;
@@ -374,7 +438,11 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
         this.reqData.totalPrice = 0;
         if (val && val.length > 0) {var _iteratorNormalCompletion3 = true;var _didIteratorError3 = false;var _iteratorError3 = undefined;try {
             for (var _iterator3 = val[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {var item = _step3.value;
-              this.reqData.totalPrice += item.qty * parseFloat(item.purchaseunitprice);
+              if (item.purchaseunitprice) {
+                this.reqData.totalPrice += item.qty * parseFloat(item.purchaseunitprice);
+              } else {
+                this.reqData.totalPrice += item.qty * 0;
+              }
             }} catch (err) {_didIteratorError3 = true;_iteratorError3 = err;} finally {try {if (!_iteratorNormalCompletion3 && _iterator3.return != null) {_iterator3.return();}} finally {if (_didIteratorError3) {throw _iteratorError3;}}}
           this.reqData.totalPrice = parseFloat(this.reqData.totalPrice).toFixed(2);
         }

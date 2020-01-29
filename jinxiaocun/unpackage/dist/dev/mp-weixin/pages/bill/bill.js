@@ -100,6 +100,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var a0 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
+  var a1 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
+  var a2 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
+  var a3 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
+  var a4 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
+  var a5 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
+  var a6 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
+  var a7 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        a0: a0,
+        a1: a1,
+        a2: a2,
+        a3: a3,
+        a4: a4,
+        a5: a5,
+        a6: a6,
+        a7: a7
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -134,6 +189,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var _default =
+
+
+
+
+
+
+
+
 
 
 

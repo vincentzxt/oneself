@@ -7,39 +7,40 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell-group>
-						<cu-cell title="是否赊账">
-							<radio-group @change="handleCreditChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.order.isOnCredit == 0">否</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
-							</radio-group>
-						</cu-cell>
-						<cu-cell v-if="reqData.order.isOnCredit == 0" title="收款帐号">
-							<radio-group @change="handleCashAccountChange">
-								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-							</radio-group>
-						</cu-cell>
-						<cu-cell title="是否生成出库单">
-							<radio-group @change="handleStatusChange">
-								<radio color="#2db7f5" value=1 :checked="reqData.order.status == 1">否</radio>
-								<radio color="#2db7f5" value=2 :checked="reqData.order.status == 2" style="margin-left: 10px;">是</radio>
-							</radio-group>
-						</cu-cell>
-						<cu-cell title="是否打印单据">
-							<radio-group @change="handlePrintChange">
-								<radio color="#2db7f5" value=0 :checked="reqData.order.isprint == 0">否</radio>
-								<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
-							</radio-group>
-						</cu-cell>
-						<cu-cell title="优惠金额">
-							<input slot="footer" type="digit" v-model="reqData.order.discountamount" @blur="handleDisCount"/>
-						</cu-cell>
-					</cu-cell-group>
+					<cu-cell title="是否赊账" isIcon :icon="{ type: 'c-account', color: '#59bffb', 'size': 18 }">
+						<radio-group slot="footer" @change="handleCreditChange">
+							<radio color="#2db7f5" value=0 :checked="reqData.order.isOnCredit == 0">否</radio>
+							<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
+						</radio-group>
+					</cu-cell>
+					<cu-cell v-if="reqData.order.isOnCredit == 0" title="收款帐号" isIcon :icon="{ type: 'c-contacts', color: '#ff9900', 'size': 18 }">
+						<radio-group slot="footer" @change="handleCashAccountChange">
+							<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
+						</radio-group>
+					</cu-cell>
+					<cu-cell title="生成出库单" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
+						<radio-group slot="footer" @change="handleStatusChange">
+							<radio color="#2db7f5" value=1 :checked="reqData.order.status == 1">否</radio>
+							<radio color="#2db7f5" value=2 :checked="reqData.order.status == 2" style="margin-left: 10px;">是</radio>
+						</radio-group>
+					</cu-cell>
+					<cu-cell title="打印单据" isIcon :icon="{ type: 'c-print', color: '#b37fec', 'size': 18 }">
+						<radio-group slot="footer" @change="handlePrintChange">
+							<radio color="#2db7f5" value=0 :checked="reqData.order.isprint == 0">否</radio>
+							<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
+						</radio-group>
+					</cu-cell>
+					<cu-cell title="优惠金额" isIcon :icon="{ type: 'c-discount', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<input slot="footer" type="digit" v-model="reqData.order.discountamount" @blur="handleDisCount" placeholder="0"/>
+					</cu-cell>
 				</cu-panel>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<text class="footer-text">订单金额：￥{{reqData.order.amount}}</text>
+			<view class="footer-text">
+				<text>订单金额：</text>
+				<text style="color:#ef5a62">￥{{reqData.order.amount}}</text>
+			</view>
 			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
@@ -49,7 +50,6 @@
 <script>
 	import cuPanel from '@/components/custom/cu-panel.vue'
 	import cuCell from '@/components/custom/cu-cell.vue'
-	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import { api } from '@/config/common.js'
@@ -58,7 +58,6 @@
 		components: {
 			cuPanel,
 			cuCell,
-			cuCellGroup,
 			uniList,
 			uniListItem
 		},
@@ -74,7 +73,7 @@
 						amount: 0.00,
 						isprint: 0,
 						status: 1,
-						discountamount: 0.00
+						discountamount: ''
 					},
 					orderlist: []
 				},
@@ -171,7 +170,7 @@
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {
-				width: 50%;
+				width: 60%;
 				height: 100%;
 				display: flex;
 				flex-direction: row;
@@ -179,7 +178,7 @@
 				margin-left: $uni-spacing-row-lg;
 			}
 			&-btn	{
-				width: 50%;
+				width: 40%;
 				height: 100%;
 			}
 		}

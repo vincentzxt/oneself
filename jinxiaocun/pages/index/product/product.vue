@@ -14,7 +14,7 @@
 			</scroll-view>
 			<scroll-view :scroll-y="true" class="main-right">
 				<uni-list>
-					<uni-list-item :title="item.productname" :note="'速查码：'+item.querycode" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					<uni-list-item :title="item.productname" :note="['速查码：'+item.querycode]" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
