@@ -46,7 +46,7 @@
 		{	"path" : "pages/my/account/accountdetail" }
 	    ,{
             "path" : "pages/stock/stock-list/stock-list",
-            "style" : {}
+            "style": { "enablePullDownRefresh": true }
         }
     ],
 	"globalStyle": {
