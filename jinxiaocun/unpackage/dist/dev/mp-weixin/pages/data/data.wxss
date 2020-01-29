@@ -30,7 +30,7 @@
         -webkit-align-items: center;
                 align-items: center;
         padding: 10px 0;
-        font-size: 28rpx;
+        font-size: 30rpx;
 }
 .container .main-sale-content.data-v-5bfee0d8 {
         width: 750rpx;
@@ -63,11 +63,11 @@
                   align-items: center;
 }
 .container .main-sale-content-block-title.data-v-5bfee0d8 {
-            font-size: 32rpx;
+            font-size: 36rpx;
             color: #1c2438;
 }
 .container .main-sale-content-block-des.data-v-5bfee0d8 {
-            font-size: 28rpx;
+            font-size: 30rpx;
             color: #808695;
 }
 .container .main-sale-charts.data-v-5bfee0d8 {
@@ -78,7 +78,7 @@
 .container .main-recpay.data-v-5bfee0d8 {
       margin-top: 30rpx;
       background-color: #FFFFFF;
-      font-size: 28rpx;
+      font-size: 30rpx;
 }
 .container .main-recpay-header.data-v-5bfee0d8 {
         margin-left: 10px;
@@ -118,7 +118,7 @@
             -webkit-box-pack: center;
             -webkit-justify-content: center;
                     justify-content: center;
-            font-size: 32rpx;
+            font-size: 36rpx;
             color: #1c2438;
             margin-top: 10px;
 }
@@ -139,7 +139,7 @@
         -webkit-align-items: center;
                 align-items: center;
         padding: 10px 0;
-        font-size: 28rpx;
+        font-size: 30rpx;
 }
 .container .main-account-content.data-v-5bfee0d8 {
         display: -webkit-box;
@@ -186,7 +186,7 @@
         -webkit-align-items: center;
                 align-items: center;
         padding: 10px 0;
-        font-size: 28rpx;
+        font-size: 30rpx;
 }
 .container .main-warning-content.data-v-5bfee0d8 {
         display: -webkit-box;
@@ -194,7 +194,7 @@
         display: flex;
         -webkit-justify-content: space-around;
                 justify-content: space-around;
-        font-size: 28rpx;
+        font-size: 30rpx;
 }
 .container .main-warning-content-wrap.data-v-5bfee0d8 {
           display: -webkit-box;
@@ -227,7 +227,7 @@
         -webkit-box-direction: normal;
         -webkit-flex-direction: column;
                 flex-direction: column;
-        font-size: 28rpx;
+        font-size: 30rpx;
 }
 .container .main-top-wrap-header.data-v-5bfee0d8 {
           margin-left: 10px;
@@ -238,7 +238,7 @@
           -webkit-align-items: center;
                   align-items: center;
           padding: 10px 0;
-          font-size: 28rpx;
+          font-size: 30rpx;
           border-bottom: 0.5px solid #f3f3f3;
 }
 .container .main-top-wrap-content.data-v-5bfee0d8 {

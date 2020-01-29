@@ -138,7 +138,7 @@
 }
 .simple-address__header-text.data-v-7b454c8c {
   text-align: center;
-  font-size: 32rpx;
+  font-size: 36rpx;
   color: #1aad19;
   line-height: 70rpx;
   padding-left: 40rpx;

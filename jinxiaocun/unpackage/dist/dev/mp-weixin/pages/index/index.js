@@ -160,7 +160,9 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       { id: '5', name: '收款单', icon: 'receipt', color: '#ed3f14' },
       { id: '6', name: '付款单', icon: 'payment', color: '#ff9900' },
       { id: '7', name: '费用单', icon: 'cost', color: '#19be6b' },
-      { id: '8', name: '退货单', icon: 'return-order', color: '#19be6b' }] };
+      { id: '8', name: '退货单', icon: 'return-order', color: '#19be6b' },
+      { id: '9', name: '期初', icon: 'product-fill', color: '#2d8cf0' },
+      { id: '10', name: '盘点', icon: 'purchase-fill', color: '#ed3f14' }] };
 
 
   },
@@ -233,6 +235,16 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         case '8':
           uni.navigateTo({
             url: './return-order/return-order' });
+
+          break;
+        case '9':
+          uni.navigateTo({
+            url: './early-stage/early-stage' });
+
+          break;
+        case '10':
+          uni.navigateTo({
+            url: './inventory/inventory' });
 
           break;}
 

@@ -115,7 +115,6 @@ var _default =
   mounted: function mounted() {
     var cells = this.$children;
     var len = cells.length;
-
     if (len > 0) {
       var lastIndex = len - 1;
       cells.forEach(function (cell, index) {

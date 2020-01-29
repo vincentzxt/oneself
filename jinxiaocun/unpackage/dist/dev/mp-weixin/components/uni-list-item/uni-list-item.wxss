@@ -24,7 +24,7 @@
 /* 垂直间距 */
 /* 透明度 */
 .uni-list-item.data-v-1dad00be {
-  font-size: 36rpx;
+  font-size: 40rpx;
   position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -85,18 +85,26 @@
           flex-direction: column;
 }
 .uni-list-item__content-title.data-v-1dad00be {
-  font-size: 32rpx;
+  font-size: 36rpx;
   overflow: hidden;
 }
 .uni-list-item__content-content.data-v-1dad00be {
   color: #808695;
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 .uni-list-item__content-note.data-v-1dad00be {
-  margin-top: 6rpx;
+  margin-top: 10rpx;
   color: #808695;
-  font-size: 28rpx;
+  font-size: 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
   overflow: hidden;
+}
+.uni-list-item__content-note-item.data-v-1dad00be {
+    width: 50%;
 }
 .uni-list-item__extra.data-v-1dad00be {
   display: -webkit-box;
@@ -114,11 +122,10 @@
           align-items: center;
 }
 .uni-list-item__icon.data-v-1dad00be {
-  margin-right: 18rpx;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-          flex-direction: row;
+  width: 10%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;

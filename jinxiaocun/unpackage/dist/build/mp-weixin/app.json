@@ -38,6 +38,10 @@
     "pages/my/share/share",
     "pages/stock/early-stage/early-stage",
     "pages/stock/inventory/inventory",
+<<<<<<< HEAD
+=======
+    "pages/stock/list/list",
+>>>>>>> d9bea62689cb495bf28b81e1ee13c55bbda74e56
     "pages/my/account/accountedit",
     "pages/my/account/accountdetail",
     "pages/stock/stock-list/stock-list"

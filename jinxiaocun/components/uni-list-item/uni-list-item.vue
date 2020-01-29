@@ -8,13 +8,15 @@
 			<view v-if="thumb" class="uni-list-item__icon">
 				<image :src="thumb" class="uni-list-item__icon-img" />
 			</view>
-			<view v-else-if="showExtraIcon" class="uni-list-item__icon">
+			<view v-else-if="showExtraIcon" class="uni-list-item__icon" @tap="handleClickIcon">
 				<uni-icons :color="extraIcon.color" :size="extraIcon.size" :type="extraIcon.type" class="uni-icon-wrapper" />
 			</view>
-			<view class="uni-list-item__content">
+			<view class="uni-list-item__content" @tap="handleClickContent">
 				<slot />
 				<text class="uni-list-item__content-title">{{ title }}</text>
-				<text v-if="note" class="uni-list-item__content-note">{{ note }}</text>
+				<view v-if="note" class="uni-list-item__content-note">
+					<text class="uni-list-item__content-note-item" :style="{'margin-top': index > 1 ? '5px' : '0px'}" v-for="(item, index) in filterNote" :key="index">{{item}}</text>
+				</view>
 			</view>
 			<view v-if="showBadge || showArrow || showSwitch ||showText" class="uni-list-item__extra">
 				<uni-badge v-if="showBadge" :type="badgeType" :text="badgeText" />
@@ -118,6 +120,11 @@
 				isFirstChild: false
 			}
 		},
+		computed: {
+			filterNote() {
+				return this.note.split('|')
+			}
+		},
 		mounted() {
 			if (!this.list.firstChildAppend) {
 				this.list.firstChildAppend = true
@@ -125,6 +132,12 @@
 			}
 		},
 		methods: {
+			handleClickIcon() {
+				this.$emit('clickIcon')
+			},
+			handleClickContent() {
+				this.$emit('clickContent')
+			},
 			onClick() {
 				this.$emit('click')
 			},
@@ -197,10 +210,15 @@
 		font-size: $uni-font-size-sm;
 	}
 	.uni-list-item__content-note {
-		margin-top: 6rpx;
+		margin-top: 10rpx;
 		color: $uni-text-color-grey;
 		font-size: $uni-font-size-sm;
+		display: flex;
+		flex-wrap: wrap;
 		overflow: hidden;
+		&-item {
+			width: 50%;
+		}
 	}
 
 	.uni-list-item__extra {
@@ -214,8 +232,8 @@
 	}
 
 	.uni-list-item__icon {
-		margin-right: 18rpx;
-		flex-direction: row;
+		width: 10%;
+		display: flex;
 		justify-content: center;
 		align-items: center;
 	}

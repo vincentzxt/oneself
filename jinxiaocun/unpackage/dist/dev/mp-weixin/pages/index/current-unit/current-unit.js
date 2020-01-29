@@ -178,6 +178,8 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
   onShow: function onShow() {
     this.datas = uni.getStorageSync('currentUnitList');
     this.searchDatas = this.datas;
+    console.log("-----datas-----");
+    console.log(this.datas);
   },
   onPullDownRefresh: function onPullDownRefresh() {
     _business.default.getCurrentUnit();

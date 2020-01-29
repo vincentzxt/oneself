@@ -9,27 +9,28 @@
 			<uni-collapse>
 				<uni-collapse-item v-if="businessType == 0" :title="item1.purchaseorderid" :name="item1.purchaseorderid" :note="'订单金额：' + item1.amount +'元|订单创建时间：' + item1.createtime" 
 				isIcon :icon="{type:'payment', color:'#ff9900', size:15}" v-for="(item1, index1) in searchDatas" :key="index1" @onArrow="handleOnArrow(item1)" @onReturn="handleOnReturn(item1)">
-					<view class="product-list">
+					<view>test1</view>
+					<view v-if="item1.productList.length > 0" class="product-list">
 						<text style="display: inline-block;color:#2d8cf0;width: 30%;">商品名称</text>
 						<text style="display: inline-block;color:#2d8cf0;width: 20%;">计量单位</text>
 						<text style="display: inline-block;color:#2d8cf0;width:20%;">数量</text>
-						<view v-for="(i1, index1) in item1.productList" :key="index1">
+						<view v-for="(i1, in1) in item1.productList" :key="in1">
 							<text style="display: inline-block;width: 30%;">{{i1.productname}}</text>
 							<text style="display: inline-block;width: 20%;">{{i1.unit}}</text>
 							<text style="display: inline-block;width:20%;">{{i1.qty}}</text>
 						</view>
 					</view>
 				</uni-collapse-item>
-				<uni-collapse-item v-else :title="item.salesorderid" :name="item.salesorderid" :note="'订单金额：' + item.amount +'元|订单创建时间：' + item.createtime"
-				isIcon :icon="{type:'payment', color:'#ff9900', size:15}" v-for="(item, index) in searchDatas" :key="index" @onArrow="handleOnArrow(item)" @onReturn="handleOnReturn(item)">
-					<view class="product-list">
+				<uni-collapse-item v-if="businessType == 1" :title="item2.salesorderid" :name="item2.salesorderid" :note="'订单金额：' + item2.amount +'元|订单创建时间：' + item2.createtime"
+				isIcon :icon="{type:'payment', color:'#ff9900', size:15}" v-for="(item2, index2) in searchDatas" :key="index2" @onArrow="handleOnArrow(item2)" @onReturn="handleOnReturn(item2)">
+					<view v-if="item2.productList.length > 0" class="product-list">
 						<text style="display: inline-block;color:#2d8cf0;width: 30%;">商品名称</text>
 						<text style="display: inline-block;color:#2d8cf0;width: 20%;">计量单位</text>
 						<text style="display: inline-block;color:#2d8cf0;width:20%;">数量</text>
-						<view v-for="(i, index) in item.productList" :key="index">
-							<text style="display: inline-block;width: 30%;">{{i.productname}}</text>
-							<text style="display: inline-block;width: 20%;">{{i.unit}}</text>
-							<text style="display: inline-block;width:20%;">{{i.salesqty}}</text>
+						<view v-for="(i2, in2) in item2.productList" :key="in2">
+							<text style="display: inline-block;width: 30%;">{{i2.productname}}</text>
+							<text style="display: inline-block;width: 20%;">{{i2.unit}}</text>
+							<text style="display: inline-block;width:20%;">{{i2.salesqty}}</text>
 						</view>
 					</view>
 				</uni-collapse-item>
@@ -45,6 +46,7 @@
 	import uniCollapseItem from '@/components/uni-collapse-item/uni-collapse-item.vue'
 	import { api } from '@/config/common.js'
 	import { query, getForReturn } from '@/api/common.js'
+	import { cloneObj } from '@/utils/tools.js'
 	export default {
 		components: {
 			uniSearchBar,
@@ -56,8 +58,8 @@
 				businessType: '',
 				currentUnitId: '',
 				title: '订单列表',
-				datas: null,
-				searchDatas: null
+				datas: [],
+				searchDatas: []
 			}
 		},
 		onLoad(options) {
@@ -69,8 +71,7 @@
 					query(api.purPurchaseOrder, { contactunitid: this.currentUnitId }).then(res => {
 						this.$refs.loading.close()
 						if (res.status == 200 && res.data.returnCode == '0000') {
-							this.datas = res.data.data.resultList
-							this.$set(this.datas, 'productList', [])
+							this.datas = cloneObj(res.data.data.resultList)
 							this.searchDatas = this.datas
 							console.log("1")
 							console.log(this.datas)
@@ -82,11 +83,10 @@
 					query(api.salesOrder, { contactunitid: this.currentUnitId }).then(res => {
 						this.$refs.loading.close()
 						if (res.status == 200 && res.data.returnCode == '0000') {
-							this.datas = res.data.data.resultList
-							this.$set(this.datas, 'productList', [])
+							this.datas = cloneObj(res.data.data.resultList)
 							this.searchDatas = this.datas
 							console.log("2")
-							console.log(this.datas)
+							console.log(this.searchDatas)
 						}
 					}).catch(error => {
 						this.$refs.loading.close()

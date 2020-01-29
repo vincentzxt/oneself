@@ -139,6 +139,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
 {
   name: 'UniListItem',
   components: {
@@ -225,6 +227,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       isFirstChild: false };
 
   },
+  computed: {
+    filterNote: function filterNote() {
+      return this.note.split('|');
+    } },
+
   mounted: function mounted() {
     if (!this.list.firstChildAppend) {
       this.list.firstChildAppend = true;
@@ -232,6 +239,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     }
   },
   methods: {
+    handleClickIcon: function handleClickIcon() {
+      this.$emit('clickIcon');
+    },
+    handleClickContent: function handleClickContent() {
+      this.$emit('clickContent');
+    },
     onClick: function onClick() {
       this.$emit('click');
     },

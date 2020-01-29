@@ -15,7 +15,6 @@
 						</view>
 					</view>
 				</view>
-
 				<view class="no_data" v-if="dataList.length === 0"><text class="item_text">暂无数据</text></view>
 				<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
 			</scroll-view>

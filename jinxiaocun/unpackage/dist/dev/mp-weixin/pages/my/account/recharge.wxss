@@ -12,7 +12,7 @@
 /* 垂直间距 */
 /* 透明度 */
 .main.data-v-3da48875 {
-  font-size: 32rpx;
+  font-size: 36rpx;
   padding: 30rpx 20rpx;
 }
 .footer.data-v-3da48875 {

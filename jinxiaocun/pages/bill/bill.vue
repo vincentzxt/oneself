@@ -7,13 +7,28 @@
 		<view class="main">
 			<scroll-view :scroll-y="true">
 				<cu-panel>
-					<cu-cell title="期初" isLink url="./early-stage/early-stage">
+					<cu-cell title="销售单据" isLink url="./stock-list/stock-list">
+						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel>
+					<cu-cell title="采购单据" isLink url="./stock-list/stock-list">
 						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
 					</cu-cell>
 				</cu-panel>
 				<cu-panel>
-					<cu-cell title="盘点" isLink url="./inventory/inventory">
+					<cu-cell title="退货单据" isLink url="./stock-list/stock-list">
 						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel>
+					<cu-cell title="收款单" isLink url="./stock-list/stock-list">
+						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
+					</cu-cell>
+				</cu-panel>
+				<cu-panel>
+					<cu-cell title="付款单" isLink url="./stock-list/stock-list">
+						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
 					</cu-cell>
 				</cu-panel>
 				<cu-panel>
@@ -22,12 +37,12 @@
 					</cu-cell>
 				</cu-panel>
 				<cu-panel>
-					<cu-cell title="出库单" isLink url="./inventory/inventory">
-						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
+					<cu-cell title="库存台账" isLink url="./stock-list/stock-list">
+						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
 					</cu-cell>
 				</cu-panel>
 				<cu-panel>
-					<cu-cell title="库存台帐" isLink url="./inventory/inventory">
+					<cu-cell title="费用单据" isLink url="./stock-list/stock-list">
 						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
 					</cu-cell>
 				</cu-panel>
@@ -46,7 +61,7 @@
 		},
 		data() {
 			return {
-				title: '库存'
+				title: '单据'
 			};
 		},
 		onShow() {

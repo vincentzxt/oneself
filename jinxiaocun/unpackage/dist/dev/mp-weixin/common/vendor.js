@@ -7634,11 +7634,15 @@ var _common2 = __webpack_require__(/*! @/config/common.js */ 56);var _default =
   curPage: '',
   getCurrentPage: function getCurrentPage() {
     var pages = getCurrentPages();
+    console.log(pages);
     this.curPage = pages[pages.length - 1];
+    console.log(this.curPage);
   },
   getCurrentUnit: function getCurrentUnit() {var _this = this;
+    console.log('------getCurrentUnit1-----');
     this.getCurrentPage();
     this.curPage.$vm.$refs.loading.open();
+    console.log('------getCurrentUnit2-----');
     return new Promise(function (resolve, reject) {
       (0, _common.query)(_common2.api.contactUnit).then(function (res) {
         console.log("#currentUnit#");
@@ -8835,33 +8839,6 @@ module.exports = function isCancel(value) {
 
 /***/ }),
 
-/***/ 365:
-/*!**************************************************************************!*\
-  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/api/stkstock.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.stockQuery = exports.stockCheck = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-var stockCheck = function stockCheck(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _http.default.request({
-    url: url + '/StockCheck',
-    data: data,
-    method: 'post' });
-
-};exports.stockCheck = stockCheck;
-var stockQuery = function stockQuery(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _http.default.request({
-    url: url + '/Query',
-    data: data,
-    method: 'post' });
-
-};exports.stockQuery = stockQuery;
-
-/***/ }),
-
 /***/ 37:
 /*!*********************************************************************************************!*\
   !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/node_modules/axios/lib/defaults.js ***!
@@ -9344,7 +9321,20 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'yujing-fill': "\uE8EC",
   'rexiao': "\uE606",
   'zhixiao': "\uE607",
-  'circle': "\uE601" };exports.default = _default;
+  'circle': "\uE601",
+  'c-phone': "\uE6CB",
+  'c-position': "\uE611",
+  'c-search': "\uE736",
+  'c-search-log': "\uE631",
+  'c-home': "\uE610",
+  'c-email': "\uE626",
+  'c-right': "\uE69E",
+  'c-product': "\uE655",
+  'c-unit': "\uE630",
+  'c-print': "\uE68B",
+  'c-contacts': "\uE61C",
+  'c-discount': "\uE62F",
+  'c-account': "\uE621" };exports.default = _default;
 
 /***/ }),
 
@@ -25444,6 +25434,33 @@ var queryProductCategory = function queryProductCategory(url) {var data = argume
 
 /***/ }),
 
+/***/ 599:
+/*!**************************************************************************!*\
+  !*** /Users/xuewei/Desktop/mywork/newoneself/jinxiaocun/api/stkstock.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.stockQuery = exports.stockCheck = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var stockCheck = function stockCheck(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/StockCheck',
+    data: data,
+    method: 'post' });
+
+};exports.stockCheck = stockCheck;
+var stockQuery = function stockQuery(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/Query',
+    data: data,
+    method: 'post' });
+
+};exports.stockQuery = stockQuery;
+
+/***/ }),
+
 /***/ 6:
 /*!******************************************************!*\
   !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
@@ -25481,7 +25498,7 @@ var cloneObj = function cloneObj(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/stock/stock": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/stock/early-stage/early-stage": {}, "pages/stock/inventory/inventory": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/stock/stock-list/stock-list": { "enablePullDownRefresh": true } }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item", "cu-loading": "/components/custom/cu-loading" } }, "pages/index/sale/sale": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" } }, "pages/index/sale/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/purchase/purchase": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" } }, "pages/index/purchase/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true, "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/current-unit/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "simple-address": "/components/simple-address/simple-address" } }, "pages/index/current-unit/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "simple-address": "/components/simple-address/simple-address" } }, "pages/index/product/product": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/product/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/product/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/product/type/type": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/product/unit/unit": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" } }, "pages/index/receipt/receipt": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/payment/payment": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/cost/cost": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/return-order/return-order": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" } }, "pages/index/return-order/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/return-order/orders/orders": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-collapse": "/components/uni-collapse/uni-collapse", "uni-collapse-item": "/components/uni-collapse-item/uni-collapse-item" } }, "pages/stock/stock": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell" } }, "pages/data/data": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/my": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/login/login": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" } }, "pages/my/set": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "image-cropper": "/components/invinbg-image-cropper/invinbg-image-cropper" } }, "pages/my/login/reg": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" } }, "pages/my/login/forget": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" } }, "pages/my/account/accountadd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/myorder": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/user/user": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/user/useradd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/user/useredit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/account/accountlist": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/account/recharge": { "usingComponents": { "helang-checkbox": "/components/helang-checkbox/helang-checkbox" } }, "pages/my/login/editPassword": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" } }, "pages/my/givetime": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/share/share": { "usingComponents": {} }, "pages/stock/early-stage/early-stage": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" } }, "pages/stock/inventory/inventory": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" } }, "pages/my/account/accountedit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/my/account/accountdetail": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/stock/stock-list/stock-list": { "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 

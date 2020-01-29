@@ -96,7 +96,7 @@
 									    success: function () {
 									        uni.switchTab({
 									        	url:'/pages/index/index'
-									        }) 
+									        })
 									    }
 									});
 					} else {

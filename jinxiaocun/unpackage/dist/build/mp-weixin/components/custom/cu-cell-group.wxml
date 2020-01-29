@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 <view class="cu-class cu-cell-group data-v-055404bf"><slot></slot></view>
+=======
+<view class="cu-class cu-cell-group data-v-4e7b656b"><slot></slot></view>
+>>>>>>> d9bea62689cb495bf28b81e1ee13c55bbda74e56

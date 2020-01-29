@@ -77,7 +77,7 @@
 			<swiper class="main-account-swiper" :indicator-dots="true" :autoplay="true">
 				<swiper-item>
 					<view class="main-account-header">
-						<uni-icons type="finance" color="#ff9900" size=20></uni-icons>
+						<uni-icons type="finance" color="#ed3f14" size=20></uni-icons>
 						<text style="margin-left: 10px">收款情况</text>
 					</view>
 					<view class="main-account-content">
@@ -194,7 +194,7 @@
 				slowSellingProduct: []
 			};
 		},
-		onLoad() {
+		onShow() {
 			this.cWidth = uni.upx2px(750)
 			this.cHeight = uni.upx2px(400)
 			this.rWidth = uni.upx2px(550)
@@ -212,8 +212,6 @@
 			}).catch(error => {
 				this.$refs.loading.close()
 			})
-		},
-		onShow() {
 		},
 		methods: {
 			handleDateChange(val) {

@@ -6,11 +6,15 @@ export default {
 	curPage: '',
 	getCurrentPage() {
 		let pages = getCurrentPages()
+		console.log(pages)
 		this.curPage = pages[pages.length - 1]
+		console.log(this.curPage)
 	},
 	getCurrentUnit() {
+		console.log('------getCurrentUnit1-----')
 		this.getCurrentPage()
 		this.curPage.$vm.$refs.loading.open()
+		console.log('------getCurrentUnit2-----')
 		return new Promise((resolve, reject) => {
 			query(api.contactUnit).then(res => {
 				console.log("#currentUnit#")

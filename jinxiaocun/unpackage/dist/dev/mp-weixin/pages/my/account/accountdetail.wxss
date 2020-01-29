@@ -16,7 +16,7 @@
   height: 100%;
 }
 .container.data-v-b2522140 {
-  font-size: 32rpx;
+  font-size: 36rpx;
   height: 100vh;
   width: 100vw;
 }

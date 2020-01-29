@@ -189,11 +189,11 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       reqData: {
         productname: '',
         querycode: '',
-        price: 0,
+        price: '',
         productcategory: '',
         unit: '',
         subunit: '',
-        unitmultiple: 0,
+        unitmultiple: '',
         remarks: '' },
 
       disableSubmit: true };

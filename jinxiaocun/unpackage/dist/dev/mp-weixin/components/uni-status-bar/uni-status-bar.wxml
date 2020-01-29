@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 <view class="uni-status-bar data-v-2f1b055c" style="{{'height:'+(statusBarHeight)+';'}}"><slot></slot></view>
+=======
+<view class="uni-status-bar data-v-31095326" style="{{'height:'+(statusBarHeight)+';'}}"><slot></slot></view>
+>>>>>>> d9bea62689cb495bf28b81e1ee13c55bbda74e56

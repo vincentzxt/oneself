@@ -115,7 +115,7 @@
 </script>
 
 <style lang="scss" scoped>
-	$cu-searchbar-height: 36px;
+	$cu-searchbar-height: 50px;
 	.cu-searchbar {
 		/* #ifndef APP-NVUE */
 		display: flex;

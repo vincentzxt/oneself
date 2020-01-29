@@ -7,7 +7,7 @@
 			</view>
 			<!-- #endif -->
 			<!-- #ifndef MP-ALIPAY -->
-			<uni-icons color="#c5c8ce" class="uni-searchbar__box-icon-search" size="18" type="search" />
+			<uni-icons color="#c5c8ce" class="uni-searchbar__box-icon-search" size="24" type="search" />
 			<!-- #endif -->
 			<input v-if="show" :focus="showSync" :maxlength="maxlength" @confirm="confirm" class="uni-searchbar__box-search-input"
 			 confirm-type="search" type="text" v-model="searchVal" />
@@ -115,7 +115,7 @@
 </script>
 
 <style lang="scss" scoped>
-	$uni-searchbar-height: 40px;
+	$uni-searchbar-height: 50px;
 	.uni-searchbar {
 		/* #ifndef APP-NVUE */
 		display: flex;
@@ -140,10 +140,9 @@
 		flex-direction: row;
 		align-items: center;
 		height: $uni-searchbar-height;
-		padding: 5px 5px 5px 0px;
+		padding: 0px 5px 0px 0px;
 		border-width: 0px;
 		border-style: solid;
-		margin-right: 5px;
 	}
 
 	.uni-searchbar__box-icon-search {
@@ -177,7 +176,8 @@
 
 	.uni-searchbar__cancel {
 		line-height: $uni-searchbar-height;
-		font-size: 14px;
+		font-size: 18px;
 		color: $uni-color-link;
+		margin-left: 5px;
 	}
 </style>
