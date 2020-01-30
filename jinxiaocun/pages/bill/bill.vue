@@ -7,7 +7,7 @@
 		<view class="main">
 			<scroll-view :scroll-y="true">
 				<cu-panel>
-					<cu-cell title="销售单据" isLink url="./stock-list/stock-list">
+					<cu-cell title="销售单据" isLink url="./sell-list/sell-list">
 						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
 					</cu-cell>
 				</cu-panel>

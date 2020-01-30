@@ -1,13 +1,6 @@
 {
-<<<<<<< HEAD
   "usingComponents": {
     "uni-transition": "/components/uni-transition/uni-transition"
   },
   "component": true
-=======
-  "component": true,
-  "usingComponents": {
-    "uni-transition": "/components/uni-transition/uni-transition"
-  }
->>>>>>> d9bea62689cb495bf28b81e1ee13c55bbda74e56
 }

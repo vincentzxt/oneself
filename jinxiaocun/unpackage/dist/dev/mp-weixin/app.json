@@ -41,7 +41,7 @@
     "pages/my/share/share",
     "pages/my/account/accountedit",
     "pages/my/account/accountdetail",
-    "pages/stock/stock-list/stock-list"
+    "pages/bill/sell-list/sell-list"
   ],
   "subPackages": [],
   "window": {
@@ -81,5 +81,6 @@
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  }
+  },
+  "sitemapLocation": "sitemap66.json"
 }

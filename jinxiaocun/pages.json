@@ -44,10 +44,10 @@
 		{ "path" : "pages/my/givetime" },
 		{ "path" : "pages/my/share/share" },
 		{ "path" : "pages/my/account/accountedit" },
-		{	"path" : "pages/my/account/accountdetail" },
-	    {
-            "path" : "pages/stock/stock-list/stock-list",
-            "style": { "enablePullDownRefresh": true }
+		{	"path" : "pages/my/account/accountdetail" }
+        ,{
+            "path" : "pages/bill/sell-list/sell-list",
+            "style" : {}
         }
     ],
 	"globalStyle": {
