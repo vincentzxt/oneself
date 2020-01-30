@@ -9,14 +9,12 @@
 		<!-- <view class="top"><view><text class="text">权限设置</text> </view><view><button type="default" size="mini" @tap="handleAdd">增加</button></view></view> -->
 		<view v-for="(item,index) in dataList" :key="index" class="list-item" @click="handleEdit(item)">
 		<cu-panel>
-			<cu-cell-group>
 			<cu-cell :title="item.loginname">
-				<radio-group @change="handleForbiddenChanage" :id="index">
+				<radio-group @change="handleForbiddenChanage" :id="index" slot="footer">
 					<radio color="#2db7f5" value=0 :checked="item.isdelete == 0">否</radio>
 					<radio color="#2db7f5" value=1 :checked="item.isdelete == 1" style="margin-left: 10px;">是</radio>
 				</radio-group>
 			</cu-cell>
-			</cu-cell-group>
 			</cu-panel>
 		</view>
 	
