@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-<view class="{{['container data-v-309ae1e3',column]}}"><block wx:for="{{list}}" wx:for-item="v" wx:for-index="i" wx:key="i"><view class="data-v-309ae1e3"><view class="{{['item data-v-309ae1e3',(type=='radio'&&index==i||type=='checkbox'&&v.checked)?'active':'']}}" data-i="{{i}}" data-event-opts="{{[['tap',[['change',['$event']]]]]}}" bindtap="__e"><view class="data-v-309ae1e3">{{v.text}}</view><view class="data-v-309ae1e3">{{v.sontext}}</view></view></view></block></view>
-=======
-<view class="{{['container data-v-b98d6892',column]}}"><block wx:for="{{list}}" wx:for-item="v" wx:for-index="i" wx:key="i"><view class="data-v-b98d6892"><view class="{{['item data-v-b98d6892',(type=='radio'&&index==i||type=='checkbox'&&v.checked)?'active':'']}}" data-i="{{i}}" data-event-opts="{{[['tap',[['change',['$event']]]]]}}" bindtap="__e"><view class="data-v-b98d6892">{{v.text}}</view><view class="data-v-b98d6892">{{v.sontext}}</view></view></view></block></view>
->>>>>>> d9bea62689cb495bf28b81e1ee13c55bbda74e56

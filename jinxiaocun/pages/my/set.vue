@@ -6,14 +6,13 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell-group>
 						<cu-cell title="设置头像">
 							<view>
 								<!-- <button @tap="upload">上传</button> -->
 								<image-cropper :src="tempFilePath" @confirm="confirm" @cancel="cancel"></image-cropper>
 								<!-- <image :src="reqData.companylogourl || '/static/image/logo.png'" mode="aspectFit" style="width: 100%;" ></image> -->
 							</view>
-							<image class="portrait" :src="reqData.companylogourl || '/static/image/logo.png'" @tap="upload"></image>
+							<image   slot="footer" class="portrait" :src="reqData.companylogourl || '/static/image/logo.png'" @tap="upload"></image>
 						</cu-cell>
 						<cu-cell title="商户名称">
 							<input slot="footer" type="text" v-model="reqData.companyname" placeholder-style="color:#c5c8ce" placeholder="商户名称" />
@@ -22,14 +21,11 @@
 						<cu-cell title="联系电话">
 							<input slot="footer" type="number" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入联系人电话" />
 						</cu-cell>
-						<cu-cell title="邮箱"><input slot="footer" type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
-						<cu-panel>
-							<cu-cell>
-								<textarea style="height: 80px" maxlength="-1" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="地址"></textarea>
-							</cu-cell>
-						</cu-panel>
-					</cu-cell-group>
+						<cu-cell title="邮箱" isLastCell><input slot="footer" type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
 				</cu-panel>
+				<view style="background-color: #FFFFFF;padding: 16upx;">
+				<textarea  style="height: 80px" maxlength="-1" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="地址"></textarea>
+				</view>
 			</scroll-view>
 		</view>
 		<cu-loading ref="loading"></cu-loading>

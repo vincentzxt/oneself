@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<view class="cu-class cu-cell-group data-v-055404bf"><slot></slot></view>
-=======
-<view class="cu-class cu-cell-group data-v-4e7b656b"><slot></slot></view>
->>>>>>> d9bea62689cb495bf28b81e1ee13c55bbda74e56
-=======
-<view class="cu-class cu-cell-group data-v-cabc9f8e"><slot></slot></view>
->>>>>>> fba5971a0e23fbb7063367a90ce3676ee7a8e720

@@ -14,7 +14,7 @@
 							<input slot="footer" type="text" v-model="reqData.cashaccountno" placeholder-style="color:#c5c8ce" placeholder="账号信息" />
 						</cu-cell>
 						<cu-cell title="账户类型" isLink>
-							<view style="width:80%;">
+							<view style="width:80%;" slot="footer" >
 								<picker @change="handleAccountTypeChange" :range="AccountTypeDict">
 									<view class="picker">
 										<text v-if="!reqData.cashaccounttype" style="color:#c5c8ce">请选择账户类型</text>
@@ -24,8 +24,8 @@
 							</view>
 						</cu-cell>
 						<cu-cell title="账户余额"><input slot="footer" type="number" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="账户余额" /></cu-cell>
-						<cu-cell title="是否禁用">
-							<radio-group @change="handleForbiddenChanage">
+						<cu-cell title="是否禁用" isLastCell>
+							<radio-group @change="handleForbiddenChanage" slot="footer" >
 								<radio color="#2db7f5" value="0" :checked="reqData.isdelete == 0">否</radio>
 								<radio color="#2db7f5" value="1" :checked="reqData.isdelete == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
