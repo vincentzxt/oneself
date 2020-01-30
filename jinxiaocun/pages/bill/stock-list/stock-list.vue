@@ -47,6 +47,15 @@ export default {
 	},
 	onLoad() {this.loadData();},
 	onShow() {},
+	onPullDownRefresh() {
+			this.dataList=[];
+			this.pageIndex = 0;
+			this.loadMore='more';
+	        this.loadData();
+	        setTimeout(function () {
+	            uni.stopPullDownRefresh();
+	        }, 1000);
+	    },
 	methods: {
 		handleRefreshPage() {
 			console.log('refreshpage');

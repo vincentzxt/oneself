@@ -167,27 +167,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _user = __webpack_require__(/*! @/api/user.js */ 261);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 470));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 449));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 456));};var _default =
 {
@@ -202,14 +181,15 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
     return {
       reqData: {
         userid: 0,
-        loginname: 'xuewei5',
-        realname: '张三丰',
-        telephone: '15827068282',
-        email: '171720926@qq.com',
+        loginname: '',
+        realname: '',
+        telephone: '',
+        email: '',
         password: '',
         re_password: '',
         roleid: 0 },
 
+      rolelist: [],
       loading: false,
       title: '增加账号' };
 
@@ -223,6 +203,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
     },
     handleRoleChanage: function handleRoleChanage(val) {
       this.reqData.roleid = val.detail.value;
+      console.log(this.reqData.roleid);
     },
     handleNavbarClickLeft: function handleNavbarClickLeft() {
       uni.navigateBack({
@@ -231,18 +212,20 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
     },
     loadRole: function loadRole() {var _this = this;
       var sendData = {
-        'pageIndex': 1,
-        'pageRows': -1 };
+        pageIndex: 1,
+        pageRows: -1 };
 
-      (0, _user.tokenpost)(_common.api.GetRoleList, sendData).then(function (res) {
+      (0, _user.tokenpost)(_common.api.GetRoleList, sendData).
+      then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
-          console.log(res.data.data.resultList);
-          // this.dataList = res.data.data.resultList
+          // console.log(res.data.data.resultList);
+          _this.rolelist = res.data.data.resultList;
         } else {
           _this.$api.msg(res.data.returnMessage);
         }
         _this.loading = false;
-      }).catch(function (error) {
+      }).
+      catch(function (error) {
         _this.loading = false;
         _this.$api.msg('请求失败fail');
       });
@@ -250,7 +233,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
     handleSubmit: function handleSubmit() {var _this2 = this;var _this$reqData =
       this.reqData,userid = _this$reqData.userid,loginname = _this$reqData.loginname,realname = _this$reqData.realname,telephone = _this$reqData.telephone,email = _this$reqData.email,password = _this$reqData.password,re_password = _this$reqData.re_password,roleid = _this$reqData.roleid;
       if (loginname.length == 0) {
-        this.$api.msg('登录账号不能为空！');
+        this.$api.msg('用户名不能为空！');
         return;
       }
       if (realname.length == 0) {
@@ -277,6 +260,10 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
         this.$api.msg('电子邮箱不能为空！');
         return;
       }
+      if (roleid == 0) {
+        this.$api.msg('角色不能为空！');
+        return;
+      }
       var sendData = { userid: userid, loginname: loginname, realname: realname, telephone: telephone, email: email, password: password, roleid: roleid };
       this.loading = true;
       (0, _user.tokenpost)(_common.api.SaveUser, sendData).
@@ -300,7 +287,6 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
         _this2.loading = false;
         _this2.$api.msg('请求失败fail');
       });
-
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -30,6 +30,7 @@
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
 		<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
+				<cu-loading ref="loading"></cu-loading>
 		</scroll-view>
 	</view>
 </view>
@@ -41,6 +42,7 @@ import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue"
 import { post,tokenpost} from '@/api/user.js';
 import { api } from '@/config/common.js';
+import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
 	components: {
 		uniLoadMore,

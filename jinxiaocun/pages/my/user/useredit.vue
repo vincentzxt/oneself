@@ -7,7 +7,6 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell-group>
 						<cu-cell title="用户名">
 							<input slot="footer" type="text" v-model="reqData.loginname" placeholder-style="color:#c5c8ce" placeholder="请输入用户名"/>
 						</cu-cell>
@@ -26,7 +25,7 @@
 						<cu-cell title="确认密码">
 							<input slot="footer" type="text" v-model="reqData.re_password" placeholder-style="color:#c5c8ce" placeholder="请再次输入密码"/>
 						</cu-cell>
-						<cu-cell title="分配角色">
+						<cu-cell title="分配角色" isLastCell>
 						</cu-cell>
 						<view>
 							 <radio-group @change="handleRoleChanage" class="uni-list-cell">
@@ -37,7 +36,6 @@
 							 	<radio color="#2db7f5" value=4 :checked="reqData.roleid == 4" style="margin: 10upx 16upx;">仓库人员</radio>
 							 </radio-group>
 						</view>
-					</cu-cell-group>
 				</cu-panel>
 			</scroll-view>
 		</view>
@@ -114,6 +112,29 @@
 					this.loading =false;
 					this.$api.msg('请求失败fail') 
 				})
+			},
+			loadData() {
+				this.$refs.loading.open()
+				tokenpost(api.GetUserInfo)
+					.then(res => {
+						if (res.status == 200) {
+							this.$refs.loading.close()
+							if (res.data.returnCode == '0000') {
+								this.dataList = res.data.data;
+								this.login_status = true;
+							} else {
+								//this.$api.msg(res.data.returnMessage);
+								this.dataList = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
+								this.login_status = false;
+							}
+						} else {
+							this.$api.msg(res.data.returnMessage);
+						}
+					})
+					.catch(error => {
+						this.$refs.loading.close()
+						this.$api.msg('请求失败fail');
+					});
 			},
 			handleSubmit() {
 				const {userid, loginname, realname, telephone, email, password,re_password,roleid} = this.reqData;

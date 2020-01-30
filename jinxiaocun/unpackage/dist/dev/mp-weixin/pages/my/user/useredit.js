@@ -186,8 +186,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _user = __webpack_require__(/*! @/api/user.js */ 261);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 470));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 449));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 456));};var _default =
 {
@@ -250,7 +248,30 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
         _this.$api.msg('请求失败fail');
       });
     },
-    handleSubmit: function handleSubmit() {var _this2 = this;var _this$reqData =
+    loadData: function loadData() {var _this2 = this;
+      this.$refs.loading.open();
+      (0, _user.tokenpost)(_common.api.GetUserInfo).
+      then(function (res) {
+        if (res.status == 200) {
+          _this2.$refs.loading.close();
+          if (res.data.returnCode == '0000') {
+            _this2.dataList = res.data.data;
+            _this2.login_status = true;
+          } else {
+            //this.$api.msg(res.data.returnMessage);
+            _this2.dataList = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
+            _this2.login_status = false;
+          }
+        } else {
+          _this2.$api.msg(res.data.returnMessage);
+        }
+      }).
+      catch(function (error) {
+        _this2.$refs.loading.close();
+        _this2.$api.msg('请求失败fail');
+      });
+    },
+    handleSubmit: function handleSubmit() {var _this3 = this;var _this$reqData =
       this.reqData,userid = _this$reqData.userid,loginname = _this$reqData.loginname,realname = _this$reqData.realname,telephone = _this$reqData.telephone,email = _this$reqData.email,password = _this$reqData.password,re_password = _this$reqData.re_password,roleid = _this$reqData.roleid;
       if (loginname.length == 0) {
         this.$api.msg('登录账号不能为空！');
@@ -285,23 +306,23 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
       (0, _user.tokenpost)(_common.api.SaveUser, sendData).
       then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this2.$api.msg(res.data.returnMessage);
+          _this3.$api.msg(res.data.returnMessage);
           uni.navigateBack({
             delta: 1 });
 
         } else if (res.status == 200 && res.data.returnCode == '402') {
-          _this2.$api.msg(res.data.returnMessage);
+          _this3.$api.msg(res.data.returnMessage);
           uni.reLaunch({
             url: '/pages/my/login/login' });
 
         } else {
-          _this2.$api.msg(res.data.returnMessage);
+          _this3.$api.msg(res.data.returnMessage);
         }
-        _this2.loading = false;
+        _this3.loading = false;
       }).
       catch(function (error) {
-        _this2.loading = false;
-        _this2.$api.msg('请求失败fail');
+        _this3.loading = false;
+        _this3.$api.msg('请求失败fail');
       });
 
     } } };exports.default = _default;

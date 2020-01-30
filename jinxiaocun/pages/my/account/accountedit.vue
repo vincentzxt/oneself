@@ -6,7 +6,6 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell-group>
 						<cu-cell title="账户名称">
 							<input slot="footer" type="text" v-model="reqData.cashaccountname" placeholder-style="color:#c5c8ce" placeholder="账户名称" />
 						</cu-cell>
@@ -14,7 +13,7 @@
 							<input slot="footer" type="text" v-model="reqData.cashaccountno" placeholder-style="color:#c5c8ce" placeholder="账号信息" />
 						</cu-cell>
 						<cu-cell title="账户类型" isLink>
-							<view style="width:80%;">
+							<view style="width:80%;" slot="footer">
 								<picker @change="handleAccountTypeChange" :value="reqData.cashaccounttype" :range="AccountTypeDict">
 									<view class="picker">
 										<text v-if="!reqData.cashaccounttype" style="color:#c5c8ce">请选择账户类型</text>
@@ -24,15 +23,14 @@
 							</view>
 						</cu-cell>
 						<cu-cell title="账户余额">
-							<text>{{ reqData.amount }}</text>
+							<text slot="footer">{{ reqData.amount }}</text>
 						</cu-cell>
-						<cu-cell title="是否禁用">
-							<radio-group @change="handleForbiddenChanage">
+						<cu-cell title="是否禁用" isLastCell>
+							<radio-group @change="handleForbiddenChanage" slot="footer">
 								<radio color="#2db7f5" value="0" :checked="reqData.isdelete == 0">否</radio>
 								<radio color="#2db7f5" value="1" :checked="reqData.isdelete == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
-					</cu-cell-group>
 				</cu-panel>
 			</scroll-view>
 		</view>

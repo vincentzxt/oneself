@@ -182,6 +182,15 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
   },
   onLoad: function onLoad() {this.loadData();},
   onShow: function onShow() {},
+  onPullDownRefresh: function onPullDownRefresh() {
+    this.dataList = [];
+    this.pageIndex = 0;
+    this.loadMore = 'more';
+    this.loadData();
+    setTimeout(function () {
+      uni.stopPullDownRefresh();
+    }, 1000);
+  },
   methods: {
     handleRefreshPage: function handleRefreshPage() {
       console.log('refreshpage');

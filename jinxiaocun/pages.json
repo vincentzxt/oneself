@@ -45,7 +45,11 @@
 		{ "path" : "pages/my/share/share" },
 		{ "path" : "pages/my/account/accountedit" },
 		{	"path" : "pages/my/account/accountdetail" }
-   ],
+        ,{
+            "path" : "pages/bill/sell-list/sell-list",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

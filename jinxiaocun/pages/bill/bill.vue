@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true">
 				<view>
 					<cu-panel>
-						<cu-cell title="销售单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="销售单据" isLink url="./sell-list/sell-lis" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -54,6 +54,7 @@
 						</cu-cell>
 					</cu-panel>
 				</view>
+>>>>>>> fba5971a0e23fbb7063367a90ce3676ee7a8e720
 			</scroll-view>
 		</view>
 	</view>
