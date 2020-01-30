@@ -197,10 +197,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
-var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 475));};var uniCollapse = function uniCollapse() {return __webpack_require__.e(/*! import() | components/uni-collapse/uni-collapse */ "components/uni-collapse/uni-collapse").then(__webpack_require__.bind(null, /*! @/components/uni-collapse/uni-collapse.vue */ 492));};var uniCollapseItem = function uniCollapseItem() {return __webpack_require__.e(/*! import() | components/uni-collapse-item/uni-collapse-item */ "components/uni-collapse-item/uni-collapse-item").then(__webpack_require__.bind(null, /*! @/components/uni-collapse-item/uni-collapse-item.vue */ 499));};var _default =
+var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 484));};var uniCollapse = function uniCollapse() {return __webpack_require__.e(/*! import() | components/uni-collapse/uni-collapse */ "components/uni-collapse/uni-collapse").then(__webpack_require__.bind(null, /*! @/components/uni-collapse/uni-collapse.vue */ 501));};var uniCollapseItem = function uniCollapseItem() {return __webpack_require__.e(/*! import() | components/uni-collapse-item/uni-collapse-item */ "components/uni-collapse-item/uni-collapse-item").then(__webpack_require__.bind(null, /*! @/components/uni-collapse-item/uni-collapse-item.vue */ 508));};var _default =
 {
   components: {
     uniSearchBar: uniSearchBar,
@@ -227,8 +226,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = 
           if (res.status == 200 && res.data.returnCode == '0000') {
             _this.datas = (0, _tools.cloneObj)(res.data.data.resultList);
             _this.searchDatas = _this.datas;
-            console.log("1");
-            console.log(_this.datas);
           }
         }).catch(function (error) {
           _this.$refs.loading.close();
@@ -239,8 +236,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = 
           if (res.status == 200 && res.data.returnCode == '0000') {
             _this.datas = (0, _tools.cloneObj)(res.data.data.resultList);
             _this.searchDatas = _this.datas;
-            console.log("2");
-            console.log(_this.searchDatas);
           }
         }).catch(function (error) {
           _this.$refs.loading.close();
@@ -286,6 +281,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = 
             var pages = getCurrentPages();
             var prevPage = pages[pages.length - 2];
             prevPage.setData({
+              commandType: 'return',
               productList: res.data.data.detailModels });
 
             uni.navigateBack({
@@ -322,6 +318,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = 
             var pages = getCurrentPages();
             var prevPage = pages[pages.length - 2];
             prevPage.setData({
+              commandType: 'return',
               productList: res.data.data.detailModels });
 
             uni.navigateBack({
@@ -353,6 +350,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = 
         var pages = getCurrentPages();
         var prevPage = pages[pages.length - 2];
         prevPage.setData({
+          commandType: 'return',
           productList: item.productList });
 
         uni.navigateBack({

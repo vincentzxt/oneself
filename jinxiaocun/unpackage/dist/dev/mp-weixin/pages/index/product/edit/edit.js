@@ -185,9 +185,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _common = __webpack_require__(/*! @/api/common.js */ 22);
 var _common2 = __webpack_require__(/*! @/config/common.js */ 56);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 470));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 444));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 451));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 479));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -206,6 +209,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         unit: '',
         subunit: '',
         unitmultiple: 0,
+        warningStockQty: 0,
         remarks: '' },
 
       disableSubmit: true };
@@ -221,6 +225,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     this.reqData.unit = item.unit;
     this.reqData.subunit = item.subunit;
     this.reqData.unitmultiple = item.unitmultiple;
+    this.reqData.warningStockQty = item.warningStockQty;
     this.reqData.remarks = item.remarks;
   },
   onShow: function onShow() {

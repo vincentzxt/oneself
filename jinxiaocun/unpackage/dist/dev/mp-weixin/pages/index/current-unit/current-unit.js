@@ -170,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 475));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 449));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 456));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 484));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 458));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 465));};var _default =
 {
   components: {
     uniSearchBar: uniSearchBar,
@@ -189,8 +189,6 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
   onShow: function onShow() {
     this.datas = uni.getStorageSync('currentUnitList');
     this.searchDatas = this.datas;
-    console.log("-----datas-----");
-    console.log(this.datas);
   },
   onPullDownRefresh: function onPullDownRefresh() {
     _business.default.getCurrentUnit();

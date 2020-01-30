@@ -137,6 +137,13 @@
 			this.productDatas = uni.getStorageSync('productList')
 			this.currentUnitSearchDatas = this.currentUnitDatas
 			this.productSearchDatas = this.productDatas
+			this.reqData = {
+				contactunitid: '',
+				contactunitname: '',
+				telephone: '',
+				productList: [],
+				totalPrice: 0.00,
+			}
 		},
 		computed: {
 			headerHeight() {

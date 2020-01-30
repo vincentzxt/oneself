@@ -319,7 +319,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 421));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 428));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 449));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 456));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 463));};var _default =
+var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 430));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 437));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 444));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 451));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 458));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 465));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 472));};var _default =
 {
   components: {
     cuSearchBar: cuSearchBar,
@@ -361,14 +361,30 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
     this.currentUnitSearchDatas = this.currentUnitDatas;
     var pages = getCurrentPages();
     var curPage = pages[pages.length - 1];
-    if (curPage.data.productList) {
-      if (this.businessType == 0) {
-        this.purchaseReqData.productList = curPage.data.productList;
+    if (curPage.data.commandType) {
+      if (curPage.data.commandType == 'success') {
+        this.purchaseReqData = {
+          contactunitid: '',
+          contactunitname: '',
+          productList: [],
+          totalPrice: 0.00 };
+
+        this.salesReqData = {
+          contactunitid: '',
+          contactunitname: '',
+          productList: [],
+          totalPrice: 0.00 };
+
       } else {
-        this.salesReqData.productList = curPage.data.productList;
+        if (curPage.data.productList) {
+          if (this.businessType == 0) {
+            this.purchaseReqData.productList = curPage.data.productList;
+          } else {
+            this.salesReqData.productList = curPage.data.productList;
+          }
+        }
       }
     }
-    console.log(this.salesReqData);
   },
   computed: {
     headerHeight: function headerHeight() {

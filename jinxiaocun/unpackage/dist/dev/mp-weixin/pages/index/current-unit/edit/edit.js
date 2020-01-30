@@ -241,7 +241,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _currentUnit = __webpack_require__(/*! @/api/current-unit.js */ 115);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var simpleAddress = function simpleAddress() {return Promise.all(/*! import() | components/simple-address/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address/simple-address")]).then(__webpack_require__.bind(null, /*! @/components/simple-address/simple-address.nvue */ 482));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 444));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 451));};var simpleAddress = function simpleAddress() {return Promise.all(/*! import() | components/simple-address/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address/simple-address")]).then(__webpack_require__.bind(null, /*! @/components/simple-address/simple-address.nvue */ 491));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -338,12 +338,14 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
           });
         } else {
           uni.showToast({
-            title: '修改失败' });
+            icon: 'none',
+            title: res.data.returnMessage });
 
         }
       }).catch(function (error) {
         uni.showToast({
-          title: '修改失败' });
+          icon: 'none',
+          title: error });
 
       });
     } },

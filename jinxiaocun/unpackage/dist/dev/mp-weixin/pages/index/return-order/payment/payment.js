@@ -209,7 +209,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 449));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 456));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 444));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 451));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 458));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 465));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -233,7 +233,8 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
 
         orderlist: [] },
 
-      cashAccountDict: [] };
+      cashAccountDict: [],
+      disableSubmit: true };
 
   },
   onLoad: function onLoad(options) {var _this = this;
@@ -294,6 +295,16 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
               icon: 'success',
               title: '提交成功' });
 
+            setTimeout(function () {
+              var pages = getCurrentPages();
+              var prevPage = pages[pages.length - 2];
+              prevPage.setData({
+                commandType: 'success' });
+
+              uni.navigateBack({
+                delta: 1 });
+
+            }, 500);
           } else {
             uni.showToast({
               icon: 'none',
@@ -316,6 +327,16 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
               icon: 'success',
               title: '提交成功' });
 
+            setTimeout(function () {
+              var pages = getCurrentPages();
+              var prevPage = pages[pages.length - 2];
+              prevPage.setData({
+                commandType: 'success' });
+
+              uni.navigateBack({
+                delta: 1 });
+
+            }, 500);
           } else {
             uni.showToast({
               icon: 'none',
@@ -330,7 +351,18 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
 
         });
       }
-    } } };exports.default = _default;
+    } },
+
+  watch: {
+    'reqData.order': {
+      handler: function handler(val) {
+        if (val.accountid || val.payaccountid) {
+          this.disableSubmit = false;
+        } else {
+          this.disableSubmit = true;
+        }
+      },
+      deep: true } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

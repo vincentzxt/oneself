@@ -350,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _user = __webpack_require__(/*! @/api/user.js */ 261);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 237));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 449));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 456));};var _default =
+var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 237));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 458));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 465));};var _default =
 {
   components: {
     // adCell

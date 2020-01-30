@@ -37,7 +37,7 @@
 				<text>订单金额：</text>
 				<text style="color:#ef5a62">￥{{reqData.order.amount}}</text>
 			</view>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
@@ -73,7 +73,8 @@
 					},
 					orderlist: []
 				},
-				cashAccountDict: []
+				cashAccountDict: [],
+				disableSubmit: true
 			};
 		},
 		onLoad(options) {
@@ -134,6 +135,16 @@
 								icon: 'success',
 								title: '提交成功'
 							})
+							setTimeout(()=>{
+								let pages =  getCurrentPages()
+								let prevPage = pages[pages.length - 2]
+								prevPage.setData({
+									commandType: 'success',
+								})
+								uni.navigateBack({
+									delta: 1
+								})
+							},500)
 						} else {
 							uni.showToast({
 								icon: 'none',
@@ -156,6 +167,16 @@
 								icon: 'success',
 								title: '提交成功'
 							})
+							setTimeout(()=>{
+								let pages =  getCurrentPages()
+								let prevPage = pages[pages.length - 2]
+								prevPage.setData({
+									commandType: 'success',
+								})
+								uni.navigateBack({
+									delta: 1
+								})
+							},500)
 						} else {
 							uni.showToast({
 								icon: 'none',
@@ -170,6 +191,18 @@
 						})
 					})
 				}
+			}
+		},
+		watch:{
+			'reqData.order': {
+				handler(val) {
+					if (val.accountid || val.payaccountid) {
+						this.disableSubmit = false
+					} else {
+						this.disableSubmit = true
+					}
+				},
+				deep: true
 			}
 		}
 	}

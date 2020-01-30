@@ -35,6 +35,9 @@
 						<cu-cell v-if="reqData.unit && reqData.subunit" title="计量单位倍率">
 							<input slot="footer" type="digit" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位倍率"/>
 						</cu-cell>
+						<cu-cell title="库存预警数量">
+							<input slot="footer" type="digit" v-model="reqData.warningStockQty" placeholder-style="color:#c5c8ce" placeholder="请输入库存预警数量"/>
+						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
 			</scroll-view>
@@ -70,6 +73,7 @@
 					unit: '',
 					subunit: '',
 					unitmultiple: '',
+					warningStockQty: 0,
 					remarks: '',
 				},
 				disableSubmit: true

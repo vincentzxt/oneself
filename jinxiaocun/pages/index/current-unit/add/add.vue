@@ -133,12 +133,14 @@
 						})
 					} else {
 						uni.showToast({
-							title: '添加失败'
+							icon: 'none',
+							title: res.data.returnMessage
 						})
 					}
 				}).catch(error => {
 					uni.showToast({
-						title: '添加失败'
+						icon: 'none',
+						title: error
 					})
 				})
 			}

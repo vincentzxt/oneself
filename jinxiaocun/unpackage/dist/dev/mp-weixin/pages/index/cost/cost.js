@@ -239,7 +239,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 421));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 435));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 442));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 449));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 456));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 430));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 444));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 451));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 458));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 465));};var _default =
 {
   components: {
     cuSearchBar: cuSearchBar,
@@ -262,7 +262,8 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
         amount: '' },
 
       feetypeDict: ['公司餐费', '公司交通费', '公司办公费', '公司租金费', '公司电费', '公司快递费', '增值税'],
-      cashAccountDict: [] };
+      cashAccountDict: [],
+      disableSubmit: true };
 
   },
   onLoad: function onLoad() {var _this = this;
@@ -273,9 +274,18 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
       _this.$refs.loading.close();
       if (res.status == 200 && res.data.returnCode == '0000') {
         _this.cashAccountDict = res.data.data.resultList;
+      } else {
+        uni.showToast({
+          icon: 'none',
+          title: res.data.returnMessage });
+
       }
     }).catch(function (error) {
       _this.$refs.loading.close();
+      uni.showToast({
+        icon: 'none',
+        title: error });
+
     });
   },
   computed: {
@@ -321,20 +331,41 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
         _this2.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
           uni.showToast({
+            icon: 'success',
             title: '提交成功' });
+
+          _this2.reqData = {
+            feetype: '',
+            contactunitid: '',
+            contactunitname: '',
+            payaccountid: '',
+            amount: '' };
 
         } else {
           uni.showToast({
-            title: '提交失败' });
+            icon: 'none',
+            title: res.data.returnMessage });
 
         }
       }).catch(function (error) {
         _this2.$refs.loading.close();
         uni.showToast({
-          title: '提交失败' });
+          icon: 'none',
+          title: error });
 
       });
-    } } };exports.default = _default;
+    } },
+
+  watch: {
+    reqData: {
+      handler: function handler(val) {
+        if (val.feetype && val.contactunitname && val.payaccountid && val.amount) {
+          this.disableSubmit = false;
+        } else {
+          this.disableSubmit = true;
+        }
+      },
+      deep: true } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

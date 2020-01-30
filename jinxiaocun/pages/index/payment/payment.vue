@@ -40,7 +40,7 @@
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
@@ -74,8 +74,9 @@
 					payaccountid: '',
 					amount: ''
 				},
-				cashAccountDict: []
-			};
+				cashAccountDict: [],
+				disableSubmit: true
+			}
 		},
 		onLoad() {
 			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
@@ -85,9 +86,18 @@
 				this.$refs.loading.close()
 				if (res.status == 200 && res.data.returnCode == '0000') {
 					this.cashAccountDict = res.data.data.resultList
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: res.data.returnMessage
+					})
 				}
 			}).catch(error => {
 				this.$refs.loading.close()
+				uni.showToast({
+					icon: 'none',
+					title: error
+				})
 			})
 		},
 		computed: {
@@ -130,19 +140,40 @@
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						uni.showToast({
+							icon: 'success',
 							title: '提交成功'
 						})
+						this.reqData = {
+							contactunitid: '',
+							contactunitname: '',
+							payaccountid: '',
+							amount: ''
+						}
 					} else {
 						uni.showToast({
-							title: '提交失败'
+							icon: 'none',
+							title: res.data.returnMessage
 						})
 					}
 				}).catch(error => {
 					this.$refs.loading.close()
 					uni.showToast({
-						title: '提交失败'
+						icon: 'none',
+						title: error
 					})
 				})
+			}
+		},
+		watch:{
+			reqData: {
+				handler(val) {
+					if (val.contactunitname && val.payaccountid && val.amount) {
+						this.disableSubmit = false
+					} else {
+						this.disableSubmit = true
+					}
+				},
+				deep: true
 			}
 		}
 	}
