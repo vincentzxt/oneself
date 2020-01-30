@@ -8,7 +8,7 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<uni-list>
-					<uni-list-item :title="item.contactunitname" :note="'电话：'+item.bseContactUnitContactModels[0].telephone" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
+					<uni-list-item :title="item.contactunitname" :note="['电话：'+item.bseContactUnitContactModels[0].telephone]" v-for="(item, index) in searchDatas" :key="index" @tap="handleEdit(item)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>

@@ -3,26 +3,27 @@
 	<cell>
 	<!-- #endif -->
 	<view :class="disabled ? 'uni-list-item--disabled' : ''" :hover-class="disabled || showSwitch ? '' : 'uni-list-item--hover'"
-	 class="uni-list-item" @click="onClick">
+	 class="uni-list-item" @click="handleClickItem">
 		<view class="uni-list-item__container" :class="{'uni-list-item--first':isFirstChild}">
 			<view v-if="thumb" class="uni-list-item__icon">
 				<image :src="thumb" class="uni-list-item__icon-img" />
 			</view>
-			<view v-else-if="showExtraIcon" class="uni-list-item__icon" @tap="handleClickIcon">
+			<view v-else-if="showExtraIcon" class="uni-list-item__icon">
 				<uni-icons :color="extraIcon.color" :size="extraIcon.size" :type="extraIcon.type" class="uni-icon-wrapper" />
 			</view>
 			<view class="uni-list-item__content" @tap="handleClickContent">
 				<slot />
 				<text class="uni-list-item__content-title">{{ title }}</text>
 				<view v-if="note" class="uni-list-item__content-note">
-					<text class="uni-list-item__content-note-item" :style="{'margin-top': index > 1 ? '5px' : '0px'}" v-for="(item, index) in filterNote" :key="index">{{item}}</text>
+					<text class="uni-list-item__content-note-item" :style="{'margin-top': index > 1 ? '5px' : '0px'}" v-for="(item, index) in note" :key="index">{{item}}</text>
 				</view>
 			</view>
-			<view v-if="showBadge || showArrow || showSwitch ||showText" class="uni-list-item__extra">
+			<view v-if="showBadge || showArrow || showSwitch ||showText || showIcon" class="uni-list-item__extra" @tap="handleClickFt">
 				<uni-badge v-if="showBadge" :type="badgeType" :text="badgeText" />
 				<text v-if="showText" class="uni-list-item__content-content">{{content}}</text>
 				<switch v-if="showSwitch" :disabled="disabled" :checked="switchChecked" @change="onSwitchChange" />
 				<uni-icons v-if="showArrow" :size="20" class="uni-icon-wrapper" color="#c5c8ce" type="arrow" />
+				<uni-icons v-if="showIcon" :size="icon.size" class="uni-icon-wrapper" :color="icon.color" :type="icon.type" />
 			</view>
 		</view>
 	</view>
@@ -50,8 +51,10 @@
 				default: ''
 			}, // 列表标题
 			note: {
-				type: String,
-				default: ''
+				type: Array,
+				default: () => {
+					return []
+				}
 			}, // 列表描述
 			disabled: {
 				// 是否禁用
@@ -107,9 +110,23 @@
 				type: Object,
 				default () {
 					return {
-						type: 'contact',
-						color: '#000000',
-						size: 20
+						type: '',
+						color: '',
+						size: 0
+					}
+				}
+			},
+			showIcon: {
+				type: [Boolean, String],
+				default: false
+			},
+			icon: {
+				type: Object,
+				default () {
+					return {
+						type: '',
+						color: '',
+						size: 0
 					}
 				}
 			}
@@ -120,11 +137,6 @@
 				isFirstChild: false
 			}
 		},
-		computed: {
-			filterNote() {
-				return this.note.split('|')
-			}
-		},
 		mounted() {
 			if (!this.list.firstChildAppend) {
 				this.list.firstChildAppend = true
@@ -132,14 +144,14 @@
 			}
 		},
 		methods: {
-			handleClickIcon() {
-				this.$emit('clickIcon')
+			handleClickItem() {
+				this.$emit('clickItem')
 			},
 			handleClickContent() {
 				this.$emit('clickContent')
 			},
-			onClick() {
-				this.$emit('click')
+			handleClickFt() {
+				this.$emit('clickFt')
 			},
 			onSwitchChange(e) {
 				this.$emit('switchChange', e.detail)

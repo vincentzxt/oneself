@@ -19,7 +19,10 @@
     "pages/index/return-order/return-order",
     "pages/index/return-order/payment/payment",
     "pages/index/return-order/orders/orders",
-    "pages/stock/stock",
+    "pages/index/early-stage/early-stage",
+    "pages/index/inventory/inventory",
+    "pages/bill/bill",
+    "pages/bill/stock-list/stock-list",
     "pages/data/data",
     "pages/my/my",
     "pages/my/login/login",
@@ -36,15 +39,17 @@
     "pages/my/login/editPassword",
     "pages/my/givetime",
     "pages/my/share/share",
+<<<<<<< HEAD
     "pages/stock/early-stage/early-stage",
     "pages/stock/inventory/inventory",
 <<<<<<< HEAD
 =======
     "pages/stock/list/list",
 >>>>>>> d9bea62689cb495bf28b81e1ee13c55bbda74e56
+=======
+>>>>>>> fba5971a0e23fbb7063367a90ce3676ee7a8e720
     "pages/my/account/accountedit",
-    "pages/my/account/accountdetail",
-    "pages/stock/stock-list/stock-list"
+    "pages/my/account/accountdetail"
   ],
   "subPackages": [],
   "window": {
@@ -61,10 +66,10 @@
         "text": "买卖"
       },
       {
-        "pagePath": "pages/stock/stock",
+        "pagePath": "pages/bill/bill",
         "iconPath": "static/image/stock.png",
         "selectedIconPath": "static/image/stock_selected.png",
-        "text": "库存"
+        "text": "单据"
       },
       {
         "pagePath": "pages/data/data",

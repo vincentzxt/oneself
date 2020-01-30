@@ -1,22 +1,14 @@
 <template>
-	<view class="cu-cell" :class="[isLastCell ? 'cu-cell-last' : '', isLink ? 'cu-cell-access' : '']">
-		<view class="cu-cell-icon">
-			<slot name="icon"></slot>
+	<view class="cu-cell" :class="isLastCell ? 'cu-cell-last' : ''" :style="{'height': height + 'px'}" @tap="handleCell">
+		<view v-if="isIcon" class="cu-cell-icon">
+			<uni-icons :type="icon.type" :color="icon.color" :size="icon.size"></uni-icons>
 		</view>
-		<view class="cu-cell-bd" @tap="handleTap">
-			<view v-if="title || label" class="cu-cell-bd-title">
-				<view v-if="title" class="cu-cell-text">{{ title }}</view>
-				<view v-if="label" class="cu-cell-desc">
-					<text class="cu-cell-desc-item" :style="{'margin-top': index > 1 ? '5px' : '0px'}" v-for="(item, index) in filterLabel" :key="index">{{item}}</text>
-				</view>
-			</view>
-			<slot></slot>
+		<view class="cu-cell-bd" :style="{ 'width': isIcon ? '30%' : '40%' }">
+			<view class="cu-cell-bd-title">{{ title }}</view>
 		</view>
-		<view catchtap="navigateTo" class="cu-cell-ft">
-			<view v-if="value">{{ value }}</view>
-			<view v-else>
-				<slot name="footer"></slot>
-			</view>
+		<view class="cu-cell-ft">
+			<uni-icons v-if="isLink" type="arrow" color="#c5c8ce" size='20'></uni-icons>
+			<slot name="footer"></slot>
 		</view>
 	</view>
 </template>
@@ -25,48 +17,47 @@
 	export default {
 		name: 'cu-cell',
 		props: {
+			height: {
+				type: Number,
+				default: 70
+			},
 			title: {
-				type: String
+				type: String,
+				default: ''
 			},
-			label: {
-				type: String
+			isIcon: {
+				type: Boolean,
+				default: false
 			},
-			value: {
-				type: String
+			icon: {
+				type: Object,
+				default: () => {
+					return {
+						type: '',
+						color: '',
+						size: 0
+					}
+				}
 			},
 			isLink: {
 				type: Boolean,
-				value: false
+				default: false
 			},
 			url: {
 				type: String,
-				value: ''
+				default: ''
 			},
 			params: {
 				type: String,
-				value: ''
+				default: ''
 			},
-			isReturn: {
+			isLastCell: {
 				type: Boolean,
-				value: false
-			},
-			rName: {
-				type: String,
-				value: ''
-			},
-			rDatas: {
-				type: Object,
-				value: {}
+				default: false
 			}
 		},
 		data() {
 			return {
-				isLastCell: true
-			}
-		},
-		computed: {
-			filterLabel() {
-				return this.label.split('|')
 			}
 		},
 		methods: {
@@ -79,27 +70,12 @@
 					url: url
 				})
 			},
-			navigateReturn () {
-				let pages =  getCurrentPages()
-				let prevPage = pages[pages.length - 2]
-				prevPage.setData({
-					rName: this.rName,
-					datas: this.rDatas
-				})
-				uni.navigateBack({
-					delta: 1
-				})
-			},
-			handleTap () {
+			handleCell () {
 				if (this.isLink) {
 					this.navigateTo()
+				} else {
+					this.$emit('clickCell')
 				}
-				if (this.isReturn) {
-					this.navigateReturn()
-				}
-			},
-			updateIsLastCell (isLastCell) {
-				this.isLastCell = isLastCell
 			}
 		}
 	}
@@ -108,14 +84,13 @@
 <style lang="scss" scoped>
 	.cu-cell {
 		position: relative;
-		padding: 0 15px 0 15px;
+		padding: 0 15px;
 		display: flex;
 		background: #fff;
 		align-items: center;
-		line-height: 1.4;
+		line-height: 18px;
 		font-size: $uni-font-size-base;
 		overflow: hidden;
-		height: 70px;
 		&::after{
 			content: '';
 			position: absolute;
@@ -136,7 +111,6 @@
 		    display: none;
 		}
 		&-icon{
-			margin-right: 5px;
 			width: 10%;
 			display: flex;
 			justify-content: center;
@@ -147,51 +121,20 @@
 		}
 		&-bd{
 			display: flex;
-			width: 30%;
-			justify-content: space-between;
 			align-items: center;
-			flex: 1;
-			&-title{
-				flex: 1;
-			}
 		}
 		&-text{
-			line-height: 24px;
 			font-size: $uni-font-size-base;
 			color: $uni-text-color;
-		}
-		&-desc{
-			line-height: 1.2;
-			font-size: $uni-font-size-sm;
-			color: $uni-text-color-grey;
-			margin-top: $uni-spacing-col-base;
-			display: flex;
-			flex-wrap: wrap;
-			&-item {
-				width: 50%;
-			}
 		}
 		&-ft{
 			width: 60%;
 			position: relative;
 			text-align: right;
 			color: $uni-text-color;
-		}
-		&-access &-ft{
-			padding-right: 13px;
-			&::after{
-				content: " ";
-				display: inline-block;
-				width: 6px;
-				height: 6px;
-				position: absolute;
-				top: 50%;
-				right: 2px;
-				border-width: 2px 2px 0 0;
-				border-color: $uni-border-color;
-				border-style: solid;
-				transform: translateY(-50%) matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-			}
+			display: flex;
+			flex-direction: row-reverse;
+			align-items: center;
 		}
 	}
 </style>

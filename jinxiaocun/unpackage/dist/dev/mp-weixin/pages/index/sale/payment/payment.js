@@ -90,6 +90,43 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var a0 = {
+    type: "c-account",
+    color: "#59bffb",
+    size: 18
+  }
+  var a1 = {
+    type: "c-contacts",
+    color: "#ff9900",
+    size: 18
+  }
+  var a2 = {
+    type: "c-right",
+    color: "#19be6b",
+    size: 18
+  }
+  var a3 = {
+    type: "c-print",
+    color: "#b37fec",
+    size: 18
+  }
+  var a4 = {
+    type: "c-discount",
+    color: "#f29d6e",
+    size: 18
+  }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        a0: a0,
+        a1: a1,
+        a2: a2,
+        a3: a3,
+        a4: a4
+      }
+    }
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -177,12 +214,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 443));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 450));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 457));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 462));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 469));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 443));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 450));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 462));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 469));};var _default =
 {
   components: {
     cuPanel: cuPanel,
     cuCell: cuCell,
-    cuCellGroup: cuCellGroup,
     uniList: uniList,
     uniListItem: uniListItem },
 
@@ -198,7 +234,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
           amount: 0.00,
           isprint: 0,
           status: 1,
-          discountamount: 0.00 },
+          discountamount: '' },
 
         orderlist: [] },
 

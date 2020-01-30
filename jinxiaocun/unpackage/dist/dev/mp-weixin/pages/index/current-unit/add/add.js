@@ -90,6 +90,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var a0 = {
+    type: "c-unit",
+    color: "#59bffb",
+    size: 18
+  }
+  var a1 = {
+    type: "c-search-log",
+    color: "#59bffb",
+    size: 18
+  }
+  var a2 = {
+    type: "c-contacts",
+    color: "#59bffb",
+    size: 18
+  }
+  var a3 = {
+    type: "c-phone",
+    color: "#59bffb",
+    size: 18
+  }
+  var a4 = {
+    type: "c-position",
+    color: "#59bffb",
+    size: 18
+  }
+  var a5 = {
+    type: "c-home",
+    color: "#59bffb",
+    size: 18
+  }
+  var a6 = {
+    type: "c-email",
+    color: "#59bffb",
+    size: 18
+  }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        a0: a0,
+        a1: a1,
+        a2: a2,
+        a3: a3,
+        a4: a4,
+        a5: a5,
+        a6: a6
+      }
+    }
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -179,18 +228,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
 var _common = __webpack_require__(/*! @/api/common.js */ 22);
 var _common2 = __webpack_require__(/*! @/config/common.js */ 56);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 443));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 450));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 457));};var simpleAddress = function simpleAddress() {return Promise.all(/*! import() | components/simple-address/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address/simple-address")]).then(__webpack_require__.bind(null, /*! @/components/simple-address/simple-address.nvue */ 490));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 443));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 450));};var simpleAddress = function simpleAddress() {return Promise.all(/*! import() | components/simple-address/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address/simple-address")]).then(__webpack_require__.bind(null, /*! @/components/simple-address/simple-address.nvue */ 490));};var _default =
 {
   components: {
     cuPanel: cuPanel,
     cuCell: cuCell,
-    cuCellGroup: cuCellGroup,
     simpleAddress: simpleAddress },
 
   data: function data() {

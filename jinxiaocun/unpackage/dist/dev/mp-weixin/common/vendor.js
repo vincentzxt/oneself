@@ -9546,7 +9546,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'c-print': "\uE68B",
   'c-contacts': "\uE61C",
   'c-discount': "\uE62F",
-  'c-account': "\uE621" };exports.default = _default;
+  'c-amount': "\uE621" };exports.default = _default;
 
 /***/ }),
 

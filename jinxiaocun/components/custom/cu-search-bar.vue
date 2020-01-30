@@ -133,15 +133,13 @@
 		/* #endif */
 		overflow: hidden;
 		position: relative;
-		flex: 1;
 		justify-content: center;
 		flex-direction: row;
 		align-items: center;
 		height: $cu-searchbar-height;
-		padding: 5px 5px 5px 0px;
 		border-width: 0px;
 		border-style: solid;
-		margin-right: 5px;
+		width: 100%;
 	}
 
 	.cu-searchbar__box-icon-search {

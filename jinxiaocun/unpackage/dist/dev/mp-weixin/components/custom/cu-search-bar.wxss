@@ -33,9 +33,6 @@
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-          flex: 1;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
@@ -47,10 +44,9 @@
   -webkit-align-items: center;
           align-items: center;
   height: 50px;
-  padding: 5px 5px 5px 0px;
   border-width: 0px;
   border-style: solid;
-  margin-right: 5px;
+  width: 100%;
 }
 .cu-searchbar__box-icon-search.data-v-d6cdf750 {
   display: -webkit-box;

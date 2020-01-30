@@ -114,6 +114,8 @@ var _default =
   name: 'cu-cell-group',
   mounted: function mounted() {
     var cells = this.$children;
+    console.log("child");
+    console.log(cells);
     var len = cells.length;
     if (len > 0) {
       var lastIndex = len - 1;

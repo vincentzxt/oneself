@@ -19,14 +19,10 @@
 .container .main.data-v-667d27e6 {
   margin-top: 5px;
 }
-.container .main .picker.data-v-667d27e6 {
-    width: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-            justify-content: flex-end;
+.container .main-remarks.data-v-667d27e6 {
+    background-color: #ffffff;
+    margin-top: 5px;
+    padding-top: 5px;
 }
 .container .footer.data-v-667d27e6 {
   height: 48px;

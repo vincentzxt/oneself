@@ -141,6 +141,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
 {
   name: 'UniListItem',
   components: {
@@ -157,8 +158,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       default: '' },
     // 列表标题
     note: {
-      type: String,
-      default: '' },
+      type: Array,
+      default: function _default() {
+        return [];
+      } },
     // 列表描述
     disabled: {
       // 是否禁用
@@ -214,9 +217,23 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       type: Object,
       default: function _default() {
         return {
-          type: 'contact',
-          color: '#000000',
-          size: 20 };
+          type: '',
+          color: '',
+          size: 0 };
+
+      } },
+
+    showIcon: {
+      type: [Boolean, String],
+      default: false },
+
+    icon: {
+      type: Object,
+      default: function _default() {
+        return {
+          type: '',
+          color: '',
+          size: 0 };
 
       } } },
 
@@ -227,11 +244,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       isFirstChild: false };
 
   },
-  computed: {
-    filterNote: function filterNote() {
-      return this.note.split('|');
-    } },
-
   mounted: function mounted() {
     if (!this.list.firstChildAppend) {
       this.list.firstChildAppend = true;
@@ -239,14 +251,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     }
   },
   methods: {
-    handleClickIcon: function handleClickIcon() {
-      this.$emit('clickIcon');
+    handleClickItem: function handleClickItem() {
+      this.$emit('clickItem');
     },
     handleClickContent: function handleClickContent() {
       this.$emit('clickContent');
     },
-    onClick: function onClick() {
-      this.$emit('click');
+    handleClickFt: function handleClickFt() {
+      this.$emit('clickFt');
     },
     onSwitchChange: function onSwitchChange(e) {
       this.$emit('switchChange', e.detail);

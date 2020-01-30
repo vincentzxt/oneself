@@ -22,11 +22,11 @@
           flex-direction: row;
   height: 35px;
   line-height: 35px;
-  width: 107px;
+  width: 140px;
 }
 .uni-numbox__value.data-v-21253d72 {
   background-color: #f7f7f7;
-  width: 40px;
+  width: 60px;
   height: 35px;
   text-align: center;
   font-size: 40rpx;
@@ -50,7 +50,7 @@
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  width: 35px;
+  width: 40px;
   height: 35px;
   font-size: 20px;
   color: #495060;
@@ -76,7 +76,7 @@
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  width: 35px;
+  width: 40px;
   height: 35px;
   border-width: 1rpx;
   border-style: solid;

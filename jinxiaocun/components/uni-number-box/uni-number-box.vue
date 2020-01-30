@@ -111,7 +111,7 @@
 	$box-line-height: 35px;
 	/* #endif */
 	$box-line-height: 26px;
-	$box-width: 35px;
+	$box-width: 40px;
 
 	.uni-numbox {
 		/* #ifndef APP-NVUE */
@@ -120,12 +120,12 @@
 		flex-direction: row;
 		height: $box-height;
 		line-height: $box-height;
-		width: 107px;
+		width: 140px;
 	}
 
 	.uni-numbox__value {
 		background-color: $uni-bg-color;
-		width: 40px;
+		width: 60px;
 		height: $box-height;
 		text-align: center;
 		font-size: $uni-font-size-lg;

@@ -6,46 +6,55 @@
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true">
-				<cu-panel>
-					<cu-cell title="销售单据" isLink url="./sell-list/sell-list">
-						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel>
-					<cu-cell title="采购单据" isLink url="./stock-list/stock-list">
-						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel>
-					<cu-cell title="退货单据" isLink url="./stock-list/stock-list">
-						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel>
-					<cu-cell title="收款单" isLink url="./stock-list/stock-list">
-						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel>
-					<cu-cell title="付款单" isLink url="./stock-list/stock-list">
-						<uni-icons slot="icon" type="sale" color="#ff9900" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel>
-					<cu-cell title="库存列表" isLink url="./stock-list/stock-list">
-						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel>
-					<cu-cell title="库存台账" isLink url="./stock-list/stock-list">
-						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
-				<cu-panel>
-					<cu-cell title="费用单据" isLink url="./stock-list/stock-list">
-						<uni-icons slot="icon" type="receipt" color="#19be6b" size="20"></uni-icons>
-					</cu-cell>
-				</cu-panel>
+				<view>
+					<cu-panel>
+						<cu-cell title="销售单据" isLink url="./sell-list/sell-lis" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="main-mt5">
+					<cu-panel>
+						<cu-cell title="采购单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="main-mt5">
+					<cu-panel>
+						<cu-cell title="退货单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="main-mt5">
+					<cu-panel>
+						<cu-cell title="收款单" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="main-mt5">
+					<cu-panel>
+						<cu-cell title="付款单" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="main-mt5">
+					<cu-panel>
+						<cu-cell title="库存列表" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="main-mt5">
+					<cu-panel>
+						<cu-cell title="库存台账" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="main-mt5">
+					<cu-panel>
+						<cu-cell title="费用单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						</cu-cell>
+					</cu-panel>
+				</view>
+>>>>>>> fba5971a0e23fbb7063367a90ce3676ee7a8e720
 			</scroll-view>
 		</view>
 	</view>
@@ -79,6 +88,9 @@
 		}
 		.main {
 			margin-top: $uni-spacing-col-base;
+			&-mt5 {
+				margin-top: 5px;
+			}
 		}
 	}
 </style>

@@ -15,4 +15,7 @@
 .container .main.data-v-5eec02f8 {
   margin-top: 10rpx;
 }
+.container .main-mt5.data-v-5eec02f8 {
+    margin-top: 5px;
+}
 
