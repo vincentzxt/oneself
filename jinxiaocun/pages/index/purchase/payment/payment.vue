@@ -13,10 +13,15 @@
 							<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 						</radio-group>
 					</cu-cell>
-					<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号" isIcon :icon="{ type: 'c-contacts', color: '#ff9900', 'size': 18 }">
-						<radio-group slot="footer" @change="handleCashAccountChange">
-							<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.payaccountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-						</radio-group>
+					<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
+						<view slot="footer" style="width:100%;">
+							<picker @change="handleCashAccountChange" :value="reqData.order.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
+								<view class="main-picker">
+									<text v-if="!reqData.order.payaccountName" style="color:#c5c8ce">选择付款帐号</text>
+									<text v-else>{{reqData.order.payaccountName}}</text>
+								</view>
+							</picker>
+						</view>
 					</cu-cell>
 					<cu-cell title="生成入库单" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
 						<radio-group slot="footer" @change="handleStatusChange">
@@ -71,6 +76,7 @@
 						billtype: 1,
 						isOnCredit: 0,
 						payaccountid: '',
+						payaccountName: '',
 						contactunitid: '',
 						amount: 0.00,
 						isprint: 0,
@@ -79,6 +85,7 @@
 					},
 					orderlist: []
 				},
+				tmpAmount: 0.00,
 				cashAccountDict: [],
 				disableSubmit: true
 			};
@@ -88,6 +95,7 @@
 				let data = JSON.parse(options.reqData)
 				this.reqData.order.contactunitid = data.contactunitid
 				this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2)
+				this.tmpAmount = this.reqData.order.amount
 				this.reqData.orderlist = data.productList
 			}
 			this.$refs.loading.open()
@@ -127,7 +135,8 @@
 				this.reqData.order.isOnCredit = val.detail.value
 			},
 			handleCashAccountChange(val) {
-				this.reqData.order.payaccountid = val.detail.value
+				this.reqData.order.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
+				this.reqData.order.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname
 			},
 			handleStatusChange(val) {
 				this.reqData.order.status = val.detail.value
@@ -138,7 +147,7 @@
 			handleDisCount(e) {
 				if (e.detail.value) {
 					this.reqData.order.discountamount = parseFloat(e.detail.value).toFixed(2)
-					this.reqData.order.amount = parseFloat(this.reqData.order.amount - this.reqData.order.discountamount).toFixed(2)
+					this.reqData.order.amount = parseFloat(this.tmpAmount - this.reqData.order.discountamount).toFixed(2)
 				}
 			},
 			handleSubmit() {
@@ -191,7 +200,7 @@
 	.container {
 		.main {
 			margin-top: 5px;
-			.picker {
+			&-picker {
 				width: 100%;
 				display: flex;
 				justify-content: flex-end;

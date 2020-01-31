@@ -19,7 +19,7 @@
 .container .main.data-v-ce5b4a72 {
   margin-top: 5px;
 }
-.container .main .picker.data-v-ce5b4a72 {
+.container .main-picker.data-v-ce5b4a72 {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;

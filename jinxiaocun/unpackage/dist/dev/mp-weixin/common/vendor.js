@@ -8030,6 +8030,34 @@ Object.keys(_axios).forEach(function (key) {if (key === "default" || key === "__
 
 /***/ }),
 
+/***/ 253:
+/*!****************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/data.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.querySlowSellingProduct = exports.queryHotSellingProduct = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var queryHotSellingProduct = function queryHotSellingProduct(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/QueryHotSellingProduct',
+    data: data,
+    method: 'post' });
+
+};exports.queryHotSellingProduct = queryHotSellingProduct;
+
+var querySlowSellingProduct = function querySlowSellingProduct(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/QuerySlowSellingProduct',
+    data: data,
+    method: 'post' });
+
+};exports.querySlowSellingProduct = querySlowSellingProduct;
+
+/***/ }),
+
 /***/ 26:
 /*!********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/index.js ***!
@@ -8042,7 +8070,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 27);
 
 /***/ }),
 
-/***/ 261:
+/***/ 262:
 /*!****************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/user.js ***!
   \****************************************************************************/
@@ -9341,7 +9369,7 @@ var substr = 'ab'.substr(-1) === 'b'
 
 /***/ }),
 
-/***/ 398:
+/***/ 399:
 /*!*****************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/bills.js ***!
   \*****************************************************************************/
@@ -9581,7 +9609,7 @@ module.exports = function xhrAdapter(config) {
 
 /***/ }),
 
-/***/ 413:
+/***/ 414:
 /*!**********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
   \**********************************************************************************************/
@@ -10031,7 +10059,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 /***/ }),
 
-/***/ 496:
+/***/ 497:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/province.js ***!
   \****************************************************************************************************************/
@@ -10185,7 +10213,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 497:
+/***/ 498:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/city.js ***!
   \************************************************************************************************************/
@@ -11703,7 +11731,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 498:
+/***/ 499:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/area.js ***!
   \************************************************************************************************************/

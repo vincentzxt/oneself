@@ -19,7 +19,7 @@
 .container .main.data-v-17c8d1e6 {
   margin-top: 5px;
 }
-.container .main .picker.data-v-17c8d1e6 {
+.container .main-picker.data-v-17c8d1e6 {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;

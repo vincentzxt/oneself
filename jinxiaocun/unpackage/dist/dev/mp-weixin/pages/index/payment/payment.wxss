@@ -24,6 +24,15 @@
     margin-top: 5px;
     padding-top: 5px;
 }
+.container .main-picker.data-v-e9095d56 {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+}
 .container .footer.data-v-e9095d56 {
   height: 48px;
 }

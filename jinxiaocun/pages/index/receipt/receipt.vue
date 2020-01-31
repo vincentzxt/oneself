@@ -18,10 +18,15 @@
 				</view>
 				<view style="margin-top:5px;">
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="收款帐号" isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
-							<radio-group slot="footer" @change="handleCashAccountChange">
-								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :key="index" :value="item.cashaccountid" :checked="reqData.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-							</radio-group>
+						<cu-cell v-if="!searchCurrentUnit" title="收款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
+							<view slot="footer" style="width:100%;">
+								<picker @change="handleCashAccountChange" :value="reqData.accountid" :range="cashAccountDict" range-key='cashaccountname'>
+									<view class="main-picker">
+										<text v-if="!reqData.accountName" style="color:#c5c8ce">选择收款帐号</text>
+										<text v-else>{{reqData.accountName}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="收款金额" isIcon :icon="{ type: 'c-amount', color: '#b37fec', 'size': 18 }" isLastCell>
 							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0"/>
@@ -72,6 +77,7 @@
 					contactunitid: '',
 					contactunitname: '',
 					accountid: '',
+					accountName: '',
 					amount: ''
 				},
 				cashAccountDict: [],
@@ -115,7 +121,8 @@
 				})
 			},
 			handleCashAccountChange(val) {
-				this.reqData.accountid = val.detail.value
+				this.reqData.accountid = this.cashAccountDict[val.detail.value].cashaccountid
+				this.reqData.accountName = this.cashAccountDict[val.detail.value].cashaccountname
 			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
@@ -147,6 +154,7 @@
 							contactunitid: '',
 							contactunitname: '',
 							accountid: '',
+							accountName: '',
 							amount: ''
 						}
 					} else {
@@ -191,6 +199,11 @@
 				background-color: #ffffff;
 				margin-top: 5px;
 				padding-top: 5px;
+			}
+			&-picker {
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
 			}
 		}
 		.footer {

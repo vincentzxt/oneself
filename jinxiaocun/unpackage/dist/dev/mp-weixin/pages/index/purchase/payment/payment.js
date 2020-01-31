@@ -107,7 +107,7 @@ var render = function() {
   }
   var a1 = {
     type: "c-contacts",
-    color: "#ff9900",
+    color: "#19be6b",
     size: 18
   }
   var a2 = {
@@ -225,8 +225,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 444));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 451));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 479));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 458));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 465));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 445));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 452));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 480));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 459));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 466));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -243,6 +248,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
           billtype: 1,
           isOnCredit: 0,
           payaccountid: '',
+          payaccountName: '',
           contactunitid: '',
           amount: 0.00,
           isprint: 0,
@@ -251,6 +257,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
 
         orderlist: [] },
 
+      tmpAmount: 0.00,
       cashAccountDict: [],
       disableSubmit: true };
 
@@ -260,6 +267,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
       var data = JSON.parse(options.reqData);
       this.reqData.order.contactunitid = data.contactunitid;
       this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2);
+      this.tmpAmount = this.reqData.order.amount;
       this.reqData.orderlist = data.productList;
     }
     this.$refs.loading.open();
@@ -299,7 +307,8 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
       this.reqData.order.isOnCredit = val.detail.value;
     },
     handleCashAccountChange: function handleCashAccountChange(val) {
-      this.reqData.order.payaccountid = val.detail.value;
+      this.reqData.order.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid;
+      this.reqData.order.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname;
     },
     handleStatusChange: function handleStatusChange(val) {
       this.reqData.order.status = val.detail.value;
@@ -310,7 +319,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
     handleDisCount: function handleDisCount(e) {
       if (e.detail.value) {
         this.reqData.order.discountamount = parseFloat(e.detail.value).toFixed(2);
-        this.reqData.order.amount = parseFloat(this.reqData.order.amount - this.reqData.order.discountamount).toFixed(2);
+        this.reqData.order.amount = parseFloat(this.tmpAmount - this.reqData.order.discountamount).toFixed(2);
       }
     },
     handleSubmit: function handleSubmit() {var _this2 = this;

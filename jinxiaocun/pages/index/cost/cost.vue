@@ -32,10 +32,15 @@
 				</view>
 				<view style="margin-top:5px">
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="收款帐号" isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
-							<radio-group slot="footer" @change="handleCashAccountChange">
-								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :key="index" :value="item.cashaccountid" :checked="reqData.payaccountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-							</radio-group>
+						<cu-cell v-if="!searchCurrentUnit" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
+							<view slot="footer" style="width:100%;">
+								<picker @change="handleCashAccountChange" :value="reqData.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
+									<view class="main-picker">
+										<text v-if="!reqData.payaccountName" style="color:#c5c8ce">选择付款帐号</text>
+										<text v-else>{{reqData.payaccountName}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="费用金额" isIcon :icon="{ type: 'c-amount', color: '#b37fec', 'size': 18 }" isLastCell>
 							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0"/>
@@ -87,6 +92,7 @@
 					contactunitid: '',
 					contactunitname: '',
 					payaccountid: '',
+					payaccountName: '',
 					amount: ''
 				},
 				feetypeDict: ['公司餐费', '公司交通费', '公司办公费', '公司租金费', '公司电费', '公司快递费', '增值税'],
@@ -134,7 +140,8 @@
 				this.reqData.feetype = this.feetypeDict[val.detail.value]
 			},
 			handleCashAccountChange(val) {
-				this.reqData.payaccountid = val.detail.value
+				this.reqData.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
+				this.reqData.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname
 			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
@@ -167,6 +174,7 @@
 							contactunitid: '',
 							contactunitname: '',
 							payaccountid: '',
+							payaccountName: '',
 							amount: ''
 						}
 					} else {

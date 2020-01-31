@@ -218,8 +218,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 430));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 444));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 451));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 458));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 465));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 431));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 445));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 452));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 459));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 466));};var _default =
 {
   components: {
     cuSearchBar: cuSearchBar,
@@ -238,6 +243,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
         contactunitid: '',
         contactunitname: '',
         accountid: '',
+        accountName: '',
         amount: '' },
 
       cashAccountDict: [],
@@ -281,7 +287,8 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
 
     },
     handleCashAccountChange: function handleCashAccountChange(val) {
-      this.reqData.accountid = val.detail.value;
+      this.reqData.accountid = this.cashAccountDict[val.detail.value].cashaccountid;
+      this.reqData.accountName = this.cashAccountDict[val.detail.value].cashaccountname;
     },
     handleSearchCurrentUnit: function handleSearchCurrentUnit(val) {
       if (val.value) {
@@ -313,6 +320,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
             contactunitid: '',
             contactunitname: '',
             accountid: '',
+            accountName: '',
             amount: '' };
 
         } else {
