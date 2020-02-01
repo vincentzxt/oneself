@@ -3,7 +3,7 @@
 		<view class="header">
 			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
-		<xw-date title="销售日期"  @click_sub="handle_data_sub"></xw-date>
+		<xw-date title="收款日期"  @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
 			<view><text>总订单：{{totalOrder}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view>
 		</view>
@@ -72,7 +72,7 @@ export default {
 			loadmore:'more',
 			pageIndex: 0,
 			pageRows: 15,
-			title: '销售单据',
+			title: '收款单据',
 			totalAmount:'0.00',
 			totalOrder:'0',
 			dataList: [],
@@ -122,7 +122,7 @@ export default {
 				beginttime:this.search_startDate,
 				endtime:this.search_endDate
 			};
-			query(api.salesOrder, senddata)
+			query(api.capreceipt, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {

@@ -8,13 +8,13 @@
 			<scroll-view :scroll-y="true">
 				<view>
 					<cu-panel>
-						<cu-cell title="销售单据" isLink url="./sell-list/sell-lis" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="销售单据" isLink url="./sell-list/sell-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
 						</cu-cell>
 					</cu-panel>
 				</view>
 				<view class="main-mt5">
 					<cu-panel>
-						<cu-cell title="采购单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="采购单据" isLink url="./purchase-list/purchase-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -26,13 +26,13 @@
 				</view>
 				<view class="main-mt5">
 					<cu-panel>
-						<cu-cell title="收款单" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="收款单" isLink url="./receipt-list/receipt-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
 						</cu-cell>
 					</cu-panel>
 				</view>
 				<view class="main-mt5">
 					<cu-panel>
-						<cu-cell title="付款单" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="付款单" isLink url="./payment-list/payment-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
 						</cu-cell>
 					</cu-panel>
 				</view>
