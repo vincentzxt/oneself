@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#b37fec', 'size': 18 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#69c0ff', 'size': 20 }" isLastCell>
 							<cu-search-bar slot="footer" ref="sp" style="width:100%;" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
@@ -26,7 +26,7 @@
 							:title="item.productname"
 							:showArrow="false"
 							showIcon
-							:icon="{type: 'delete', color:'#ef5a62', size: '20'}"
+							:icon="{type: 'delete', color:'#f4613d', size: '25'}"
 							:note="['数量：'+item.qty, '计量单位：'+item.unit, '成本价：'+item.purchaseunitprice]"
 							v-for="(item, index) in reqData.orderlist"
 							:key="index"
@@ -48,9 +48,9 @@
 							<uni-number-box :min="1" :value="curSelectPruduct.qty" @change="handleqtyChange"></uni-number-box>
 							<view class="popup-qty-items">
 								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fbe490;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #bffe94;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd969c;" @tap="handleSelectQty(300)">300</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
 							</view>
 						</view>
 					</view>
@@ -298,6 +298,7 @@
 					justify-content: center;
 					align-items: center;
 					color: #ffffff;
+					box-shadow: 1px 1px 2px $uni-border-color;
 				}
 			}
 		}

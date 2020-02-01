@@ -8,17 +8,17 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#59bffb', 'size': 18 }">
+						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#69c0ff', 'size': 20 }">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isIcon :icon="{ type: 'c-unit', color: '#ff9900', 'size': 18 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub isLastCell>
 							<text slot="footer">{{reqData.contactunitname}}</text>
 						</cu-cell>
 					</cu-panel>
 				</view>
 				<view style="margin-top:5px;">
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
+						<cu-cell v-if="!searchCurrentUnit" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#ffa268', 'size': 20 }">
 							<view slot="footer" style="width:100%;">
 								<picker @change="handleCashAccountChange" :value="reqData.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
 									<view class="main-picker">
@@ -28,7 +28,7 @@
 								</picker>
 							</view>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="付款金额" isIcon :icon="{ type: 'c-amount', color: '#b37fec', 'size': 18 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit" title="付款金额" isIcon :icon="{ type: 'c-amount', color: '#f4613d', 'size': 20 }" isLastCell>
 							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0"/>
 						</cu-cell>
 					</cu-panel>

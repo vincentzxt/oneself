@@ -1,8 +1,10 @@
 export default {
-	'sale': '\ue600',
+	'sale': '\ue622',
 	'cost': '\ue604',
 	'purchase': '\ue887',
 	'purchase-fill': '\ue888',
+	'early-stage': '\ue640',
+	'inventory': '\ue67f',
 	'stock': '\ue88f',
 	'stock-fill': '\ue890',
 	'customer': '\ue8a8',
@@ -58,10 +60,11 @@ export default {
 	'c-home': '\ue610',
 	'c-email': '\ue626',
 	'c-right': '\ue69e',
-	'c-product': '\ue655',
+	'c-type': '\ue655',
 	'c-unit': '\ue630',
 	'c-print': '\ue68b',
 	'c-contacts': '\ue61c',
 	'c-discount': '\ue62f',
-	'c-amount': '\ue621'
+	'c-amount': '\ue621',
+	'c-product': '\ue7a6'
 }

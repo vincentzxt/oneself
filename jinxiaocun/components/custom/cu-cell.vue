@@ -3,7 +3,9 @@
 		<view v-if="isIcon" class="cu-cell-icon">
 			<uni-icons :type="icon.type" :color="icon.color" :size="icon.size"></uni-icons>
 		</view>
-		<view class="cu-cell-bd" :style="{ 'width': isIcon ? '30%' : '40%' }">
+		<view v-if="isSub" class="cu-cell-sub">
+		</view>
+		<view class="cu-cell-bd" :style="{ 'width': isIcon || isSub ? '30%' : '40%' }">
 			<view class="cu-cell-bd-title">{{ title }}</view>
 		</view>
 		<view class="cu-cell-ft">
@@ -52,6 +54,10 @@
 				default: ''
 			},
 			isLastCell: {
+				type: Boolean,
+				default: false
+			},
+			isSub: {
 				type: Boolean,
 				default: false
 			}
@@ -118,6 +124,9 @@
 			&:empty{
 				display: none
 			}
+		}
+		&-sub{
+			width: 10%;
 		}
 		&-bd{
 			display: flex;

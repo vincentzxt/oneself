@@ -1,14 +1,6 @@
 <template>
 	<view class="cu-searchbar">
 		<view :style="{borderRadius:radius+'px',backgroundColor: bgColor}" class="cu-searchbar__box" @click="searchClick">
-			<!-- #ifdef MP-ALIPAY -->
-			<view class="cu-searchbar__box-icon-search">
-				<uni-icons color="#c5c8ce" size="18" type="search" />
-			</view>
-			<!-- #endif -->
-			<!-- #ifndef MP-ALIPAY -->
-			<uni-icons color="#c5c8ce" class="cu-searchbar__box-icon-search" size="18" type="search" />
-			<!-- #endif -->
 			<input v-if="show" :focus="showSync" :maxlength="maxlength" @confirm="confirm" class="cu-searchbar__box-search-input"
 			 confirm-type="search" type="text" v-model="searchVal" />
 			<text v-else class="cu-searchbar__text-placeholder">{{ placeholder }}</text>

@@ -4,7 +4,9 @@
 		<uni-grid :column="2" :square="false">
 			<uni-grid-item v-for="(item, index) in lists" :key="index" @tap="handleGridChange(item)" :index="index">
 				<view class="item-content">
-					<uni-icons :type="item.icon" :color="item.color" size="36"></uni-icons>
+					<view class="item-content-icon">
+						<uni-icons :type="item.icon" :color="item.color" :size="item.size"></uni-icons>
+					</view>
 					<text class="item-content-text">{{ item.name }}</text>
 				</view>
 			</uni-grid-item>
@@ -29,16 +31,16 @@ export default {
 			title: '买卖',
 			promoterid: 0,
 			lists: [
-				{ id: '1', name: '销售', icon: 'sale', color: '#ed3f14' },
-				{ id: '2', name: '采购', icon: 'purchase-fill', color: '#2d8cf0' },
-				{ id: '3', name: '客户&供应商', icon: 'customer-fill', color: '#ff9900' },
-				{ id: '4', name: '产品', icon: 'product-fill', color: '#2d8cf0' },
-				{ id: '5', name: '收款单', icon: 'receipt', color: '#ed3f14' },
-				{ id: '6', name: '付款单', icon: 'payment', color: '#ff9900' },
-				{ id: '7', name: '费用单', icon: 'cost', color: '#19be6b' },
-				{ id: '8', name: '退货单', icon: 'return-order', color: '#19be6b' },
-				{ id: '9', name: '期初', icon: 'product-fill', color: '#2d8cf0' },
-				{ id: '10', name: '盘点', icon: 'purchase-fill', color: '#ed3f14' }
+				{ id: '1', name: '销售', icon: 'sale', color: '#f4613d', size: 32 },
+				{ id: '2', name: '采购', icon: 'purchase-fill', color: '#f4613d', size: 36 },
+				{ id: '3', name: '客户&供应商', icon: 'customer-fill', color: '#69c0ff', size: 36 },
+				{ id: '4', name: '产品', icon: 'product-fill', color: '#69c0ff', size: 36 },
+				{ id: '5', name: '收款单', icon: 'receipt', color: '#3dc57a', size: 36 },
+				{ id: '6', name: '付款单', icon: 'payment', color: '#3dc57a', size: 36 },
+				{ id: '7', name: '费用单', icon: 'cost', color: '#3dc57a', size: 36 },
+				{ id: '8', name: '退货单', icon: 'return-order', color: '#3dc57a', size: 36 },
+				{ id: '9', name: '期初', icon: 'early-stage', color: '#ffa268', size: 32 },
+				{ id: '10', name: '盘点', icon: 'inventory', color: '#ffa268', size: 36 }
 			]
 		};
 	},
@@ -138,9 +140,15 @@ export default {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	&-icon {
+		width: 100upx;
+		height: 100upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 	&-text {
 		font-size: $uni-font-size-lg;
-		margin-top: $uni-spacing-col-base;
 	}
 }
 </style>
