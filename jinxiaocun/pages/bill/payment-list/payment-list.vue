@@ -5,7 +5,7 @@
 		</view>
 		<xw-date title="付款日期"  @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
-			<view><text>总订单：{{totalOrder}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view>
+			<view><text>总订单：{{totalRecords}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view>
 		</view>
 		<view class="list-header" v-if="dataList.length>0">
 			<view class="item-content">
@@ -74,7 +74,7 @@ export default {
 			pageRows: 15,
 			title: '付款单据',
 			totalAmount:'0.00',
-			totalOrder:'0',
+			totalRecords:'0',
 			dataList: [],
 			search_startDate:nowDate,
 			search_endDate:nowDate
@@ -132,6 +132,7 @@ export default {
 						}else{
 							this.dataList =this.dataList.concat(res.data.data.resultList);
 							this.totalAmount = res.data.data.totalAmount;
+							this.totalRecords = res.data.data.pageInfo.totalRecords;
 							this.pageIndex = this.pageIndex+1 ;
 							this.loadmore = "more"
 						}
@@ -151,120 +152,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.fill {
-	width: 100%;
-	height: 100%;
-}
-.container {
-	font-size: $uni-font-size-base;
-	height: 100vh;
-	width: 100vw;
-	.header {
-		height: 10%;
-	}
-	.total{
-		height: 5%;
-		background-color: #FFFFFF;
-		 display: flex;
-		 flex-direction: row;
-		 justify-content: space-around;
-		 padding: 12upx 0upx;
-	}
-	.main {
-		height: 70%;
-		padding: 0;
-		//margin-top: 10upx;
-		.cu-form-group .title {
-			min-width: calc(5em + 30px);
-		}
-		.main-header {
-			display: flex;
-			height: 140upx;
-			background-color: #ffffff;
-			justify-content: center;
-			align-items: center;
-		}
-		.picker {
-			width: 100%;
-			display: flex;
-			justify-content: flex-end;
-		}
-	}
-	.footer {
-		height: 7%;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-	}
-}
-.uni-loadmore{
-	text-align: center;
-	font-size: $uni-font-size-base;
-}
-
-.no_data {
-	display: flex;
-	//flex-direction: column;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	justify-content: center;
-	.item_img {
-		width: 120rpx;
-		height: 120rpx;
-	}
-	.item_text {
-		font-size: 24rpx;
-		margin-top: 100rpx;
-		color: #cccccc;
-	}
-}
-.list-header {
-	    padding: 0upx 24upx;
-		display: flex;
-		flex-direction: row;
-		font-weight: 600;
-		.item-content {
-			flex: 2;
-			font-size: $uni-font-size-sm;
-			line-height: 60upx;
-		}
-		.item-content2 {
-			flex: 1;
-			font-size: $uni-font-size-sm;
-			line-height: 60upx;
-		}
-		.item-content3 {
-			flex: 1;
-			font-size: $uni-font-size-sm;
-			line-height: 60upx;
-		}
-	}
-.list-item {
-	padding: 16upx 24upx;
-	background: #fff;
-	border-bottom: 0.8upx solid $uni-border-color;
-	.list-between {
-		display: flex;
-		flex-direction: row;
-		// justify-content: spac;
-		.item-content {
-			flex: 2;
-			font-size: $uni-font-size-sm;
-			line-height: 60upx;
-		}
-		.item-content2 {
-			flex: 1;
-			font-size: $uni-font-size-sm;
-			line-height: 60upx;
-		}
-		.item-content3 {
-			flex: 1;
-			text-align: right;
-			font-size: $uni-font-size-sm;
-			line-height: 60upx;
-		}
-	}
-}
-
+@import "../bill.scss";
 </style>
