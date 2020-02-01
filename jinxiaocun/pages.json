@@ -49,6 +49,26 @@
             "path" : "pages/bill/sell-list/sell-list",
             "style" : {}
         }
+        ,{
+            "path" : "pages/bill/sell-list/sell-detail",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/purchase-list/purchase-list",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/payment-list/payment-list",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/receipt-list/receipt-list",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/fee-list/fee-list",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"
