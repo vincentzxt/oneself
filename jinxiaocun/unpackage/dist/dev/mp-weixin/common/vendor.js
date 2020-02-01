@@ -7727,10 +7727,8 @@ var _common2 = __webpack_require__(/*! @/config/common.js */ 56);var _default =
     console.log(this.curPage);
   },
   getCurrentUnit: function getCurrentUnit() {var _this = this;
-    console.log('------getCurrentUnit1-----');
     this.getCurrentPage();
     this.curPage.$vm.$refs.loading.open();
-    console.log('------getCurrentUnit2-----');
     return new Promise(function (resolve, reject) {
       (0, _common.query)(_common2.api.contactUnit).then(function (res) {
         console.log("#currentUnit#");
@@ -7805,7 +7803,7 @@ var _common2 = __webpack_require__(/*! @/config/common.js */ 56);var _default =
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.create = exports.update = exports.getForReturn = exports.get = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
-var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { "pageIndex": 1, "pageRows": -1 };
   return _http.default.request({
     url: url + '/Query',
     data: data,
