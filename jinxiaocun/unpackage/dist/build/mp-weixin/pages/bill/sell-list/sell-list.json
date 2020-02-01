@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "uni-load-more": "/components/uni-load-more/uni-load-more",
-    "uni-list": "/components/uni-list/uni-list",
-    "uni-list-item": "/components/uni-list-item/uni-list-item",
-    "uni-icon": "/components/uni-icon/uni-icon"
-  }
-}

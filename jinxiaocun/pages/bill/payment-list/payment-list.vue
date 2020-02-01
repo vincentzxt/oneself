@@ -7,7 +7,7 @@
 		<view class="total">
 			<view><text>总订单：{{totalOrder}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view>
 		</view>
-		<view class="list-header">
+		<view class="list-header" v-if="dataList.length>0">
 			<view class="item-content">
 				<text>客户名称</text>
 			</view>
