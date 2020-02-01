@@ -27,11 +27,11 @@
 						</cu-cell>
 					</cu-panel>
 				</view>
-				<view style="margin-top: 5px;">
+				<view style="margin-top: 5px;" v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)">
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit && businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
+						<cu-cell v-if="businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
 						</cu-cell>
-						<cu-cell v-else-if="!searchCurrentUnit && businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
+						<cu-cell v-else-if="businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -177,14 +177,30 @@
 			this.currentUnitSearchDatas = this.currentUnitDatas
 			let pages =  getCurrentPages()
 			let curPage = pages[pages.length - 1]
-			if (curPage.data.productList) {
-				if (this.businessType == 0) {
-					this.purchaseReqData.productList = curPage.data.productList
+			if (curPage.data.commandType) {
+				if (curPage.data.commandType == 'success') {
+					this.purchaseReqData = {
+						contactunitid: '',
+						contactunitname: '',
+						productList: [],
+						totalPrice: 0.00,
+					}
+					this.salesReqData = {
+						contactunitid: '',
+						contactunitname: '',
+						productList: [],
+						totalPrice: 0.00,
+					}
 				} else {
-					this.salesReqData.productList = curPage.data.productList
+					if (curPage.data.productList) {
+						if (this.businessType == 0) {
+							this.purchaseReqData.productList = curPage.data.productList
+						} else {
+							this.salesReqData.productList = curPage.data.productList
+						}
+					}
 				}
 			}
-			console.log(this.salesReqData)
 		},
 		computed: {
 			headerHeight() {

@@ -43,8 +43,6 @@
 		onShow() {
 			this.datas = uni.getStorageSync('currentUnitList')
 			this.searchDatas = this.datas
-			console.log("-----datas-----")
-			console.log(this.datas)
 		},
 		onPullDownRefresh() {
 			getGlobalData.getCurrentUnit()

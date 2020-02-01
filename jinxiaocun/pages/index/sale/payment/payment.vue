@@ -7,16 +7,21 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell title="是否赊账" isIcon :icon="{ type: 'c-account', color: '#59bffb', 'size': 18 }">
+					<cu-cell title="是否赊账" isIcon :icon="{ type: 'c-right', color: '#59bffb', 'size': 18 }">
 						<radio-group slot="footer" @change="handleCreditChange">
 							<radio color="#2db7f5" value=0 :checked="reqData.order.isOnCredit == 0">否</radio>
 							<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 						</radio-group>
 					</cu-cell>
-					<cu-cell v-if="reqData.order.isOnCredit == 0" title="收款帐号" isIcon :icon="{ type: 'c-contacts', color: '#ff9900', 'size': 18 }">
-						<radio-group slot="footer" @change="handleCashAccountChange">
-							<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-						</radio-group>
+					<cu-cell v-if="reqData.order.isOnCredit == 0" title="收款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
+						<view slot="footer" style="width:100%;">
+							<picker @change="handleCashAccountChange" :value="reqData.order.accountid" :range="cashAccountDict" range-key='cashaccountname'>
+								<view class="main-picker">
+									<text v-if="!reqData.order.accountName" style="color:#c5c8ce">选择收款帐号</text>
+									<text v-else>{{reqData.order.accountName}}</text>
+								</view>
+							</picker>
+						</view>
 					</cu-cell>
 					<cu-cell title="生成出库单" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
 						<radio-group slot="footer" @change="handleStatusChange">
@@ -41,7 +46,7 @@
 				<text>订单金额：</text>
 				<text style="color:#ef5a62">￥{{reqData.order.amount}}</text>
 			</view>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
@@ -69,6 +74,7 @@
 						billtype: 1,
 						isOnCredit: 0,
 						accountid: '',
+						accountName: '',
 						contactunitid: '',
 						amount: 0.00,
 						isprint: 0,
@@ -77,7 +83,9 @@
 					},
 					orderlist: []
 				},
-				cashAccountDict: []
+				tmpAmount: 0.00,
+				cashAccountDict: [],
+				disableSubmit: true
 			};
 		},
 		onLoad(options) {
@@ -85,6 +93,7 @@
 				let data = JSON.parse(options.reqData)
 				this.reqData.order.contactunitid = data.contactunitid
 				this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2)
+				this.tmpAmount = this.reqData.order.amount
 				this.reqData.orderlist = data.productList
 			}
 			this.$refs.loading.open()
@@ -92,9 +101,18 @@
 				this.$refs.loading.close()
 				if (res.status == 200 && res.data.returnCode == '0000') {
 					this.cashAccountDict = res.data.data.resultList
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: res.data.returnMessage
+					})
 				}
 			}).catch(error => {
 				this.$refs.loading.close()
+				uni.showToast({
+					icon: 'none',
+					title: error
+				})
 			})
 		},
 		computed: {
@@ -115,7 +133,8 @@
 				this.reqData.order.isOnCredit = val.detail.value
 			},
 			handleCashAccountChange(val) {
-				this.reqData.order.accountid = val.detail.value
+				this.reqData.order.accountid = this.cashAccountDict[val.detail.value].cashaccountid
+				this.reqData.order.accountName = this.cashAccountDict[val.detail.value].cashaccountname
 			},
 			handleStatusChange(val) {
 				this.reqData.order.status = val.detail.value
@@ -124,8 +143,10 @@
 				this.reqData.order.isprint = val.detail.value
 			},
 			handleDisCount(e) {
-				this.reqData.order.discountamount = parseFloat(e.detail.value).toFixed(2)
-				this.reqData.order.amount = parseFloat(this.reqData.order.amount - this.reqData.order.discountamount).toFixed(2)
+				if (e.detail.value) {
+					this.reqData.order.discountamount = parseFloat(e.detail.value).toFixed(2)
+					this.reqData.order.amount = parseFloat(this.tmpAmount - this.reqData.order.discountamount).toFixed(2)
+				}
 			},
 			handleSubmit() {
 				this.$refs.loading.open()
@@ -133,19 +154,37 @@
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						uni.showToast({
+							icon: 'success',
 							title: '提交成功'
 						})
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta: 1
+							})
+						},500)
 					} else {
 						uni.showToast({
-							title: '提交失败'
+							icon: 'none',
+							title: res.data.returnMessage
 						})
 					}
 				}).catch(error => {
 					this.$refs.loading.close()
 					uni.showToast({
-						title: '提交失败'
+						icon: 'none',
+						title: error
 					})
 				})
+			}
+		},
+		watch: {
+			'reqData.order.accountid': {
+				handler(val) {
+					if (val) {
+						this.disableSubmit = false
+					}
+				},
+				deep: true
 			}
 		}
 	}
@@ -159,7 +198,7 @@
 	.container {
 		.main {
 			margin-top: 5px;
-			.picker {
+			&-picker {
 				width: 100%;
 				display: flex;
 				justify-content: flex-end;

@@ -9,7 +9,6 @@
 			<uni-collapse>
 				<uni-collapse-item v-if="businessType == 0" :title="item1.purchaseorderid" :name="item1.purchaseorderid" :note="'订单金额：' + item1.amount +'元|订单创建时间：' + item1.createtime" 
 				isIcon :icon="{type:'payment', color:'#ff9900', size:15}" v-for="(item1, index1) in searchDatas" :key="index1" @onArrow="handleOnArrow(item1)" @onReturn="handleOnReturn(item1)">
-					<view>test1</view>
 					<view v-if="item1.productList.length > 0" class="product-list">
 						<text style="display: inline-block;color:#2d8cf0;width: 30%;">商品名称</text>
 						<text style="display: inline-block;color:#2d8cf0;width: 20%;">计量单位</text>
@@ -73,8 +72,6 @@
 						if (res.status == 200 && res.data.returnCode == '0000') {
 							this.datas = cloneObj(res.data.data.resultList)
 							this.searchDatas = this.datas
-							console.log("1")
-							console.log(this.datas)
 						}
 					}).catch(error => {
 						this.$refs.loading.close()
@@ -85,8 +82,6 @@
 						if (res.status == 200 && res.data.returnCode == '0000') {
 							this.datas = cloneObj(res.data.data.resultList)
 							this.searchDatas = this.datas
-							console.log("2")
-							console.log(this.searchDatas)
 						}
 					}).catch(error => {
 						this.$refs.loading.close()
@@ -132,7 +127,8 @@
 							let pages =  getCurrentPages()
 							let prevPage = pages[pages.length - 2]
 							prevPage.setData({
-								productList: res.data.data.detailModels,
+								commandType: 'return',
+								productList: res.data.data.detailModels
 							})
 							uni.navigateBack({
 								delta: 1
@@ -168,7 +164,8 @@
 							let pages =  getCurrentPages()
 							let prevPage = pages[pages.length - 2]
 							prevPage.setData({
-								productList: res.data.data.detailModels,
+								commandType: 'return',
+								productList: res.data.data.detailModels
 							})
 							uni.navigateBack({
 								delta: 1
@@ -199,7 +196,8 @@
 					let pages =  getCurrentPages()
 					let prevPage = pages[pages.length - 2]
 					prevPage.setData({
-						productList: item.productList,
+						commandType: 'return',
+						productList: item.productList
 					})
 					uni.navigateBack({
 						delta: 1

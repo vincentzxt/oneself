@@ -4,6 +4,7 @@
 			<uni-navbar :title="title" leftText="微账通" background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
+		<cover-view></cover-view>
 		<view class="main">
 			<view class="main-sale">
 				<view class="main-sale-header">
@@ -120,8 +121,21 @@
 		<view class="main-top">
 			<view class="main-top-wrap">
 				<view class="main-top-wrap-header">
-					<uni-icons type="rexiao" color="#f29d6e" size=20></uni-icons>
-					<text style="margin-left: 10px">热销商品(top5)</text>
+					<view>
+						<uni-icons type="rexiao" color="#f29d6e" size=20></uni-icons>
+						<text style="margin-left: 10px">热销商品(top5)</text>
+					</view>
+					<view class="main-top-wrap-header-footer">
+						<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #f29d6e;" 
+									:style="{'background-color': hotDate == 30 ? '#f29d6e' : '', 'color': hotDate == 30 ? '#ffffff' : ''}"
+									@tap="handleClickHotDate(30)">30天</view>
+						<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #f29d6e;" 
+									:style="{'background-color': hotDate == 60 ? '#f29d6e' : '', 'color': hotDate == 60 ? '#ffffff' : ''}"
+									@tap="handleClickHotDate(60)">60天</view>
+						<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #f29d6e;"
+									:style="{'background-color': hotDate == 90 ? '#f29d6e' : '', 'color': hotDate == 90 ? '#ffffff' : ''}"
+									@tap="handleClickHotDate(90)">90天</view>
+					</view>
 				</view>
 				<view class="main-top-wrap-content">
 					<view class="main-top-wrap-content-list">
@@ -129,8 +143,8 @@
 							<uni-icons type="circle" color="#f29d6e" size=10 style="width:10%;"></uni-icons>
 							<view class="main-top-wrap-content-list-item-text" style="width:90%;">
 								<text style="display:inline-block;width:50%;">{{item.productName}}</text>
-								<text style="display:inline-block;width:25%;">{{item.qty}}</text>
-								<text style="display:inline-block;width:25%;">{{item.amount}}(元)</text>
+								<text style="display:inline-block;width:25%;">{{item.qty}}{{item.unit}}</text>
+								<text style="display:inline-block;width:25%;">￥{{item.amount}}</text>
 							</view>
 						</view>
 					</view>
@@ -140,8 +154,21 @@
 		<view class="main-top">
 			<view class="main-top-wrap">
 				<view class="main-top-wrap-header">
-					<uni-icons type="zhixiao" color="#51a9f3" size=20></uni-icons>
-					<text style="margin-left: 10px">滞销商品(top5)</text>
+					<view>
+						<uni-icons type="zhixiao" color="#51a9f3" size=20></uni-icons>
+						<text style="margin-left: 10px">滞销商品(top5)</text>
+					</view>
+					<view class="main-top-wrap-header-footer">
+						<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
+									:style="{'background-color': slowDate == 30 ? '#51a9f3' : '', 'color': slowDate == 30 ? '#ffffff' : ''}"
+									@tap="handleClickSlowDate(30)">30天</view>
+						<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
+									:style="{'background-color': slowDate == 60 ? '#51a9f3' : '', 'color': slowDate == 60 ? '#ffffff' : ''}"
+									@tap="handleClickSlowDate(60)">60天</view>
+						<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #51a9f3;"
+									:style="{'background-color': slowDate == 90 ? '#51a9f3' : '', 'color': slowDate == 90 ? '#ffffff' : ''}"
+									@tap="handleClickSlowDate(90)">90天</view>
+					</view>
 				</view>
 				<view class="main-top-wrap-content">
 					<view class="main-top-wrap-content-list">
@@ -149,8 +176,7 @@
 							<uni-icons type="circle" color="#51a9f3" size=10 style="width:10%;"></uni-icons>
 							<view class="main-top-wrap-content-list-item-text" style="width:90%;">
 								<text style="display:inline-block;width:50%;">{{item.productName}}</text>
-								<text style="display:inline-block;width:25%;">{{item.qty}}</text>
-								<text style="display:inline-block;width:25%;">{{item.amount}}(元)</text>
+								<text style="display:inline-block;width:50%;">{{item.qty}}{{item.unit}}</text>
 							</view>
 						</view>
 					</view>
@@ -168,6 +194,7 @@
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import { api } from '@/config/common.js'
 	import { query } from '@/api/common.js'
+	import { queryHotSellingProduct, querySlowSellingProduct } from '@/api/data.js'
 	var scaleLine = null
 	var receivableRing = null
 	var paymentRing = null
@@ -191,7 +218,9 @@
 				receivableRingTotal: 0,
 				paymentRingTotal: 0,
 				hotSellingProduct: [],
-				slowSellingProduct: []
+				slowSellingProduct: [],
+				hotDate: 30,
+				slowDate: 30
 			};
 		},
 		onShow() {
@@ -241,7 +270,8 @@
 					xAxis: {
 						disableGrid:true,
 						axisLineColor:'#808695',
-						fontColor: '#808695'
+						fontColor: '#808695',
+						rotateLabel: true
 					},
 					yAxis: {
 						gridType:'solid',
@@ -365,11 +395,11 @@
 					}
 				]
 				for (let item of this.datas.last7DaySalesList) {
-					saleData.categories.push(item.date)
+					let dateArr = item.dateDisplay.split('-')
+					saleData.categories.push(dateArr[1]+'.'+dateArr[2])
 					saleData.series[0].data.push(parseInt(item.salesAmount))
 					saleData.series[1].data.push(parseInt(item.grossProfit))
 				}
-				console.log(saleData)
 				this.showSaleLine("saleLine", saleData)
 			},
 			getAccountData() {
@@ -385,6 +415,36 @@
 				}
 				this.showReceivableRing("receivableRing", receivableData)
 				this.showPaymentRing("paymentRing", paymentData)
+			},
+			handleClickHotDate(val) {
+				this.hotDate = val
+				let reqData = {
+					sellingStatisticalDays: this.hotDate
+				}
+				this.$refs.loading.open()
+				queryHotSellingProduct(api.report, reqData).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.hotSellingProduct = res.data.data.resultList
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+				})
+			},
+			handleClickSlowDate(val) {
+				this.slowDate = val
+				let reqData = {
+					sellingStatisticalDays: this.slowDate
+				}
+				this.$refs.loading.open()
+				querySlowSellingProduct(api.report, reqData).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.slowSellingProduct = res.data.data.resultList
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+				})
 			}
 		}
 	}
@@ -404,6 +464,7 @@
 					align-items: center;
 					padding: 10px 0;
 					font-size: $uni-font-size-sm;
+					border-bottom: 0.5px solid #f3f3f3;
 				}
 				&-content {
 					width: 750upx;
@@ -412,8 +473,8 @@
 					align-items: center;
 					margin-top: $uni-spacing-col-lg;
 					&-block {
-						height: 100upx;
-						width: 200upx;
+						height: 130upx;
+						width: 230upx;
 						background-color: $uni-bg-color;
 						display: flex;
 						flex-direction: column;
@@ -444,6 +505,7 @@
 					display: flex;
 					align-items: center;
 					padding: 10px 0;
+					border-bottom: 0.5px solid #f3f3f3;
 				}
 				&-content {
 					display: flex;
@@ -477,6 +539,7 @@
 					align-items: center;
 					padding: 10px 0;
 					font-size: $uni-font-size-sm;
+					border-bottom: 0.5px solid #f3f3f3;
 				}
 				&-content {
 					display: flex;
@@ -509,6 +572,7 @@
 					align-items: center;
 					padding: 10px 0;
 					font-size: $uni-font-size-sm;
+					border-bottom: 0.5px solid #f3f3f3;
 				}
 				&-content {
 					display: flex;
@@ -536,12 +600,25 @@
 					flex-direction: column;
 					font-size: $uni-font-size-sm;
 					&-header {
-						margin-left: 10px;
+						margin: 0px 10px;
 						display: flex;
 						align-items: center;
+						justify-content: space-between;
 						padding: 10px 0;
-						font-size: $uni-font-size-sm;
 						border-bottom: 0.5px solid #f3f3f3;
+						&-footer {
+							display: flex;
+							align-items: center;
+							&-item {
+								width: 100upx;
+								height: 50upx;
+								line-height: 1.5;
+								border-radius: 5px;
+								display: flex;
+								justify-content: center;
+								align-items: center;
+							}
+						}
 					}
 					&-content {
 						margin-bottom: 10px;

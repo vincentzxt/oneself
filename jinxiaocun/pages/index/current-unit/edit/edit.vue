@@ -154,12 +154,14 @@
 						})
 					} else {
 						uni.showToast({
-							title: '修改失败'
+							icon: 'none',
+							title: res.data.returnMessage
 						})
 					}
 				}).catch(error => {
 					uni.showToast({
-						title: '修改失败'
+						icon: 'none',
+						title: error
 					})
 				})
 			}

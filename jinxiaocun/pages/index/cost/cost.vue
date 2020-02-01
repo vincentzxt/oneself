@@ -32,12 +32,17 @@
 				</view>
 				<view style="margin-top:5px">
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="收款帐号" isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
-							<radio-group slot="footer" @change="handleCashAccountChange">
-								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :key="index" :value="item.cashaccountid" :checked="reqData.payaccountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-							</radio-group>
+						<cu-cell v-if="!searchCurrentUnit" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
+							<view slot="footer" style="width:100%;">
+								<picker @change="handleCashAccountChange" :value="reqData.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
+									<view class="main-picker">
+										<text v-if="!reqData.payaccountName" style="color:#c5c8ce">选择付款帐号</text>
+										<text v-else>{{reqData.payaccountName}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="收款金额" isIcon :icon="{ type: 'c-amount', color: '#b37fec', 'size': 18 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit" title="费用金额" isIcon :icon="{ type: 'c-amount', color: '#b37fec', 'size': 18 }" isLastCell>
 							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0"/>
 						</cu-cell>
 					</cu-panel>
@@ -54,7 +59,7 @@
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
@@ -87,10 +92,12 @@
 					contactunitid: '',
 					contactunitname: '',
 					payaccountid: '',
+					payaccountName: '',
 					amount: ''
 				},
 				feetypeDict: ['公司餐费', '公司交通费', '公司办公费', '公司租金费', '公司电费', '公司快递费', '增值税'],
-				cashAccountDict: []
+				cashAccountDict: [],
+				disableSubmit: true
 			};
 		},
 		onLoad() {
@@ -101,9 +108,18 @@
 				this.$refs.loading.close()
 				if (res.status == 200 && res.data.returnCode == '0000') {
 					this.cashAccountDict = res.data.data.resultList
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: res.data.returnMessage
+					})
 				}
 			}).catch(error => {
 				this.$refs.loading.close()
+				uni.showToast({
+					icon: 'none',
+					title: error
+				})
 			})
 		},
 		computed: {
@@ -124,7 +140,8 @@
 				this.reqData.feetype = this.feetypeDict[val.detail.value]
 			},
 			handleCashAccountChange(val) {
-				this.reqData.payaccountid = val.detail.value
+				this.reqData.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
+				this.reqData.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname
 			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
@@ -149,19 +166,42 @@
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						uni.showToast({
+							icon: 'success',
 							title: '提交成功'
 						})
+						this.reqData = {
+							feetype: '',
+							contactunitid: '',
+							contactunitname: '',
+							payaccountid: '',
+							payaccountName: '',
+							amount: ''
+						}
 					} else {
 						uni.showToast({
-							title: '提交失败'
+							icon: 'none',
+							title: res.data.returnMessage
 						})
 					}
 				}).catch(error => {
 					this.$refs.loading.close()
 					uni.showToast({
-						title: '提交失败'
+						icon: 'none',
+						title: error
 					})
 				})
+			}
+		},
+		watch:{
+			reqData: {
+				handler(val) {
+					if (val.feetype && val.contactunitname && val.payaccountid && val.amount) {
+						this.disableSubmit = false
+					} else {
+						this.disableSubmit = true
+					}
+				},
+				deep: true
 			}
 		}
 	}

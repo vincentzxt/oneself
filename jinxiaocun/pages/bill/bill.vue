@@ -54,7 +54,6 @@
 						</cu-cell>
 					</cu-panel>
 				</view>
->>>>>>> fba5971a0e23fbb7063367a90ce3676ee7a8e720
 			</scroll-view>
 		</view>
 	</view>
