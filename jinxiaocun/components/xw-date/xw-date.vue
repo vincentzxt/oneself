@@ -25,17 +25,30 @@
 				</view>
 				<view class="date_tabs"><wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange"></wuc-tab></view>
 				<view class="date_show">
-					<view class="date_show_item">
+					<view class="date_show_item" :class="[date_select_cur === 1 ? 'date_select_cur':'']" @click="dateSelect(1)">
 						<text style="color: #999999;">开始日期</text>
 						<text>{{ startDate }}</text>
 					</view>
-					<view class="date_show_item">
+					<view class="date_show_item" :class="[date_select_cur === 2 ? 'date_select_cur':'']" @click="dateSelect(2)">
 						<text style="color: #999999;">结束日期</text>
 						<text>{{ endDate }}</text>
 					</view>
 				</view>
-				<view class="date_box">
-					<picker-view v-if="visible" :value="value" @change="bindChange">
+				<view class="date_box" v-if="date_select_cur == 1">
+					<picker-view v-if="visible" :value="value" @change="bindChange1">
+						<picker-view-column>
+							<view class="item" v-for="(item, index) in years" :key="index">{{ item }}年</view>
+						</picker-view-column>
+						<picker-view-column>
+							<view class="item" v-for="(item, index) in months" :key="index">{{ item }}月</view>
+						</picker-view-column>
+						<picker-view-column>
+							<view class="item" v-for="(item, index) in days" :key="index">{{ item }}日</view>
+						</picker-view-column>
+					</picker-view>
+				</view>
+				<view class="date_box" v-if="date_select_cur == 2">
+					<picker-view v-if="visible" :value="value" @change="bindChange2">
 						<picker-view-column>
 							<view class="item" v-for="(item, index) in years" :key="index">{{ item }}年</view>
 						</picker-view-column>
@@ -84,6 +97,7 @@ export default {
 		}
 		return {
 			TabCur: 0,
+			date_select_cur:1,
 			tabList: [{ name: '自定义' }, { name: '本周' }, { name: '本月' }, { name: '本季度' }, { name: '本年' }],
 			years,
 			year,
@@ -125,6 +139,7 @@ export default {
 			],
 			day,
 			day_short,
+			now_date: init_endDate,
 			startDate: init_endDate,
 			endDate: init_endDate,
 			search_startDate: init_endDate,
@@ -135,12 +150,31 @@ export default {
 		};
 	},
 	methods: {
-		bindChange(e) {
+		bindChange1(e) {
 			const val = e.detail.value;
-			this.year = this.years[val[0]];
-			this.month = this.months[val[1]];
-			this.day = this.days[val[2]];
-			this.startDate = this.year + '-' + this.month + '-' + this.day;
+			const year = this.years[val[0]];
+			const month = this.months[val[1]];
+			const day = this.days[val[2]];
+			this.startDate = year + '-' + month + '-' + day;
+		},
+		bindChange2(e) {
+			const val = e.detail.value;
+			const year = this.years[val[0]];
+			const month = this.months[val[1]];
+			const day = this.days[val[2]];
+			this.endDate = year + '-' + month + '-' + day;
+		},
+		dateSelect(val){
+			switch (val){
+				case 1:
+				this.date_select_cur = 1;
+					break;
+				case 2:
+				this.date_select_cur = 2;
+					break;
+				default:
+					break;
+			}
 		},
 		tabChange(val) {
 			console.log(val);
@@ -178,6 +212,7 @@ export default {
 		},
 		date_handle() {
 			this.search_startDate = this.startDate;
+			this.search_endDate = this.endDate;
 			this.$refs.popup.close();
 			this.$emit('click_sub', { search_startDate: this.search_startDate, search_endDate: this.endDate });
 		},
@@ -208,6 +243,7 @@ export default {
 
 		//获取这周的周一
 		getFirstDayOfWeek(date) {
+			this.endDate = this.now_date;
 			var weekday = date.getDay() || 7; //获取星期几,getDay()返回值是 0（周日） 到 6（周六） 之间的一个整数。0||7为7，即weekday的值为1-7
 
 			date.setDate(date.getDate() - weekday + 1); //往前算（weekday-1）天，年份、月份会自动变化
@@ -216,12 +252,14 @@ export default {
 
 		//获取当月第一天
 		getFirstDayOfMonth(date) {
+			this.endDate = this.now_date;
 			date.setDate(1);
 			return this.timeFormat(date);
 		},
 
 		//获取当季第一天
 		getFirstDayOfSeason(date) {
+			this.endDate = this.now_date;
 			var month = date.getMonth();
 			if (month < 3) {
 				date.setMonth(0);
@@ -238,6 +276,7 @@ export default {
 
 		//获取当年第一天
 		getFirstDayOfYear(date) {
+			this.endDate = this.now_date;
 			date.setDate(1);
 			date.setMonth(0);
 			return this.timeFormat(date);
@@ -301,9 +340,12 @@ picker-view {
 		padding: 0 24upx;
 		border-bottom: 1upx solid $uni-border-color;
 	}
+	.date_select_cur {
+	    border-bottom: 4upx solid #0081ff;
+	}
 	.date_show {
 		border-bottom: 1upx solid $uni-border-color;
-		padding: 16upx 24upx;
+		padding: 16upx 24upx 0 24upx;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
@@ -311,6 +353,7 @@ picker-view {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			padding-bottom: 16upx;
 			//justify-content:center
 		}
 	}
