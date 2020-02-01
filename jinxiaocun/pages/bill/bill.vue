@@ -12,7 +12,9 @@
 						</cu-cell>
 						<cu-cell title="采购单据" isLink url="./purchase-list/purchase-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
 						</cu-cell>
-						<cu-cell title="退货单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="销售退货" isLink url="./sell-red-list/sell-red-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
+						</cu-cell>
+						<cu-cell title="采购退货" isLink url="./purchase-red-list/purchase-red-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
 						</cu-cell>
 					</cu-panel>
 				</view>

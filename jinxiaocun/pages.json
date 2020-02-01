@@ -69,6 +69,14 @@
             "path" : "pages/bill/fee-list/fee-list",
             "style" : {}
         }
+        ,{
+            "path" : "pages/bill/sell-red-list/sell-red-list",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/purchase-red-list/purchase-red-list",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

@@ -3,7 +3,7 @@
 		<view class="header">
 			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
-		<xw-date title="费用日期"  @click_sub="handle_data_sub"></xw-date>
+		<xw-date title="采购日期"  @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
 			<view><text>总订单：{{totalRecords}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view>
 		</view>
@@ -72,7 +72,8 @@ export default {
 			loadmore:'more',
 			pageIndex: 0,
 			pageRows: 15,
-			title: '费用单据',
+			title: '采购退货',
+			billtype:2,
 			totalAmount:'0.00',
 			totalRecords:'0',
 			dataList: [],
@@ -119,10 +120,11 @@ export default {
 			const senddata = {
 				pageIndex: this.pageIndex+1,
 				pageRows: this.pageRows,
+				billtype:this.billtype,
 				beginttime:this.search_startDate,
 				endtime:this.search_endDate
 			};
-			query(api.capFee, senddata)
+			query(api.purPurchaseOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
