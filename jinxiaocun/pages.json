@@ -65,6 +65,10 @@
             "path" : "pages/bill/receipt-list/receipt-list",
             "style" : {}
         }
+        ,{
+            "path" : "pages/bill/fee-list/fee-list",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

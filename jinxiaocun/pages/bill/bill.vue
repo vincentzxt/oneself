@@ -38,7 +38,7 @@
 				</view>
 				<view class="main-mt5">
 					<cu-panel title="费用单据">
-						<cu-cell title="费用单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="费用单据" isLink url="./fee-list/fee-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
 						</cu-cell>
 					</cu-panel>
 				</view>
