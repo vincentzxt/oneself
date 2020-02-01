@@ -7,13 +7,13 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell title="是否赊账" isIcon :icon="{ type: 'c-contacts', color: '#59bffb', 'size': 18 }">
+					<cu-cell title="是否赊账">
 						<radio-group slot="footer" @change="handleCreditChange">
 							<radio color="#2db7f5" value=0 :checked="reqData.order.isOnCredit == 0">否</radio>
 							<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 						</radio-group>
 					</cu-cell>
-					<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#19be6b', 'size': 18 }">
+					<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号" isLink>
 						<view slot="footer" style="width:100%;">
 							<picker @change="handleCashAccountChange" :value="reqData.order.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
 								<view class="main-picker">
@@ -23,19 +23,13 @@
 							</picker>
 						</view>
 					</cu-cell>
-					<cu-cell title="生成入库单" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
-						<radio-group slot="footer" @change="handleStatusChange">
-							<radio color="#2db7f5" value=1 :checked="reqData.order.status == 1">否</radio>
-							<radio color="#2db7f5" value=2 :checked="reqData.order.status == 2" style="margin-left: 10px;">是</radio>
-						</radio-group>
-					</cu-cell>
-					<cu-cell title="打印单据" isIcon :icon="{ type: 'c-print', color: '#b37fec', 'size': 18 }">
+					<cu-cell title="打印单据">
 						<radio-group slot="footer" @change="handlePrintChange">
 							<radio color="#2db7f5" value=0 :checked="reqData.order.isprint == 0">否</radio>
 							<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
 						</radio-group>
 					</cu-cell>
-					<cu-cell title="优惠金额" isIcon :icon="{ type: 'c-discount', color: '#f29d6e', 'size': 18 }" isLastCell>
+					<cu-cell title="优惠金额" isLastCell>
 						<input slot="footer" type="digit" v-model="reqData.order.discountamount" @blur="handleDisCount" placeholder="0"/>
 					</cu-cell>
 				</cu-panel>
@@ -44,7 +38,7 @@
 		<view class="footer">
 			<view class="footer-text">
 				<text>订单金额：</text>
-				<text style="color:#ef5a62">￥{{reqData.order.amount}}</text>
+				<text style="color:#f4613d">￥{{reqData.order.amount}}</text>
 			</view>
 			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
@@ -80,7 +74,6 @@
 						contactunitid: '',
 						amount: 0.00,
 						isprint: 0,
-						status: 1,
 						discountamount: ''
 					},
 					orderlist: []
@@ -137,9 +130,6 @@
 			handleCashAccountChange(val) {
 				this.reqData.order.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
 				this.reqData.order.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname
-			},
-			handleStatusChange(val) {
-				this.reqData.order.status = val.detail.value
 			},
 			handlePrintChange(val) {
 				this.reqData.order.isprint = val.detail.value

@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell title="业务类型" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="业务类型" isIcon :icon="{ type: 'c-product', color: '#3dc57a', 'size': 20 }" isLastCell>
 							<radio-group slot="footer" @change="handleTypeChange">
 								<radio color="#2d8cf0" value=0 :checked="businessType == 0">采购</radio>
 								<radio color="#2d8cf0" style="margin-left: 10px;" value=1 :checked="businessType == 1">销售</radio>
@@ -18,10 +18,10 @@
 				</view>
 				<view style="margin-top: 5px;">
 					<cu-panel>
-						<cu-cell :isLastCell="!salesReqData.contactunitname || !purchaseReqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#59bffb', 'size': 18 }">
+						<cu-cell :isLastCell="!salesReqData.contactunitname || !purchaseReqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#69c0ff', 'size': 20 }">
 							<cu-search-bar slot="footer" ref="sc" style="width:100%;" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)" title="单位名称" isIcon :icon="{ type: 'c-unit', color: '#f7d767', 'size': 18 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)" title="单位名称" isSub isLastCell>
 							<text v-if="businessType == 0" slot="footer">{{purchaseReqData.contactunitname}}</text>
 							<text v-else slot="footer">{{salesReqData.contactunitname}}</text>
 						</cu-cell>
@@ -29,9 +29,9 @@
 				</view>
 				<view style="margin-top: 5px;" v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)">
 					<cu-panel>
-						<cu-cell v-if="businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
+						<cu-cell v-if="businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#ffa268', 'size': 20 }">
 						</cu-cell>
-						<cu-cell v-else-if="businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
+						<cu-cell v-else-if="businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#ffa268', 'size': 20 }">
 						</cu-cell>
 					</cu-panel>
 				</view>

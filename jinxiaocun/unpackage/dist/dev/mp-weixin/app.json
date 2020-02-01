@@ -41,7 +41,12 @@
     "pages/my/share/share",
     "pages/my/account/accountedit",
     "pages/my/account/accountdetail",
-    "pages/bill/sell-list/sell-list"
+    "pages/bill/sell-list/sell-list",
+    "pages/bill/sell-list/sell-detail",
+    "pages/bill/purchase-list/purchase-list",
+    "pages/bill/payment-list/payment-list",
+    "pages/bill/receipt-list/receipt-list",
+    "pages/bill/fee-list/fee-list"
   ],
   "subPackages": [],
   "window": {
@@ -82,5 +87,5 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
   },
-  "sitemapLocation": "sitemap17.json"
+  "sitemapLocation": "sitemap33.json"
 }

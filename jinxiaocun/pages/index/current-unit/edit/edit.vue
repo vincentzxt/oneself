@@ -15,25 +15,25 @@
 				</view>
 				<view style="margin-top:5px">
 					<cu-panel>
-						<cu-cell title="单位名称" isIcon :icon="{ type: 'c-unit', color: '#59bffb', 'size': 18 }">
+						<cu-cell title="单位名称">
 							<input slot="footer" type="text" v-model="reqData.contactunitname" placeholder-style="color:#c5c8ce" placeholder="请输入单位名称"/>
 						</cu-cell>
-						<cu-cell title="速查码" isIcon :icon="{ type: 'c-search-log', color: '#59bffb', 'size': 18 }">
+						<cu-cell title="速查码">
 							<input slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="请输入单位速查码"/>
 						</cu-cell>
-						<cu-cell title="联系人名称" isIcon :icon="{ type: 'c-contacts', color: '#59bffb', 'size': 18 }">
+						<cu-cell title="联系人名称">
 							<input slot="footer" type="text" v-model="reqData.bseContactUnitContactModels[0].contactname" placeholder-style="color:#c5c8ce" placeholder="请输入联系人名称"/>
 						</cu-cell>
-						<cu-cell title="电话" isIcon :icon="{ type: 'c-phone', color: '#59bffb', 'size': 18 }">
+						<cu-cell title="电话">
 							<input slot="footer" type="text" v-model="reqData.bseContactUnitContactModels[0].telephone" placeholder-style="color:#c5c8ce" placeholder="请输入电话"/>
 						</cu-cell>
-						<cu-cell title="位置" isLink @tap="handleOpenAddress" isIcon :icon="{ type: 'c-position', color: '#59bffb', 'size': 18 }">
+						<cu-cell title="位置" isLink @tap="handleOpenAddress">
 							<text v-if="reqData.province" slot="footer">{{reqData.province}}, {{reqData.city}}, {{reqData.district}}</text>
 						</cu-cell>
-						<cu-cell title="街道" isIcon :icon="{ type: 'c-home', color: '#59bffb', 'size': 18 }">
+						<cu-cell title="街道">
 							<input slot="footer" type="text" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="请输入街道"/>
 						</cu-cell>
-						<cu-cell title="邮箱" isIcon :icon="{ type: 'c-email', color: '#59bffb', 'size': 18 }" isLastCell>
+						<cu-cell title="邮箱" isLastCell>
 							<input slot="footer" type="text" v-model="reqData.bseContactUnitContactModels[0].email" placeholder-style="color:#c5c8ce" placeholder="请输入邮箱"/>
 						</cu-cell>
 					</cu-panel>

@@ -8,20 +8,20 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#59bffb', 'size': 18 }">
+						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#69c0ff', 'size': 20 }">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isIcon :icon="{ type: 'c-unit', color: '#ff9900', 'size': 18 }">
-							<text slot="footer">{{reqData.contactunitname}}</text>
+						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub>
+							<input class="form-input" slot="footer" type="text" v-model="reqData.contactunitname" focus/>
 						</cu-cell>
-						<cu-cell isLastCell v-if="!searchCurrentUnit && reqData.telephone" title="电话" isIcon :icon="{ type: 'c-phone', color: '#19be6b', 'size': 18 }">
-							<text slot="footer">{{reqData.telephone}}</text>
+						<cu-cell isLastCell v-if="!searchCurrentUnit && reqData.telephone" title="电话" isSub>
+							<input class="form-input" slot="footer" type="text" v-model="reqData.telephone"/>
 						</cu-cell>
 					</cu-panel>
 				</view>
 				<view style="margin-top: 5px;">
 					<cu-panel>
-						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#b37fec', 'size': 18 }">
+						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#ffa268', 'size': 20 }">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
@@ -43,7 +43,7 @@
 							:title="item.productname"
 							:showArrow="false"
 							showIcon
-							:icon="{type: 'delete', color:'#ef5a62', size: '20'}"
+							:icon="{type: 'delete', color:'#f4613d', size: '25'}"
 							:note="['销售数量：'+item.qty, '计量单位：'+item.unit, '建议零售价：'+item.price, '销售单价：'+item.purchaseunitprice]"
 							v-for="(item, index) in reqData.productList"
 							:key="index"
@@ -57,7 +57,7 @@
 		<view class="footer">
 			<view class="footer-text">
 				<text>合计金额：</text>
-				<text style="color:#ef5a62">￥{{reqData.totalPrice}}</text>
+				<text style="color:#f4613d">￥{{reqData.totalPrice}}</text>
 			</view>
 			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">下一步</button>
 		</view>
@@ -69,9 +69,9 @@
 							<uni-number-box :min="1" :value="curSelectPruduct.qty" @change="handleqtyChange"></uni-number-box>
 							<view class="popup-qty-items">
 								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fbe490;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #bffe94;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd969c;" @tap="handleSelectQty(300)">300</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #ffa268;" @tap="handleSelectQty(100)">100</view>
+								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #ffa268;" @tap="handleSelectQty(300)">300</view>
 							</view>
 						</view>
 					</view>
@@ -312,6 +312,10 @@
 	.container {
 		.main {
 			margin-top: 5px;
+			.form-input {
+				width: 100%;
+				height: 50px;
+			}
 		}
 		.footer {
 			height: 48px;
@@ -345,6 +349,7 @@
 					justify-content: center;
 					align-items: center;
 					color: #ffffff;
+					box-shadow: 1px 1px 2px $uni-border-color;
 				}
 			}
 		}
