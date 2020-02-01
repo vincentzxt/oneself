@@ -208,9 +208,9 @@
   font-weight: 600;
 }
 .list-header .item-content.data-v-145682fc {
-    -webkit-box-flex: 2;
-    -webkit-flex: 2;
-            flex: 2;
+    -webkit-box-flex: 6;
+    -webkit-flex: 6;
+            flex: 6;
     font-size: 30rpx;
     line-height: 60rpx;
 }
@@ -243,9 +243,9 @@
             flex-direction: row;
 }
 .list-item .list-between .item-content.data-v-145682fc {
-      -webkit-box-flex: 2;
-      -webkit-flex: 2;
-              flex: 2;
+      -webkit-box-flex: 6;
+      -webkit-flex: 6;
+              flex: 6;
       font-size: 30rpx;
       line-height: 60rpx;
 }

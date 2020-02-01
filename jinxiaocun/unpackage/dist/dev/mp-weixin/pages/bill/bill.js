@@ -150,6 +150,11 @@ var render = function() {
     color: "#f29d6e",
     size: 18
   }
+  var a10 = {
+    type: "c-product",
+    color: "#f29d6e",
+    size: 18
+  }
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -163,7 +168,8 @@ var render = function() {
         a6: a6,
         a7: a7,
         a8: a8,
-        a9: a9
+        a9: a9,
+        a10: a10
       }
     }
   )
@@ -201,6 +207,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 485));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 492));};var _default =
+
+
 
 
 

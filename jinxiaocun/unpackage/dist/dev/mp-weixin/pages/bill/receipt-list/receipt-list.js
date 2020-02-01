@@ -390,7 +390,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       pageRows: 15,
       title: '收款单据',
       totalAmount: '0.00',
-      totalOrder: '0',
+      totalRecords: '0',
       dataList: [],
       search_startDate: nowDate,
       search_endDate: nowDate };
@@ -448,6 +448,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
           } else {
             _this.dataList = _this.dataList.concat(res.data.data.resultList);
             _this.totalAmount = res.data.data.totalAmount;
+            _this.totalRecords = res.data.data.pageInfo.totalRecords;
             _this.pageIndex = _this.pageIndex + 1;
             _this.loadmore = "more";
           }

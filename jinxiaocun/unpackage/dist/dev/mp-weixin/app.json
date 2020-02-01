@@ -46,7 +46,9 @@
     "pages/bill/purchase-list/purchase-list",
     "pages/bill/payment-list/payment-list",
     "pages/bill/receipt-list/receipt-list",
-    "pages/bill/fee-list/fee-list"
+    "pages/bill/fee-list/fee-list",
+    "pages/bill/sell-red-list/sell-red-list",
+    "pages/bill/purchase-red-list/purchase-red-list"
   ],
   "subPackages": [],
   "window": {
@@ -86,6 +88,5 @@
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  },
-  "sitemapLocation": "sitemap33.json"
+  }
 }
