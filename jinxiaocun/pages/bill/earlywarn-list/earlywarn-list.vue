@@ -1,9 +1,4 @@
 <template>
-	<view>
-		
-	</view>
-</template>
-<template>
 	<view class="container">
 		<view class="header">
 			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
@@ -173,20 +168,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../bill.scss";
-</style>
-<script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
-</script>
-
-<style>
-
 </style>
