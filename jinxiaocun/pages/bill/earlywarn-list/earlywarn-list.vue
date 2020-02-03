@@ -1,21 +1,23 @@
 <template>
+	<view>
+		
+	</view>
+</template>
+<template>
 	<view class="container">
 		<view class="header">
 			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
-		<xw-date title="付款日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
+		<xw-date title="盘点日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
-			<view><text>总订单：{{totalRecords}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view>
+			<view><text>总订单：{{totalRecords}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view><view><text>毛利：¥{{totalAmount}}</text></view>
 		</view>
-		<view class="list-header" v-if="dataList.length>0">
+		<view class="list-header"  v-if="dataList.length>0">
 			<view class="item-content">
 				<text>客户名称</text>
 			</view>
 			<view class="item-content2">
 				<text>金额</text>
-			</view>
-			<view class="item-content3">
-				<text></text>
 			</view>
 		</view>
 		<view class="main">
@@ -23,18 +25,18 @@
 				<view v-for="(item, index) in dataList" :key="index" class="list-item"  @tap="handleDetail()">
 					<view class="list-between">
 						<view class="item-content">
-							<text>客户名称：{{ item.contactunitname }}</text>
+							<text>商品名称：{{ item.contactunitname }}</text>
 						</view>
 						<view class="item-content2">
-							<text>总数量：{{ item.amount }}</text>
+							<text>总金额：¥{{ item.amount }}</text>
 						</view>
 					</view>
 					<view class="list-between">
 						<view class="item-content">
-							<text>下单日期：{{ item.createtime }}</text>
+							<text>预警数量：{{ item.createtime }}</text>
 						</view>
 						<view class="item-content2">
-							<text>总金额：¥{{ item.amount }}</text>
+							<text>库存数量：{{ item.amount }}</text>
 						</view>
 					</view>
 				</view>
@@ -77,8 +79,8 @@ export default {
 			loadmore:'more',
 			pageIndex: 0,
 			pageRows: 15,
-			title: '付款单据',
-			searchName:'客户名称',
+			title: '库存预警',
+			searchName:'商品名称',
 			billtype:1,
 			totalAmount:'0.00',
 			totalRecords:'0',
@@ -88,7 +90,7 @@ export default {
 			order_name:'',
 			order_type:0,
 			search_value:'',
-			orderList:[{name:'销售日期',value:'date'},{name:'金额',value:'amount'}]
+			orderList:[{name:'数量',value:'date'},{name:'金额',value:'amount'}]
 		};
 	},
 	onLoad() {this.loadData();},
@@ -104,6 +106,7 @@ export default {
 	    },
 	methods: {
 		handle_data_sub(val){
+			console.log(val);
 			this.search_startDate = val.search_startDate;
 			this.search_endDate = val.search_endDate;
 			this.order_name = this.orderList[val.order_index].value;
@@ -138,7 +141,8 @@ export default {
 				beginttime:this.search_startDate,
 				endtime:this.search_endDate
 			};
-			query(api.capPayment, senddata)
+			console.log(senddata);
+			query(api.salesOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
@@ -169,4 +173,20 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../bill.scss";
+</style>
+<script>
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style>
+
 </style>

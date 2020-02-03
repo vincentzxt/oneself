@@ -28,9 +28,6 @@
 						<view class="item-content2">
 							<text>总数量：{{ item.amount }}</text>
 						</view>
-						<!-- <view class="item-content3">
-					<uni-icon type="arrowright" size="15"></uni-icon>
-						</view> -->
 					</view>
 					<view class="list-between">
 						<view class="item-content">
@@ -39,9 +36,6 @@
 						<view class="item-content2">
 							<text>总金额：¥{{ item.amount }}</text>
 						</view>
-						<!-- <view class="item-content3">
-					<uni-icon type="arrowright" size="15"></uni-icon>
-						</view> -->
 					</view>
 				</view>
 				<view class="no_data" v-if="dataList.length === 0"><text class="item_text">暂无数据</text></view>

@@ -30,11 +30,11 @@
 					<cu-panel title="库存">
 						<cu-cell title="库存列表" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
 						</cu-cell>
-						<cu-cell title="库存预警" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
+						<cu-cell title="库存预警" isLink url="./earlywarn-list/earlywarn-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
 						</cu-cell>
-						<cu-cell title="期初单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
+						<cu-cell title="期初单据" isLink url="./begin-list/begin-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
 						</cu-cell>
-						<cu-cell title="盘点单据" isLink url="./stock-list/stock-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+						<cu-cell title="盘点单据" isLink url="./inventory-list/inventory-list" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
 						</cu-cell>
 					</cu-panel>
 				</view>
