@@ -67,7 +67,13 @@
 			if (this.currentUnitId) {
 				this.$refs.loading.open()
 				if (this.businessType == '0') {
-					query(api.purPurchaseOrder, { contactunitid: this.currentUnitId }).then(res => {
+					let reqData = {
+						contactunitid: this.currentUnitId,
+						billtype: 1,
+						pageIndex: 1,
+						pageRows: -1
+					}
+					query(api.purPurchaseOrder, reqData).then(res => {
 						this.$refs.loading.close()
 						if (res.status == 200 && res.data.returnCode == '0000') {
 							this.datas = cloneObj(res.data.data.resultList)
@@ -77,7 +83,13 @@
 						this.$refs.loading.close()
 					})
 				} else {
-					query(api.salesOrder, { contactunitid: this.currentUnitId }).then(res => {
+					let reqData = {
+						contactunitid: this.currentUnitId,
+						billtype: 1,
+						pageIndex: 1,
+						pageRows: -1
+					}
+					query(api.salesOrder, reqData).then(res => {
 						this.$refs.loading.close()
 						if (res.status == 200 && res.data.returnCode == '0000') {
 							this.datas = cloneObj(res.data.data.resultList)

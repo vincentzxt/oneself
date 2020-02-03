@@ -46,7 +46,9 @@
     "pages/bill/purchase-list/purchase-list",
     "pages/bill/payment-list/payment-list",
     "pages/bill/receipt-list/receipt-list",
-    "pages/bill/fee-list/fee-list"
+    "pages/bill/fee-list/fee-list",
+    "pages/bill/sell-red-list/sell-red-list",
+    "pages/bill/purchase-red-list/purchase-red-list"
   ],
   "subPackages": [],
   "window": {

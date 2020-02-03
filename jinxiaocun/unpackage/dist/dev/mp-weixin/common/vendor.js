@@ -9789,86 +9789,6 @@ module.exports = function parseHeaders(headers) {
 
 /***/ }),
 
-/***/ 454:
-/*!**********************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'sale': "\uE622",
-  'cost': "\uE604",
-  'purchase': "\uE887",
-  'purchase-fill': "\uE888",
-  'early-stage': "\uE640",
-  'inventory': "\uE67F",
-  'stock': "\uE88F",
-  'stock-fill': "\uE890",
-  'customer': "\uE8A8",
-  'customer-fill': "\uE8A9",
-  'multiple': "\uE8B5",
-  'multiple-fill': "\uE8B4",
-  'search': "\uE8B8",
-  'home': "\uE8BA",
-  'home-fill': "\uE8B9",
-  'user': "\uE8C8",
-  'user-fill': "\uE8C9",
-  'profile': "\uE8CA",
-  'add': "\uE8E1",
-  'back': "\uE8EF",
-  'arrow': "\uE8F1",
-  'arrow-down': "\uE8F2",
-  'arrow-up': "\uE8F5",
-  'location': "\uE8FE",
-  'location-fill': "\uE8FF",
-  'data': "\uE902",
-  'data-fill': "\uE905",
-  'phone': "\uE8BD",
-  'mobile': "\uE8DC",
-  'product': "\uE8A1",
-  'product-fill': "\uE8A0",
-  'finance': "\uE8AF",
-  'finance-fill': "\uE8AE",
-  'edit': "\uE8CC",
-  'edit-fill': "\uE8CD",
-  'refresh': "\uE8FC",
-  'delete': "\uE775",
-  'email': "\uE60F",
-  'company': "\uEDB4",
-  'contacts': "\uE605",
-  'classify': "\uE898",
-  'classify-fill': "\uE897",
-  'unit': "\uE8A3",
-  'unit-fill': "\uE8A2",
-  'receipt': "\uE668",
-  'payment': "\uE691",
-  'return-order': "\uE6FE",
-  'chart-line': "\uE906",
-  'chart-column': "\uE904",
-  'yujing': "\uE8ED",
-  'yujing-fill': "\uE8EC",
-  'rexiao': "\uE606",
-  'zhixiao': "\uE607",
-  'circle': "\uE601",
-  'c-phone': "\uE6CB",
-  'c-position': "\uE611",
-  'c-search': "\uE736",
-  'c-search-log': "\uE631",
-  'c-home': "\uE610",
-  'c-email': "\uE626",
-  'c-right': "\uE69E",
-  'c-type': "\uE655",
-  'c-unit': "\uE630",
-  'c-print': "\uE68B",
-  'c-contacts': "\uE61C",
-  'c-discount': "\uE62F",
-  'c-amount': "\uE621",
-  'c-product': "\uE7A6" };exports.default = _default;
-
-/***/ }),
-
 /***/ 46:
 /*!******************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
@@ -10007,6 +9927,86 @@ function nonStandardBrowserEnv() {
     remove: function remove() {} };
 
 }();
+
+/***/ }),
+
+/***/ 470:
+/*!**********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  'sale': "\uE622",
+  'cost': "\uE604",
+  'purchase': "\uE887",
+  'purchase-fill': "\uE888",
+  'early-stage': "\uE640",
+  'inventory': "\uE67F",
+  'stock': "\uE88F",
+  'stock-fill': "\uE890",
+  'customer': "\uE8A8",
+  'customer-fill': "\uE8A9",
+  'multiple': "\uE8B5",
+  'multiple-fill': "\uE8B4",
+  'search': "\uE8B8",
+  'home': "\uE8BA",
+  'home-fill': "\uE8B9",
+  'user': "\uE8C8",
+  'user-fill': "\uE8C9",
+  'profile': "\uE8CA",
+  'add': "\uE8E1",
+  'back': "\uE8EF",
+  'arrow': "\uE8F1",
+  'arrow-down': "\uE8F2",
+  'arrow-up': "\uE8F5",
+  'location': "\uE8FE",
+  'location-fill': "\uE8FF",
+  'data': "\uE902",
+  'data-fill': "\uE905",
+  'phone': "\uE8BD",
+  'mobile': "\uE8DC",
+  'product': "\uE8A1",
+  'product-fill': "\uE8A0",
+  'finance': "\uE8AF",
+  'finance-fill': "\uE8AE",
+  'edit': "\uE8CC",
+  'edit-fill': "\uE8CD",
+  'refresh': "\uE8FC",
+  'delete': "\uE775",
+  'email': "\uE60F",
+  'company': "\uEDB4",
+  'contacts': "\uE605",
+  'classify': "\uE898",
+  'classify-fill': "\uE897",
+  'unit': "\uE8A3",
+  'unit-fill': "\uE8A2",
+  'receipt': "\uE668",
+  'payment': "\uE691",
+  'return-order': "\uE6FE",
+  'chart-line': "\uE906",
+  'chart-column': "\uE904",
+  'yujing': "\uE8ED",
+  'yujing-fill': "\uE8EC",
+  'rexiao': "\uE606",
+  'zhixiao': "\uE607",
+  'circle': "\uE601",
+  'c-phone': "\uE6CB",
+  'c-position': "\uE611",
+  'c-search': "\uE736",
+  'c-search-log': "\uE631",
+  'c-home': "\uE610",
+  'c-email': "\uE626",
+  'c-right': "\uE69E",
+  'c-type': "\uE655",
+  'c-unit': "\uE630",
+  'c-print': "\uE68B",
+  'c-contacts': "\uE61C",
+  'c-discount': "\uE62F",
+  'c-amount': "\uE621",
+  'c-product': "\uE7A6" };exports.default = _default;
 
 /***/ }),
 
@@ -11145,7 +11145,165 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
-/***/ 537:
+/***/ 54:
+/*!********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/adapter.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.adapter = void 0;var _utils = __webpack_require__(/*! axios/lib/utils */ 28);
+
+
+
+
+var _createError = _interopRequireDefault(__webpack_require__(/*! axios/lib/core/createError */ 43));
+var _buildURL = _interopRequireDefault(__webpack_require__(/*! axios/lib/helpers/buildURL */ 32));
+var _settle = _interopRequireDefault(__webpack_require__(/*! axios/lib/core/settle */ 42));
+var _awaitTimeout = _interopRequireDefault(__webpack_require__(/*! ./await-timeout */ 55));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var timer = new _awaitTimeout.default();
+
+var adapter = function adapter(config) {
+  return new Promise(function (resolve, reject) {
+    var requestMethod = ((0, _utils.isString)(config.method) ? config.method : 'GET').toUpperCase();
+    var requestUrl = (0, _buildURL.default)(config.url, config.params, config.paramsSerializer);
+    var requestHeaders = (0, _utils.isObject)(config.headers) ? config.headers : {};
+
+    // 请求数据
+    var requestData = config.data;
+
+    var request = uni.request({
+      method: requestMethod,
+      url: requestUrl,
+      header: requestHeaders,
+      data: requestMethod === 'POST' || requestMethod === 'PUT' || requestMethod === 'PATCH' ? requestData : '',
+      responseType: config.responseType === 'arraybuffer' ? 'arraybuffer' : 'text',
+      dataType: config.responseType === 'json' ? 'json' : config.responseType,
+      success: function success(res) {
+        (0, _settle.default)(resolve, reject, {
+          data: res.data,
+          status: res.statusCode,
+          statusText: '',
+          headers: res.header,
+          config: config,
+          request: request });
+
+      },
+      fail: function fail() {
+        var error = (0, _createError.default)('网络错误', config, undefined, request);
+        reject(error);
+      },
+      complete: function complete() {
+        timer.clear();
+      } });
+
+
+    // 支持超时处理
+    if (config.timeout) {
+      timer.set(config.timeout).then(function () {
+        reject(new Error('请求超时'));
+        request.abort();
+      });
+    }
+  });
+};exports.adapter = adapter;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 55:
+/*!**************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/await-timeout.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} // await-timeout v0.5.0 by Vitaliy Potapov
+(function (global, factory) {
+   true ? module.exports = factory() :
+  undefined;
+})(void 0, function () {'use strict';
+
+  function promiseFinally(promise, fn) {
+    var success = function success(result) {
+      fn();
+      return result;
+    };
+    var error = function error(e) {
+      fn();
+      return Promise.reject(e);
+    };
+    return Promise.resolve(promise).then(success, error);
+  }
+
+  /**
+     * Converts any value to Error.
+     * @param {*} value
+     * @returns {Error}
+     */
+  function toError(value) {
+    value = typeof value === 'function' ? value() : value;
+    return typeof value === 'string' ? new Error(value) : value;
+  }
+
+  /**
+     * Promise-based replacement for setTimeout / clearTimeout.
+     */var
+
+  Timeout = /*#__PURE__*/function () {
+    function Timeout() {_classCallCheck(this, Timeout);
+      this._id = null;
+      this._delay = null;
+    }_createClass(Timeout, [{ key: "set", value: function set(
+
+
+
+
+
+
+
+
+
+      delay) {var _this = this;var rejectReason = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+        return new Promise(function (resolve, reject) {
+          _this.clear();
+          var fn = rejectReason ? function () {return reject(toError(rejectReason));} : resolve;
+          _this._id = setTimeout(fn, delay);
+          _this._delay = delay;
+        });
+      } }, { key: "wrap", value: function wrap(
+
+      promise, delay) {var _this2 = this;var rejectReason = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+        var wrappedPromise = promiseFinally(promise, function () {return _this2.clear();});
+        var timer = this.set(delay, rejectReason);
+        return Promise.race([wrappedPromise, timer]);
+      } }, { key: "clear", value: function clear()
+
+      {
+        if (this._id) {
+          clearTimeout(this._id);
+        }
+      } }, { key: "id", get: function get() {return this._id;} }, { key: "delay", get: function get() {return this._delay;} }]);return Timeout;}();
+
+
+  Timeout.set = function (delay, rejectReason) {
+    return new Timeout().set(delay, rejectReason);
+  };
+
+  Timeout.wrap = function (promise, delay, rejectReason) {
+    return new Timeout().wrap(promise, delay, rejectReason);
+  };
+
+  return Timeout;
+
+});
+
+/***/ }),
+
+/***/ 553:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/province.js ***!
   \****************************************************************************************************************/
@@ -11299,7 +11457,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 538:
+/***/ 554:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/city.js ***!
   \************************************************************************************************************/
@@ -12817,7 +12975,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 539:
+/***/ 555:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/area.js ***!
   \************************************************************************************************************/
@@ -25376,164 +25534,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 54:
-/*!********************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/adapter.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.adapter = void 0;var _utils = __webpack_require__(/*! axios/lib/utils */ 28);
-
-
-
-
-var _createError = _interopRequireDefault(__webpack_require__(/*! axios/lib/core/createError */ 43));
-var _buildURL = _interopRequireDefault(__webpack_require__(/*! axios/lib/helpers/buildURL */ 32));
-var _settle = _interopRequireDefault(__webpack_require__(/*! axios/lib/core/settle */ 42));
-var _awaitTimeout = _interopRequireDefault(__webpack_require__(/*! ./await-timeout */ 55));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-var timer = new _awaitTimeout.default();
-
-var adapter = function adapter(config) {
-  return new Promise(function (resolve, reject) {
-    var requestMethod = ((0, _utils.isString)(config.method) ? config.method : 'GET').toUpperCase();
-    var requestUrl = (0, _buildURL.default)(config.url, config.params, config.paramsSerializer);
-    var requestHeaders = (0, _utils.isObject)(config.headers) ? config.headers : {};
-
-    // 请求数据
-    var requestData = config.data;
-
-    var request = uni.request({
-      method: requestMethod,
-      url: requestUrl,
-      header: requestHeaders,
-      data: requestMethod === 'POST' || requestMethod === 'PUT' || requestMethod === 'PATCH' ? requestData : '',
-      responseType: config.responseType === 'arraybuffer' ? 'arraybuffer' : 'text',
-      dataType: config.responseType === 'json' ? 'json' : config.responseType,
-      success: function success(res) {
-        (0, _settle.default)(resolve, reject, {
-          data: res.data,
-          status: res.statusCode,
-          statusText: '',
-          headers: res.header,
-          config: config,
-          request: request });
-
-      },
-      fail: function fail() {
-        var error = (0, _createError.default)('网络错误', config, undefined, request);
-        reject(error);
-      },
-      complete: function complete() {
-        timer.clear();
-      } });
-
-
-    // 支持超时处理
-    if (config.timeout) {
-      timer.set(config.timeout).then(function () {
-        reject(new Error('请求超时'));
-        request.abort();
-      });
-    }
-  });
-};exports.adapter = adapter;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 55:
-/*!**************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/await-timeout.js ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} // await-timeout v0.5.0 by Vitaliy Potapov
-(function (global, factory) {
-   true ? module.exports = factory() :
-  undefined;
-})(void 0, function () {'use strict';
-
-  function promiseFinally(promise, fn) {
-    var success = function success(result) {
-      fn();
-      return result;
-    };
-    var error = function error(e) {
-      fn();
-      return Promise.reject(e);
-    };
-    return Promise.resolve(promise).then(success, error);
-  }
-
-  /**
-     * Converts any value to Error.
-     * @param {*} value
-     * @returns {Error}
-     */
-  function toError(value) {
-    value = typeof value === 'function' ? value() : value;
-    return typeof value === 'string' ? new Error(value) : value;
-  }
-
-  /**
-     * Promise-based replacement for setTimeout / clearTimeout.
-     */var
-
-  Timeout = /*#__PURE__*/function () {
-    function Timeout() {_classCallCheck(this, Timeout);
-      this._id = null;
-      this._delay = null;
-    }_createClass(Timeout, [{ key: "set", value: function set(
-
-
-
-
-
-
-
-
-
-      delay) {var _this = this;var rejectReason = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-        return new Promise(function (resolve, reject) {
-          _this.clear();
-          var fn = rejectReason ? function () {return reject(toError(rejectReason));} : resolve;
-          _this._id = setTimeout(fn, delay);
-          _this._delay = delay;
-        });
-      } }, { key: "wrap", value: function wrap(
-
-      promise, delay) {var _this2 = this;var rejectReason = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-        var wrappedPromise = promiseFinally(promise, function () {return _this2.clear();});
-        var timer = this.set(delay, rejectReason);
-        return Promise.race([wrappedPromise, timer]);
-      } }, { key: "clear", value: function clear()
-
-      {
-        if (this._id) {
-          clearTimeout(this._id);
-        }
-      } }, { key: "id", get: function get() {return this._id;} }, { key: "delay", get: function get() {return this._delay;} }]);return Timeout;}();
-
-
-  Timeout.set = function (delay, rejectReason) {
-    return new Timeout().set(delay, rejectReason);
-  };
-
-  Timeout.wrap = function (promise, delay, rejectReason) {
-    return new Timeout().wrap(promise, delay, rejectReason);
-  };
-
-  return Timeout;
-
-});
-
-/***/ }),
-
 /***/ 56:
 /*!*********************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/config/common.js ***!
@@ -25635,7 +25635,7 @@ var cloneObj = function cloneObj(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item", "cu-loading": "/components/custom/cu-loading" }, "usingAutoImportComponents": {} }, "pages/index/sale/sale": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/sale/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/purchase/purchase": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/purchase/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true, "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "simple-address": "/components/simple-address/simple-address" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "simple-address": "/components/simple-address/simple-address" }, "usingAutoImportComponents": {} }, "pages/index/product/product": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/product/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/product/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/product/type/type": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/product/unit/unit": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/receipt/receipt": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/payment/payment": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/cost/cost": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/return-order/return-order": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/return-order/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/return-order/orders/orders": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-collapse": "/components/uni-collapse/uni-collapse", "uni-collapse-item": "/components/uni-collapse-item/uni-collapse-item" }, "usingAutoImportComponents": {} }, "pages/index/early-stage/early-stage": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/inventory/inventory": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/bill/bill": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell" }, "usingAutoImportComponents": {} }, "pages/bill/stock-list/stock-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/data/data": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/my": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/login/login": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/set": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "image-cropper": "/components/invinbg-image-cropper/invinbg-image-cropper" }, "usingAutoImportComponents": {} }, "pages/my/login/reg": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/login/forget": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/account/accountadd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/myorder": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/user/user": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/user/useradd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/user/useredit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/account/accountlist": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/account/recharge": { "usingComponents": { "helang-checkbox": "/components/helang-checkbox/helang-checkbox" }, "usingAutoImportComponents": {} }, "pages/my/login/editPassword": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/givetime": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/share/share": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/my/account/accountedit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/account/accountdetail": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/bill/sell-list/sell-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/sell-list/sell-detail": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "cu-loading": "/components/custom/cu-loading" }, "usingAutoImportComponents": {} }, "pages/bill/purchase-list/purchase-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/payment-list/payment-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/receipt-list/receipt-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/fee-list/fee-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/purchase-red-list/purchase-red-list": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/bill/sell-list/sell-list": {}, "pages/bill/sell-list/sell-detail": {}, "pages/bill/purchase-list/purchase-list": {}, "pages/bill/payment-list/payment-list": {}, "pages/bill/receipt-list/receipt-list": {}, "pages/bill/fee-list/fee-list": {}, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/purchase-red-list/purchase-red-list": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 

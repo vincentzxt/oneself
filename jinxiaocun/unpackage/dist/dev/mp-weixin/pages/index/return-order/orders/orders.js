@@ -199,7 +199,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
-var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 525));};var uniCollapse = function uniCollapse() {return __webpack_require__.e(/*! import() | components/uni-collapse/uni-collapse */ "components/uni-collapse/uni-collapse").then(__webpack_require__.bind(null, /*! @/components/uni-collapse/uni-collapse.vue */ 542));};var uniCollapseItem = function uniCollapseItem() {return __webpack_require__.e(/*! import() | components/uni-collapse-item/uni-collapse-item */ "components/uni-collapse-item/uni-collapse-item").then(__webpack_require__.bind(null, /*! @/components/uni-collapse-item/uni-collapse-item.vue */ 549));};var _default =
+var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 541));};var uniCollapse = function uniCollapse() {return __webpack_require__.e(/*! import() | components/uni-collapse/uni-collapse */ "components/uni-collapse/uni-collapse").then(__webpack_require__.bind(null, /*! @/components/uni-collapse/uni-collapse.vue */ 558));};var uniCollapseItem = function uniCollapseItem() {return __webpack_require__.e(/*! import() | components/uni-collapse-item/uni-collapse-item */ "components/uni-collapse-item/uni-collapse-item").then(__webpack_require__.bind(null, /*! @/components/uni-collapse-item/uni-collapse-item.vue */ 565));};var _default =
 {
   components: {
     uniSearchBar: uniSearchBar,
@@ -221,7 +221,13 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = 
     if (this.currentUnitId) {
       this.$refs.loading.open();
       if (this.businessType == '0') {
-        (0, _common2.query)(_common.api.purPurchaseOrder, { contactunitid: this.currentUnitId }).then(function (res) {
+        var reqData = {
+          contactunitid: this.currentUnitId,
+          billtype: 1,
+          pageIndex: 1,
+          pageRows: -1 };
+
+        (0, _common2.query)(_common.api.purPurchaseOrder, reqData).then(function (res) {
           _this.$refs.loading.close();
           if (res.status == 200 && res.data.returnCode == '0000') {
             _this.datas = (0, _tools.cloneObj)(res.data.data.resultList);
@@ -231,7 +237,13 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var uniSearchBar = 
           _this.$refs.loading.close();
         });
       } else {
-        (0, _common2.query)(_common.api.salesOrder, { contactunitid: this.currentUnitId }).then(function (res) {
+        var _reqData = {
+          contactunitid: this.currentUnitId,
+          billtype: 1,
+          pageIndex: 1,
+          pageRows: -1 };
+
+        (0, _common2.query)(_common.api.salesOrder, _reqData).then(function (res) {
           _this.$refs.loading.close();
           if (res.status == 200 && res.data.returnCode == '0000') {
             _this.datas = (0, _tools.cloneObj)(res.data.data.resultList);

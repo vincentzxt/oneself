@@ -195,7 +195,7 @@
 		watch:{
 			reqData: {
 				handler(val) {
-					if (val.feetype && val.contactunitname && val.payaccountid && val.amount) {
+					if (val.feetype && val.payaccountid && val.amount) {
 						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true
