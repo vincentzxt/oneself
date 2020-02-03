@@ -3,9 +3,9 @@
 		<view class="header">
 			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
-		<xw-date title="销售日期"  @click_sub="handle_data_sub"></xw-date>
+		<xw-date title="销售日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
-			<view><text>总订单：{{totalRecords}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view>
+			<view><text>总订单：{{totalRecords}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view><view><text>毛利：¥{{totalAmount}}</text></view>
 		</view>
 		<view class="list-header"  v-if="dataList.length>0">
 			<view class="item-content">
@@ -23,14 +23,25 @@
 				<view v-for="(item, index) in dataList" :key="index" class="list-item"  @tap="handleDetail()">
 					<view class="list-between">
 						<view class="item-content">
-							<text>{{ item.contactunitname }}</text>
+							<text>客户名称：{{ item.contactunitname }}</text>
 						</view>
 						<view class="item-content2">
-							<text>¥{{ item.amount }}</text>
+							<text>总数量：{{ item.amount }}</text>
 						</view>
-						<view class="item-content3">
+						<!-- <view class="item-content3">
 					<uni-icon type="arrowright" size="15"></uni-icon>
+						</view> -->
+					</view>
+					<view class="list-between">
+						<view class="item-content">
+							<text>下单日期：{{ item.createtime }}</text>
 						</view>
+						<view class="item-content2">
+							<text>总金额：¥{{ item.amount }}</text>
+						</view>
+						<!-- <view class="item-content3">
+					<uni-icon type="arrowright" size="15"></uni-icon>
+						</view> -->
 					</view>
 				</view>
 				<view class="no_data" v-if="dataList.length === 0"><text class="item_text">暂无数据</text></view>
@@ -73,12 +84,17 @@ export default {
 			pageIndex: 0,
 			pageRows: 15,
 			title: '销售单据',
+			searchName:'客户名称',
 			billtype:1,
 			totalAmount:'0.00',
 			totalRecords:'0',
 			dataList: [],
 			search_startDate:nowDate,
-			search_endDate:nowDate
+			search_endDate:nowDate,
+			order_name:'',
+			order_type:0,
+			search_value:'',
+			orderList:[{name:'销售日期',value:'date'},{name:'金额',value:'amount'}]
 		};
 	},
 	onLoad() {this.loadData();},
@@ -94,8 +110,11 @@ export default {
 	    },
 	methods: {
 		handle_data_sub(val){
+			console.log(val);
 			this.search_startDate = val.search_startDate;
 			this.search_endDate = val.search_endDate;
+			this.order_name = this.orderList[val.order_index].value;
+			this.order_type = val.order_type
 			this.dataList=[];
 			this.pageIndex = 0;
 			this.loadMore='more';
@@ -121,9 +140,12 @@ export default {
 				pageIndex: this.pageIndex+1,
 				pageRows: this.pageRows,
 				billtype:this.billtype,
+				orderName:this.order_name,
+				orderType:this.order_type,
 				beginttime:this.search_startDate,
 				endtime:this.search_endDate
 			};
+			console.log(senddata);
 			query(api.salesOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();

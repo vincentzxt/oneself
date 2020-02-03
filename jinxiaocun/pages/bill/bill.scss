@@ -10,12 +10,14 @@
 		height: 10%;
 	}
 	.total{
+		font-size: $uni-font-size-sm;
 		height: 5%;
 		background-color: #FFFFFF;
 		 display: flex;
 		 flex-direction: row;
 		 justify-content: space-around;
 		 padding: 12upx 0upx;
+		 align-items: center;
 	}
 	.main {
 		height: 70%;
@@ -96,7 +98,7 @@
 		flex-direction: row;
 		// justify-content: spac;
 		.item-content {
-			flex: 6;
+			flex: 2;
 			font-size: $uni-font-size-sm;
 			line-height: 60upx;
 		}

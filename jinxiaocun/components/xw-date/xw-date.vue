@@ -6,21 +6,29 @@
 				<text>{{ search_startDate }}至{{ search_endDate }}</text>
 			</view>
 			<view class="filter-right">
-				<!-- <view class="filter-right-item">
-					<text>排序</text>
-					<uni-icon type="arrowup" size="15"></uni-icon>
-				</view> -->
-				<view class="filter-right-item" @tap="date_open">
+				<view class="filter-right-item" @tap="order_open">
+					<text>{{orderName}}排序</text>
+					<uni-icon :type="[orderShow?'arrowdown':'arrowup']" size="15"></uni-icon>
+				</view>
+				<view class="filter-right-item" @tap="search_open">
 					<text>筛选</text>
-					<uni-icon type="arrowup" size="15"></uni-icon>
+					<uni-icon :type="[searchShow?'arrowdown':'arrowup']" size="15"></uni-icon>
 				</view>
 			</view>
+		</view>
+		<view class="filter-order" v-if="orderShow">
+			<view class="filter-order-item" v-for="(item, index) in orderList" :key="index" @tap="order_select(index)" :class="[orderIndex === index ? 'order_select_cur':'']"><text>{{item.name}}</text><view v-if="orderIndex===index"><text>{{orderTypeList[orderType]}}</text><uni-icon type="checkmarkempty" size="15"></uni-icon></view></view>
+		</view>
+		<view class="filter-search" v-if="searchShow">
+			                <view class="search-title">{{searchName}}</view>
+			                <input class="search-input" maxlength="10"  v-model="search_value" placeholder="请输入搜索信息" />	
+							<button type="primary" size="mini" @tap="search_handel">确定</button>	
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<view class="date_pop">
 				<view class="date_header">
 					<text @tap="date_handle_close">取消</text>
-					<text>{{ title }}</text>
+					<text>{{title}}</text>
 					<text @tap="date_handle">确定</text>
 				</view>
 				<view class="date_tabs"><wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange"></wuc-tab></view>
@@ -68,17 +76,27 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue';
 import WucTab from '@/components/wuc-tab/wuc-tab.vue';
+import uniIcon from "@/components/uni-icon/uni-icon.vue";
 export default {
 	name: 'xw-date',
 	props: {
 		title: {
 			type: String,
 			default: ''
+		},
+		searchName: {
+			type: String,
+			default: ''
+		},
+		orderList:{
+			type:Array,
+			default:[]
 		}
 	},
 	components: {
 		uniPopup,
-		WucTab
+		WucTab,
+		uniIcon
 	},
 	data() {
 		const date = new Date();
@@ -99,6 +117,12 @@ export default {
 			TabCur: 0,
 			date_select_cur:1,
 			tabList: [{ name: '自定义' }, { name: '本周' }, { name: '本月' }, { name: '本季度' }, { name: '本年' }],
+			orderIndex:0,
+			orderName:'',
+			orderType:1,
+			orderTypeList:['正序','倒序'],
+			orderShow:false,
+			searchShow:false,
 			years,
 			year,
 			months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
@@ -144,6 +168,7 @@ export default {
 			endDate: init_endDate,
 			search_startDate: init_endDate,
 			search_endDate: init_endDate,
+			search_value:'',
 			value: [9999, month - 1, 0],
 			visible: true,
 			indicatorStyle: `height: ${Math.round(uni.getSystemInfoSync().screenWidth / (750 / 100))}px;`
@@ -175,6 +200,31 @@ export default {
 				default:
 					break;
 			}
+		},
+		order_select(val){
+			if(val == this.orderIndex){
+				if(this.orderType ==0){
+					this.orderType =1
+				}else{
+					this.orderType =0
+				}
+			}
+			this.orderIndex = val;
+			this.orderName = "按"+this.orderList[val].name;
+			this.orderShow = false;
+			this.$emit('click_sub', { search_startDate: this.search_startDate, search_endDate: this.endDate,order_index:this.orderIndex,order_type:this.orderType,search_value:this.search_value});	
+		},
+		search_handel(){
+			    this.searchShow = false;
+				this.$emit('click_sub', { search_startDate: this.search_startDate, search_endDate: this.endDate,order_index:this.orderIndex,order_type:this.orderType,search_value:this.search_value});	
+				},
+		order_open(){
+			this.searchShow = false;
+			this.orderShow = this.orderShow?false:true;
+		},
+		search_open(){
+			this.orderShow = false;
+			this.searchShow = this.searchShow?false:true;
 		},
 		tabChange(val) {
 			console.log(val);
@@ -214,7 +264,7 @@ export default {
 			this.search_startDate = this.startDate;
 			this.search_endDate = this.endDate;
 			this.$refs.popup.close();
-			this.$emit('click_sub', { search_startDate: this.search_startDate, search_endDate: this.endDate });
+			this.$emit('click_sub', { search_startDate: this.search_startDate, search_endDate: this.endDate,order_index:this.orderIndex,order_type:this.orderType,search_value:this.search_value});	
 		},
 		date_handle_close() {
 			this.$refs.popup.close();
@@ -300,20 +350,60 @@ export default {
 		display: flex;
 		flex-direction: column;
 		// flex: 2;
-		font-size: $uni-font-size-sm;
+		font-size: 24upx;
 	}
 	.filter-right {
 		// flex: 1;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		font-size: $uni-font-size-sm;
+		font-size: 24upx;
 		.filter-right-item {
 			margin-left: 24upx;
 		}
 	}
 }
 
+.filter-order{
+	position: absolute;
+	background-color: #FFFFFF;
+	z-index:1000;
+	width: 100%;
+	font-size: 24upx;
+	.order_select_cur {
+	    color: #2D8cF0;
+	}
+	.filter-order-item{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		border-bottom: 1upx solid $uni-border-color;
+		padding: 24upx 24upx;
+		.order_select_cur {
+	    color: $uni-color-link;
+	  }
+	}
+}
+.filter-search{
+	position: absolute;
+	background-color: #FFFFFF;
+	z-index:1000;
+	width: 100%;
+	display: flex;
+	direction: row;
+	font-size: 24upx;
+	line-height: 24upx;
+	padding: 6upx 24upx;
+	align-items: center;
+	.search-title{
+		padding-right: 24upx;
+	}
+	.search-input{
+		padding: 12upx 16upx;
+		background-color: #F8F8F8;
+		width: 350upx;
+	}
+}
 picker-view {
 	width: 100%;
 	height: 600upx;
@@ -332,8 +422,7 @@ picker-view {
 		background-color: #2d8cf0;
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
-		font-size: 28upx;
+		justify-content: space-between; 
 		color: #ffffff;
 	}
 	.date_tabs {
