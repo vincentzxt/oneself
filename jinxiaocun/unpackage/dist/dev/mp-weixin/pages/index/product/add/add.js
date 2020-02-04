@@ -182,15 +182,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
 var _common = __webpack_require__(/*! @/api/common.js */ 22);
 var _common2 = __webpack_require__(/*! @/config/common.js */ 56);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 501));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 508));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 536));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 525));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 532));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 560));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -208,7 +202,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         unit: '',
         subunit: '',
         unitmultiple: '',
-        warningStockQty: 0,
+        warningStockQty: '',
         remarks: '' },
 
       disableSubmit: true };
@@ -217,9 +211,9 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
   onShow: function onShow() {
     var pages = getCurrentPages();
     var curPage = pages[pages.length - 1];
-    if (curPage.data.rName && curPage.data.datas) {
-      if (curPage.data.rName == 'type') {
-        this.reqData.productcategory = curPage.data.datas.name;
+    if (curPage.data.rData) {
+      if (curPage.data.rData.key == 'type') {
+        this.reqData.productcategory = curPage.data.rData.value;
       } else if (curPage.data.rName == 'unit') {
         this.reqData.unit = curPage.data.datas.name;
       } else if (curPage.data.rName == 'subunit') {

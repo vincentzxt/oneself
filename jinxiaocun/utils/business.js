@@ -6,9 +6,7 @@ export default {
 	curPage: '',
 	getCurrentPage() {
 		let pages = getCurrentPages()
-		console.log(pages)
 		this.curPage = pages[pages.length - 1]
-		console.log(this.curPage)
 	},
 	getCurrentUnit() {
 		this.getCurrentPage()

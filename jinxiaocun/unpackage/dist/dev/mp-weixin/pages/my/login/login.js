@@ -166,7 +166,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _user = __webpack_require__(/*! @/api/user.js */ 262);
-var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 579));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 603));};var _default =
 {
   data: function data() {
     return {

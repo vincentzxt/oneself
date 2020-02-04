@@ -77,6 +77,18 @@
             "path" : "pages/bill/purchase-red-list/purchase-red-list",
             "style" : {}
         }
+        ,{
+            "path" : "pages/bill/inventory-list/inventory-list",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/begin-list/begin-list",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/earlywarn-list/earlywarn-list",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

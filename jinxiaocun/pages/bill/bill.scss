@@ -10,12 +10,14 @@
 		height: 10%;
 	}
 	.total{
+		font-size: $uni-font-size-min;
 		height: 5%;
 		background-color: #FFFFFF;
 		 display: flex;
 		 flex-direction: row;
 		 justify-content: space-around;
 		 padding: 12upx 0upx;
+		 align-items: center;
 	}
 	.main {
 		height: 70%;
@@ -73,17 +75,17 @@
 		font-weight: 600;
 		.item-content {
 			flex: 6;
-			font-size: $uni-font-size-sm;
+			font-size: $uni-font-size-min;
 			line-height: 60upx;
 		}
 		.item-content2 {
 			flex: 1;
-			font-size: $uni-font-size-sm;
+			font-size: $uni-font-size-min;
 			line-height: 60upx;
 		}
 		.item-content3 {
 			flex: 1;
-			font-size: $uni-font-size-sm;
+			font-size: $uni-font-size-min;
 			line-height: 60upx;
 		}
 	}
@@ -96,13 +98,13 @@
 		flex-direction: row;
 		// justify-content: spac;
 		.item-content {
-			flex: 6;
-			font-size: $uni-font-size-sm;
+			flex: 2;
+			font-size: $uni-font-size-min;
 			line-height: 60upx;
 		}
 		.item-content2 {
 			flex: 1;
-			font-size: $uni-font-size-sm;
+			font-size: $uni-font-size-min;
 			line-height: 60upx;
 		}
 		.item-content3 {

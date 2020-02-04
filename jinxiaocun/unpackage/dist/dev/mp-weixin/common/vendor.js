@@ -7722,9 +7722,7 @@ var _common2 = __webpack_require__(/*! @/config/common.js */ 56);var _default =
   curPage: '',
   getCurrentPage: function getCurrentPage() {
     var pages = getCurrentPages();
-    console.log(pages);
     this.curPage = pages[pages.length - 1];
-    console.log(this.curPage);
   },
   getCurrentUnit: function getCurrentUnit() {var _this = this;
     this.getCurrentPage();
@@ -9930,7 +9928,57 @@ function nonStandardBrowserEnv() {
 
 /***/ }),
 
-/***/ 470:
+/***/ 48:
+/*!****************************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+               * Determines whether the specified URL is absolute
+               *
+               * @param {string} url The URL to test
+               * @returns {boolean} True if the specified URL is absolute, otherwise false
+               */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+/***/ }),
+
+/***/ 49:
+/*!**************************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+               * Creates a new URL by combining the specified URLs
+               *
+               * @param {string} baseURL The base URL
+               * @param {string} relativeURL The relative URL
+               * @returns {string} The combined URL
+               */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL ?
+  baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') :
+  baseURL;
+};
+
+/***/ }),
+
+/***/ 494:
 /*!**********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
   \**********************************************************************************************/
@@ -10007,56 +10055,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'c-discount': "\uE62F",
   'c-amount': "\uE621",
   'c-product': "\uE7A6" };exports.default = _default;
-
-/***/ }),
-
-/***/ 48:
-/*!****************************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-               * Determines whether the specified URL is absolute
-               *
-               * @param {string} url The URL to test
-               * @returns {boolean} True if the specified URL is absolute, otherwise false
-               */
-module.exports = function isAbsoluteURL(url) {
-  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
-  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
-  // by any combination of letters, digits, plus, period, or hyphen.
-  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
-};
-
-/***/ }),
-
-/***/ 49:
-/*!**************************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/combineURLs.js ***!
-  \**************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-               * Creates a new URL by combining the specified URLs
-               *
-               * @param {string} baseURL The base URL
-               * @param {string} relativeURL The relative URL
-               * @returns {string} The combined URL
-               */
-module.exports = function combineURLs(baseURL, relativeURL) {
-  return relativeURL ?
-  baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') :
-  baseURL;
-};
 
 /***/ }),
 
@@ -11303,7 +11301,71 @@ function _classCallCheck(instance, Constructor) {if (!(instance instanceof Const
 
 /***/ }),
 
-/***/ 553:
+/***/ 56:
+/*!*********************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/config/common.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.api = void 0;var api = {
+  baseUrl: 'https://test.saas.yunmengzhu.com',
+  contactUnit: '/api/ContactUnit',
+  baseArea: '/api/BseArea',
+  baseProduct: '/api/BseProduct',
+  baseUser: '/api/BaseUser',
+  capFee: '/api/CapFee',
+  capPayment: '/api/CapPayment',
+  capreceipt: '/api/Capreceipt',
+  cashAccount: '/api/CashAccount',
+  dept: '/api/Dept',
+  purPurchaseOrder: '/api/PurPurchaseOrder',
+  report: '/api/Report',
+  salesOrder: '/api/SalesOrder',
+  stkStock: '/api/StkStock',
+  token: '/api/Token',
+  login: '/api/BseUser/Login',
+  ChangePassword: '/api/BseUser/ChangePassword',
+  Regist: '/api/BseUser/Regist',
+  GetUserInfo: '/api/BseUser/GetUserInfo',
+  SaveUserInfo: '/api/BseUser/SaveUserInfo',
+  GetUserList: '/api/BseUser/GetUserList',
+  GetRoleList: 'api/BseRole/GetRoleList',
+  SaveUser: '/api/BseUser/SaveUser',
+  CustomerSave: '/api/Customer/SaveCustomer',
+  MyCashAccount: '/api/CashAccount/Query',
+  MyCashAccountCreate: '/api/CashAccount/Create',
+  MyCashAccountGet: '/api/CashAccount/Get/',
+  MyCashAccountUpdate: '/api/CashAccount/Update',
+  UploadImg: '/api/BseUser/UploadImg',
+  GetMyDayLogList: '/api/BseUser/GetMyDayLogList',
+  GetOrderList: '/api/SysOrder/GetMyOrderList',
+  GetCurrentActivity: '/api/SysActivity/GetCurrentActivity' };exports.api = api;
+
+/***/ }),
+
+/***/ 57:
+/*!*******************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/product.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.queryProductCategory = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var queryProductCategory = function queryProductCategory(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/queryProductCategory',
+    data: data,
+    method: 'post' });
+
+};exports.queryProductCategory = queryProductCategory;
+
+/***/ }),
+
+/***/ 577:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/province.js ***!
   \****************************************************************************************************************/
@@ -11457,7 +11519,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 554:
+/***/ 578:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/city.js ***!
   \************************************************************************************************************/
@@ -12975,7 +13037,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 555:
+/***/ 579:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/area.js ***!
   \************************************************************************************************************/
@@ -25534,70 +25596,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 56:
-/*!*********************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/config/common.js ***!
-  \*********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.api = void 0;var api = {
-  baseUrl: 'https://test.saas.yunmengzhu.com',
-  contactUnit: '/api/ContactUnit',
-  baseArea: '/api/BseArea',
-  baseProduct: '/api/BseProduct',
-  baseUser: '/api/BaseUser',
-  capFee: '/api/CapFee',
-  capPayment: '/api/CapPayment',
-  capreceipt: '/api/Capreceipt',
-  cashAccount: '/api/CashAccount',
-  dept: '/api/Dept',
-  purPurchaseOrder: '/api/PurPurchaseOrder',
-  report: '/api/Report',
-  salesOrder: '/api/SalesOrder',
-  stkStock: '/api/StkStock',
-  token: '/api/Token',
-  login: '/api/BseUser/Login',
-  ChangePassword: '/api/BseUser/ChangePassword',
-  Regist: '/api/BseUser/Regist',
-  GetUserInfo: '/api/BseUser/GetUserInfo',
-  SaveUserInfo: '/api/BseUser/SaveUserInfo',
-  GetUserList: '/api/BseUser/GetUserList',
-  GetRoleList: 'api/BseRole/GetRoleList',
-  SaveUser: '/api/BseUser/SaveUser',
-  CustomerSave: '/api/Customer/SaveCustomer',
-  MyCashAccount: '/api/CashAccount/Query',
-  MyCashAccountCreate: '/api/CashAccount/Create',
-  MyCashAccountGet: '/api/CashAccount/Get/',
-  MyCashAccountUpdate: '/api/CashAccount/Update',
-  UploadImg: '/api/BseUser/UploadImg',
-  GetMyDayLogList: '/api/BseUser/GetMyDayLogList',
-  GetOrderList: '/api/SysOrder/GetMyOrderList',
-  GetCurrentActivity: '/api/SysActivity/GetCurrentActivity' };exports.api = api;
-
-/***/ }),
-
-/***/ 57:
-/*!*******************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/product.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.queryProductCategory = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-var queryProductCategory = function queryProductCategory(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _http.default.request({
-    url: url + '/queryProductCategory',
-    data: data,
-    method: 'post' });
-
-};exports.queryProductCategory = queryProductCategory;
-
-/***/ }),
-
 /***/ 6:
 /*!******************************************************!*\
   !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
@@ -25635,7 +25633,7 @@ var cloneObj = function cloneObj(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/bill/sell-list/sell-list": {}, "pages/bill/sell-list/sell-detail": {}, "pages/bill/purchase-list/purchase-list": {}, "pages/bill/payment-list/payment-list": {}, "pages/bill/receipt-list/receipt-list": {}, "pages/bill/fee-list/fee-list": {}, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/purchase-red-list/purchase-red-list": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/bill/sell-list/sell-list": {}, "pages/bill/sell-list/sell-detail": {}, "pages/bill/purchase-list/purchase-list": {}, "pages/bill/payment-list/payment-list": {}, "pages/bill/receipt-list/receipt-list": {}, "pages/bill/fee-list/fee-list": {}, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/purchase-red-list/purchase-red-list": {}, "pages/bill/inventory-list/inventory-list": {}, "pages/bill/begin-list/begin-list": {}, "pages/bill/earlywarn-list/earlywarn-list": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 

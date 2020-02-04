@@ -362,9 +362,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
 var _bills = __webpack_require__(/*! @/api/bills.js */ 399);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 237));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 579));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 515));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 522));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 572));};var xwDate = function xwDate() {return __webpack_require__.e(/*! import() | components/xw-date/xw-date */ "components/xw-date/xw-date").then(__webpack_require__.bind(null, /*! @/components/xw-date/xw-date.vue */ 600));};var _default =
+var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 237));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 603));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 539));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 546));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 596));};var xwDate = function xwDate() {return __webpack_require__.e(/*! import() | components/xw-date/xw-date */ "components/xw-date/xw-date").then(__webpack_require__.bind(null, /*! @/components/xw-date/xw-date.vue */ 624));};var _default =
 
 
 
@@ -389,12 +397,17 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       pageIndex: 0,
       pageRows: 15,
       title: '采购单据',
+      searchName: '客户名称',
       billtype: 1,
       totalAmount: '0.00',
       totalRecords: '0',
       dataList: [],
       search_startDate: nowDate,
-      search_endDate: nowDate };
+      search_endDate: nowDate,
+      order_name: '',
+      order_type: 1,
+      search_value: '',
+      orderList: [{ name: '销售日期', value: 'date' }, { name: '金额', value: 'amount' }] };
 
   },
   onLoad: function onLoad() {this.loadData();},
@@ -412,6 +425,8 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
     handle_data_sub: function handle_data_sub(val) {
       this.search_startDate = val.search_startDate;
       this.search_endDate = val.search_endDate;
+      this.order_name = this.orderList[val.order_index].value;
+      this.order_type = val.order_type;
       this.dataList = [];
       this.pageIndex = 0;
       this.loadMore = 'more';
@@ -437,6 +452,8 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         pageIndex: this.pageIndex + 1,
         pageRows: this.pageRows,
         billtype: this.billtype,
+        orderName: this.order_name,
+        orderType: this.order_type,
         beginttime: this.search_startDate,
         endtime: this.search_endDate };
 
