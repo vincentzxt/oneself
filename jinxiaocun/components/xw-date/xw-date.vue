@@ -169,7 +169,7 @@ export default {
 			search_startDate: init_endDate,
 			search_endDate: init_endDate,
 			search_value:'',
-			value: [9999, month - 1, 0],
+			value: [9999, month_short - 1, day_short-1],
 			visible: true,
 			indicatorStyle: `height: ${Math.round(uni.getSystemInfoSync().screenWidth / (750 / 100))}px;`
 		};
