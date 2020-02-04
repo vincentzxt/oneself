@@ -4,6 +4,7 @@
 			<uni-navbar :title="title" leftText="微账通" background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
+		<scroll-view scroll-y="true"  class="fill">
 		<cover-view></cover-view>
 		<view class="main">
 			<view class="main-sale">
@@ -185,6 +186,7 @@
 		</view>
 		<view style="height: 2px;background-color: #ffffff;"></view>
 		<cu-loading ref="loading"></cu-loading>
+		</scroll-view>
 	</view>
 </template>
 
@@ -454,8 +456,12 @@
 	.container {
 		height: 100vh;
 		width: 100vw;
+		.fill{
+			//padding-top: 20px;
+			height: calc(100% - 60px);;
+		}
 		.main {
-			margin-top: $uni-spacing-col-base;
+			//margin-top: $uni-spacing-col-base;
 			&-sale {
 				background-color: #FFFFFF;
 				&-header {
