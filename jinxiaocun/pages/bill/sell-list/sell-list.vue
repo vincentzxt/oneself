@@ -5,9 +5,9 @@
 		</view>
 		<xw-date title="销售日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
-			<view><text>总订单：{{totalRecords}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view><view><text>毛利：¥{{totalAmount}}</text></view>
+			<view class="total-item"><text>总订单</text><text>{{totalRecords}}</text></view><view class="total-item"><text>总金额</text><text>{{totalAmount}}</text></view><view class="total-item"><text>毛利</text><text>{{totalAmount}}</text></view>
 		</view>
-		<view class="list-header"  v-if="dataList.length>0">
+	<!-- 	<view class="list-header"  v-if="dataList.length>0">
 			<view class="item-content">
 				<text>客户名称</text>
 			</view>
@@ -17,7 +17,7 @@
 			<view class="item-content3">
 				<text></text>
 			</view>
-		</view>
+		</view> -->
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<view v-for="(item, index) in dataList" :key="index" class="list-item"  @tap="handleDetail()">

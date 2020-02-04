@@ -2,8 +2,8 @@
 	<view>
 		<view class="filter">
 			<view class="filter-left" @tap="date_open">
-				<text>{{ title }}</text>
-				<text>{{ search_startDate }}至{{ search_endDate }}</text>
+				<text>{{ search_startDate }}</text>
+				<text>{{ search_endDate }}</text>
 			</view>
 			<view class="filter-right">
 				<view class="filter-right-item" @tap="order_open">
@@ -17,7 +17,7 @@
 			</view>
 		</view>
 		<view class="filter-order" v-if="orderShow">
-			<view class="filter-order-item" v-for="(item, index) in orderList" :key="index" @tap="order_select(index)" :class="[orderIndex === index ? 'order_select_cur':'']"><text>{{item.name}}</text><view v-if="orderIndex===index"><text>{{orderTypeList[orderType]}}</text><uni-icon type="checkmarkempty" size="15"></uni-icon></view></view>
+			<view class="filter-order-item" v-for="(item, index) in orderList" :key="index" @tap="order_select(index)" :class="[orderIndex === index ? 'order_select_cur':'']"><text>{{item.name}}</text><view v-if="orderIndex===index"><text>{{orderTypeList[orderType]}}</text><uni-icon type="checkmarkempty" size="30"></uni-icon></view></view>
 		</view>
 		<view class="filter-search" v-if="searchShow">
 			                <view class="search-title">{{searchName}}</view>
@@ -337,7 +337,7 @@ export default {
 
 <style lang="scss" scoped>
 .filter {
-	font-size: 24upx;
+
 	height: 8%;
 	background-color: #ffffff;
 	border-bottom: 1upx solid $uni-border-color;
@@ -350,10 +350,12 @@ export default {
 	.filter-left {
 		display: flex;
 		flex-direction: column;
+		font-size: 28upx;
 		// flex: 2;
 	}
 	.filter-right {
 		// flex: 1;
+		font-size: 32upx;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -364,7 +366,7 @@ export default {
 }
 
 .filter-order{
-	font-size: 28upx;
+	font-size: 36upx;
 	position: absolute;
 	background-color: #FFFFFF;
 	z-index:1000;
@@ -384,15 +386,14 @@ export default {
 	}
 }
 .filter-search{
-	font-size: 28upx;
+	font-size: 36upx;
 	position: absolute;
 	background-color: #FFFFFF;
 	z-index:1000;
 	width: 100%;
 	display: flex;
 	direction: row;
-	font-size: 24upx;
-	line-height: 24upx;
+	line-height: 36upx;
 	padding: 6upx 24upx;
 	align-items: center;
 	.search-title{
@@ -415,7 +416,7 @@ picker-view {
 	text-align: center;
 }
 .date_pop {
-	font-size: 28upx;
+	font-size: 36upx;
 	background-color: #ffffff;
 	.date_header {
 		padding: 24upx;
