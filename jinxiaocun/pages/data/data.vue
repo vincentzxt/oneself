@@ -1,9 +1,17 @@
 <template>
 	<view class="container">
-		<view class="header">
-			<uni-navbar :title="title" leftText="微账通" background-color="#2d8cf0" color="#fff" status-bar fixed>
+		<view class="header" :style="{'height': headerHeight + 'px'}">
+			<uni-navbar :title="title" leftText="一格云单" background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
+<<<<<<< HEAD
+		<view class="main" :style="{'height': mainHeight + 'px'}">
+			<scroll-view :scroll-y="true" class="fill">
+				<view class="main-sale">
+					<view class="main-sale-header">
+						<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
+						<text style="margin-left: 10px">销售情况</text>
+=======
 		<scroll-view scroll-y="true"  class="fill">
 		<cover-view></cover-view>
 		<view class="main">
@@ -24,167 +32,182 @@
 					<view class="main-sale-content-block">
 						<text class="main-sale-content-block-title">{{datas.grossProfit}}</text>
 						<text class="main-sale-content-block-des">今日利润(元)</text>
+>>>>>>> d3d95e8f7d03c14242dd982d51c347ef0f766a0b
 					</view>
-				</view>
-			</view>
-			<view>
-				<canvas canvas-id="saleLine" id="saleLine" class="main-sale-charts"></canvas>
-			</view>
-			<view class="main-recpay">
-				<view class="main-recpay-header">
-					<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
-					<text style="margin-left: 10px">收付情况</text>
-				</view>
-				<view class="main-recpay-content">
-					<view class="main-recpay-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%">
-						<view>
-							<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
-							<text style="margin-left: 10px">应收金额</text>
+					<view class="main-sale-content">
+						<view class="main-sale-content-block">
+							<text class="main-sale-content-block-title">{{datas.salesAmount}}</text>
+							<text class="main-sale-content-block-des">今日销货(元)</text>
 						</view>
-						<view class="main-recpay-content-wrap-content">
-							<text>￥{{datas.receivableAmount}}</text>
+						<view class="main-sale-content-block">
+							<text class="main-sale-content-block-title">{{datas.salesReturnAmount}}</text>
+							<text class="main-sale-content-block-des">今日退货(元)</text>
 						</view>
-					</view>
-					<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;">
-						<view style="margin-left: 10px;">
-							<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
-							<text style="margin-left: 10px">应付金额</text>
-						</view>
-						<view class="main-recpay-content-wrap-content">
-							<text>￥{{datas.payableAmount}}</text>
-						</view>
-					</view>
-					<view class="main-recpay-content-wrap" style="width:45%">
-						<view>
-							<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
-							<text style="margin-left: 10px">已收金额</text>
-						</view>
-						<view class="main-recpay-content-wrap-content">
-							<text>￥{{datas.receivedAmount}}</text>
-						</view>
-					</view>
-					<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;width:45%;">
-						<view style="margin-left: 10px;">
-							<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
-							<text style="margin-left: 10px">已付金额</text>
-						</view>
-						<view class="main-recpay-content-wrap-content">
-							<text>￥{{datas.paymentAmount}}</text>
+						<view class="main-sale-content-block">
+							<text class="main-sale-content-block-title">{{datas.grossProfit}}</text>
+							<text class="main-sale-content-block-des">今日利润(元)</text>
 						</view>
 					</view>
 				</view>
-			</view>
-		</view>
-		<view class="main-account">
-			<swiper class="main-account-swiper" :indicator-dots="true" :autoplay="true">
-				<swiper-item>
-					<view class="main-account-header">
-						<uni-icons type="finance" color="#ed3f14" size=20></uni-icons>
-						<text style="margin-left: 10px">收款情况</text>
+				<view>
+					<canvas canvas-id="saleLine" id="saleLine" class="main-sale-charts"></canvas>
+				</view>
+				<view class="main-recpay">
+					<view class="main-recpay-header">
+						<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
+						<text style="margin-left: 10px">收付情况</text>
 					</view>
-					<view class="main-account-content">
-						<canvas canvas-id="receivableRing" id="receivableRing" class="main-account-content-charts"></canvas>
-						<view class="main-account-content-lables">
-							<text class="main-account-content-lables-lable" v-for="(item, index) in receivableRingArr" :key="index">{{item.data}}(元)</text>
+					<view class="main-recpay-content">
+						<view class="main-recpay-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%">
+							<view>
+								<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
+								<text style="margin-left: 10px">应收金额</text>
+							</view>
+							<view class="main-recpay-content-wrap-content">
+								<text>￥{{datas.receivableAmount}}</text>
+							</view>
 						</view>
-					</view>
-				</swiper-item>
-				<swiper-item>
-					<view class="main-account-header">
-						<uni-icons type="finance" color="#ff9900" size=20></uni-icons>
-						<text style="margin-left: 10px">付款情况</text>
-					</view>
-					<view class="main-account-content">
-						<canvas canvas-id="paymentRing" id="paymentRing" class="main-account-content-charts"></canvas>
-						<view class="main-account-content-lables">
-							<text class="main-account-content-lables-lable" v-for="(item, index) in paymentRingArr" :key="index">{{item.data}}(元)</text>
+						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;">
+							<view style="margin-left: 10px;">
+								<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
+								<text style="margin-left: 10px">应付金额</text>
+							</view>
+							<view class="main-recpay-content-wrap-content">
+								<text>￥{{datas.payableAmount}}</text>
+							</view>
 						</view>
-					</view>
-				</swiper-item>
-			</swiper>
-		</view>	
-		<view class="main-warning">
-			<view class="main-warning-header">
-				<uni-icons type="yujing-fill" color="#ef5a62" size=20></uni-icons>
-				<text style="margin-left: 10px">预警情况</text>
-			</view>
-			<view class="main-warning-content">
-				<view class="main-warning-content-wrap" style="background-color: #f9e6dc;">
-					<text class="main-warning-content-wrap-desc">{{datas.warningContactUnitQty}}条</text>
-					<text>客户预警</text>
-				</view>
-				<view class="main-warning-content-wrap" style="background-color: #e8fdd9;">
-					<text class="main-warning-content-wrap-desc">{{datas.warningStockQty}}条</text>
-					<text>库存预警</text>
-				</view>
-			</view>
-		</view>
-		<view class="main-top">
-			<view class="main-top-wrap">
-				<view class="main-top-wrap-header">
-					<view>
-						<uni-icons type="rexiao" color="#f29d6e" size=20></uni-icons>
-						<text style="margin-left: 10px">热销商品(top5)</text>
-					</view>
-					<view class="main-top-wrap-header-footer">
-						<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #f29d6e;" 
-									:style="{'background-color': hotDate == 30 ? '#f29d6e' : '', 'color': hotDate == 30 ? '#ffffff' : ''}"
-									@tap="handleClickHotDate(30)">30天</view>
-						<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #f29d6e;" 
-									:style="{'background-color': hotDate == 60 ? '#f29d6e' : '', 'color': hotDate == 60 ? '#ffffff' : ''}"
-									@tap="handleClickHotDate(60)">60天</view>
-						<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #f29d6e;"
-									:style="{'background-color': hotDate == 90 ? '#f29d6e' : '', 'color': hotDate == 90 ? '#ffffff' : ''}"
-									@tap="handleClickHotDate(90)">90天</view>
-					</view>
-				</view>
-				<view class="main-top-wrap-content">
-					<view class="main-top-wrap-content-list">
-						<view class="main-top-wrap-content-list-item" v-for="(item, index) in hotSellingProduct" :key="index">
-							<uni-icons type="circle" color="#f29d6e" size=10 style="width:10%;"></uni-icons>
-							<view class="main-top-wrap-content-list-item-text" style="width:90%;">
-								<text style="display:inline-block;width:50%;">{{item.productName}}</text>
-								<text style="display:inline-block;width:25%;">{{item.qty}}{{item.unit}}</text>
-								<text style="display:inline-block;width:25%;">￥{{item.amount}}</text>
+						<view class="main-recpay-content-wrap" style="width:45%">
+							<view>
+								<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
+								<text style="margin-left: 10px">已收金额</text>
+							</view>
+							<view class="main-recpay-content-wrap-content">
+								<text>￥{{datas.receivedAmount}}</text>
+							</view>
+						</view>
+						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;width:45%;">
+							<view style="margin-left: 10px;">
+								<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
+								<text style="margin-left: 10px">已付金额</text>
+							</view>
+							<view class="main-recpay-content-wrap-content">
+								<text>￥{{datas.paymentAmount}}</text>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-		</view>
-		<view class="main-top">
-			<view class="main-top-wrap">
-				<view class="main-top-wrap-header">
-					<view>
-						<uni-icons type="zhixiao" color="#51a9f3" size=20></uni-icons>
-						<text style="margin-left: 10px">滞销商品(top5)</text>
+				<view class="main-account">
+					<swiper class="main-account-swiper" :indicator-dots="true" :autoplay="true">
+						<swiper-item>
+							<view class="main-account-header">
+								<uni-icons type="finance" color="#ed3f14" size=20></uni-icons>
+								<text style="margin-left: 10px">收款情况</text>
+							</view>
+							<view class="main-account-content">
+								<canvas canvas-id="receivableRing" id="receivableRing" class="main-account-content-charts"></canvas>
+								<view class="main-account-content-lables">
+									<text class="main-account-content-lables-lable" v-for="(item, index) in receivableRingArr" :key="index">{{item.data}}(元)</text>
+								</view>
+							</view>
+						</swiper-item>
+						<swiper-item>
+							<view class="main-account-header">
+								<uni-icons type="finance" color="#ff9900" size=20></uni-icons>
+								<text style="margin-left: 10px">付款情况</text>
+							</view>
+							<view class="main-account-content">
+								<canvas canvas-id="paymentRing" id="paymentRing" class="main-account-content-charts"></canvas>
+								<view class="main-account-content-lables">
+									<text class="main-account-content-lables-lable" v-for="(item, index) in paymentRingArr" :key="index">{{item.data}}(元)</text>
+								</view>
+							</view>
+						</swiper-item>
+					</swiper>
+				</view>	
+				<view class="main-warning">
+					<view class="main-warning-header">
+						<uni-icons type="yujing-fill" color="#ef5a62" size=20></uni-icons>
+						<text style="margin-left: 10px">预警情况</text>
 					</view>
-					<view class="main-top-wrap-header-footer">
-						<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
-									:style="{'background-color': slowDate == 30 ? '#51a9f3' : '', 'color': slowDate == 30 ? '#ffffff' : ''}"
-									@tap="handleClickSlowDate(30)">30天</view>
-						<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
-									:style="{'background-color': slowDate == 60 ? '#51a9f3' : '', 'color': slowDate == 60 ? '#ffffff' : ''}"
-									@tap="handleClickSlowDate(60)">60天</view>
-						<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #51a9f3;"
-									:style="{'background-color': slowDate == 90 ? '#51a9f3' : '', 'color': slowDate == 90 ? '#ffffff' : ''}"
-									@tap="handleClickSlowDate(90)">90天</view>
+					<view class="main-warning-content">
+						<view class="main-warning-content-wrap" style="background-color: #f9e6dc;">
+							<text class="main-warning-content-wrap-desc">{{datas.warningContactUnitQty}}条</text>
+							<text>客户预警</text>
+						</view>
+						<view class="main-warning-content-wrap" style="background-color: #e8fdd9;">
+							<text class="main-warning-content-wrap-desc">{{datas.warningStockQty}}条</text>
+							<text>库存预警</text>
+						</view>
 					</view>
 				</view>
-				<view class="main-top-wrap-content">
-					<view class="main-top-wrap-content-list">
-						<view class="main-top-wrap-content-list-item" v-for="(item, index) in slowSellingProduct" :key="index">
-							<uni-icons type="circle" color="#51a9f3" size=10 style="width:10%;"></uni-icons>
-							<view class="main-top-wrap-content-list-item-text" style="width:90%;">
-								<text style="display:inline-block;width:50%;">{{item.productName}}</text>
-								<text style="display:inline-block;width:50%;">{{item.qty}}{{item.unit}}</text>
+				<view class="main-top">
+					<view class="main-top-wrap">
+						<view class="main-top-wrap-header">
+							<view>
+								<uni-icons type="rexiao" color="#f29d6e" size=20></uni-icons>
+								<text style="margin-left: 10px">热销商品(top5)</text>
+							</view>
+							<view class="main-top-wrap-header-footer">
+								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #f29d6e;" 
+											:style="{'background-color': hotDate == 30 ? '#f29d6e' : '', 'color': hotDate == 30 ? '#ffffff' : ''}"
+											@tap="handleClickHotDate(30)">30天</view>
+								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #f29d6e;" 
+											:style="{'background-color': hotDate == 60 ? '#f29d6e' : '', 'color': hotDate == 60 ? '#ffffff' : ''}"
+											@tap="handleClickHotDate(60)">60天</view>
+								<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #f29d6e;"
+											:style="{'background-color': hotDate == 90 ? '#f29d6e' : '', 'color': hotDate == 90 ? '#ffffff' : ''}"
+											@tap="handleClickHotDate(90)">90天</view>
+							</view>
+						</view>
+						<view class="main-top-wrap-content">
+							<view class="main-top-wrap-content-list">
+								<view class="main-top-wrap-content-list-item" v-for="(item, index) in hotSellingProduct" :key="index">
+									<uni-icons type="circle" color="#f29d6e" size=10 style="width:10%;"></uni-icons>
+									<view class="main-top-wrap-content-list-item-text" style="width:90%;">
+										<text style="display:inline-block;width:50%;">{{item.productName}}</text>
+										<text style="display:inline-block;width:25%;">{{item.qty}}{{item.unit}}</text>
+										<text style="display:inline-block;width:25%;">￥{{item.amount}}</text>
+									</view>
+								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
+				<view class="main-top">
+					<view class="main-top-wrap">
+						<view class="main-top-wrap-header">
+							<view>
+								<uni-icons type="zhixiao" color="#51a9f3" size=20></uni-icons>
+								<text style="margin-left: 10px">滞销商品(top5)</text>
+							</view>
+							<view class="main-top-wrap-header-footer">
+								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
+											:style="{'background-color': slowDate == 30 ? '#51a9f3' : '', 'color': slowDate == 30 ? '#ffffff' : ''}"
+											@tap="handleClickSlowDate(30)">30天</view>
+								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
+											:style="{'background-color': slowDate == 60 ? '#51a9f3' : '', 'color': slowDate == 60 ? '#ffffff' : ''}"
+											@tap="handleClickSlowDate(60)">60天</view>
+								<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #51a9f3;"
+											:style="{'background-color': slowDate == 90 ? '#51a9f3' : '', 'color': slowDate == 90 ? '#ffffff' : ''}"
+											@tap="handleClickSlowDate(90)">90天</view>
+							</view>
+						</view>
+						<view class="main-top-wrap-content">
+							<view class="main-top-wrap-content-list">
+								<view class="main-top-wrap-content-list-item" v-for="(item, index) in slowSellingProduct" :key="index">
+									<uni-icons type="circle" color="#51a9f3" size=10 style="width:10%;"></uni-icons>
+									<view class="main-top-wrap-content-list-item-text" style="width:90%;">
+										<text style="display:inline-block;width:50%;">{{item.productName}}</text>
+										<text style="display:inline-block;width:50%;">{{item.qty}}{{item.unit}}</text>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view style="height: 2px;background-color: #ffffff;"></view>
+			</scroll-view>
 		</view>
-		<view style="height: 2px;background-color: #ffffff;"></view>
 		<cu-loading ref="loading"></cu-loading>
 		</scroll-view>
 	</view>
@@ -243,6 +266,14 @@
 			}).catch(error => {
 				this.$refs.loading.close()
 			})
+		},
+		computed: {
+			headerHeight() {
+				return this.$headerHeight
+			},
+			mainHeight() {
+				return this.$mainHeight
+			}
 		},
 		methods: {
 			handleDateChange(val) {

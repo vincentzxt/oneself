@@ -17,26 +17,20 @@
 						<cu-cell title="建议零售价">
 							<input slot="footer" type="digit" v-model="reqData.price" placeholder-style="color:#c5c8ce" placeholder="请输入建议零售价"/>
 						</cu-cell>
-						<cu-cell title="新产品分类">
-							<input slot="footer" type="text" v-model="reqData.productcategory" placeholder-style="color:#c5c8ce" placeholder="请输入产品分类"/>
-						</cu-cell>
-						<cu-cell title="产品分类" :value="reqData.productcategory" isLink url="../type/type" params="name=type">
-						</cu-cell>
-						<cu-cell title="新主计量单位">
-							<input slot="footer" type="text" v-model="reqData.unit" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位"/>
+						<cu-cell title="产品分类" isLink url="../type/type" params="name=type">
+							<text slot="footer">{{reqData.productcategory}}</text>
 						</cu-cell>
 						<cu-cell title="主计量单位" :value="reqData.unit" isLink url="../unit/unit" params="name=unit">
+							<text slot="footer">{{reqData.unit}}</text>
 						</cu-cell>
-						<cu-cell v-if="reqData.unit" title="新辅计量单位">
-							<input slot="footer" type="text" v-model="reqData.subunit" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位"/>
-						</cu-cell>
-						<cu-cell v-if="reqData.unit" title="辅计量单位" :value="reqData.subunit" isLink url="../unit/unit" params="name=subunit">
+						<cu-cell v-if="reqData.unit" title="辅计量单位" isLink url="../unit/unit" params="name=subunit">
+							<text slot="footer">{{reqData.subunit}}</text>
 						</cu-cell>
 						<cu-cell v-if="reqData.unit && reqData.subunit" title="计量单位倍率">
 							<input slot="footer" type="digit" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位倍率"/>
 						</cu-cell>
 						<cu-cell title="库存预警数量">
-							<input slot="footer" type="digit" v-model="reqData.warningStockQty" placeholder-style="color:#c5c8ce" placeholder="请输入库存预警数量"/>
+							<input slot="footer" type="digit" v-model="reqData.warningStockQty" placeholder-style="color:#c5c8ce" placeholder="0"/>
 						</cu-cell>
 					</cu-cell-group>
 				</cu-panel>
@@ -73,7 +67,7 @@
 					unit: '',
 					subunit: '',
 					unitmultiple: '',
-					warningStockQty: 0,
+					warningStockQty: '',
 					remarks: '',
 				},
 				disableSubmit: true
@@ -82,9 +76,9 @@
 		onShow() {
 			let pages =  getCurrentPages()
 			let curPage = pages[pages.length - 1]
-			if (curPage.data.rName && curPage.data.datas) {
-				if (curPage.data.rName == 'type') {
-					this.reqData.productcategory = curPage.data.datas.name
+			if (curPage.data.rData) {
+				if (curPage.data.rData.key == 'type') {
+					this.reqData.productcategory = curPage.data.rData.value
 				} else if(curPage.data.rName == 'unit') {
 					this.reqData.unit = curPage.data.datas.name
 				} else if (curPage.data.rName == 'subunit') {

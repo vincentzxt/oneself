@@ -5,30 +5,29 @@
 			</uni-navbar>
 			<uni-search-bar @input="handleSearch" placeholder="名称"></uni-search-bar>
 		</view>
-		<view class="main">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
-				<cu-panel>
-					<cu-cell-group>
-						<cu-cell :title="item" v-for="(item, index) in searchDatas" :key="index" isReturn :rName="name" :rDatas="filterItem(item)">
-						</cu-cell>
-					</cu-cell-group>
-				</cu-panel>
+				<uni-list>
+					<uni-list-item :title="item" v-for="(item, index) in searchDatas" :show-arrow="false" :key="index" @clickItem="handleClickItem(item)">
+					</uni-list-item>
+				</uni-list>
 			</scroll-view>
+		</view>
+		<view class="footer">
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleAdd">添加</button>
 		</view>
 	</view>
 </template>
 
 <script>
 	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
-	import cuPanel from '@/components/custom/cu-panel.vue'
-	import cuCell from '@/components/custom/cu-cell.vue'
-	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
+	import uniList from '@/components/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	export default {
 		components: {
 			uniSearchBar,
-			cuPanel,
-			cuCell,
-			cuCellGroup
+			uniList,
+			uniListItem
 		},
 		data() {
 			return {
@@ -51,16 +50,28 @@
 		computed: {
 			headerHeight() {
 				return this.$headerIsSearchHeight
+			},
+			mainHeight() {
+				return this.$mainIsSearchHeight
 			}
 		},
 		methods: {
-			handleNavbarClickLeft() {
+			handleClickItem(val) {
+				let pages = getCurrentPages()
+				let prevPage = pages[pages.length - 2]
+				prevPage.setData(
+					{ 
+						rData: { key: 'type', value: val}
+					}
+				)
 				uni.navigateBack({
 					delta: 1
 				})
 			},
-			filterItem(item) {
-				return { 'name': item }
+			handleNavbarClickLeft() {
+				uni.navigateBack({
+					delta: 1
+				})
 			},
 			handleSearch(val) {
 				if (val.value) {
