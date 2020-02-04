@@ -4,35 +4,12 @@
 			<uni-navbar :title="title" leftText="一格云单" background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
-<<<<<<< HEAD
+	<scroll-view :scroll-y="true" class="fill">
 		<view class="main" :style="{'height': mainHeight + 'px'}">
-			<scroll-view :scroll-y="true" class="fill">
 				<view class="main-sale">
 					<view class="main-sale-header">
 						<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
 						<text style="margin-left: 10px">销售情况</text>
-=======
-		<scroll-view scroll-y="true"  class="fill">
-		<cover-view></cover-view>
-		<view class="main">
-			<view class="main-sale">
-				<view class="main-sale-header">
-					<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
-					<text style="margin-left: 10px">销售情况</text>
-				</view>
-				<view class="main-sale-content">
-					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">{{datas.salesAmount}}</text>
-						<text class="main-sale-content-block-des">今日销货(元)</text>
-					</view>
-					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">{{datas.salesReturnAmount}}</text>
-						<text class="main-sale-content-block-des">今日退货(元)</text>
-					</view>
-					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">{{datas.grossProfit}}</text>
-						<text class="main-sale-content-block-des">今日利润(元)</text>
->>>>>>> d3d95e8f7d03c14242dd982d51c347ef0f766a0b
 					</view>
 					<view class="main-sale-content">
 						<view class="main-sale-content-block">
@@ -206,7 +183,6 @@
 					</view>
 				</view>
 				<view style="height: 2px;background-color: #ffffff;"></view>
-			</scroll-view>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 		</scroll-view>
