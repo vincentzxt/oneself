@@ -19,6 +19,7 @@
 			<!-- <view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;" >
 				<view @click="forget_action()">忘记密码？</view>
 			</view> -->
+			<view class="space"></view>
 			<view class="user_bottom">
 				<button type="primary" class="send_btn" :loading="loading" @tap="handleLogin">登录</button>
 				<button type="primary" class="send_btn" @tap="reg_action()" style="margin-top: 10px;">注册</button>
@@ -137,11 +138,12 @@
 
 <style lang="scss" scoped>
 .space{
-	height: 120rpx;
+	height: 60upx;
 }
 .login{
 	// padding-top:100px;
 	// .head{font-size: 22px;padding: 20px;}
+	font-size: 28upx;
 	.tou{text-align: center;}
 	.tou img{width: 64px;height: 64px;}
 	.con{padding: 10px 16px;}
