@@ -394,7 +394,8 @@ export default {
 	display: flex;
 	direction: row;
 	line-height: 36upx;
-	padding: 6upx 24upx;
+	padding: 24upx;
+	border-bottom: 1upx solid $uni-border-color;
 	align-items: center;
 	.search-title{
 		padding-right: 24upx;
