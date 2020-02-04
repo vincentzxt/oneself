@@ -7,7 +7,7 @@
 			<!-- <view class="user_title color_fff size_16">我的</view> -->
 			<!-- 		<view class="user_blank"></view> -->
 			<view class="flex_col color_fff">
-				<image src="../../static/image/missing-face.png" mode="aspectFill" class="pic"></image>
+				<image src="../../static/image/mine_def_touxiang_3x.png" mode="aspectFill" class="pic"></image>
 				<view class="flex_grow" v-if="login_status">
 					<view class="size_16">{{ dataList.loginname }}({{ dataList.telephone }})</view>
 					<view class="size_16">{{ dataList.companyname }}</view>
@@ -25,12 +25,12 @@
 			<uni-list-item title="员工管理" thumb="../../static/my/icon/list.png" @tap="handleUserManage()" :show-arrow="true"></uni-list-item>
 			<!-- 			<uni-list-item title="员工列表"  thumb="../../static/my/icon/list.png"></uni-list-item>
  -->
-			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @tap="handlePassword()"></uni-list-item>
-			<uni-list-item title="账户设置" thumb="../../static/my/icon/bankcard.png" @tap="handleBankSet()"></uni-list-item>
-			<uni-list-item title="续费" thumb="../../static/my/icon/recharge.png" @tap="handleRecharge()"></uni-list-item>
+			<uni-list-item title="收款账号" thumb="../../static/my/icon/bankcard.png" @tap="handleBankSet()"></uni-list-item>
+			<uni-list-item title="购买/续费" thumb="../../static/my/icon/recharge.png" @tap="handleRecharge()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<uni-list>
+			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @tap="handlePassword()"></uni-list-item>
 			<uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" @tap="handleMyorder()" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item>
 			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" @tap="handleTime()" show-text="true" :content="dataList.daycount"></uni-list-item>
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @tap="handleShare()"></uni-list-item>
@@ -38,6 +38,7 @@
 		</uni-list>
 		<view class="space"></view>
 		<view class="user_bottom" v-if="login_status"><button type="default" class="logout_btn" @tap="handleLogout">退出登录</button></view>
+		<view class="space"></view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
@@ -257,10 +258,10 @@ export default {
 	}
 
 	.pic {
-		width: 100rpx;
-		height: 100rpx;
-		border-radius: 50%;
-		border: rgba(255, 255, 255, 0.5) solid 5rpx;
+		width: 120rpx;
+		height: 120rpx;
+		//border-radius: 50%;
+		//border: rgba(255, 255, 255, 0.5) solid 5rpx;
 		margin-right: 20rpx;
 	}
 

@@ -337,6 +337,7 @@ export default {
 
 <style lang="scss" scoped>
 .filter {
+	font-size: 24upx;
 	height: 8%;
 	background-color: #ffffff;
 	border-bottom: 1upx solid $uni-border-color;
@@ -350,14 +351,12 @@ export default {
 		display: flex;
 		flex-direction: column;
 		// flex: 2;
-		font-size: 24upx;
 	}
 	.filter-right {
 		// flex: 1;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		font-size: 24upx;
 		.filter-right-item {
 			margin-left: 24upx;
 		}
@@ -365,11 +364,11 @@ export default {
 }
 
 .filter-order{
+	font-size: 28upx;
 	position: absolute;
 	background-color: #FFFFFF;
 	z-index:1000;
 	width: 100%;
-	font-size: 24upx;
 	.order_select_cur {
 	    color: #2D8cF0;
 	}
@@ -385,6 +384,7 @@ export default {
 	}
 }
 .filter-search{
+	font-size: 28upx;
 	position: absolute;
 	background-color: #FFFFFF;
 	z-index:1000;
@@ -415,8 +415,8 @@ picker-view {
 	text-align: center;
 }
 .date_pop {
+	font-size: 28upx;
 	background-color: #ffffff;
-	font-size: 24upx;
 	.date_header {
 		padding: 24upx;
 		background-color: #2d8cf0;

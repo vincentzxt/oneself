@@ -5,41 +5,38 @@
 		</uni-navbar>
 	</view>
 	<view class="main">
-			<scroll-view :scroll-y="true" class="fill">
-		<view v-for="(item,index) in dataList" :key="index" class="list-item">
-			<view class="list-between">
-				<view>账户名称：<text>{{item.cashaccountname}}</text></view> <view><button type="default" size="mini" style="line-height: 1.5;" @tap="handleEdit(item.cashaccountid)">编辑</button></view>
-			</view>
-			<view class="list-between">
-				<view>账户信息：<text>{{item.cashaccountno}}</text></view> <view>账户状态：<text>{{isdeleteDict[item.isdelete]}}</text></view>
-			</view>
-			<view class="list-between">
-					<view><text>账户类型：{{accounTypeList[item.cashaccounttype]}}</text></view>
-					<view><text>余额：¥{{item.amount}}</text></view>
-			</view>
+		<view>
+			<cu-panel>
+				<cu-cell title="微信" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
+					<text slot="footer">0.00</text>
+				</cu-cell>
+				<cu-cell title="支付宝" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
+				<text slot="footer">0.00</text>
+				</cu-cell>
+				<cu-cell title="现金" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
+				<text slot="footer">0.00</text>
+				</cu-cell>
+				<cu-cell title="银行卡" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
+				<text slot="footer">0.00</text>
+				</cu-cell>
+			</cu-panel>
 		</view>
-		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
-		</scroll-view>
 	</view>
-	<view class="footer"> 
-		<button class="fill" style="background-color: #2d8cf0;" type="primary"  @tap="handleAdd">新增</button>
-	</view>
+	
 	<cu-loading ref="loading"></cu-loading>
 </view>
 </template>
 
 <script>
-import uniList from '@/components/uni-list/uni-list.vue';
-import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
-// import adCell from '@/component/ADCell/ADCell.vue';
+import cuPanel from '@/components/custom/cu-panel.vue';
+import cuCell from '@/components/custom/cu-cell.vue';
 import { post,tokenpost} from '@/api/user.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue'
 export default {
 	components: {
-		// adCell
-		uniList,
-		uniListItem
+		cuPanel,
+		cuCell
 	},
 	data() {
 		return {

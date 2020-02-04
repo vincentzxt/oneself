@@ -19,7 +19,7 @@
 				</view>
 			</view>
 			<view v-if="showBadge || showArrow || showSwitch ||showText || showIcon" class="uni-list-item__extra" @tap="handleClickFt">
-				<uni-badge v-if="showBadge" :type="badgeType" :text="badgeText" />
+				<uni-badge v-if="showBadge" :type="badgeType" :text="badgeText"  style="padding-bottom: 5px;"/>
 				<text v-if="showText" class="uni-list-item__content-content">{{content}}</text>
 				<switch v-if="showSwitch" :disabled="disabled" :checked="switchChecked" @change="onSwitchChange" />
 				<uni-icons v-if="showArrow" :size="20" class="uni-icon-wrapper" color="#c5c8ce" type="arrow" />
@@ -210,12 +210,14 @@
 		/* #endif */
 		flex: 1;
 		overflow: hidden;
-		flex-direction: column;
+		flex-direction: row;
 	}
 
 	.uni-list-item__content-title {
 		font-size: $uni-font-size-base;
 		overflow: hidden;
+		//vertical-align: center;
+		line-height: $uni-font-size-base;
 	}
     .uni-list-item__content-content{
 		color: $uni-text-color-grey;
@@ -251,7 +253,7 @@
 	}
 
 	.uni-list-item__icon-img {
-		height: $uni-img-size-base;
-		width: $uni-img-size-base;
+		height: $uni-img-size-sm;
+		width: $uni-img-size-sm;
 	}
 </style>
