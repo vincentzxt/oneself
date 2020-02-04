@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#69c0ff', 'size': 20 }">
+						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub>
@@ -21,18 +21,18 @@
 				</view>
 				<view style="margin-top: 5px;">
 					<cu-panel>
-						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#ffa268', 'size': 20 }">
+						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
 				</view>
 				<view v-if="searchCurrentUnit || searchProduct">
 					<uni-list v-if="searchCurrentUnit">
-						<uni-list-item :title="item.contactunitname" :note="['电话：'+item.bseContactUnitContactModels[0].telephone]" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
+						<uni-list-item :title="item.contactunitname" :note="['速查码：'+item.querycode, '电话：'+item.bseContactUnitContactModels[0].telephone]" v-for="(item, index) in currentUnitSearchDatas" :key="index" :showArrow="false" @tap="handleSelectCurrentUnit(item)">
 						</uni-list-item>
 					</uni-list>
 					<uni-list v-if="searchProduct">
-						<uni-list-item :title="item.productname" :note="['速查码：'+item.querycode]" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
+						<uni-list-item :title="item.productname" :note="['速查码：'+item.querycode, '零售价：'+item.price]" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
 						</uni-list-item>
 					</uni-list>
 				</view>
@@ -44,7 +44,7 @@
 							:showArrow="false"
 							showIcon
 							:icon="{type: 'delete', color:'#f4613d', size: '25'}"
-							:note="['销售数量：'+item.salesqty, '计量单位：'+item.unit, '建议零售价：'+item.price, '销售单价：'+item.salesunitprice]"
+							:note="['销售数量：'+item.salesqty, '销售单价：'+item.salesunitprice, '计量单位：'+item.unit]"
 							v-for="(item, index) in reqData.productList"
 							:key="index"
 							@clickContent="handleShowPopup(item)"
@@ -56,10 +56,16 @@
 		</view>
 		<view class="footer">
 			<view class="footer-text">
-				<text>合计金额：</text>
-				<text style="color:#f4613d">￥{{reqData.totalPrice}}</text>
+				<view class="footer-text-item">
+					<text>小计数量：</text>
+					<text style="color:#f4613d">{{reqData.totalCount}}</text>
+				</view>
+				<view class="footer-text-item">
+					<text>小计金额：</text>
+					<text style="color:#f4613d">￥{{reqData.totalPrice}}</text>
+				</view>
 			</view>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">下一步</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">收款</button>
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
@@ -123,6 +129,7 @@
 					contactunitname: '',
 					telephone: '',
 					productList: [],
+					totalCount: 0,
 					totalPrice: 0.00,
 				},
 				showModal: false,
@@ -142,6 +149,7 @@
 				contactunitname: '',
 				telephone: '',
 				productList: [],
+				totalCount: 0,
 				totalPrice: 0.00,
 			}
 		},
@@ -272,6 +280,7 @@
 			'reqData.productList': {
 				handler(val) {
 					this.reqData.totalPrice = 0
+					this.reqData.totalCount = 0
 					if (val && val.length > 0) {
 						for (let item of val) {
 							if (item.salesunitprice) {
@@ -279,6 +288,7 @@
 							} else {
 								this.reqData.totalPrice += item.salesqty * 0
 							}
+							this.reqData.totalCount += parseInt(item.salesqty)
 						}
 						this.reqData.totalPrice = parseFloat(this.reqData.totalPrice).toFixed(2)
 					}
@@ -323,15 +333,22 @@
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {
-				width: 60%;
+				width: 50%;
 				height: 100%;
 				display: flex;
-				flex-direction: row;
-				align-items: center;
-				margin-left: $uni-spacing-row-lg;
+				justify-content: center;
+				flex-direction: column;
+				font-size: $uni-font-size-sm;
+				margin-left: 20upx;
+				&-item {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					margin-left: $uni-spacing-row-lg;
+				}
 			}
 			&-btn	{
-				width: 40%;
+				width: 50%;
 				height: 100%;
 			}
 		}

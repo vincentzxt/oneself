@@ -15,7 +15,9 @@
 				<slot />
 				<text class="uni-list-item__content-title">{{ title }}</text>
 				<view v-if="note" class="uni-list-item__content-note">
-					<text class="uni-list-item__content-note-item" :style="{'margin-top': index > 1 ? '5px' : '0px'}" v-for="(item, index) in note" :key="index">{{item}}</text>
+					<text class="uni-list-item__content-note-item" 
+								:style="{'margin-top': index > 1 ? '5px' : '0'}"
+								v-for="(item, index) in note" :key="index">{{item}}</text>
 				</view>
 			</view>
 			<view v-if="showBadge || showArrow || showSwitch ||showText || showIcon" class="uni-list-item__extra" @tap="handleClickFt">
@@ -163,7 +165,7 @@
 <style lang="scss" scoped>
 	@import '~@/uni.scss';
 
-	$list-item-pd: $uni-spacing-col-lg $uni-spacing-row-lg;
+	$list-item-pd: $uni-spacing-col-lg $uni-spacing-row-base;
 
 	.uni-list-item {
 		font-size: $uni-font-size-lg;

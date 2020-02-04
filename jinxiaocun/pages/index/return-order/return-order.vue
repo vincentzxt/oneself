@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell title="业务类型" isIcon :icon="{ type: 'c-product', color: '#3dc57a', 'size': 20 }" isLastCell>
+						<cu-cell title="业务类型" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" isLastCell>
 							<radio-group slot="footer" @change="handleTypeChange">
 								<radio color="#2d8cf0" value=0 :checked="businessType == 0">采购</radio>
 								<radio color="#2d8cf0" style="margin-left: 10px;" value=1 :checked="businessType == 1">销售</radio>
@@ -18,7 +18,7 @@
 				</view>
 				<view style="margin-top: 5px;">
 					<cu-panel>
-						<cu-cell :isLastCell="!salesReqData.contactunitname || !purchaseReqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#69c0ff', 'size': 20 }">
+						<cu-cell :isLastCell="!salesReqData.contactunitname || !purchaseReqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
 							<cu-search-bar slot="footer" ref="sc" style="width:100%;" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)" title="单位名称" isSub isLastCell>
@@ -29,9 +29,9 @@
 				</view>
 				<view style="margin-top: 5px;" v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)">
 					<cu-panel>
-						<cu-cell v-if="businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#ffa268', 'size': 20 }">
+						<cu-cell v-if="businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#c4c6cb', 'size': 20 }">
 						</cu-cell>
-						<cu-cell v-else-if="businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#ffa268', 'size': 20 }">
+						<cu-cell v-else-if="businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#c4c6cb', 'size': 20 }">
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -77,16 +77,18 @@
 		</view>
 		<view class="footer">
 			<view class="footer-text">
-				<text>合计金额：</text>
-				<text v-if="businessType == 0" style="color:#ef5a62">￥{{purchaseReqData.totalPrice}}</text>
-				<text v-else style="color:#ef5a62">￥{{salesReqData.totalPrice}}</text>
+				<view class="footer-text-item">
+					<text>小计数量：</text>
+					<text v-if="businessType == 0" style="color:#ef5a62">￥{{purchaseReqData.totalCount}}</text>
+					<text v-else style="color:#ef5a62">￥{{salesReqData.totalCount}}</text>
+				</view>
+				<view class="footer-text-item">
+					<text>小计金额：</text>
+					<text v-if="businessType == 0" style="color:#ef5a62">￥{{purchaseReqData.totalPrice}}</text>
+					<text v-else style="color:#ef5a62">￥{{salesReqData.totalPrice}}</text>
+				</view>
 			</view>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">下一步</button>
-		</view>
-		<view class="footer">
-			<text v-if="businessType == 0" class="footer-text">合计金额：￥{{purchaseReqData.totalPrice}}</text>
-			<text v-else class="footer-text">合计金额：￥{{salesReqData.totalPrice}}</text>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">下一步</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">{{submitText}}</button>
 		</view>
 		<uni-popup ref="purchasePopup" type="bottom">
 			<cu-panel>
@@ -156,12 +158,14 @@
 					contactunitid: '',
 					contactunitname: '',
 					productList: [],
+					totalCount: 0,
 					totalPrice: 0.00,
 				},
 				salesReqData: {
 					contactunitid: '',
 					contactunitname: '',
 					productList: [],
+					totalCount: 0,
 					totalPrice: 0.00,
 				},
 				showModal: false,
@@ -169,7 +173,8 @@
 				curSelectPruduct: {},
 				checkedUnit: 0,
 				disableSubmit: true,
-				maxNum: 0
+				maxNum: 0,
+				submitText: '收款'
 			};
 		},
 		onShow() {
@@ -223,15 +228,19 @@
 						contactunitid: '',
 						contactunitname: '',
 						productList: [],
+						totalCount: 0,
 						totalPrice: 0.00,
 					}
+					this.submitText = '收款'
 				} else {
 					this.purchaseReqData = {
 						contactunitid: '',
 						contactunitname: '',
 						productList: [],
+						totalCount: 0,
 						totalPrice: 0.00,
 					}
+					this.submitText = '付款'
 				}
 			},
 			handleSearchCurrentUnit(val) {
@@ -339,9 +348,11 @@
 			'purchaseReqData.productList': {
 				handler(val) {
 					this.purchaseReqData.totalPrice = 0
+					this.purchaseReqData.totalCount = 0
 					if (val && val.length > 0) {
 						for (let item of val) {
 							this.purchaseReqData.totalPrice += item.qty * parseFloat(item.purchaseunitprice)
+							this.purchaseReqData.totalCount += parseInt(item.qty)
 						}
 						this.purchaseReqData.totalPrice = parseFloat(this.purchaseReqData.totalPrice).toFixed(2)
 					}
@@ -350,12 +361,12 @@
 			},
 			'salesReqData.productList': {
 				handler(val) {
-					console.log(val)
-					console.log("n")
 					this.salesReqData.totalPrice = 0
+					this.salesReqData.totalCount = 0
 					if (val && val.length > 0) {
 						for (let item of val) {
 							this.salesReqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice)
+							this.salesReqData.totalCount += parseInt(item.salesqty)
 						}
 						this.salesReqData.totalPrice = parseFloat(this.salesReqData.totalPrice).toFixed(2)
 					}
@@ -412,15 +423,22 @@
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {
-				width: 60%;
+				width: 50%;
 				height: 100%;
 				display: flex;
-				flex-direction: row;
-				align-items: center;
-				margin-left: $uni-spacing-row-lg;
+				justify-content: center;
+				flex-direction: column;
+				font-size: $uni-font-size-sm;
+				margin-left: 20upx;
+				&-item {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					margin-left: $uni-spacing-row-lg;
+				}
 			}
 			&-btn	{
-				width: 40%;
+				width: 50%;
 				height: 100%;
 			}
 		}

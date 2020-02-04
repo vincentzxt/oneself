@@ -4,35 +4,13 @@
 			<uni-navbar :title="title" leftText="一格云单" background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
-<<<<<<< HEAD
-		<view class="main" :style="{'height': mainHeight + 'px'}">
-			<scroll-view :scroll-y="true" class="fill">
+		<scroll-view scroll-y="true"  class="fill">
+			<cover-view></cover-view>
+			<view class="main">
 				<view class="main-sale">
 					<view class="main-sale-header">
 						<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
 						<text style="margin-left: 10px">销售情况</text>
-=======
-		<scroll-view scroll-y="true"  class="fill">
-		<cover-view></cover-view>
-		<view class="main">
-			<view class="main-sale">
-				<view class="main-sale-header">
-					<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
-					<text style="margin-left: 10px">销售情况</text>
-				</view>
-				<view class="main-sale-content">
-					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">{{datas.salesAmount}}</text>
-						<text class="main-sale-content-block-des">今日销货(元)</text>
-					</view>
-					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">{{datas.salesReturnAmount}}</text>
-						<text class="main-sale-content-block-des">今日退货(元)</text>
-					</view>
-					<view class="main-sale-content-block">
-						<text class="main-sale-content-block-title">{{datas.grossProfit}}</text>
-						<text class="main-sale-content-block-des">今日利润(元)</text>
->>>>>>> d3d95e8f7d03c14242dd982d51c347ef0f766a0b
 					</view>
 					<view class="main-sale-content">
 						<view class="main-sale-content-block">
@@ -48,9 +26,9 @@
 							<text class="main-sale-content-block-des">今日利润(元)</text>
 						</view>
 					</view>
-				</view>
-				<view>
-					<canvas canvas-id="saleLine" id="saleLine" class="main-sale-charts"></canvas>
+					<view>
+						<canvas canvas-id="saleLine" id="saleLine" class="main-sale-charts"></canvas>
+					</view>
 				</view>
 				<view class="main-recpay">
 					<view class="main-recpay-header">
@@ -60,7 +38,6 @@
 					<view class="main-recpay-content">
 						<view class="main-recpay-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%">
 							<view>
-								<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
 								<text style="margin-left: 10px">应收金额</text>
 							</view>
 							<view class="main-recpay-content-wrap-content">
@@ -69,7 +46,6 @@
 						</view>
 						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;">
 							<view style="margin-left: 10px;">
-								<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
 								<text style="margin-left: 10px">应付金额</text>
 							</view>
 							<view class="main-recpay-content-wrap-content">
@@ -78,7 +54,6 @@
 						</view>
 						<view class="main-recpay-content-wrap" style="width:45%">
 							<view>
-								<uni-icons type="receipt" color="#19be6b" size=20></uni-icons>
 								<text style="margin-left: 10px">已收金额</text>
 							</view>
 							<view class="main-recpay-content-wrap-content">
@@ -87,7 +62,6 @@
 						</view>
 						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;width:45%;">
 							<view style="margin-left: 10px;">
-								<uni-icons type="payment" color="#ed3f14" size=20></uni-icons>
 								<text style="margin-left: 10px">已付金额</text>
 							</view>
 							<view class="main-recpay-content-wrap-content">
@@ -206,9 +180,8 @@
 					</view>
 				</view>
 				<view style="height: 2px;background-color: #ffffff;"></view>
-			</scroll-view>
-		</view>
-		<cu-loading ref="loading"></cu-loading>
+			</view>
+			<cu-loading ref="loading"></cu-loading>
 		</scroll-view>
 	</view>
 </template>

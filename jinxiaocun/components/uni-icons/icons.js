@@ -53,6 +53,7 @@ export default {
 	'rexiao': '\ue606',
 	'zhixiao': '\ue607',
 	'circle': '\ue601',
+	'type': '\ue625',
 	'c-phone': '\ue6cb',
 	'c-position': '\ue611',
 	'c-search': '\ue736',

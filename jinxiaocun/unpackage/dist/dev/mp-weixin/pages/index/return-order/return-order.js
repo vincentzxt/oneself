@@ -102,22 +102,22 @@ var render = function() {
   var _c = _vm._self._c || _h
   var a0 = {
     type: "c-product",
-    color: "#3dc57a",
+    color: "#c4c6cb",
     size: 20
   }
   var a1 = {
     type: "c-search",
-    color: "#69c0ff",
+    color: "#c4c6cb",
     size: 20
   }
   var a2 = {
     type: "c-right",
-    color: "#ffa268",
+    color: "#c4c6cb",
     size: 20
   }
   var a3 = {
     type: "c-right",
-    color: "#ffa268",
+    color: "#c4c6cb",
     size: 20
   }
   var a4 = {
@@ -313,6 +313,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 511));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 518));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 525));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 532));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 539));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 546));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 553));};var _default =
 {
   components: {
@@ -334,12 +336,14 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
         contactunitid: '',
         contactunitname: '',
         productList: [],
+        totalCount: 0,
         totalPrice: 0.00 },
 
       salesReqData: {
         contactunitid: '',
         contactunitname: '',
         productList: [],
+        totalCount: 0,
         totalPrice: 0.00 },
 
       showModal: false,
@@ -347,7 +351,8 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
       curSelectPruduct: {},
       checkedUnit: 0,
       disableSubmit: true,
-      maxNum: 0 };
+      maxNum: 0,
+      submitText: '收款' };
 
   },
   onShow: function onShow() {
@@ -401,15 +406,19 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
           contactunitid: '',
           contactunitname: '',
           productList: [],
+          totalCount: 0,
           totalPrice: 0.00 };
 
+        this.submitText = '收款';
       } else {
         this.purchaseReqData = {
           contactunitid: '',
           contactunitname: '',
           productList: [],
+          totalCount: 0,
           totalPrice: 0.00 };
 
+        this.submitText = '付款';
       }
     },
     handleSearchCurrentUnit: function handleSearchCurrentUnit(val) {
@@ -517,9 +526,11 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
     'purchaseReqData.productList': {
       handler: function handler(val) {
         this.purchaseReqData.totalPrice = 0;
+        this.purchaseReqData.totalCount = 0;
         if (val && val.length > 0) {var _iteratorNormalCompletion3 = true;var _didIteratorError3 = false;var _iteratorError3 = undefined;try {
             for (var _iterator3 = val[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {var item = _step3.value;
               this.purchaseReqData.totalPrice += item.qty * parseFloat(item.purchaseunitprice);
+              this.purchaseReqData.totalCount += parseInt(item.qty);
             }} catch (err) {_didIteratorError3 = true;_iteratorError3 = err;} finally {try {if (!_iteratorNormalCompletion3 && _iterator3.return != null) {_iterator3.return();}} finally {if (_didIteratorError3) {throw _iteratorError3;}}}
           this.purchaseReqData.totalPrice = parseFloat(this.purchaseReqData.totalPrice).toFixed(2);
         }
@@ -528,12 +539,12 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
 
     'salesReqData.productList': {
       handler: function handler(val) {
-        console.log(val);
-        console.log("n");
         this.salesReqData.totalPrice = 0;
+        this.salesReqData.totalCount = 0;
         if (val && val.length > 0) {var _iteratorNormalCompletion4 = true;var _didIteratorError4 = false;var _iteratorError4 = undefined;try {
             for (var _iterator4 = val[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {var item = _step4.value;
               this.salesReqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice);
+              this.salesReqData.totalCount += parseInt(item.salesqty);
             }} catch (err) {_didIteratorError4 = true;_iteratorError4 = err;} finally {try {if (!_iteratorNormalCompletion4 && _iterator4.return != null) {_iterator4.return();}} finally {if (_didIteratorError4) {throw _iteratorError4;}}}
           this.salesReqData.totalPrice = parseFloat(this.salesReqData.totalPrice).toFixed(2);
         }

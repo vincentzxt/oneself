@@ -48,7 +48,10 @@
     "pages/bill/receipt-list/receipt-list",
     "pages/bill/fee-list/fee-list",
     "pages/bill/sell-red-list/sell-red-list",
-    "pages/bill/purchase-red-list/purchase-red-list"
+    "pages/bill/purchase-red-list/purchase-red-list",
+    "pages/bill/inventory-list/inventory-list",
+    "pages/bill/begin-list/begin-list",
+    "pages/bill/earlywarn-list/earlywarn-list"
   ],
   "subPackages": [],
   "window": {

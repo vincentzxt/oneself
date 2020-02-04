@@ -102,7 +102,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   var a0 = {
     type: "c-product",
-    color: "#69c0ff",
+    color: "#c4c6cb",
     size: 20
   }
   var a1 = {
@@ -235,6 +235,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
 var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 511));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 518));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 525));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 532));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 539));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 546));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 553));};var _default =
 {
   components: {
@@ -265,9 +266,34 @@ var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);var cuSearchBa
       disableSubmit: true };
 
   },
-  onShow: function onShow() {
-    this.productDatas = uni.getStorageSync('productList');
-    this.productSearchDatas = this.productDatas;
+  onLoad: function onLoad() {var _this = this;
+    var reqData = {
+      productid: 0,
+      productcategory: '',
+      brand: '',
+      pageIndex: 1,
+      pageRows: -1 };
+
+    this.$refs.loading.open();
+    (0, _common2.query)(_common.api.stkStock, reqData).then(function (res) {
+      _this.$refs.loading.close();
+      if (res.status == 200 && res.data.returnCode == '0000') {
+        _this.productDatas = res.data.data.resultList;
+        console.log(_this.productDatas);
+        _this.productSearchDatas = _this.productDatas;
+      } else {
+        uni.showToast({
+          icon: 'none',
+          title: res.data.returnMessage });
+
+      }
+    }).catch(function (error) {
+      _this.$refs.loading.close();
+      uni.showToast({
+        icon: 'none',
+        title: error });
+
+    });
   },
   computed: {
     headerHeight: function headerHeight() {
@@ -365,16 +391,16 @@ var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);var cuSearchBa
         return item.productid !== val.productid;
       });
     },
-    handleSubmit: function handleSubmit() {var _this = this;
+    handleSubmit: function handleSubmit() {var _this2 = this;
       this.$refs.loading.open();
       (0, _stkstock.stockCheck)(_common.api.stkStock, this.reqData).then(function (res) {
-        _this.$refs.loading.close();
+        _this2.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
           uni.showToast({
             icon: 'success',
             title: '提交成功' });
 
-          _this.reqData = {
+          _this2.reqData = {
             order: {
               isprint: 0,
               status: 0 },
@@ -388,7 +414,7 @@ var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);var cuSearchBa
 
         }
       }).catch(function (error) {
-        _this.$refs.loading.close();
+        _this2.$refs.loading.close();
         uni.showToast({
           icon: 'none',
           title: error });

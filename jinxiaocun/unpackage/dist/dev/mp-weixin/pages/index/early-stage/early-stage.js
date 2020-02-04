@@ -102,7 +102,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   var a0 = {
     type: "c-product",
-    color: "#69c0ff",
+    color: "#c4c6cb",
     size: 20
   }
   var a1 = {

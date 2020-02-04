@@ -102,22 +102,22 @@ var render = function() {
   var _c = _vm._self._c || _h
   var a0 = {
     type: "c-type",
-    color: "#3dc57a",
+    color: "#c4c6cb",
     size: 20
   }
   var a1 = {
     type: "c-search",
-    color: "#69c0ff",
+    color: "#c4c6cb",
     size: 20
   }
   var a2 = {
     type: "c-contacts",
-    color: "#ffa268",
+    color: "#c4c6cb",
     size: 20
   }
   var a3 = {
     type: "c-amount",
-    color: "#f4613d",
+    color: "#c4c6cb",
     size: 20
   }
   _vm.$mp.data = Object.assign(

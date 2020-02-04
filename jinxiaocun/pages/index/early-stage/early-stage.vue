@@ -8,14 +8,14 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#69c0ff', 'size': 20 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" isLastCell>
 							<cu-search-bar slot="footer" ref="sp" style="width:100%;" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
 				</view>
 				<view v-if="searchProduct">
 					<uni-list>
-						<uni-list-item :title="item.productname" :note="['速查码：'+item.querycode]" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
+						<uni-list-item :title="item.productname" :note="['速查码：'+item.querycode, '建议零售价：￥'+item.price]" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
 						</uni-list-item>
 					</uni-list>
 				</view>
@@ -61,7 +61,7 @@
 						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
 					</radio-group>
 				</cu-cell>
-				<cu-cell isLastCell title="单价">
+				<cu-cell isLastCell title="成本价">
 					<input slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0"/>
 				</cu-cell>
 			</cu-panel>

@@ -133,7 +133,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 565));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 539));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 546));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 565));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 539));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 546));};var uniDrawer = function uniDrawer() {return __webpack_require__.e(/*! import() | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then(__webpack_require__.bind(null, /*! @/components/uni-drawer/uni-drawer.vue */ 582));};var _default =
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -168,7 +178,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     uniSearchBar: uniSearchBar,
     uniList: uniList,
-    uniListItem: uniListItem },
+    uniListItem: uniListItem,
+    uniDrawer: uniDrawer },
 
   data: function data() {
     return {
@@ -177,7 +188,8 @@ __webpack_require__.r(__webpack_exports__);
       datas: null,
       searchDatas: null,
       searchKey: '',
-      curSelectType: '所有分类' };
+      curSelectType: '所有分类',
+      typeMenu: false };
 
   },
   onShow: function onShow() {
@@ -219,6 +231,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.searchDatas = this.datas;
       }
+      this.handleTypeMenuClose();
     },
     handleSearch: function handleSearch(val) {
       if (val.value) {
@@ -228,6 +241,12 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.searchDatas = this.datas;
       }
+    },
+    handleTypeMenuOpen: function handleTypeMenuOpen() {
+      this.typeMenu = !this.typeMenu;
+    },
+    handleTypeMenuClose: function handleTypeMenuClose() {
+      this.typeMenu = false;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

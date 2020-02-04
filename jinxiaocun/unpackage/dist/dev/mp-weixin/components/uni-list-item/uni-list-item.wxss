@@ -54,7 +54,7 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
           flex-direction: row;
-  padding: 30rpx 30rpx;
+  padding: 30rpx 10rpx;
   padding-left: 0;
   -webkit-box-flex: 1;
   -webkit-flex: 1;

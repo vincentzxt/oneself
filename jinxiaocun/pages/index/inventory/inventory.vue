@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#69c0ff', 'size': 20 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" isLastCell>
 							<cu-search-bar slot="footer" ref="sp" style="width:100%;" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
@@ -81,6 +81,7 @@
 	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
 	import { cloneObj } from '@/utils/tools.js'
 	import { api } from '@/config/common.js'
+	import { query } from '@/api/common.js'
 	import { stockCheck } from '@/api/stkstock.js'
 	export default {
 		components: {
@@ -111,9 +112,34 @@
 				disableSubmit: true
 			};
 		},
-		onShow() {
-			this.productDatas = uni.getStorageSync('productList')
-			this.productSearchDatas = this.productDatas
+		onLoad() {
+			let reqData = {
+				productid: 0,
+				productcategory: '',
+				brand: '',
+				pageIndex: 1,
+				pageRows: -1
+			}
+			this.$refs.loading.open()
+			query(api.stkStock, reqData).then(res => {
+				this.$refs.loading.close()
+				if (res.status == 200 && res.data.returnCode == '0000') {
+					this.productDatas = res.data.data.resultList
+					console.log(this.productDatas)
+					this.productSearchDatas = this.productDatas
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: res.data.returnMessage
+					})
+				}
+			}).catch(error => {
+				this.$refs.loading.close()
+				uni.showToast({
+					icon: 'none',
+					title: error
+				})
+			})
 		},
 		computed: {
 			headerHeight() {

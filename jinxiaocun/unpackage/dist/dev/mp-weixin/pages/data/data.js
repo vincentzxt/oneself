@@ -95,10 +95,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var render = function () {}
-var staticRenderFns = []
-var recyclableRender
 var components
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+}
+var recyclableRender = false
+var staticRenderFns = []
+render._withStripped = true
 
 
 
@@ -129,33 +134,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -537,34 +515,34 @@ var _data = __webpack_require__(/*! @/api/data.js */ 253);function _interopRequi
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 539));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 546));};var scaleLine = null;var receivableRing = null;var paymentRing = null;var _default = { components: { uniList: uniList, uniListItem: uniListItem }, data: function data() {return { datas: {}, title: '报表', cWidth: '', cHeight: '', rWidth: '', rHeight: '', pixelRation: 1, date: 'day', receivableRingArr: [], paymentRingArr: [], receivableRingTotal: 0, paymentRingTotal: 0, hotSellingProduct: [], slowSellingProduct: [], hotDate: 30, slowDate: 30 };}, onShow: function onShow() {var _this = this;this.cWidth = uni.upx2px(750);this.cHeight = uni.upx2px(400);this.rWidth = uni.upx2px(550);this.rHeight = uni.upx2px(400);this.$refs.loading.open();(0, _common2.query)(_common.api.report).then(function (res) {_this.$refs.loading.close();if (res.status == 200 && res.data.returnCode == '0000') {_this.datas = res.data.data;_this.hotSellingProduct = _this.datas.hotSellingProduct;_this.slowSellingProduct = _this.datas.slowSellingProduct;_this.getDayData();_this.getAccountData();}}).catch(function (error) {_this.$refs.loading.close();});}, computed: { headerHeight: function headerHeight() {return this.$headerHeight;}, mainHeight: function mainHeight() {return this.$mainHeight;} }, methods: { handleDateChange: function handleDateChange(val) {this.date = val;}, showSaleLine: function showSaleLine(canvasId, chartData) {scaleLine = new _uChartsMin.default({ canvasId: canvasId, type: 'line', colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'], fontSize: 11, padding: [15, 15, 0, 15], legend: { show: true, padding: 10, lineHeight: 11, margin: 0, fontColor: '#808695' }, dataLabel: false, dataPointShape: true, background: '#FFFFFF', pixelRatio: this.pixelRatio, categories: chartData.categories, series: chartData.series, animation: true, xAxis: { disableGrid: true, axisLineColor: '#808695', fontColor: '#808695', rotateLabel: true }, yAxis: { gridType: 'solid', gridColor: '#f3f3f3', axisLineColor: '#808695', fontColor: '#808695' }, width: this.cWidth * this.pixelRation, height: this.cHeight * this.pixelRation, extra: { line: { type: 'straight' } } });}, showReceivableRing: function showReceivableRing(canvasId, chartData) {receivableRing = new _uChartsMin.default({ canvasId: canvasId, type: 'ring', fontSize: 11, colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'], legend: { show: true, position: 'right', float: 'center', itemGap: 10, padding: 5, lineHeight: 26, margin: 5, borderWidth: 1, fontSize: 14 }, title: { name: this.receivableRingTotal, color: '#1c2438', fontSize: 20, offsetY: -8 }, subtitle: { name: '收款金额(元)', color: '#808695', fontSize: 12, offsetY: -3 }, extra: { pie: { offsetAngle: -45, ringWidth: 10, labelWidth: 15 } }, background: '#FFFFFF', pixelRatio: 1, series: chartData.series, animation: true, width: this.rWidth * this.pixelRation, height: this.rHeight * this.pixelRation, dataLabel: false });this.receivableRingArr = receivableRing.opts.series;}, showPaymentRing: function showPaymentRing(canvasId, chartData) {paymentRing = new _uChartsMin.default({ canvasId: canvasId, type: 'ring', fontSize: 11, colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'], legend: { show: true, position: 'right', float: 'center', itemGap: 10, padding: 5, lineHeight: 26, margin: 5, borderWidth: 1, fontSize: 14 }, title: { name: this.paymentRingTotal, color: '#1c2438', fontSize: 20, offsetY: -8 }, subtitle: { name: '付款金额(元)', color: '#808695', fontSize: 12, offsetY: -3 }, extra: { pie: { offsetAngle: -45, ringWidth: 10, labelWidth: 15 } }, background: '#FFFFFF', pixelRatio: 1, series: chartData.series, animation: true, width: this.rWidth * this.pixelRation, height: this.rHeight * this.pixelRation, dataLabel: false });this.paymentRingArr = paymentRing.opts.series;}, getDayData: function getDayData() {var saleData = { categories: [], series: [] };saleData.series = [{ name: '销售额', data: [], color: '#facc14' }, { name: '利润', data: [], color: '#2fc25b' }];var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = this.datas.last7DaySalesList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;var dateArr = item.dateDisplay.split('-');saleData.categories.push(dateArr[1] + '.' + dateArr[2]);saleData.series[0].data.push(parseInt(item.salesAmount));saleData.series[1].data.push(parseInt(item.grossProfit));}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}this.showSaleLine("saleLine", saleData);},
+var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 539));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 546));};var scaleLine = null;var receivableRing = null;var paymentRing = null;var _default = { components: { uniList: uniList, uniListItem: uniListItem }, data: function data() {return { datas: {}, title: '报表', cWidth: '', cHeight: '', rWidth: '', rHeight: '', pixelRation: 1, date: 'day', receivableRingArr: [], paymentRingArr: [], receivableRingTotal: 0, paymentRingTotal: 0, hotSellingProduct: [], slowSellingProduct: [], hotDate: 30, slowDate: 30 };}, onShow: function onShow() {var _this = this;this.cWidth = uni.upx2px(750);this.cHeight = uni.upx2px(400);this.rWidth = uni.upx2px(550);this.rHeight = uni.upx2px(400);this.$refs.loading.open();(0, _common2.query)(_common.api.report).then(function (res) {_this.$refs.loading.close();if (res.status == 200 && res.data.returnCode == '0000') {_this.datas = res.data.data;_this.hotSellingProduct = _this.datas.hotSellingProduct;_this.slowSellingProduct = _this.datas.slowSellingProduct;_this.getDayData();_this.getAccountData();}}).catch(function (error) {_this.$refs.loading.close();});}, computed: { headerHeight: function headerHeight() {return this.$headerHeight;}, mainHeight: function mainHeight() {return this.$mainHeight;} }, methods: { handleDateChange: function handleDateChange(val) {this.date = val;}, showSaleLine: function showSaleLine(canvasId, chartData) {scaleLine = new _uChartsMin.default({ canvasId: canvasId, type: 'line', colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'], fontSize: 11, padding: [15, 15, 0, 15], legend: { show: true, padding: 10, lineHeight: 11, margin: 0, fontColor: '#808695' }, dataLabel: false, dataPointShape: true, background: '#FFFFFF', pixelRatio: this.pixelRatio, categories: chartData.categories, series: chartData.series, animation: true, xAxis: { disableGrid: true, axisLineColor: '#808695', fontColor: '#808695', rotateLabel: true }, yAxis: { gridType: 'solid', gridColor: '#f3f3f3', axisLineColor: '#808695', fontColor: '#808695' }, width: this.cWidth * this.pixelRation, height: this.cHeight * this.pixelRation, extra: { line: { type: 'straight' } } });}, showReceivableRing: function showReceivableRing(canvasId, chartData) {receivableRing = new _uChartsMin.default({ canvasId: canvasId, type: 'ring', fontSize: 11, colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'], legend: { show: true, position: 'right', float: 'center', itemGap: 10, padding: 5, lineHeight: 26, margin: 5, borderWidth: 1, fontSize: 14 }, title: { name: this.receivableRingTotal, color: '#1c2438', fontSize: 20, offsetY: -8 }, subtitle: { name: '收款金额(元)', color: '#808695', fontSize: 12, offsetY: -3 }, extra: { pie: { offsetAngle: -45, ringWidth: 10, labelWidth: 15 } }, background: '#FFFFFF', pixelRatio: 1, series: chartData.series, animation: true, width: this.rWidth * this.pixelRation, height: this.rHeight * this.pixelRation, dataLabel: false });this.receivableRingArr = receivableRing.opts.series;}, showPaymentRing: function showPaymentRing(canvasId, chartData) {paymentRing = new _uChartsMin.default({ canvasId: canvasId, type: 'ring', fontSize: 11, colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'], legend: { show: true, position: 'right', float: 'center', itemGap: 10, padding: 5, lineHeight: 26, margin: 5, borderWidth: 1, fontSize: 14 }, title: { name: this.paymentRingTotal, color: '#1c2438', fontSize: 20, offsetY: -8 }, subtitle: { name: '付款金额(元)', color: '#808695', fontSize: 12, offsetY: -3 }, extra: { pie: { offsetAngle: -45, ringWidth: 10, labelWidth: 15 } }, background: '#FFFFFF', pixelRatio: 1, series: chartData.series, animation: true, width: this.rWidth * this.pixelRation,
+        height: this.rHeight * this.pixelRation,
+        dataLabel: false });
+
+      this.paymentRingArr = paymentRing.opts.series;
+    },
+    getDayData: function getDayData() {
+      var saleData = { categories: [], series: [] };
+      saleData.series = [
+      {
+        name: '销售额',
+        data: [],
+        color: '#facc14' },
+
+      {
+        name: '利润',
+        data: [],
+        color: '#2fc25b' }];var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
+
+
+        for (var _iterator = this.datas.last7DaySalesList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
+          var dateArr = item.dateDisplay.split('-');
+          saleData.categories.push(dateArr[1] + '.' + dateArr[2]);
+          saleData.series[0].data.push(parseInt(item.salesAmount));
+          saleData.series[1].data.push(parseInt(item.grossProfit));
+        }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
+      this.showSaleLine("saleLine", saleData);
+    },
     getAccountData: function getAccountData() {
       var receivableData = { series: [] };
       var paymentData = { series: [] };var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {
