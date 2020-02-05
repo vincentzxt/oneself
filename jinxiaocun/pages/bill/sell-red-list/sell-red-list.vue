@@ -3,9 +3,9 @@
 		<view class="header">
 			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
-		<xw-date title="销售日期"  @click_sub="handle_data_sub"></xw-date>
+		<xw-date title="销售日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
-			<view class="total-item"><text>总订单</text><text>{{totalRecords}}</text></view><view class="total-item"><text>总金额</text><text>{{totalAmount}}</text></view><view class="total-item"><text>毛利</text><text>{{totalAmount}}</text></view>
+			<view class="total-item"><text>总订单</text><text>{{totalRecords}}</text></view><view class="total-item"><text>总金额</text><text>{{totalAmount}}</text></view><view class="total-item"><text>毛利</text><text>{{totalGrossProfit}}</text></view>
 		</view>
 	<!-- 	<view class="list-header"  v-if="dataList.length>0">
 			<view class="item-content">
@@ -21,24 +21,23 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<view v-for="(item, index) in dataList" :key="index" class="list-item"  @tap="handleDetail()">
-							<view class="item-content">
-								<text>客户名称：{{ item.contactunitname }}</text>
-							</view>
-							<view class="item-content2">
-								<text>总数量：{{ item.amount }}</text>
-							</view>
-							<!-- <view class="item-content3">
-						<uni-icon type="arrowright" size="15"></uni-icon>
-							</view> -->
+					<view class="list-between">
+						<view class="item-content">
+							<text>客户名称：{{ item.contactunitname }}</text>
 						</view>
-						<view class="list-between">
-							<view class="item-content">
-								<text>下单日期：{{ item.createtime }}</text>
-							</view>
-							<view class="item-content2">
-								<text>总金额：¥{{ item.amount }}</text>
-							</view>
+						<view class="item-content2">
+							<text>总数量：{{ item.amount }}</text>
 						</view>
+					</view>
+					<view class="list-between">
+						<view class="item-content">
+							<text>下单日期：{{ item.createtime }}</text>
+						</view>
+						<view class="item-content2">
+							<text>总金额：¥{{ item.amount }}</text>
+						</view>
+					</view>
+				</view>
 				<view class="no_data" v-if="dataList.length === 0"><text class="item_text">暂无数据</text></view>
 				<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
 			</scroll-view>
@@ -78,18 +77,19 @@ export default {
 			loadmore:'more',
 			pageIndex: 0,
 			pageRows: 15,
-			title: '销售单据',
+			title: '销售退货',
 			searchName:'客户名称',
-			billtype:1,
+			billtype:2,
 			totalAmount:'0.00',
 			totalRecords:'0',
+			totalGrossProfit:'0',
 			dataList: [],
 			search_startDate:nowDate,
 			search_endDate:nowDate,
 			order_name:'',
-			order_type:1,
+			order_type:0,
 			search_value:'',
-			orderList:[{name:'销售日期',value:'date'},{name:'金额',value:'amount'}]
+			orderList:[{name:'销售日期',value:'createtime'},{name:'金额',value:'amount'}]
 		};
 	},
 	onLoad() {this.loadData();},
@@ -105,6 +105,7 @@ export default {
 	    },
 	methods: {
 		handle_data_sub(val){
+			console.log(val);
 			this.search_startDate = val.search_startDate;
 			this.search_endDate = val.search_endDate;
 			this.order_name = this.orderList[val.order_index].value;
@@ -139,6 +140,7 @@ export default {
 				beginttime:this.search_startDate,
 				endtime:this.search_endDate
 			};
+			console.log(senddata);
 			query(api.salesOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();
@@ -150,6 +152,7 @@ export default {
 							this.dataList =this.dataList.concat(res.data.data.resultList);
 							this.totalAmount = res.data.data.totalAmount;
 							this.totalRecords = res.data.data.pageInfo.totalRecords;
+							this.totalGrossProfit = res.data.data.totalGrossProfit;
 							this.pageIndex = this.pageIndex+1 ;
 							this.loadmore = "more"
 						}

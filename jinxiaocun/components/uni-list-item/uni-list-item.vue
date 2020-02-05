@@ -210,7 +210,8 @@
 		/* #endif */
 		flex: 1;
 		overflow: hidden;
-		flex-direction: row;
+		flex-direction: column;
+		padding-top: 10upx;
 	}
 
 	.uni-list-item__content-title {

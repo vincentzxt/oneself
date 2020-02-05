@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view class="filter">
-			<view class="filter-left" @tap="date_open">
+		<view :class="[title!='null' ? 'filter':'filter-date-null']">
+			<view class="filter-left" @tap="date_open" v-if="title!='null'">
 				<text>{{ search_startDate }}</text>
 				<text>{{ search_endDate }}</text>
 			</view>
@@ -82,7 +82,7 @@ export default {
 	props: {
 		title: {
 			type: String,
-			default: ''
+			default: 'null'
 		},
 		searchName: {
 			type: String,
@@ -220,10 +220,12 @@ export default {
 				},
 		order_open(){
 			this.searchShow = false;
+			this.$refs.popup.close();
 			this.orderShow = this.orderShow?false:true;
 		},
 		search_open(){
 			this.orderShow = false;
+			this.$refs.popup.close();
 			this.searchShow = this.searchShow?false:true;
 		},
 		tabChange(val) {
@@ -270,6 +272,8 @@ export default {
 			this.$refs.popup.close();
 		},
 		date_open() {
+			this.searchShow = false;
+			this.orderShow = false;
 			this.$refs.popup.open();
 		},
 		/**
@@ -337,7 +341,6 @@ export default {
 
 <style lang="scss" scoped>
 .filter {
-
 	height: 8%;
 	background-color: #ffffff;
 	border-bottom: 1upx solid $uni-border-color;
@@ -364,6 +367,32 @@ export default {
 		}
 	}
 }
+.filter-date-null {
+	height: 8%;
+	background-color: #ffffff;
+	border-bottom: 1upx solid $uni-border-color;
+	color: $uni-color-link;
+	padding: 24upx $uni-padding-base;
+	.filter-left {
+		display: flex;
+		flex-direction: column;
+		font-size: 28upx;
+		// flex: 2;
+	}
+	.filter-right {
+		// flex: 1;
+		font-size: 32upx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		.filter-right-item {
+			align-items: center;
+			margin-left: 24upx;
+		}
+	}
+}
+
 
 .filter-order{
 	font-size: 36upx;
