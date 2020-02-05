@@ -398,13 +398,14 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       billtype: 1,
       totalAmount: '0.00',
       totalRecords: '0',
+      totalGrossProfit: '0',
       dataList: [],
       search_startDate: nowDate,
       search_endDate: nowDate,
       order_name: '',
       order_type: 0,
       search_value: '',
-      orderList: [{ name: '销售日期', value: 'date' }, { name: '金额', value: 'amount' }] };
+      orderList: [{ name: '销售日期', value: 'createtime' }, { name: '金额', value: 'amount' }] };
 
   },
   onLoad: function onLoad() {this.loadData();},
@@ -438,9 +439,9 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         delta: 1 });
 
     },
-    handleDetail: function handleDetail() {
+    handleDetail: function handleDetail(val) {
       uni.navigateTo({
-        url: 'sell-detail' });
+        url: 'sell-detail?id=' + val });
 
     },
     loadData: function loadData() {var _this = this;
@@ -467,6 +468,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
             _this.dataList = _this.dataList.concat(res.data.data.resultList);
             _this.totalAmount = res.data.data.totalAmount;
             _this.totalRecords = res.data.data.pageInfo.totalRecords;
+            _this.totalGrossProfit = res.data.data.totalGrossProfit;
             _this.pageIndex = _this.pageIndex + 1;
             _this.loadmore = "more";
           }

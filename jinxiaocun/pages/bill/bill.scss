@@ -10,19 +10,25 @@
 		height: 10%;
 	}
 	.total{
-		font-size: $uni-font-size-min;
-		height: 5%;
+		font-size: $uni-font-size-sm;
+		height: 8%;
 		background-color: #FFFFFF;
 		 display: flex;
 		 flex-direction: row;
 		 justify-content: space-around;
-		 padding: 12upx 0upx;
+		 padding: 16upx 0upx;
 		 align-items: center;
+		.total-item{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			
+		}
 	}
 	.main {
 		height: 70%;
 		padding: 0;
-		//margin-top: 10upx;
+		margin-top: 10upx;
 		.cu-form-group .title {
 			min-width: calc(5em + 30px);
 		}
@@ -101,6 +107,10 @@
 			flex: 2;
 			font-size: $uni-font-size-min;
 			line-height: 60upx;
+			width: 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 		.item-content2 {
 			flex: 1;
@@ -110,7 +120,33 @@
 		.item-content3 {
 			flex: 1;
 			text-align: right;
-			font-size: $uni-font-size-sm;
+			font-size: $uni-font-size-min;
+			line-height: 60upx;
+		}
+	}
+}
+.list-item2 {
+	padding: 16upx 24upx;
+	background: #fff;
+	border-bottom: 0.8upx solid $uni-border-color;
+	.list-between {
+		display: flex;
+		flex-direction: row;
+		// justify-content: spac;
+		.item-content {
+			flex: 1;
+			font-size: $uni-font-size-min;
+			line-height: 60upx;
+		}
+		.item-content2 {
+			flex: 1;
+			font-size: $uni-font-size-min;
+			line-height: 60upx;
+		}
+		.item-content3 {
+			flex: 1;
+			text-align: right;
+			font-size: $uni-font-size-min;
 			line-height: 60upx;
 		}
 	}

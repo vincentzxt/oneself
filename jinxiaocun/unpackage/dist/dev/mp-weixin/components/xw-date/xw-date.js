@@ -200,7 +200,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     title: {
       type: String,
-      default: '' },
+      default: 'null' },
 
     searchName: {
       type: String,
@@ -287,7 +287,7 @@ __webpack_require__.r(__webpack_exports__);
       search_startDate: init_endDate,
       search_endDate: init_endDate,
       search_value: '',
-      value: [9999, month - 1, 0],
+      value: [9999, month_short - 1, day_short - 1],
       visible: true,
       indicatorStyle: "height: ".concat(Math.round(uni.getSystemInfoSync().screenWidth / (750 / 100)), "px;") };
 
@@ -338,10 +338,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     order_open: function order_open() {
       this.searchShow = false;
+      this.$refs.popup.close();
       this.orderShow = this.orderShow ? false : true;
     },
     search_open: function search_open() {
       this.orderShow = false;
+      this.$refs.popup.close();
       this.searchShow = this.searchShow ? false : true;
     },
     tabChange: function tabChange(val) {
@@ -388,6 +390,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.popup.close();
     },
     date_open: function date_open() {
+      this.searchShow = false;
+      this.orderShow = false;
       this.$refs.popup.open();
     },
     /**

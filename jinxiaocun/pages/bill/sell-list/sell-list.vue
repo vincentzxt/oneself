@@ -5,9 +5,9 @@
 		</view>
 		<xw-date title="销售日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
-			<view><text>总订单：{{totalRecords}}</text></view><view><text>总金额：¥{{totalAmount}}</text></view><view><text>毛利：¥{{totalAmount}}</text></view>
+			<view class="total-item"><text>总订单</text><text>{{totalRecords}}</text></view><view class="total-item"><text>总金额</text><text>{{totalAmount}}</text></view><view class="total-item"><text>毛利</text><text>{{totalGrossProfit}}</text></view>
 		</view>
-		<view class="list-header"  v-if="dataList.length>0">
+	<!-- 	<view class="list-header"  v-if="dataList.length>0">
 			<view class="item-content">
 				<text>客户名称</text>
 			</view>
@@ -17,10 +17,10 @@
 			<view class="item-content3">
 				<text></text>
 			</view>
-		</view>
+		</view> -->
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
-				<view v-for="(item, index) in dataList" :key="index" class="list-item"  @tap="handleDetail()">
+				<view v-for="(item, index) in dataList" :key="index" class="list-item"  @tap="handleDetail(item.salesorderid)">
 					<view class="list-between">
 						<view class="item-content">
 							<text>客户名称：{{ item.contactunitname }}</text>
@@ -82,13 +82,14 @@ export default {
 			billtype:1,
 			totalAmount:'0.00',
 			totalRecords:'0',
+			totalGrossProfit:'0',
 			dataList: [],
 			search_startDate:nowDate,
 			search_endDate:nowDate,
 			order_name:'',
 			order_type:0,
 			search_value:'',
-			orderList:[{name:'销售日期',value:'date'},{name:'金额',value:'amount'}]
+			orderList:[{name:'销售日期',value:'createtime'},{name:'金额',value:'amount'}]
 		};
 	},
 	onLoad() {this.loadData();},
@@ -122,9 +123,9 @@ export default {
 				delta: 1
 			});
 		},
-		handleDetail(){
+		handleDetail(val){
 			uni.navigateTo({
-				url:'sell-detail'
+				url:'sell-detail?id='+val
 			})
 		},
 		loadData() {
@@ -151,6 +152,7 @@ export default {
 							this.dataList =this.dataList.concat(res.data.data.resultList);
 							this.totalAmount = res.data.data.totalAmount;
 							this.totalRecords = res.data.data.pageInfo.totalRecords;
+							this.totalGrossProfit = res.data.data.totalGrossProfit;
 							this.pageIndex = this.pageIndex+1 ;
 							this.loadmore = "more"
 						}

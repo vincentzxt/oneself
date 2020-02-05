@@ -161,27 +161,73 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _bills = __webpack_require__(/*! @/api/bills.js */ 407);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 245));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 547));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 554));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 611));};var _default =
+var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 245));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 618));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 547));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 554));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 611));};var xwDate = function xwDate() {return __webpack_require__.e(/*! import() | components/xw-date/xw-date */ "components/xw-date/xw-date").then(__webpack_require__.bind(null, /*! @/components/xw-date/xw-date.vue */ 639));};var _default =
+
+
 
 {
   components: {
     uniLoadMore: uniLoadMore,
     uniList: uniList,
-    uniListItem: uniListItem },
+    uniListItem: uniListItem,
+    uniIcon: uniIcon,
+    xwDate: xwDate },
 
   data: function data() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month_short = date.getMonth() + 1;
+    var month = month_short < 10 ? '0' + month_short : month_short;
+    var day_short = date.getDate();
+    var day = day_short < 10 ? '0' + day_short : day_short;
+    var nowDate = year + '-' + month + '-' + day;
     return {
       loadmore: 'more',
       pageIndex: 0,
       pageRows: 15,
       title: '库存列表',
-      dataList: [] };
+      searchName: '商口名称',
+      billtype: 1,
+      totalAmount: '0.00',
+      totalRecords: '0',
+      dataList: [],
+      search_startDate: nowDate,
+      search_endDate: nowDate,
+      order_name: '',
+      order_type: 0,
+      search_value: '',
+      orderList: [{ name: '销售日期', value: 'date' }, { name: '金额', value: 'amount' }] };
 
   },
   onLoad: function onLoad() {this.loadData();},
-  onShow: function onShow() {},
+  onShow: function onShow() {console.log(this.search_startDate);},
   onPullDownRefresh: function onPullDownRefresh() {
     this.dataList = [];
     this.pageIndex = 0;
@@ -192,6 +238,17 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
     }, 1000);
   },
   methods: {
+    handle_data_sub: function handle_data_sub(val) {
+      console.log(val);
+      this.search_startDate = val.search_startDate;
+      this.search_endDate = val.search_endDate;
+      this.order_name = this.orderList[val.order_index].value;
+      this.order_type = val.order_type;
+      this.dataList = [];
+      this.pageIndex = 0;
+      this.loadMore = 'more';
+      this.loadData();
+    },
     handleRefreshPage: function handleRefreshPage() {
       console.log('refreshpage');
     },
@@ -200,14 +257,25 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         delta: 1 });
 
     },
+    handleDetail: function handleDetail() {
+      uni.navigateTo({
+        url: 'sell-detail' });
+
+    },
     loadData: function loadData() {var _this = this;
       this.loadmore = 'loading',
       this.$refs.loading.open();
       var senddata = {
         pageIndex: this.pageIndex + 1,
-        pageRows: this.pageRows };
+        pageRows: this.pageRows,
+        billtype: this.billtype,
+        orderName: this.order_name,
+        orderType: this.order_type,
+        beginttime: this.search_startDate,
+        endtime: this.search_endDate };
 
-      (0, _stkstock.stockQuery)(_common.api.stkStock, senddata).
+      console.log(senddata);
+      (0, _bills.query)(_common.api.stkStock, senddata).
       then(function (res) {
         _this.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
@@ -216,6 +284,8 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
             return;
           } else {
             _this.dataList = _this.dataList.concat(res.data.data.resultList);
+            _this.totalAmount = res.data.data.totalAmount;
+            _this.totalRecords = res.data.data.pageInfo.totalRecords;
             _this.pageIndex = _this.pageIndex + 1;
             _this.loadmore = "more";
           }

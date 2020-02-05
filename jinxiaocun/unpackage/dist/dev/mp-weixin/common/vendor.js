@@ -9408,7 +9408,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.get = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return _http.default.request({
@@ -9417,6 +9417,13 @@ var query = function query(url) {var data = arguments.length > 1 && arguments[1]
     method: 'post' });
 
 };exports.query = query;
+var get = function get(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/Get/' + data.id,
+    data: data,
+    method: 'post' });
+
+};exports.get = get;
 
 /***/ }),
 

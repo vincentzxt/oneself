@@ -330,10 +330,8 @@ textarea.data-v-02334104, input.data-v-02334104 {
     height: 48rpx;
 }
 .user_info .pic.data-v-02334104 {
-    width: 100rpx;
-    height: 100rpx;
-    border-radius: 50%;
-    border: rgba(255, 255, 255, 0.5) solid 5rpx;
+    width: 120rpx;
+    height: 120rpx;
     margin-right: 20rpx;
 }
 .user_info .edit.data-v-02334104 {

@@ -4,9 +4,14 @@
 			<uni-navbar :title="title" leftText="一格云单" background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
+<<<<<<< HEAD
 		<scroll-view scroll-y="true"  class="fill">
 			<cover-view></cover-view>
 			<view class="main">
+=======
+	<scroll-view :scroll-y="true" class="fill">
+		<view class="main" :style="{'height': mainHeight + 'px'}">
+>>>>>>> 7a82302aaebd2c04e4d29c6921ec5c120594058b
 				<view class="main-sale">
 					<view class="main-sale-header">
 						<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
@@ -180,8 +185,13 @@
 					</view>
 				</view>
 				<view style="height: 2px;background-color: #ffffff;"></view>
+<<<<<<< HEAD
 			</view>
 			<cu-loading ref="loading"></cu-loading>
+=======
+		</view>
+		<cu-loading ref="loading"></cu-loading>
+>>>>>>> 7a82302aaebd2c04e4d29c6921ec5c120594058b
 		</scroll-view>
 	</view>
 </template>

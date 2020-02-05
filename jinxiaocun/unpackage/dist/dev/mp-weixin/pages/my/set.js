@@ -463,6 +463,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         if (res.status == 200 && res.data.returnCode == '0000') {
           _this4.$api.msg('保存成功！');
           uni.$emit('changecompany', { 'msg': 'company变化了' });
+          uni.navigateBack({ delta: 1 });
         } else if (res.status == 200 && res.data.returnCode == '402') {
           _this4.$api.msg(res.data.returnMessage);
           uni.reLaunch({

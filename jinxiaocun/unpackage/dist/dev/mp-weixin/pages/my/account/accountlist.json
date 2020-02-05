@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "uni-list": "/components/uni-list/uni-list",
-    "uni-list-item": "/components/uni-list-item/uni-list-item"
+    "cu-panel": "/components/custom/cu-panel",
+    "cu-cell": "/components/custom/cu-cell"
   }
 }

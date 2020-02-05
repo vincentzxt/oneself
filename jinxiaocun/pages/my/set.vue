@@ -147,6 +147,7 @@ export default {
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.$api.msg('保存成功！');
 						uni.$emit('changecompany',{'msg':'company变化了'});
+						uni.navigateBack({delta: 1});
 					} else if (res.status == 200 && res.data.returnCode == '402') {
 						this.$api.msg(res.data.returnMessage);
 						uni.reLaunch({

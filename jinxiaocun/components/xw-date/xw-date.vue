@@ -1,9 +1,9 @@
 <template>
 	<view>
-		<view class="filter">
-			<view class="filter-left" @tap="date_open">
-				<text>{{ title }}</text>
-				<text>{{ search_startDate }}至{{ search_endDate }}</text>
+		<view :class="[title!='null' ? 'filter':'filter-date-null']">
+			<view class="filter-left" @tap="date_open" v-if="title!='null'">
+				<text>{{ search_startDate }}</text>
+				<text>{{ search_endDate }}</text>
 			</view>
 			<view class="filter-right">
 				<view class="filter-right-item" @tap="order_open">
@@ -17,7 +17,7 @@
 			</view>
 		</view>
 		<view class="filter-order" v-if="orderShow">
-			<view class="filter-order-item" v-for="(item, index) in orderList" :key="index" @tap="order_select(index)" :class="[orderIndex === index ? 'order_select_cur':'']"><text>{{item.name}}</text><view v-if="orderIndex===index"><text>{{orderTypeList[orderType]}}</text><uni-icon type="checkmarkempty" size="15"></uni-icon></view></view>
+			<view class="filter-order-item" v-for="(item, index) in orderList" :key="index" @tap="order_select(index)" :class="[orderIndex === index ? 'order_select_cur':'']"><text>{{item.name}}</text><view v-if="orderIndex===index"><text>{{orderTypeList[orderType]}}</text><uni-icon type="checkmarkempty" size="30"></uni-icon></view></view>
 		</view>
 		<view class="filter-search" v-if="searchShow">
 			                <view class="search-title">{{searchName}}</view>
@@ -82,7 +82,7 @@ export default {
 	props: {
 		title: {
 			type: String,
-			default: ''
+			default: 'null'
 		},
 		searchName: {
 			type: String,
@@ -169,7 +169,7 @@ export default {
 			search_startDate: init_endDate,
 			search_endDate: init_endDate,
 			search_value:'',
-			value: [9999, month - 1, 0],
+			value: [9999, month_short - 1, day_short-1],
 			visible: true,
 			indicatorStyle: `height: ${Math.round(uni.getSystemInfoSync().screenWidth / (750 / 100))}px;`
 		};
@@ -220,10 +220,12 @@ export default {
 				},
 		order_open(){
 			this.searchShow = false;
+			this.$refs.popup.close();
 			this.orderShow = this.orderShow?false:true;
 		},
 		search_open(){
 			this.orderShow = false;
+			this.$refs.popup.close();
 			this.searchShow = this.searchShow?false:true;
 		},
 		tabChange(val) {
@@ -270,6 +272,8 @@ export default {
 			this.$refs.popup.close();
 		},
 		date_open() {
+			this.searchShow = false;
+			this.orderShow = false;
 			this.$refs.popup.open();
 		},
 		/**
@@ -349,27 +353,53 @@ export default {
 	.filter-left {
 		display: flex;
 		flex-direction: column;
+		font-size: 28upx;
 		// flex: 2;
-		font-size: 24upx;
 	}
 	.filter-right {
 		// flex: 1;
+		font-size: 32upx;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		font-size: 24upx;
 		.filter-right-item {
 			margin-left: 24upx;
 		}
 	}
 }
+.filter-date-null {
+	height: 8%;
+	background-color: #ffffff;
+	border-bottom: 1upx solid $uni-border-color;
+	color: $uni-color-link;
+	padding: 24upx $uni-padding-base;
+	.filter-left {
+		display: flex;
+		flex-direction: column;
+		font-size: 28upx;
+		// flex: 2;
+	}
+	.filter-right {
+		// flex: 1;
+		font-size: 32upx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		.filter-right-item {
+			align-items: center;
+			margin-left: 24upx;
+		}
+	}
+}
+
 
 .filter-order{
+	font-size: 36upx;
 	position: absolute;
 	background-color: #FFFFFF;
 	z-index:1000;
 	width: 100%;
-	font-size: 24upx;
 	.order_select_cur {
 	    color: #2D8cF0;
 	}
@@ -385,15 +415,16 @@ export default {
 	}
 }
 .filter-search{
+	font-size: 36upx;
 	position: absolute;
 	background-color: #FFFFFF;
 	z-index:1000;
 	width: 100%;
 	display: flex;
 	direction: row;
-	font-size: 24upx;
-	line-height: 24upx;
-	padding: 6upx 24upx;
+	line-height: 36upx;
+	padding: 24upx;
+	border-bottom: 1upx solid $uni-border-color;
 	align-items: center;
 	.search-title{
 		padding-right: 24upx;
@@ -415,8 +446,8 @@ picker-view {
 	text-align: center;
 }
 .date_pop {
+	font-size: 36upx;
 	background-color: #ffffff;
-	font-size: 24upx;
 	.date_header {
 		padding: 24upx;
 		background-color: #2d8cf0;

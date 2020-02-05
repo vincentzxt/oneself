@@ -1,17 +1,40 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
+			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
+		<xw-date title="null" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
+	<!-- 	<view class="total">
+			<view class="total-item"><text>总订单</text><text>{{totalRecords}}</text></view><view class="total-item"><text>总金额</text><text>{{totalAmount}}</text></view><view class="total-item"><text>毛利</text><text>{{totalAmount}}</text></view>
+		</view> -->
+<!-- 		<view class="list-header"  v-if="dataList.length>0">
+			<view class="item-content">
+				<text>客户名称</text>
+			</view>
+			<view class="item-content2">
+				<text>金额</text>
+			</view>
+			<view class="item-content3">
+				<text></text>
+			</view>
+		</view> -->
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
-				<view v-for="(item, index) in dataList" :key="index" class="list-item">
+				<view v-for="(item, index) in dataList" :key="index" class="list-item2"  @tap="handleDetail()">
 					<view class="list-between">
 						<view class="item-content">
-							<text>{{ item.productname }}</text>
+							<text>商品名称：{{ item.productname }}</text>
 						</view>
 						<view class="item-content2">
-							<text>{{ item.displayqty }}</text>
+							<text>总金额：{{ item.totalamount }}</text>
+						</view>
+					</view>
+					<view class="list-between">
+						<view class="item-content">
+							<text>主计量：{{ item.qty }}{{item.unit}}</text>
+						</view>
+						<view class="item-content2">
+							<text>辅助计量：{{ item.displayqty}}</text>
 						</view>
 					</view>
 				</view>
@@ -19,34 +42,57 @@
 				<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
 			</scroll-view>
 		</view>
+		
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
 <script>
+import uniIcon from "@/components/uni-icon/uni-icon.vue";
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
-import { stockQuery } from '@/api/stkstock.js';
+import { query } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
-import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue"
+import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
+import xwDate from "@/components/xw-date/xw-date.vue";
+
 export default {
 	components: {
 		uniLoadMore,
 		uniList,
-		uniListItem
+		uniListItem,
+		uniIcon,
+		xwDate
 	},
 	data() {
+		const date = new Date();
+		const year = date.getFullYear();
+		var month_short = date.getMonth() + 1;
+		const month = month_short < 10 ? '0' + month_short : month_short;
+		const day_short = date.getDate();
+		const day = day_short < 10 ? '0' + day_short : day_short;
+		const nowDate = year + '-' + month + '-' + day;
 		return {
 			loadmore:'more',
 			pageIndex: 0,
 			pageRows: 15,
 			title: '库存列表',
-			dataList: []
+			searchName:'商口名称',
+			billtype:1,
+			totalAmount:'0.00',
+			totalRecords:'0',
+			dataList: [],
+			search_startDate:nowDate,
+			search_endDate:nowDate,
+			order_name:'',
+			order_type:0,
+			search_value:'',
+			orderList:[{name:'销售日期',value:'date'},{name:'金额',value:'amount'}]
 		};
 	},
 	onLoad() {this.loadData();},
-	onShow() {},
+	onShow() {console.log(this.search_startDate);},
 	onPullDownRefresh() {
 			this.dataList=[];
 			this.pageIndex = 0;
@@ -57,6 +103,17 @@ export default {
 	        }, 1000);
 	    },
 	methods: {
+		handle_data_sub(val){
+			console.log(val);
+			this.search_startDate = val.search_startDate;
+			this.search_endDate = val.search_endDate;
+			this.order_name = this.orderList[val.order_index].value;
+			this.order_type = val.order_type
+			this.dataList=[];
+			this.pageIndex = 0;
+			this.loadMore='more';
+			this.loadData();
+		},
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},
@@ -65,14 +122,25 @@ export default {
 				delta: 1
 			});
 		},
+		handleDetail(){
+			uni.navigateTo({
+				url:'sell-detail'
+			})
+		},
 		loadData() {
 			this.loadmore = 'loading',
 			this.$refs.loading.open();
 			const senddata = {
 				pageIndex: this.pageIndex+1,
-				pageRows: this.pageRows
+				pageRows: this.pageRows,
+				billtype:this.billtype,
+				orderName:this.order_name,
+				orderType:this.order_type,
+				beginttime:this.search_startDate,
+				endtime:this.search_endDate
 			};
-			stockQuery(api.stkStock, senddata)
+			console.log(senddata);
+			query(api.stkStock, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
@@ -81,6 +149,8 @@ export default {
 							return;
 						}else{
 							this.dataList =this.dataList.concat(res.data.data.resultList);
+							this.totalAmount = res.data.data.totalAmount;
+							this.totalRecords = res.data.data.pageInfo.totalRecords;
 							this.pageIndex = this.pageIndex+1 ;
 							this.loadmore = "more"
 						}
@@ -100,10 +170,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.fill {
-	width: 100%;
-	height: 100%;
-}
+@import "../bill.scss";
 .container {
 	font-size: $uni-font-size-base;
 	height: 100vh;
@@ -111,10 +178,26 @@ export default {
 	.header {
 		height: 10%;
 	}
+	.total{
+		font-size: $uni-font-size-base;
+		height: 8%;
+		background-color: #FFFFFF;
+		 display: flex;
+		 flex-direction: row;
+		 justify-content: space-around;
+		 padding: 16upx 0upx;
+		 align-items: center;
+		.total-item{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			
+		}
+	}
 	.main {
-		height: 90%;
-		padding: 0upx;
-		//margin-top: 10upx;
+		height: calc(90% - 58px);
+		padding: 0;
+		margin-top: 6px;
 		.cu-form-group .title {
 			min-width: calc(5em + 30px);
 		}
@@ -131,52 +214,11 @@ export default {
 			justify-content: flex-end;
 		}
 	}
-	.footer {
-		height: 7%;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-	}
+	
 }
 .uni-loadmore{
 	text-align: center;
 	font-size: $uni-font-size-base;
 }
-.no_data {
-	display: flex;
-	//flex-direction: column;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	justify-content: center;
-	.item_img {
-		width: 120rpx;
-		height: 120rpx;
-	}
-	.item_text {
-		font-size: 24rpx;
-		margin-top: 100rpx;
-		color: #cccccc;
-	}
-}
-.list-item {
-	padding: 16upx 24upx;
 
-	background: #fff;
-	border-bottom: 0.8upx solid $uni-border-color;
-	.list-between {
-		display: flex;
-		flex-direction: row;
-		.item-content {
-			flex: 2;
-			font-size: $uni-font-size-sm;
-			line-height: 60upx;
-		}
-		.item-content2 {
-			flex: 1;
-			font-size: $uni-font-size-sm;
-			line-height: 60upx;
-		}
-	}
-}
 </style>
