@@ -7,19 +7,35 @@
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<uni-list>
 					<uni-list-item title="客户名称" :show-arrow="false" show-text="true" :content="dataList.contactunitname"></uni-list-item>
-					<uni-list-item title="金额" :show-arrow="false" show-text="true" :content="dataList.amount"></uni-list-item>
-					<uni-list-item title="时间" :show-arrow="false" show-text="true" :content="dataList.createtime"></uni-list-item>
-					
+					<uni-list-item title="下单时间" :show-arrow="false" show-text="true" :content="dataList.createtime"></uni-list-item>
+					<uni-list-item title="总金额" :show-arrow="false" show-text="true" :content="dataList.amount"></uni-list-item>
+					<uni-list-item title="优惠金额" :show-arrow="false" show-text="true" :content="dataList.discountamount"></uni-list-item>
 				</uni-list>
+				<view v-for="(item, index) in dataList.detailModels" :key="index" class="detail-item">
+					<view class="list-between">
+						<view class="item-content">
+							<text>商品名称：{{ item.productname }}</text>
+						</view> 
+					</view>
+					<view class="list-between">
+						<view class="item-content2">
+							<text>总数量：{{ item.salesqty }}</text>
+						</view>
+						<view class="item-content3">
+							<text>总金额：¥{{ item.salesunitprice }}</text>
+						</view>
+					</view>
+				</view>
 			</scroll-view>
 		</view>
-		<!-- <cu-loading ref="loading"></cu-loading> -->
+		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
 <script>
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
+import { get } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
@@ -31,11 +47,17 @@ export default {
 	data() {
 		return {
 			title: '销售详情',
-			dataList: []
+			id:0,
+			dataList:{}
 		};
 	},
 	// onLoad() {this.loadData();},
 	onShow() {},
+	onLoad(option){
+		this.id =option.id
+		this.loadData();
+		
+	},
 	methods: {
 		handleRefreshPage() {
 			console.log('refreshpage');
@@ -49,29 +71,18 @@ export default {
 			this.loadmore = 'loading',
 			this.$refs.loading.open();
 			const senddata = {
-				pageIndex: this.pageIndex+1,
-				pageRows: this.pageRows
+				id:this.id
 			};
-			stockQuery(api.stkStock, senddata)
+			get(api.salesOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						if(res.data.data.resultList.length ===0){
-							this.loadmore = "noMore"
-							return;
-						}else{
-							this.dataList =this.dataList.concat(res.data.data.resultList);
-							this.pageIndex = this.pageIndex+1 ;
-							this.loadmore = "more"
-						}
-						
+						this.dataList = res.data.data
 					} else {
-						this.loadmore = 'more',
 						this.$api.msg(res.data.returnMessage);
 					}
 				})
 				.catch(error => {
-					this.loadmore = 'more',
 					this.$refs.loading.close();
 					this.$api.msg('请求失败fail');
 				});
@@ -85,7 +96,7 @@ export default {
 	height: 100%;
 }
 .container {
-	font-size: $uni-font-size-base;
+	font-size: $uni-font-size-sm;
 	height: 100vh;
 	width: 100vw;
 	.header {
@@ -105,11 +116,44 @@ export default {
 			justify-content: center;
 			align-items: center;
 		}
-		.picker {
-			width: 100%;
-			display: flex;
-			justify-content: flex-end;
+		.detail-item {
+			margin-top: 12upx;
+			padding: 16upx 24upx;
+			background: #fff;
+			border-bottom: 0.8upx solid $uni-border-color;
+			.list-between {
+				display: flex;
+				flex-direction: row;
+				font-size: $uni-font-size-sm;
+				// justify-content: spac;
+				.item-content {
+					flex: 1;
+					line-height: 60upx;
+					width: 0;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				.item-content2 {
+					flex: 1;
+					line-height: 60upx;
+					width: 0;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				.item-content3 {
+					flex: 1;
+					line-height: 60upx;
+				}
+				// .item-content3 {
+				// 	flex: 1;
+				// 	text-align: right;
+				// 	line-height: 60upx;
+				// }
+			}
 		}
+		
 	}
 }
 
