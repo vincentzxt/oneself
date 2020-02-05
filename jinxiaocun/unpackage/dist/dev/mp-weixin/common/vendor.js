@@ -7841,7 +7841,7 @@ var create = function create(url) {var data = arguments.length > 1 && arguments[
 
 /***/ }),
 
-/***/ 220:
+/***/ 228:
 /*!********************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/stkstock.js ***!
   \********************************************************************************/
@@ -7959,6 +7959,33 @@ _uniAxios.axios;exports.default = _default;
 
 /***/ }),
 
+/***/ 245:
+/*!*****************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/bills.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.get = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/Query',
+    data: data,
+    method: 'post' });
+
+};exports.query = query;
+var get = function get(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/Get/' + data.id,
+    data: data,
+    method: 'post' });
+
+};exports.get = get;
+
+/***/ }),
+
 /***/ 25:
 /*!**********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/uni-axios.js ***!
@@ -8025,7 +8052,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 27);
 
 /***/ }),
 
-/***/ 260:
+/***/ 261:
 /*!****************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/u-charts/u-charts.min.js ***!
   \****************************************************************************************************/
@@ -8038,7 +8065,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 27);
 
 /***/ }),
 
-/***/ 261:
+/***/ 262:
 /*!****************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/data.js ***!
   \****************************************************************************/
@@ -8130,7 +8157,7 @@ module.exports.default = axios;
 
 /***/ }),
 
-/***/ 270:
+/***/ 271:
 /*!****************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/user.js ***!
   \****************************************************************************/
@@ -9397,33 +9424,6 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
     }
   });
 };
-
-/***/ }),
-
-/***/ 407:
-/*!*****************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/api/bills.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.get = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _http.default.request({
-    url: url + '/Query',
-    data: data,
-    method: 'post' });
-
-};exports.query = query;
-var get = function get(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _http.default.request({
-    url: url + '/Get/' + data.id,
-    data: data,
-    method: 'post' });
-
-};exports.get = get;
 
 /***/ }),
 

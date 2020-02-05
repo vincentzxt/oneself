@@ -149,6 +149,7 @@
 		flex: 1;
 		font-size: $uni-font-size-base;
 		color: $uni-text-color;
+		padding: 0px 5px;
 	}
 
 	.cu-searchbar__box-icon-clear {
