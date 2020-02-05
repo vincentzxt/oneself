@@ -172,7 +172,26 @@
 					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
 						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
-					this.searchCurrentUnit = true
+					if (this.currentUnitSearchDatas.length == 0) {
+						uni.showModal({
+						    title: '提示',
+						    content: '单位不存在，是否新增该单位？',
+								confirmColor: '#2d8cf0',
+								cancelColor: '#2d8cf0',
+						    success: function (res) {
+						        if (res.confirm) {
+											this.reqData.contactunitname = val.value
+											this.reqData.telephone = ' '
+											this.$refs.sc.cancel()
+											this.searchCurrentUnit = false
+						        } else if (res.cancel) {
+											this.searchCurrentUnit = false
+						        }
+						    }.bind(this)
+						})
+					} else {
+						this.searchCurrentUnit = true
+					}
 				} else {
 					this.currentUnitSearchDatas = this.currentUnitDatas
 					this.searchCurrentUnit = false

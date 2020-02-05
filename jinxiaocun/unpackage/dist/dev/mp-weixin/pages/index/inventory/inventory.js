@@ -100,25 +100,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var a0 = {
-    type: "c-product",
-    color: "#c4c6cb",
-    size: 20
-  }
-  var a1 = {
-    type: "delete",
-    color: "#f4613d",
-    size: "25"
-  }
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        a0: a0,
-        a1: a1
-      }
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -205,68 +186,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
-var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 511));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 518));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 525));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 532));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 539));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 546));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 553));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 573));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 547));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 554));};var uniDrawer = function uniDrawer() {return __webpack_require__.e(/*! import() | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then(__webpack_require__.bind(null, /*! @/components/uni-drawer/uni-drawer.vue */ 590));};var _default =
 {
   components: {
-    cuSearchBar: cuSearchBar,
-    uniPopup: uniPopup,
-    cuPanel: cuPanel,
-    cuCell: cuCell,
+    uniSearchBar: uniSearchBar,
     uniList: uniList,
     uniListItem: uniListItem,
-    uniNumberBox: uniNumberBox },
+    uniDrawer: uniDrawer },
 
   data: function data() {
     return {
-      productDatas: null,
-      productSearchDatas: null,
-      searchProduct: false,
-      reqData: {
-        order: {
-          isprint: 0,
-          status: 0 },
-
-        orderlist: [] },
-
-      showModal: false,
       title: '盘点',
-      curSelectPruduct: {},
-      checkedUnit: 0,
-      disableSubmit: true };
+      productCategory: null,
+      datas: null,
+      searchDatas: null,
+      searchKey: '',
+      curSelectType: '所有分类',
+      typeMenu: false,
+      productList: [] };
 
   },
   onLoad: function onLoad() {var _this = this;
+    this.productCategory = uni.getStorageSync('productCategory').productCategories;
+    this.productCategory.unshift('所有分类');
     var reqData = {
       productid: 0,
       productcategory: '',
@@ -278,9 +222,12 @@ var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);var cuSearchBa
     (0, _common2.query)(_common.api.stkStock, reqData).then(function (res) {
       _this.$refs.loading.close();
       if (res.status == 200 && res.data.returnCode == '0000') {
-        _this.productDatas = res.data.data.resultList;
-        console.log(_this.productDatas);
-        _this.productSearchDatas = _this.productDatas;
+        _this.datas = res.data.data.resultList;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
+          for (var _iterator = _this.datas[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
+            _this.$set(item, 'checked', false);
+          }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
+        console.log(_this.datas);
+        _this.searchDatas = _this.datas;
       } else {
         uni.showToast({
           icon: 'none',
@@ -297,10 +244,10 @@ var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);var cuSearchBa
   },
   computed: {
     headerHeight: function headerHeight() {
-      return this.$headerHeight;
+      return this.$headerIsSearchHeight;
     },
     mainHeight: function mainHeight() {
-      return this.$mainHeight;
+      return this.$mainIsSearchHeight;
     } },
 
   methods: {
@@ -309,129 +256,61 @@ var _stkstock = __webpack_require__(/*! @/api/stkstock.js */ 220);var cuSearchBa
         delta: 1 });
 
     },
-    handleSearchProduct: function handleSearchProduct(val) {
-      if (val.value) {
-        this.productSearchDatas = this.productDatas.filter(function (item) {
-          return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1;
+    handleSelectType: function handleSelectType(type) {
+      this.curSelectType = type;
+      if (type !== '所有分类') {
+        this.searchDatas = this.datas.filter(function (item) {
+          return item.productcategory == type;
         });
-        this.searchProduct = true;
       } else {
-        this.productSearchDatas = this.productDatas;
-        this.searchProduct = false;
+        this.searchDatas = this.datas;
+      }
+      this.handleTypeMenuClose();
+    },
+    handleClickItem: function handleClickItem(val) {
+      if (!val.checked) {
+        this.productList.push(val);
+        val.checked = true;
+      } else {
+        this.productList = this.productList.filter(function (item) {
+          return item.productid !== val.productid;
+        });
+        val.checked = false;
       }
     },
-    handleSelectProduct: function handleSelectProduct(val) {
-      this.$set(this.curSelectPruduct, 'productid', val.productid);
-      this.$set(this.curSelectPruduct, 'productname', val.productname);
-      this.$set(this.curSelectPruduct, 'unit', val.unit);
-      this.$set(this.curSelectPruduct, 'mainUnit', val.unit);
-      this.$set(this.curSelectPruduct, 'subUnit', val.subunit);
-      this.$set(this.curSelectPruduct, 'purchaseunitprice', val.price);
-      this.$set(this.curSelectPruduct, 'qty', 1);
-      this.$set(this.curSelectPruduct, 'ismainunit', 1);
-      this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple);
-      var isExists = false;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
-        for (var _iterator = this.reqData.orderlist[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
-          if (item.productid == this.curSelectPruduct.productid) {
-            item.qty++;
-            this.curSelectPruduct.qty = item.qty;
-            isExists = true;
-          }
-        }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
-      if (!isExists) {
-        this.reqData.orderlist.push((0, _tools.cloneObj)(this.curSelectPruduct));
+    handleSearch: function handleSearch(val) {
+      if (val.value) {
+        this.searchDatas = this.datas.filter(function (item) {
+          return item.productname.indexOf(val.value) !== -1;
+        });
+      } else {
+        this.searchDatas = this.datas;
       }
-      this.searchProduct = false;
-      this.$refs.sp.cancel();
-      this.$nextTick(function () {
-        this.$refs.popup.open();
-      });
     },
-    handleShowPopup: function handleShowPopup(val) {
-      this.curSelectPruduct = (0, _tools.cloneObj)(val);
-      this.$nextTick(function () {
-        this.$refs.popup.open();
-      });
+    handleTypeMenuOpen: function handleTypeMenuOpen() {
+      this.typeMenu = !this.typeMenu;
     },
-    handleEdit: function handleEdit() {var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {
-        for (var _iterator2 = this.reqData.orderlist[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var item = _step2.value;
-          if (item.productid == this.curSelectPruduct.productid) {
-            item.qty = this.curSelectPruduct.qty;
-            item.unit = this.curSelectPruduct.unit;
-            item.ismainunit = this.curSelectPruduct.ismainunit;
-            item.purchaseunitprice = this.curSelectPruduct.purchaseunitprice;
-          }
+    handleTypeMenuClose: function handleTypeMenuClose() {
+      this.typeMenu = false;
+    },
+    handleSelectAll: function handleSelectAll() {
+      this.productList = [];var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {
+        for (var _iterator2 = this.searchDatas[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var item = _step2.value;
+          item.checked = true;
+          this.productList.push(item);
         }} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}
-      this.curSelectPruduct = {};
-      this.$nextTick(function () {
-        this.$refs.popup.close();
-      });
     },
-    handleqtyChange: function handleqtyChange(val) {
-      if (this.curSelectPruduct) {
-        this.curSelectPruduct.qty = val;
-      }
+    handleNoneSelectAll: function handleNoneSelectAll() {
+      this.productList = [];var _iteratorNormalCompletion3 = true;var _didIteratorError3 = false;var _iteratorError3 = undefined;try {
+        for (var _iterator3 = this.searchDatas[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {var item = _step3.value;
+          item.checked = false;
+        }} catch (err) {_didIteratorError3 = true;_iteratorError3 = err;} finally {try {if (!_iteratorNormalCompletion3 && _iterator3.return != null) {_iterator3.return();}} finally {if (_didIteratorError3) {throw _iteratorError3;}}}
     },
-    handleSelectQty: function handleSelectQty(val) {
-      if (this.curSelectPruduct) {
-        this.curSelectPruduct.qty = val;
-      }
-    },
-    handleUnitChange: function handleUnitChange(val) {
-      if (val.detail.value == 1) {
-        this.curSelectPruduct.unit = this.curSelectPruduct.mainUnit;
-        this.curSelectPruduct.ismainunit = 1;
-      } else {
-        this.curSelectPruduct.unit = this.curSelectPruduct.subUnit;
-        this.curSelectPruduct.ismainunit = 0;
-      }
-    },
-    handleDelete: function handleDelete(val) {
-      this.reqData.orderlist = this.reqData.orderlist.filter(function (item) {
-        return item.productid !== val.productid;
-      });
-    },
-    handleSubmit: function handleSubmit() {var _this2 = this;
-      this.$refs.loading.open();
-      (0, _stkstock.stockCheck)(_common.api.stkStock, this.reqData).then(function (res) {
-        _this2.$refs.loading.close();
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          uni.showToast({
-            icon: 'success',
-            title: '提交成功' });
+    handleNext: function handleNext() {
+      uni.navigateTo({
+        url: './add/add?productList=' + JSON.stringify(this.productList) });
 
-          _this2.reqData = {
-            order: {
-              isprint: 0,
-              status: 0 },
-
-            orderlist: [] };
-
-        } else {
-          uni.showToast({
-            icon: 'none',
-            title: res.data.returnMessage });
-
-        }
-      }).catch(function (error) {
-        _this2.$refs.loading.close();
-        uni.showToast({
-          icon: 'none',
-          title: error });
-
-      });
-    } },
-
-  watch: {
-    reqData: {
-      handler: function handler(val) {
-        if (val.orderlist.length > 0) {
-          this.disableSubmit = false;
-        } else {
-          this.disableSubmit = true;
-        }
-      },
-      deep: true } } };exports.default = _default;
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

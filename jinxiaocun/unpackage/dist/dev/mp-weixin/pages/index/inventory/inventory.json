@@ -1,11 +1,8 @@
 {
   "usingComponents": {
-    "cu-search-bar": "/components/custom/cu-search-bar",
-    "uni-popup": "/components/uni-popup/uni-popup",
-    "cu-panel": "/components/custom/cu-panel",
-    "cu-cell": "/components/custom/cu-cell",
+    "uni-search-bar": "/components/uni-search-bar/uni-search-bar",
     "uni-list": "/components/uni-list/uni-list",
     "uni-list-item": "/components/uni-list-item/uni-list-item",
-    "uni-number-box": "/components/uni-number-box/uni-number-box"
+    "uni-drawer": "/components/uni-drawer/uni-drawer"
   }
 }

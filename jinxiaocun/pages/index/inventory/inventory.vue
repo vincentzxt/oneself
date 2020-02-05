@@ -3,116 +3,79 @@
 		<view :style="{'height': headerHeight + 'px'}">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
+			<view class="header">
+				<view class="header-type" @tap="handleTypeMenuOpen">
+					<uni-icons type="type" color="#808695" size=30></uni-icons>
+				</view>
+				<view style="width:100%">
+					<uni-search-bar @input="handleSearch" placeholder="名称"></uni-search-bar>
+				</view>
+			</view>
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
-			<scroll-view :scroll-y="true" class="fill">
-				<view>
-					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" isLastCell>
-							<cu-search-bar slot="footer" ref="sp" style="width:100%;" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
-						</cu-cell>
-					</cu-panel>
-				</view>
-				<view v-if="searchProduct">
+			<uni-drawer :visible="typeMenu" :mask='false' @close="handleTypeMenuClose" :top="headerHeight+5" bottom=48>
+				<scroll-view :scroll-y="true" class="typeMenu">
 					<uni-list>
-						<uni-list-item :title="item.productname" :note="['速查码：'+item.querycode]" v-for="(item, index) in productSearchDatas" :key="index" :showArrow="false" @tap="handleSelectProduct(item)">
+						<uni-list-item :title="item" :class="item==curSelectType?'menuSelect':''" :show-arrow="false" v-for="(item, index) in productCategory" :key="index" @tap="handleSelectType(item)">
 						</uni-list-item>
 					</uni-list>
+				</scroll-view>
+			</uni-drawer>
+			<scroll-view :scroll-y="true">
+				<view class="product-header">
+					<view class="product-header-item" @tap="handleSelectAll">全选</view>
+					<view class="product-header-item" style="margin-left: 20px;" @tap="handleNoneSelectAll">取消全选</view>
 				</view>
-				<view>
-					<uni-list v-if="!searchProduct && reqData.orderlist.length > 0">
-						<uni-list-item
-							style="margin-left:10px;"
-							:title="item.productname"
-							:showArrow="false"
-							showIcon
-							:icon="{type: 'delete', color:'#f4613d', size: '25'}"
-							:note="['数量：'+item.qty, '计量单位：'+item.unit, '成本价：'+item.purchaseunitprice]"
-							v-for="(item, index) in reqData.orderlist"
-							:key="index"
-							@clickContent="handleShowPopup(item)"
-							@clickFt="handleDelete(item)">
-						</uni-list-item>
-					</uni-list>
+				<view class="product-main">
+					<view class="product-wrap" v-for="(item, index) in searchDatas" :key="index" @tap="handleClickItem(item)" :class="index == searchDatas.length - 1 ? 'product-wrap-last' : ''">
+						<view class="product-wrap-icon">
+							<checkbox color="#2db7f5" :checked="item.checked"></checkbox>
+						</view>
+						<view class="product-wrap-content">
+							<view style="width:50%;">{{item.productname}}</view>
+							<view style="color: #808695; width:50%;">库存：{{item.qty}}</view>
+						</view>
+					</view>
 				</view>
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleNext">下一步</button>
 		</view>
-		<uni-popup ref="popup" type="bottom">
-			<cu-panel>
-				<cu-cell title="数量" height=110>
-					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
-						<view class="popup-qty">
-							<uni-number-box :min="1" :value="curSelectPruduct.qty" @change="handleqtyChange"></uni-number-box>
-							<view class="popup-qty-items">
-								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
-							</view>
-						</view>
-					</view>
-				</cu-cell>
-				<cu-cell title="计量单位">
-					<radio-group slot="footer" @change="handleUnitChange">
-						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
-						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
-					</radio-group>
-				</cu-cell>
-				<cu-cell isLastCell title="单价">
-					<input slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0"/>
-				</cu-cell>
-			</cu-panel>
-			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
-		</uni-popup>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
 <script>
-	import cuSearchBar from '@/components/custom/cu-search-bar.vue'
-	import uniPopup from '@/components/uni-popup/uni-popup.vue'
-	import cuPanel from '@/components/custom/cu-panel.vue'
-	import cuCell from '@/components/custom/cu-cell.vue'
+	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
-	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
+	import uniDrawer from '@/components/uni-drawer/uni-drawer.vue'
 	import { cloneObj } from '@/utils/tools.js'
 	import { api } from '@/config/common.js'
 	import { query } from '@/api/common.js'
-	import { stockCheck } from '@/api/stkstock.js'
 	export default {
 		components: {
-			cuSearchBar,
-			uniPopup,
-			cuPanel,
-			cuCell,
+			uniSearchBar,
 			uniList,
 			uniListItem,
-			uniNumberBox
+			uniDrawer
 		},
 		data() {
 			return {
-				productDatas: null,
-				productSearchDatas: null,
-				searchProduct: false,
-				reqData: {
-					order: {
-						isprint: 0,
-						status: 0
-					},
-					orderlist: []
-				},
-				showModal: false,
 				title: '盘点',
-				curSelectPruduct: {},
-				checkedUnit: 0,
-				disableSubmit: true
-			};
+				productCategory: null,
+				datas: null,
+				searchDatas: null,
+				searchKey: '',
+				curSelectType: '所有分类',
+				typeMenu: false,
+				productList: []
+			}
 		},
 		onLoad() {
+			this.productCategory = uni.getStorageSync('productCategory').productCategories
+			this.productCategory.unshift('所有分类')
 			let reqData = {
 				productid: 0,
 				productcategory: '',
@@ -124,9 +87,12 @@
 			query(api.stkStock, reqData).then(res => {
 				this.$refs.loading.close()
 				if (res.status == 200 && res.data.returnCode == '0000') {
-					this.productDatas = res.data.data.resultList
-					console.log(this.productDatas)
-					this.productSearchDatas = this.productDatas
+					this.datas = res.data.data.resultList
+					for (let item of this.datas) {
+						this.$set(item, 'checked', false)
+					}
+					console.log(this.datas)
+					this.searchDatas = this.datas
 				} else {
 					uni.showToast({
 						icon: 'none',
@@ -143,10 +109,10 @@
 		},
 		computed: {
 			headerHeight() {
-				return this.$headerHeight
+				return this.$headerIsSearchHeight
 			},
 			mainHeight() {
-				return this.$mainHeight
+				return this.$mainIsSearchHeight
 			}
 		},
 		methods: {
@@ -155,178 +121,140 @@
 					delta: 1
 				})
 			},
-			handleSearchProduct(val) {
+			handleSelectType(type) {
+				this.curSelectType = type
+				if (type !== '所有分类') {
+					this.searchDatas = this.datas.filter((item) => {
+						return item.productcategory == type
+					})
+				} else {
+					this.searchDatas = this.datas
+				}
+				this.handleTypeMenuClose()
+			},
+			handleClickItem(val) {
+				if (!val.checked) {
+					this.productList.push(val)
+					val.checked = true
+				} else {
+					this.productList = this.productList.filter((item) => {
+						return item.productid !== val.productid
+					})
+					val.checked = false
+				}
+			},
+			handleSearch(val) {
 				if (val.value) {
-					this.productSearchDatas = this.productDatas.filter((item) => {
-						return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1
+					this.searchDatas = this.datas.filter((item) => {
+						return item.productname.indexOf(val.value) !== -1
 					})
-					this.searchProduct = true
 				} else {
-					this.productSearchDatas = this.productDatas
-					this.searchProduct = false
+					this.searchDatas = this.datas
 				}
 			},
-			handleSelectProduct(val) {
-				this.$set(this.curSelectPruduct, 'productid', val.productid)
-				this.$set(this.curSelectPruduct, 'productname', val.productname)
-				this.$set(this.curSelectPruduct, 'unit', val.unit)
-				this.$set(this.curSelectPruduct, 'mainUnit', val.unit)
-				this.$set(this.curSelectPruduct, 'subUnit', val.subunit)
-				this.$set(this.curSelectPruduct, 'purchaseunitprice', val.price)
-				this.$set(this.curSelectPruduct, 'qty', 1)
-				this.$set(this.curSelectPruduct, 'ismainunit', 1)
-				this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple)
-				let isExists = false
-				for (let item of this.reqData.orderlist) {
-					if (item.productid == this.curSelectPruduct.productid) {
-						item.qty ++
-						this.curSelectPruduct.qty = item.qty
-						isExists = true
-					}
+			handleTypeMenuOpen() {
+				this.typeMenu = !this.typeMenu
+			},
+			handleTypeMenuClose() {
+				this.typeMenu = false
+			},
+			handleSelectAll() {
+				this.productList = []
+				for (let item of this.searchDatas) {
+					item.checked = true
+					this.productList.push(item)
 				}
-				if (!isExists) {
-					this.reqData.orderlist.push(cloneObj(this.curSelectPruduct))
+			},
+			handleNoneSelectAll() {
+				this.productList = []
+				for (let item of this.searchDatas) {
+					item.checked = false
 				}
-				this.searchProduct = false
-				this.$refs.sp.cancel()
-				this.$nextTick(function(){
-					this.$refs.popup.open()
+			},
+			handleNext() {
+				uni.navigateTo({
+					url: './add/add?productList=' + JSON.stringify(this.productList)
 				})
-			},
-			handleShowPopup(val) {
-				this.curSelectPruduct = cloneObj(val)
-				this.$nextTick(function(){
-					this.$refs.popup.open()
-				})
-			},
-			handleEdit() {
-				for (let item of this.reqData.orderlist) {
-					if (item.productid == this.curSelectPruduct.productid) {
-						item.qty = this.curSelectPruduct.qty
-						item.unit = this.curSelectPruduct.unit
-						item.ismainunit = this.curSelectPruduct.ismainunit
-						item.purchaseunitprice = this.curSelectPruduct.purchaseunitprice
-					}
-				}
-				this.curSelectPruduct = {}
-				this.$nextTick(function(){
-					this.$refs.popup.close()
-				})
-			},
-			handleqtyChange(val) {
-				if (this.curSelectPruduct) {
-					this.curSelectPruduct.qty = val
-				}
-			},
-			handleSelectQty(val) {
-				if (this.curSelectPruduct) {
-					this.curSelectPruduct.qty = val
-				}
-			},
-			handleUnitChange(val) {
-				if (val.detail.value == 1) {
-					this.curSelectPruduct.unit = this.curSelectPruduct.mainUnit
-					this.curSelectPruduct.ismainunit = 1
-				} else {
-					this.curSelectPruduct.unit = this.curSelectPruduct.subUnit
-					this.curSelectPruduct.ismainunit = 0
-				}
-			},
-			handleDelete(val) {
-				this.reqData.orderlist = this.reqData.orderlist.filter((item) => {
-					return item.productid !== val.productid
-				})
-			},
-			handleSubmit() {
-				this.$refs.loading.open()
-				stockCheck(api.stkStock, this.reqData).then(res => {
-					this.$refs.loading.close()
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						uni.showToast({
-							icon: 'success',
-							title: '提交成功'
-						})
-						this.reqData = {
-							order: {
-								isprint: 0,
-								status: 0
-							},
-							orderlist: []
-						}
-					} else {
-						uni.showToast({
-							icon: 'none',
-							title: res.data.returnMessage
-						})
-					}
-				}).catch(error => {
-					this.$refs.loading.close()
-					uni.showToast({
-						icon: 'none',
-						title: error
-					})
-				})
-			}
-		},
-		watch: {
-			reqData: {
-				handler(val) {
-					if (val.orderlist.length > 0) {
-						this.disableSubmit = false
-					} else {
-						this.disableSubmit = true
-					}
-				},
-				deep: true
 			}
 		}
 	}
 </script>
-
 <style lang="scss" scoped>
 	.fill {
 		width: 100%;
 		height: 100%;
 	}
 	.container {
+		.header {
+			background-color: #FFFFFF;
+			display: flex;
+			align-items: center;
+			&-type {
+				margin-left: 10px;
+				margin-right: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		}
 		.main {
+			display: flex;
+			justify-content: space-between;
 			margin-top: 5px;
+			.typeMenu {
+				.menuSelect {
+					background-color: $uni-bg-color-hover;
+					color: #fff;
+				}
+			}
+			.product-header {
+				background-color: #FFFFFF;
+				display: flex;
+				align-items: center;
+				padding: 10px 0px 10px 20px;
+				&-item {
+					color: $uni-color-primary;
+				}
+			}
+			.product-main {
+				margin-top: $uni-spacing-col-sm;
+				.product-wrap {
+					position: relative;
+					background-color: #FFFFFF;
+					padding: 20px;
+					display: flex;
+					&::after{
+						content: '';
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 200%;
+						height: 200%;
+						transform: scale(.5);
+						transform-origin: 0 0;
+						pointer-events: none;
+						box-sizing: border-box;
+						border: 0 solid $uni-split-color;
+						border-bottom-width: 1px;
+						left: 15px;
+						right: 0;
+					}
+					&-last::after{
+					    display: none;
+					}
+					&-icon {
+						width: 10%;
+					}
+					&-content {
+						width: 90%;
+						display: flex;
+						align-items: center;
+					}
+				}
+			}
 		}
 		.footer {
 			height: 48px;
-			display: flex;
-			background-color:$uni-split-color;
-			&-text {
-				width: 50%;
-				height: 100%;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				margin-left: $uni-spacing-row-lg;
-			}
-			&-btn	{
-				width: 100%;
-				height: 100%;
-			}
-		}
-		.popup-qty {
-			display: flex;
-			flex-direction: column;
-			align-items: flex-end;
-			&-items {
-				margin-top: 20px;
-				display: flex;
-				align-items: center;
-				&-item {
-					width: 100upx;
-					height: 50upx;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					color: #ffffff;
-					box-shadow: 1px 1px 2px $uni-border-color;
-				}
-			}
 		}
 	}
 </style>

@@ -1,10 +1,10 @@
 <template>
-	<view class="uni-numbox">
-		<view @click="_calcValue('minus')" class="uni-numbox__minus">
+	<view class="uni-numbox" :style="{width: width+'px', height: height+'px', 'line-height': lineHeight+'px'}">
+		<view @click="_calcValue('minus')" class="uni-numbox__minus" :style="{width: btWidth+'px', height: height+'px'}">
 			<text class="uni-numbox--text" :class="{ 'uni-numbox--disabled': inputValue <= min || disabled }">-</text>
 		</view>
-		<input :disabled="disabled" @blur="_onBlur" class="uni-numbox__value" type="number" v-model="inputValue" />
-		<view @click="_calcValue('plus')" class="uni-numbox__plus">
+		<input :disabled="disabled" @blur="_onBlur" class="uni-numbox__value" type="number" v-model="inputValue" :style="{width: valWidth+'px', height: height+'px'}"/>
+		<view @click="_calcValue('plus')" class="uni-numbox__plus" :style="{width: btWidth+'px', height: height+'px'}">
 			<text class="uni-numbox--text" :class="{ 'uni-numbox--disabled': inputValue >= max || disabled }">+</text>
 		</view>
 	</view>
@@ -32,6 +32,26 @@
 			disabled: {
 				type: Boolean,
 				default: false
+			},
+			width: {
+				type: Number,
+				default: 140
+			},
+			valWidth: {
+				type: Number,
+				default: 60
+			},
+			btWidth: {
+				type: Number,
+				default: 40
+			},
+			height: {
+				type: Number,
+				default:35
+			},
+			lineHeight: {
+				type: Number,
+				default:35
 			}
 		},
 		data() {
@@ -106,10 +126,6 @@
 	};
 </script>
 <style lang="scss" scoped>
-	$box-height: 35px;
-	/* #ifdef APP-NVUE */
-	$box-line-height: 35px;
-	/* #endif */
 	$box-line-height: 26px;
 	$box-width: 40px;
 
@@ -118,15 +134,10 @@
 		display: flex;
 		/* #endif */
 		flex-direction: row;
-		height: $box-height;
-		line-height: $box-height;
-		width: 140px;
 	}
 
 	.uni-numbox__value {
 		background-color: $uni-bg-color;
-		width: 60px;
-		height: $box-height;
 		text-align: center;
 		font-size: $uni-font-size-lg;
 		border-width: 1rpx;
@@ -143,8 +154,6 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		width: $box-width;
-		height: $box-height;
 		// line-height: $box-line-height;
 		// text-align: center;
 		font-size: 20px;
@@ -165,8 +174,6 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		width: $box-width;
-		height: $box-height;
 		border-width: 1rpx;
 		border-style: solid;
 		border-color: $uni-border-color;
