@@ -7,17 +7,8 @@
 	<view class="main">
 		<view>
 			<cu-panel>
-				<cu-cell title="微信" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
-					<text slot="footer">0.00</text>
-				</cu-cell>
-				<cu-cell title="支付宝" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
-				<text slot="footer">0.00</text>
-				</cu-cell>
-				<cu-cell title="现金" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
-				<text slot="footer">0.00</text>
-				</cu-cell>
-				<cu-cell title="银行卡" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }" isLastCell>
-				<text slot="footer">0.00</text>
+				<cu-cell v-for="(item, index) in dataList" :key="index" :title="item.cashaccountname" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
+					<text slot="footer">¥{{item.amount}}</text>
 				</cu-cell>
 			</cu-panel>
 		</view>
@@ -40,7 +31,7 @@ export default {
 	},
 	data() {
 		return {
-			title: '账户设置 ',
+			title: '收款账号 ',
 			dataList: [],
 			isdeleteDict: ['正常','禁用'],
 			accounTypeList2:["","银行账号","微信","支付宝","现金"],

@@ -174,6 +174,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _user = __webpack_require__(/*! @/api/user.js */ 271);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 611));};var _default =
 {
@@ -182,6 +184,8 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
       loading: false,
       stop: false,
       miao: 60,
+      codeText: '获取验证码',
+      code_status: false,
       loginname: '',
       telephone: '',
       code: '',
@@ -240,12 +244,13 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
         promoterid: promoterid };
 
       this.loading = true;
-      (0, _user.post)(_common.api.Regist, sendData).then(function (res) {
+      (0, _user.post)(_common.api.Regist, sendData).
+      then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
           var userInfo = {
-            "token": res.data.data.token,
-            "exp": res.data.data.exp,
-            "userId": res.data.data.userId };
+            token: res.data.data.token,
+            exp: res.data.data.exp,
+            userId: res.data.data.userId };
 
           uni.setStorage({
             key: 'userInfo',
@@ -260,33 +265,62 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
           _this.$api.msg(res.data.returnMessage);
         }
         _this.loading = false;
-      }).catch(function (error) {
+      }).
+      catch(function (error) {
         _this.loading = false;
         _this.$api.msg('请求失败fail');
       });
-
-
     },
     send: function send() {
-      var mobile = this.mobile;
+      var telephone = this.telephone;
+      this.code_status = true;
+      // this.loading = true;
+      // const sendData = {
+      // 	telephone:this.telephone
+      // };
+      // post(api.GetSmsCode, sendData)
+      // 	.then(res => {
+      // 		if (res.status == 200 && res.data.returnCode == '0000') {
+      // 			let userInfo = {
+      // 				token: res.data.data.token,
+      // 				exp: res.data.data.exp,
+      // 				userId: res.data.data.userId
+      // 			};
+      // 			uni.setStorage({
+      // 				key: 'userInfo',
+      // 				data: userInfo,
+      // 				success: function() {
+      // 					uni.switchTab({
+      // 						url: '/pages/index/index'
+      // 					});
+      // 				}
+      // 			});
+      // 		} else {
+      // 			this.$api.msg(res.data.returnMessage);
+      // 		}
+      // 		this.loading = false;
+      // 	})
+      // 	.catch(error => {
+      // 		this.loading = false;
+      // 		this.$api.msg('请求失败fail');
+      // 	});
+
+
       this.settime(60);
-      if (mobile.length != 11) {
-        this.$api.msg('手机号错误');
-        return;
-      }
     },
     settime: function settime(smiao) {var _this2 = this;
-      var that = this;
-      var miao = that.miao;
-      if (miao == 0) {
-        that.miao = 0;
-        this.stop = false;
-      } else {
+      var miao = this.miao;
+      if (miao != 0) {
         setTimeout(function () {
           smiao--;
           _this2.miao = smiao;
-          that.settime(smiao);
+          _this2.codeText = _this2.miao + '秒后重新获取';
+          _this2.settime(smiao);
         }, 1000);
+      } else {
+        this.code_status = false;
+        this.codeText = '获取验证码';
+        this.miao = 60;
       }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

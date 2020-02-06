@@ -7,12 +7,12 @@
 	<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 		<!-- <view class="top"><view><text class="text">权限设置</text> </view><view><button type="default" size="mini" @tap="handleAdd">增加</button></view></view> -->
-		<view v-for="(item,index) in dataList" :key="index" class="list-item" @click="handleEdit(item)">
+		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 		<cu-panel>
-			<cu-cell :title="item.loginname">
-				<radio-group @change="handleForbiddenChanage" :id="index" slot="footer">
-					<radio color="#2db7f5" value=0 :checked="item.isdelete == 0">否</radio>
-					<radio color="#2db7f5" value=1 :checked="item.isdelete == 1" style="margin-left: 10px;">是</radio>
+			<cu-cell :title="item.loginname+'('+item.loginname+')'"  @click="handleEdit(item)">
+				<radio-group @change="handleForbiddenChanage" :id="item.userid" slot="footer">
+					<radio color="#2db7f5" value=0 :checked="item.isdelete == 0" :id="item.userid">否</radio>
+					<radio color="#2db7f5" value=1 :checked="item.isdelete == 1" :id="item.userid" style="margin-left: 10px;">是</radio>
 				</radio-group>
 			</cu-cell>
 			</cu-panel>
@@ -78,8 +78,6 @@ export default {
 		handleForbiddenChanage(val) {
 			this.setUserLock(val.currentTarget.id,val.detail.value);
 		},
-		setUserLock(id,value){
-		},
 		loadData(){
 			tokenpost(api.GetUserList).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
@@ -92,7 +90,20 @@ export default {
 				this.loading =false;
 				this.$api.msg('请求失败fail') 
 			})
-			
+		},
+		setUserLock(userid,isdelete){
+			const sendData = {userid:userid,isdelete:isdelete}
+			tokenpost(api.SaveUserStatus,sendData).then(res => {
+				if (res.status == 200 && res.data.returnCode == '0000') {
+				  this.$api.msg("操作成功！")
+				} else {
+					this.$api.msg(res.data.returnMessage) 
+				}
+				this.loading =false;
+			}).catch(error => {
+				this.loading =false;
+				this.$api.msg('请求失败fail') 
+			})
 		}
 	}
 };

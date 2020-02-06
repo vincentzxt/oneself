@@ -124,6 +124,7 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
+  padding-right: 30rpx;
 }
 .uni-list-item__icon.data-v-0be73b92 {
   width: 10%;

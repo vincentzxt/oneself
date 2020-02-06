@@ -1,83 +1,87 @@
 <template>
 	<view class="login">
-		<view class="header"><uni-navbar :title="title" left-icon="back"  background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar></view>
-		<view class="space"></view>
+		<view class="header">
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
+		</view>
 		<!-- <view class="tou"><img src="@/static/image/logo.png"/></img></view> -->
 
 		<view class="con">
-			<view class="con_01">
-				<view class="con_01_l"><uni-icon type="contact" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_01_r"><input v-model="loginname" class="uni-input" focus placeholder="请输入用户名" style="height: 35px;background-color: #fff;" /></view>
+			<view class="con_02">
+				<view class="con_02_l"><uni-icon type="contact" size="25" color="#CCCCCC"></uni-icon></view>
+				<view class="con_02_r"><input v-model="loginname" class="uni-input" focus placeholder="请输入用户名" /></view>
 			</view>
 			<view class="con_02">
-				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_02_r"><input v-model="password" password="true" class="uni-input" placeholder="请输入密码" style="height: 35px;background-color: #fff;" /></view>
+				<view class="con_02_l"><uni-icon type="phone" size="25" color="#CCCCCC"></uni-icon></view>
+				<view class="con_02_r"><input v-model="telephone" class="uni-input" placeholder="请输入手机号" /></view>
 			</view>
 			<view class="con_02">
-				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_02_r"><input v-model="re_password" password="true" class="uni-input" placeholder="请再一次输入密码" style="height: 35px;background-color: #fff;" /></view>
+				<view class="con_02_l"><uni-icon type="locked" size="25" color="#CCCCCC"></uni-icon></view>
+				<view class="con_02_r"><input v-model="code" class="uni-input" focus placeholder="请输入验证码" /></view>
+				<button type="default" size="mini"  @click="send"  :disabled="code_status" class="code_btn">{{codeText}}</button>
 			</view>
 			<view class="con_02">
-				<view class="con_02_l"><uni-icon type="phone" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_02_r"><input v-model="telephone" class="uni-input" placeholder="请输入手机号" style="height: 35px;background-color: #fff;" /></view>
+				<view class="con_02_l"><uni-icon type="locked" size="25" color="#CCCCCC"></uni-icon></view>
+				<view class="con_02_r"><input v-model="password" password="true" class="uni-input" placeholder="请输入密码" /></view>
 			</view>
-	<!-- 		<view class="con_01">
-				<view class="con_01_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_01_r"><input v-model="code" class="uni-input" focus placeholder="请输入验证码" style="height: 35px;background-color: #fff;" /></view>
-				<button class="con_02_t" type="default" @click="send" v-if="!stop">验证码</button>
-				<button class="con_02_t" type="default" v-if="stop" :disabled="true">{{ miao }}秒</button>
-			</view> -->
+			<view class="con_02">
+				<view class="con_02_l"><uni-icon type="locked" size="25" color="#CCCCCC"></uni-icon></view>
+				<view class="con_02_r"><input v-model="re_password" password="true" class="uni-input" placeholder="请再一次输入密码" /></view>
+			</view>
+
 			<view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;"><view @click="login_action()">返回登录？</view></view>
-			<!-- 	<view class="user_bottom" style="margin-top: 50px;display: flex;justify-content: space-between;">
-				<button type="primary" class="logout_btn" @tap="handleLogin">提交</button>
-			</view> -->
-			<view class="user_bottom"><button type="primary" :loading="loading"  class="send_btn" @tap="handleReg">提交</button></view>
-		<view><text></text><text></text></view>
+			<view class="space"></view>
+			<view class="user_bottom"><button type="primary" :loading="loading" class="send_btn" @tap="handleReg">提交</button></view>
+			<view>
+				<text></text>
+				<text></text>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
 import uniIcon from '@/components/uni-icon/uni-icon.vue';
-import { post } from '@/api/user.js'
-import { api } from '@/config/common.js'
+import { post } from '@/api/user.js';
+import { api } from '@/config/common.js';
 export default {
 	data() {
 		return {
 			loading: false,
 			stop: false,
 			miao: 60,
+			codeText:'获取验证码',
+			code_status:false,
 			loginname: '',
 			telephone: '',
 			code: '',
 			password: '',
 			re_password: '',
 			title: '注册',
-			promoterid:0
+			promoterid: 0
 		};
 	},
 	components: { uniIcon },
 	onLoad() {
-		if(uni.getStorageSync('promoterid')){
+		if (uni.getStorageSync('promoterid')) {
 			this.promoterid = uni.getStorageSync('promoterid');
 			console.log(this.promoterid);
-		}else{
+		} else {
 			console.log('没有推荐人');
 		}
 	},
 	methods: {
 		handleNavbarClickLeft() {
 			uni.switchTab({
-				url:'/pages/my/my'
-			}) 
+				url: '/pages/my/my'
+			});
 		},
-		login_action(){
+		login_action() {
 			uni.reLaunch({
-				url:'/pages/my/login/login'
-			})
+				url: '/pages/my/login/login'
+			});
 		},
 		handleReg() {
-			const { loginname, password ,telephone,re_password,promoterid} = this;
+			const { loginname, password, telephone, re_password, promoterid } = this;
 			if (loginname.length == 0) {
 				this.$api.msg('登录账号不能为空！');
 				return;
@@ -90,7 +94,7 @@ export default {
 				this.$api.msg('重复密码不能为空！');
 				return;
 			}
-			if(password!=re_password){
+			if (password != re_password) {
 				this.$api.msg('两次密码不一致！');
 				return;
 			}
@@ -104,54 +108,84 @@ export default {
 				telephone,
 				promoterid
 			};
-			this.loading = true;		
-			post(api.Regist,sendData).then(res => {
+			this.loading = true;
+			post(api.Regist, sendData)
+				.then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-					let userInfo = {
-									"token":res.data.data.token,
-									"exp":res.data.data.exp,
-									"userId":res.data.data.userId,
-								};
-								uni.setStorage({
-								    key: 'userInfo',
-								    data: userInfo,
-								    success: function () {
-								        uni.switchTab({
-								        	url:'/pages/index/index'
-								        }) 
-								    }
+						let userInfo = {
+							token: res.data.data.token,
+							exp: res.data.data.exp,
+							userId: res.data.data.userId
+						};
+						uni.setStorage({
+							key: 'userInfo',
+							data: userInfo,
+							success: function() {
+								uni.switchTab({
+									url: '/pages/index/index'
 								});
+							}
+						});
 					} else {
-						this.$api.msg(res.data.returnMessage) 
+						this.$api.msg(res.data.returnMessage);
 					}
-					this.loading =false;
-				}).catch(error => {
-					this.loading =false;
-					this.$api.msg('请求失败fail') 
+					this.loading = false;
 				})
-			
-			
+				.catch(error => {
+					this.loading = false;
+					this.$api.msg('请求失败fail');
+				});
 		},
 		send() {
-			const mobile = this.mobile;
+			const telephone = this.telephone;
+			this.code_status = true;
+			// this.loading = true;
+			// const sendData = {
+			// 	telephone:this.telephone
+			// };
+			// post(api.GetSmsCode, sendData)
+			// 	.then(res => {
+			// 		if (res.status == 200 && res.data.returnCode == '0000') {
+			// 			let userInfo = {
+			// 				token: res.data.data.token,
+			// 				exp: res.data.data.exp,
+			// 				userId: res.data.data.userId
+			// 			};
+			// 			uni.setStorage({
+			// 				key: 'userInfo',
+			// 				data: userInfo,
+			// 				success: function() {
+			// 					uni.switchTab({
+			// 						url: '/pages/index/index'
+			// 					});
+			// 				}
+			// 			});
+			// 		} else {
+			// 			this.$api.msg(res.data.returnMessage);
+			// 		}
+			// 		this.loading = false;
+			// 	})
+			// 	.catch(error => {
+			// 		this.loading = false;
+			// 		this.$api.msg('请求失败fail');
+			// 	});
+			
+			
 			this.settime(60);
-			if (mobile.length != 11) {
-				this.$api.msg('手机号错误');
-				return;
-			}
 		},
 		settime(smiao) {
-			const that = this;
-			const miao = that.miao;
-			if (miao == 0) {
-				that.miao = 0;
-				this.stop = false;
-			} else {
+			const miao = this.miao;
+			if (miao != 0) {
 				setTimeout(() => {
 					smiao--;
 					this.miao = smiao;
-					that.settime(smiao);
+					this.codeText = this.miao+'秒后重新获取';
+					this.settime(smiao);
 				}, 1000);
+			}else{
+				this.code_status = false;
+				this.codeText='获取验证码'
+				this.miao = 60;
 			}
 		}
 	}
@@ -159,11 +193,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .space {
-	height: 120rpx;
+	height: 80rpx;
 }
 .login {
 	// padding-top:100px;
 	// .head{font-size: 22px;padding: 20px;}
+	font-size: $uni-font-size-min;
 	.tou {
 		text-align: center;
 	}
@@ -174,91 +209,40 @@ export default {
 	.con {
 		padding: 10px 16px;
 	}
-	.con_01 {
-		border-bottom: 2px solid #f7f7f7;
-		height: 48px;
-		padding-top: 10px;
-		display: flex;
-	}
-	.con_01_l {
-		width: 40px;
-		text-align: center;
-		padding: 10px 0 8px;
-		background-color: #ffffff;
-	}
-	.con_01_r {
-		flex-grow: 1;
-		padding-right: 10px;
-		padding-top: 5px;
-		background-color: #ffffff;
-	}
+
 	input::-webkit-input-placeholder {
 		color: #d2d2d2;
 	}
-	.con_03 {
-		font-size: 12px;
-		color: #f78674;
-		padding: 10px 0 33px 8px;
-		display: flex;
-		justify-content: space-between;
-	}
-	.con_04_1 {
-		background-color: #e61874;
-		color: #ffffff;
-		border-radius: 25px;
-		height: 35px;
-		line-height: 35px;
-		font-size: 14px;
-		text-align: center;
-		border: 1px solid #f0f0f0;
-		width: 100%;
-	}
-	.con_04_2 {
-		background-color: #e61874;
-		color: #ffffff;
-		width: 40%;
-	}
-	.con_04_3 {
-		background-color: #e9e8e5;
-		color: #81817e;
-		width: 40%;
-	}
-	.con_05 {
-		padding: 20px 0;
-		text-align: center;
-		color: #f78674;
-	}
-	.con_05 span {
-		padding-left: 20px;
-	}
 	.con_02 {
-		border-bottom: 2px solid #f7f7f7;
-		padding-top: 10px;
+		border-bottom: 2upx solid #f7f7f7;
+		//padding-top: 10px;
 		display: flex;
+		flex-direction: row;
 		justify-content: space-between;
-		height: 48px;
+		margin-bottom: 10upx;
+		padding: 16upx 16upx;
+		background-color: #ffffff;
+		align-items: center;
 	}
 	.con_02_t {
-		background-color: #e0441d;
 		color: #fff;
-		height: 30px;
-		line-height: 30px;
-		border-radius: 20px;
-		padding: 0 20px;
-		margin-bottom: 5px;
-		font-size: 28upx;
+		border-radius: 20upx;
+		//font-size: 28upx;
 	}
 	.con_02_r {
 		flex-grow: 1;
-		padding-right: 10px;
-		padding-top: 5px;
-		background-color: #ffffff;
+		padding: 10upx 24upx;
 	}
 	.con_02_l {
-		width: 40px;
+		width: 40upx;
 		text-align: center;
-		padding: 10px 0 8px;
-		background-color: #ffffff;
+		padding-right: 12px;
+		vertical-align: center;
+		padding: 10upx 0upx;
+	}
+	.code_btn {
+		//color: #333333;
+		padding: 5upx 24upx;
 	}
 }
 .user_bottom {

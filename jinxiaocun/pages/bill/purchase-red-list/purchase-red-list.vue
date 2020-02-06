@@ -27,7 +27,7 @@
 		</view> -->
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
-				<view v-for="(item, index) in dataList" :key="index" class="list-item" @tap="handleDetail()">
+				<view v-for="(item, index) in dataList" :key="index" class="list-item" @tap="handleDetail(item.purchaseorderid)">
 					<view class="list-between">
 						<view class="item-content">
 							<text>客户名称：{{ item.contactunitname }}</text>
@@ -135,10 +135,10 @@ export default {
 				delta: 1
 			});
 		},
-		handleDetail() {
+		handleDetail(val){
 			uni.navigateTo({
-				url: 'sell-detail'
-			});
+				url:'purchase-detail?id='+val
+			})
 		},
 		loadData() {
 			(this.loadmore = 'loading'), this.$refs.loading.open();

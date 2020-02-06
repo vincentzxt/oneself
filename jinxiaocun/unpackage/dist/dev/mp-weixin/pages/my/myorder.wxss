@@ -118,6 +118,9 @@
     height: 90%;
     padding: 15rpx;
 }
+.container .main .content.data-v-3f21100c {
+      height: 100%;
+}
 .container .main .cu-form-group .title.data-v-3f21100c {
       min-width: calc(5em + 30px);
 }
@@ -175,7 +178,7 @@
 }
 .no_data .item_text.data-v-3f21100c {
     margin-top: 100rpx;
-    color: #CCCCCC;
+    color: #cccccc;
 }
 .list-item.data-v-3f21100c {
   display: -webkit-box;
@@ -209,12 +212,18 @@
       background-color: #2d8cf0;
       border-radius: 30rpx;
       padding: 5rpx 16rpx;
-      color: #FFFFFF;
+      color: #ffffff;
 }
 .list-item .list-between .payment-green.data-v-3f21100c {
-      background-color: #90EE90;
+      background-color: #90ee90;
       border-radius: 30rpx;
       padding: 5rpx 16rpx;
-      color: #FFFFFF;
+      color: #ffffff;
+}
+.tablist.data-v-3f21100c {
+  background-color: #FFFFFF;
+}
+.recharge-btn.data-v-3f21100c {
+  margin-top: 40rpx;
 }
 

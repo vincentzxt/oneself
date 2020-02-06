@@ -451,9 +451,9 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         delta: 1 });
 
     },
-    handleDetail: function handleDetail() {
+    handleDetail: function handleDetail(val) {
       uni.navigateTo({
-        url: 'sell-detail' });
+        url: 'purchase-detail?id=' + val });
 
     },
     loadData: function loadData() {var _this = this;

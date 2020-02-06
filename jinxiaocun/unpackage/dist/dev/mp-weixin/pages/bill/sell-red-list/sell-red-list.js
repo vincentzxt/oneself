@@ -367,6 +367,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var _bills = __webpack_require__(/*! @/api/bills.js */ 245);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 611));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 547));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 554));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 618));};var xwDate = function xwDate() {return __webpack_require__.e(/*! import() | components/xw-date/xw-date */ "components/xw-date/xw-date").then(__webpack_require__.bind(null, /*! @/components/xw-date/xw-date.vue */ 625));};var _default =
@@ -408,8 +415,12 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       orderList: [{ name: '销售日期', value: 'createtime' }, { name: '金额', value: 'amount' }] };
 
   },
-  onLoad: function onLoad() {this.loadData();},
-  onShow: function onShow() {console.log(this.search_startDate);},
+  onLoad: function onLoad() {
+    this.loadData();
+  },
+  onShow: function onShow() {
+    console.log(this.search_startDate);
+  },
   onPullDownRefresh: function onPullDownRefresh() {
     this.dataList = [];
     this.pageIndex = 0;
@@ -439,14 +450,13 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         delta: 1 });
 
     },
-    handleDetail: function handleDetail() {
+    handleDetail: function handleDetail(val) {
       uni.navigateTo({
-        url: 'sell-detail' });
+        url: 'sell-detail?id=' + val });
 
     },
     loadData: function loadData() {var _this = this;
-      this.loadmore = 'loading',
-      this.$refs.loading.open();
+      this.loadmore = 'loading', this.$refs.loading.open();
       var senddata = {
         pageIndex: this.pageIndex + 1,
         pageRows: this.pageRows,
@@ -462,7 +472,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         _this.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
           if (res.data.data.resultList.length === 0) {
-            _this.loadmore = "noMore";
+            _this.loadmore = 'noMore';
             return;
           } else {
             _this.dataList = _this.dataList.concat(res.data.data.resultList);
@@ -470,17 +480,14 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
             _this.totalRecords = res.data.data.pageInfo.totalRecords;
             _this.totalGrossProfit = res.data.data.totalGrossProfit;
             _this.pageIndex = _this.pageIndex + 1;
-            _this.loadmore = "more";
+            _this.loadmore = 'more';
           }
-
         } else {
-          _this.loadmore = 'more',
-          _this.$api.msg(res.data.returnMessage);
+          _this.loadmore = 'more', _this.$api.msg(res.data.returnMessage);
         }
       }).
       catch(function (error) {
-        _this.loadmore = 'more',
-        _this.$refs.loading.close();
+        _this.loadmore = 'more', _this.$refs.loading.close();
         _this.$api.msg('请求失败fail');
       });
     } } };exports.default = _default;

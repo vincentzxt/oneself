@@ -50,7 +50,7 @@
 }
 .container .item.data-v-1e5597d2 {
     line-height: 50rpx;
-    padding: 0 20rpx;
+    padding: 20rpx 20rpx;
     box-sizing: border-box;
     border: #e5e5e5 solid 1px;
     background-color: #fff;

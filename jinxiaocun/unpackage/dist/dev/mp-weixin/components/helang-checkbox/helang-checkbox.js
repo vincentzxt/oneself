@@ -129,14 +129,22 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-var _default =
+var _default2 =
 {
+  props: {
+    list: {
+      type: Array,
+      default: function _default() {
+        return [];
+      } } },
+
+
   data: function data() {
     return {
-      list: [],
+      // list:[],
       index: -1,
-      type: 'checkbox',
-      column: '' };
+      type: 'radio',
+      column: 'col_2' };
 
   },
   methods: {
@@ -221,7 +229,7 @@ var _default =
       this.list.forEach(function (item, index) {
         _this4.$set(_this4.list[index], "checked", item.checked ? false : true);
       });
-    } } };exports.default = _default;
+    } } };exports.default = _default2;
 
 /***/ }),
 

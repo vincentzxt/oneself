@@ -49,7 +49,7 @@ export default {
         textFlex: {
             type: Boolean,
             default() {
-                return false;
+                return true;
             }
         },
         selectClass: {

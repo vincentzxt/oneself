@@ -26,13 +26,13 @@
 			<!-- 			<uni-list-item title="员工列表"  thumb="../../static/my/icon/list.png"></uni-list-item>
  -->
 			<uni-list-item title="收款账号" thumb="../../static/my/icon/bankcard.png" @tap="handleBankSet()"></uni-list-item>
-			<uni-list-item title="购买/续费" thumb="../../static/my/icon/recharge.png" @tap="handleRecharge()"></uni-list-item>
+			<uni-list-item title="购买/续费" thumb="../../static/my/icon/recharge.png" @tap="handleMyorder()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<uni-list>
 			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @tap="handlePassword()"></uni-list-item>
-			<uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" @tap="handleMyorder()" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item>
-			<uni-list-item title="时长" thumb="../../static/my/icon/time.png" @tap="handleTime()" show-text="true" :content="dataList.daycount"></uni-list-item>
+			<!-- <uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" @tap="handleMyorder()" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item> -->
+			<!-- <uni-list-item title="时长" thumb="../../static/my/icon/time.png" @tap="handleTime()" show-text="true" :content="dataList.daycount"></uni-list-item> -->
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @tap="handleShare()"></uni-list-item>
 			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png"></uni-list-item>
 		</uni-list>

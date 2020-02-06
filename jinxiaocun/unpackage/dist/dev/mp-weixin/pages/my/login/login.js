@@ -165,7 +165,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _user = __webpack_require__(/*! @/api/user.js */ 271);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 611));};var _default =
 {
@@ -243,29 +242,6 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
         _this.loading = false;
         _this.$api.msg('请求失败fail');
       });
-    },
-    send: function send() {
-      var mobile = this.mobile;
-      this.settime(60);
-      if (mobile.length != 11) {
-        this.$api.msg('手机号错误');
-        return;
-      }
-    },
-    settime: function settime(smiao) {var _this2 = this;
-      var that = this;
-      var miao = that.miao;
-      if (miao == 0) {
-        that.miao = 0;
-        this.stop = false;
-      } else {
-        setTimeout(function () {
-          smiao--;
-          _this2.miao = smiao;
-          that.settime(smiao);
-        }, 1000);
-      }
-
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

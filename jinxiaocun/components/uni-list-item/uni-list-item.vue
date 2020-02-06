@@ -246,6 +246,7 @@
 		flex-direction: row;
 		justify-content: flex-end;
 		align-items: center;
+		padding-right: $uni-spacing-row-lg;
 	}
 
 	.uni-list-item__icon {

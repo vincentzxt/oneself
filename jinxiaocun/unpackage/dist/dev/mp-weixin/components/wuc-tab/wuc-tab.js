@@ -167,7 +167,7 @@ var _default2 =
     textFlex: {
       type: Boolean,
       default: function _default() {
-        return false;
+        return true;
       } },
 
     selectClass: {

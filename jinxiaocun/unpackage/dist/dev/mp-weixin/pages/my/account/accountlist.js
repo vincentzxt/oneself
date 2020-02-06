@@ -286,29 +286,11 @@ var render = function() {
     color: "#f29d6e",
     size: 18
   }
-  var a1 = {
-    type: "c-product",
-    color: "#f29d6e",
-    size: 18
-  }
-  var a2 = {
-    type: "c-product",
-    color: "#f29d6e",
-    size: 18
-  }
-  var a3 = {
-    type: "c-product",
-    color: "#f29d6e",
-    size: 18
-  }
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        a0: a0,
-        a1: a1,
-        a2: a2,
-        a3: a3
+        a0: a0
       }
     }
   )
@@ -368,15 +350,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
 var _user = __webpack_require__(/*! @/api/user.js */ 271);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 533));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 540));};var _default =
@@ -387,7 +360,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
 
   data: function data() {
     return {
-      title: '账户设置 ',
+      title: '收款账号 ',
       dataList: [],
       isdeleteDict: ['正常', '禁用'],
       accounTypeList2: ["", "银行账号", "微信", "支付宝", "现金"],

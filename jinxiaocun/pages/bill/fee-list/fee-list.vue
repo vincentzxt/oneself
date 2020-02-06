@@ -34,7 +34,7 @@
 							<text>费用类型：{{ item.contactunitname }}</text>
 						</view>
 						<view class="item-content2">
-							<text>付款账号：银行卡</text>
+							<text>付款账号：{{item.payaccountname}}</text>
 						</view>
 					</view>
 					<view class="list-between">

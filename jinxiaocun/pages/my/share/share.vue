@@ -119,6 +119,7 @@ export default {
 		},
 		loadData(){
 			tokenpost(api.GetCurrentActivity).then(res => {
+				console.log(res);
 				if (res.status == 200 && res.data.returnCode == '0000') {
 				  this.shareText = res.data.data.activityexplain;
 				  this.image = res.data.data.imgurl;
@@ -128,7 +129,7 @@ export default {
 				this.loading =false;
 			}).catch(error => {
 				this.loading =false;
-				this.$api.msg('请求失败fail') 
+				this.$api.msg('请求失败fai') 
 			})
 		},
 		shareSuccess(){

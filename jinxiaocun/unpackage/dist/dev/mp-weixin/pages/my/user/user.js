@@ -213,8 +213,6 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
     handleForbiddenChanage: function handleForbiddenChanage(val) {
       this.setUserLock(val.currentTarget.id, val.detail.value);
     },
-    setUserLock: function setUserLock(id, value) {
-    },
     loadData: function loadData() {var _this = this;
       (0, _user.tokenpost)(_common.api.GetUserList).then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
@@ -227,7 +225,20 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
         _this.loading = false;
         _this.$api.msg('请求失败fail');
       });
-
+    },
+    setUserLock: function setUserLock(userid, isdelete) {var _this2 = this;
+      var sendData = { userid: userid, isdelete: isdelete };
+      (0, _user.tokenpost)(_common.api.SaveUserStatus, sendData).then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this2.$api.msg("操作成功！");
+        } else {
+          _this2.$api.msg(res.data.returnMessage);
+        }
+        _this2.loading = false;
+      }).catch(function (error) {
+        _this2.loading = false;
+        _this2.$api.msg('请求失败fail');
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

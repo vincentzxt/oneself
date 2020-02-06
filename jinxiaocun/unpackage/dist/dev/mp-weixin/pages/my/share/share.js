@@ -254,6 +254,7 @@ var _default = { data: function data() {return { title: '分享', userId: 0, sha
     },
     loadData: function loadData() {var _this2 = this;
       (0, _user.tokenpost)(_common.api.GetCurrentActivity).then(function (res) {
+        console.log(res);
         if (res.status == 200 && res.data.returnCode == '0000') {
           _this2.shareText = res.data.data.activityexplain;
           _this2.image = res.data.data.imgurl;
@@ -263,7 +264,7 @@ var _default = { data: function data() {return { title: '分享', userId: 0, sha
         _this2.loading = false;
       }).catch(function (error) {
         _this2.loading = false;
-        _this2.$api.msg('请求失败fail');
+        _this2.$api.msg('请求失败fai');
       });
     },
     shareSuccess: function shareSuccess() {
