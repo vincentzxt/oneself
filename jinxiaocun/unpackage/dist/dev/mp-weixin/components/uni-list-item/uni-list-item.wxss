@@ -97,7 +97,7 @@
   font-size: 30rpx;
 }
 .uni-list-item__content-note.data-v-0be73b92 {
-  margin-top: 10rpx;
+  margin-top: 20rpx;
   color: #808695;
   font-size: 30rpx;
   display: -webkit-box;

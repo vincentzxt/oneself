@@ -7894,7 +7894,6 @@ var http = _uniAxios.default.create({
 
 // 拦截器 在请求之前拦截
 http.interceptors.request.use(function (config) {
-
   var userInfo = uni.getStorageSync('userInfo');
   if (userInfo.token) {
     config.headers.Authorization = 'Bearer ' + userInfo.token;
@@ -7920,7 +7919,6 @@ http.interceptors.response.use(function (response) {
   // })
   // }
   // 
-
   var url = response.config.url;
   if (url.includes("GetUserInfo") == false) {
     if (response.status == 200) {
@@ -10942,7 +10940,7 @@ module.exports = function mergeConfig(config1, config2) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _sale$cost$purchase$p;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_sale$cost$purchase$p = {
   'sale': "\uE622",
   'cost': "\uE604",
   'purchase': "\uE887",
@@ -10998,20 +10996,24 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'zhixiao': "\uE607",
   'circle': "\uE601",
   'type': "\uE625",
-  'c-phone': "\uE6CB",
-  'c-position': "\uE611",
-  'c-search': "\uE736",
-  'c-search-log': "\uE631",
-  'c-home': "\uE610",
-  'c-email': "\uE626",
-  'c-right': "\uE69E",
-  'c-type': "\uE655",
-  'c-unit': "\uE630",
-  'c-print': "\uE68B",
-  'c-contacts': "\uE61C",
-  'c-discount': "\uE62F",
-  'c-amount': "\uE621",
-  'c-product': "\uE7A6" };exports.default = _default;
+  'shoukuan': "\uE62D",
+  'fukuan': "\uE602" }, _defineProperty(_sale$cost$purchase$p, "yujing",
+"\uE639"), _defineProperty(_sale$cost$purchase$p,
+'fenxi', "\uE623"), _defineProperty(_sale$cost$purchase$p,
+'c-phone', "\uE6CB"), _defineProperty(_sale$cost$purchase$p,
+'c-position', "\uE611"), _defineProperty(_sale$cost$purchase$p,
+'c-search', "\uE736"), _defineProperty(_sale$cost$purchase$p,
+'c-search-log', "\uE631"), _defineProperty(_sale$cost$purchase$p,
+'c-home', "\uE610"), _defineProperty(_sale$cost$purchase$p,
+'c-email', "\uE626"), _defineProperty(_sale$cost$purchase$p,
+'c-right', "\uE69E"), _defineProperty(_sale$cost$purchase$p,
+'c-type', "\uE655"), _defineProperty(_sale$cost$purchase$p,
+'c-unit', "\uE630"), _defineProperty(_sale$cost$purchase$p,
+'c-print', "\uE68B"), _defineProperty(_sale$cost$purchase$p,
+'c-contacts', "\uE61C"), _defineProperty(_sale$cost$purchase$p,
+'c-discount', "\uE62F"), _defineProperty(_sale$cost$purchase$p,
+'c-amount', "\uE621"), _defineProperty(_sale$cost$purchase$p,
+'c-product', "\uE7A6"), _sale$cost$purchase$p);exports.default = _default;
 
 /***/ }),
 

@@ -366,12 +366,14 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
           contactunitid: '',
           contactunitname: '',
           productList: [],
+          totalCount: 0,
           totalPrice: 0.00 };
 
         this.salesReqData = {
           contactunitid: '',
           contactunitname: '',
           productList: [],
+          totalCount: 0,
           totalPrice: 0.00 };
 
       } else {

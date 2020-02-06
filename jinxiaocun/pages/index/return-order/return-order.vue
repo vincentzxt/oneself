@@ -79,7 +79,7 @@
 			<view class="footer-text">
 				<view class="footer-text-item">
 					<text>小计数量：</text>
-					<text v-if="businessType == 0" style="color:#ef5a62">￥{{purchaseReqData.totalCount}}</text>
+					<text v-if="businessType == 0" style="color:#ef5a62">{{purchaseReqData.totalCount}}</text>
 					<text v-else style="color:#ef5a62">￥{{salesReqData.totalCount}}</text>
 				</view>
 				<view class="footer-text-item">
@@ -188,12 +188,14 @@
 						contactunitid: '',
 						contactunitname: '',
 						productList: [],
+						totalCount: 0,
 						totalPrice: 0.00,
 					}
 					this.salesReqData = {
 						contactunitid: '',
 						contactunitname: '',
 						productList: [],
+						totalCount: 0,
 						totalPrice: 0.00,
 					}
 				} else {

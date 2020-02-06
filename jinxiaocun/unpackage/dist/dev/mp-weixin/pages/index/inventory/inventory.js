@@ -226,7 +226,6 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
           for (var _iterator = _this.datas[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
             _this.$set(item, 'checked', false);
           }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
-        console.log(_this.datas);
         _this.searchDatas = _this.datas;
       } else {
         uni.showToast({

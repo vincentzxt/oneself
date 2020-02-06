@@ -227,7 +227,7 @@
 		font-size: $uni-font-size-sm;
 	}
 	.uni-list-item__content-note {
-		margin-top: 10rpx;
+		margin-top: 20rpx;
 		color: $uni-text-color-grey;
 		font-size: $uni-font-size-sm;
 		display: flex;

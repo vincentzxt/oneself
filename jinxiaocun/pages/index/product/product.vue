@@ -13,7 +13,7 @@
 			</view>
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
-			<uni-drawer :visible="typeMenu" :mask='false' @close="handleTypeMenuClose" :top="headerHeight+5" bottom=48>
+			<uni-drawer :visible="typeMenu" @close="handleTypeMenuClose" :top="headerHeight+5" bottom=48>
 				<scroll-view :scroll-y="true" class="typeMenu">
 					<uni-list>
 						<uni-list-item :title="item" :class="item==curSelectType?'menuSelect':''" :show-arrow="false" v-for="(item, index) in productCategory" :key="index" @tap="handleSelectType(item)">

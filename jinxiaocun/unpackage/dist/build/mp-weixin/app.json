@@ -21,6 +21,7 @@
     "pages/index/return-order/orders/orders",
     "pages/index/early-stage/early-stage",
     "pages/index/inventory/inventory",
+    "pages/index/inventory/add/add",
     "pages/bill/bill",
     "pages/bill/stock-list/stock-list",
     "pages/data/data",

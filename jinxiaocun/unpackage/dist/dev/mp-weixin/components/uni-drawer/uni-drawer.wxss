@@ -24,7 +24,7 @@
   display: block;
   position: absolute;
   top: 0;
-  width: 100px;
+  width: 150px;
   bottom: 0;
   background-color: #f7f7f7;
   -webkit-transition: -webkit-transform 0.3s ease;
@@ -34,13 +34,13 @@
 }
 .uni-drawer--left.data-v-24175186 {
   left: 0;
-  -webkit-transform: translateX(-100px);
-          transform: translateX(-100px);
+  -webkit-transform: translateX(-150px);
+          transform: translateX(-150px);
 }
 .uni-drawer--right.data-v-24175186 {
   right: 0;
-  -webkit-transform: translateX(100px);
-          transform: translateX(100px);
+  -webkit-transform: translateX(150px);
+          transform: translateX(150px);
 }
 .uni-drawer__content--visible.data-v-24175186 {
   -webkit-transform: translateX(0px);
