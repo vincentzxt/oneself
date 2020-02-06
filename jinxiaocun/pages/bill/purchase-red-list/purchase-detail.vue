@@ -19,7 +19,7 @@
 					</view>
 					<view class="list-between">
 						<view class="item-content2">
-							<text>总数量：{{ item.salesqty }}</text>
+							<text>总数量：{{ item.qty }}</text>
 						</view>
 						<view class="item-content3">
 							<text>总金额：¥{{ item.salesamount }}</text>
@@ -46,7 +46,7 @@ export default {
 	},
 	data() {
 		return {
-			title: '销售详情',
+			title: '采购详情',
 			id:0,
 			dataList:{}
 		};
@@ -73,7 +73,7 @@ export default {
 			const senddata = {
 				id:this.id
 			};
-			get(api.salesOrder, senddata)
+			get(api.purPurchaseOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {

@@ -6,19 +6,27 @@
 			:class="{ 'active':(type=='radio' && index == i) || (type=='checkbox' && v.checked) }"
 			:data-i="i"
 			@tap="change"
-			><view>{{v.text}}</view><view>{{v.sontext}}</view></view>
+			><view>{{v.daycount}}天</view><view>{{v.price}}元</view></view>
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		props: {
+		    list: {
+		        type: Array,
+		        default() {
+		            return [];
+		        }
+			 }
+		    },
 		data() {
 			return {
-				list:[],
+				// list:[],
 				index:-1,
-				type:'checkbox',
-				column:''
+				type:'radio',
+				column:'col_2'
 			};
 		},
 		methods: {
@@ -144,7 +152,7 @@
 	
 	.item{
 		line-height: 50rpx;
-		padding: 0 20rpx;
+		padding: 20rpx 20rpx;
 		box-sizing: border-box;
 		border: #e5e5e5 solid 1px;
 		background-color: #fff;

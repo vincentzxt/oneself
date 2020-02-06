@@ -19,6 +19,7 @@ export const api = {
 	Regist:'/api/BseUser/Regist',
 	GetUserInfo:'/api/BseUser/GetUserInfo',
 	SaveUserInfo:'/api/BseUser/SaveUserInfo',
+	SaveUserStatus:'/api/BseUser/SaveUserStatus',
 	GetUserList:'/api/BseUser/GetUserList',
 	GetRoleList:'api/BseRole/GetRoleList',
 	SaveUser:'/api/BseUser/SaveUser',
@@ -30,6 +31,8 @@ export const api = {
 	UploadImg:'/api/BseUser/UploadImg',
 	GetMyDayLogList:'/api/BseUser/GetMyDayLogList',
 	GetOrderList:'/api/SysOrder/GetMyOrderList',
-	GetCurrentActivity:'/api/SysActivity/GetCurrentActivity'
+	GetCurrentActivity:'/api/SysActivity/GetCurrentActivity',
+	GetSmsCode:'',
+	GetProductList:'/api/SysProduct/GetProductList'
 	
 }

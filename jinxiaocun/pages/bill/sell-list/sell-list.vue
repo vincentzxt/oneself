@@ -26,7 +26,7 @@
 							<text>客户名称：{{ item.contactunitname }}</text>
 						</view>
 						<view class="item-content2">
-							<text>总数量：{{ item.amount }}</text>
+							<text>总数量：{{ item.totalqty }}</text>
 						</view>
 					</view>
 					<view class="list-between">

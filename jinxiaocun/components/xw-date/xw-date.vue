@@ -2,8 +2,11 @@
 	<view>
 		<view :class="[title!='null' ? 'filter':'filter-date-null']">
 			<view class="filter-left" @tap="date_open" v-if="title!='null'">
-				<text>{{ search_startDate }}</text>
-				<text>{{ search_endDate }}</text>
+				<!-- <view style="padding-right: 24upx;"><uni-icon type="arrowup" size="15"></uni-icon></view> -->
+				<view class="filter-left-item">
+					<text>{{ search_startDate }}</text>
+					<text>{{ search_endDate }}</text>
+				</view>
 			</view>
 			<view class="filter-right">
 				<view class="filter-right-item" @tap="order_open">
@@ -352,8 +355,13 @@ export default {
 	justify-content: space-between;
 	.filter-left {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		font-size: 28upx;
+		align-items: center;
+		.filter-left-item{
+		  display: flex;
+		  flex-direction: column;
+		}
 		// flex: 2;
 	}
 	.filter-right {

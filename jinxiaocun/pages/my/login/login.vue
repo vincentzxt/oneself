@@ -7,19 +7,18 @@
 		<view class="space"></view>
 		<!-- <view class="tou"><img src="@/static/image/logo.png"/></img></view> -->
 		<view class="con">
-			<view class="con_01">
-				<view class="con_01_l"><uni-icon type="contact" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_01_r"><input v-model="loginname" class="uni-input" focus placeholder="请输入用户名" style="height: 35px;background-color: #fff;"/></view>
+			<view class="con_02">
+				<view class="con_02_l"><uni-icon type="contact" size="25" color="#cccccc"></uni-icon></view>
+				<view class="con_02_r"><input v-model="loginname" class="uni-input" focus placeholder="请输入用户名" style="height: 35px;background-color: #fff;"/></view>
 			</view> 
 			<view class="con_02">
-				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
+				<view class="con_02_l"><uni-icon type="locked" size="25" color="#cccccc"></uni-icon></view>
 				<view class="con_02_r"><input v-model="password" password="true" class="uni-input" placeholder="请输入密码" style="height: 35px;background-color: #fff;"/></view> 
-				<button class="con_02_t" type="default" v-if="stop" :disabled="true">{{miao}}秒</button>
 			</view>
 			<!-- <view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;" >
 				<view @click="forget_action()">忘记密码？</view>
 			</view> -->
-			<view class="space"></view>
+	
 			<view class="user_bottom">
 				<button type="primary" class="send_btn" :loading="loading" @tap="handleLogin">登录</button>
 				<button type="primary" class="send_btn" @tap="reg_action()" style="margin-top: 10px;">注册</button>
@@ -108,29 +107,6 @@
 					this.loading =false;
 					this.$api.msg('请求失败fail') 
 				})
-			},
-			send(){
-				const mobile=this.mobile
-				this.settime(60);
-				if(mobile.length!=11){
-					this.$api.msg('手机号错误')
-					return; 
-				}
-			},
-			settime(smiao) {
-				const that = this
-				const miao = that.miao
-				if (miao == 0) {
-					that.miao=0
-					this.stop = false
-				} else {
-					setTimeout(() => {
-						smiao--
-						this.miao = smiao
-						that.settime(smiao)
-					}, 1000)
-				}
-			
 			}
 		}
 	}
@@ -147,24 +123,36 @@
 	.tou{text-align: center;}
 	.tou img{width: 64px;height: 64px;}
 	.con{padding: 10px 16px;}
-	.con_01{border-bottom: 2px solid #F7F7F7;height:48px;padding-top: 10px;display: flex; }
-	.con_01_l{width: 40px; text-align: center;padding: 10px 0 8px; background-color: #FFFFFF;}
-	.con_01_r{flex-grow: 1;padding-right: 10px;padding-top:5px;background-color: #FFFFFF;}
-	input::-webkit-input-placeholder { color: #D2D2D2;     }
-	.con_03{font-size: 12px;color: #F78674;padding: 10px 0 33px 8px;display: flex;justify-content: space-between;}
-	.con_04_1{background-color: #E61874;color: #ffffff;border-radius: 25px;height: 35px;line-height: 35px;font-size: 14px;text-align: center;
-	border: 1px solid #F0F0F0;width: 100%;}
-	.con_04_2{background-color: #E61874;color: #ffffff;width: 40%;}
-	.con_04_3{background-color: #E9E8E5;color: #81817E;width: 40%;}
-	.con_05{padding: 20px 0 ;text-align: center;color: #F78674;}
-	.con_05 span{padding-left: 20px;}
-	.con_02{border-bottom: 2px solid #F7F7F7;padding-top: 10px;display: flex;justify-content: space-between;height:48px;}
-	.con_02_t{background-color: #E0441D;color: #fff;height: 30px;line-height: 30px;border-radius: 20px;padding: 0 20px;margin-bottom: 5px;font-size:28upx;}
-	.con_02_r{flex-grow: 1;padding-right: 10px;padding-top:5px;background-color: #FFFFFF;}
-	.con_02_l{width: 40px;text-align: center;padding: 10px 0 8px; background-color: #FFFFFF;}
+	.con_02 {
+		border-bottom: 2upx solid #f7f7f7;
+		//padding-top: 10px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-bottom: 10upx;
+		padding: 0upx 16upx;
+		background-color: #ffffff;
+		align-items: center;
+	}
+	.con_02_t {
+		color: #fff;
+		border-radius: 20upx;
+		//font-size: 28upx;
+	}
+	.con_02_r {
+		flex-grow: 1;
+		padding: 10upx 24upx;
+	}
+	.con_02_l {
+		width: 40upx;
+		text-align: center;
+		padding-right: 12px;
+		vertical-align: center;
+		padding: 10upx 0upx;
+	}
 }
 .user_bottom{
-		margin-top:30upx;
+		margin-top:60upx;
 		// padding-left:20rpx;padding-right:20rpx;
 		.send_btn{
 			background-color:#2d8cf0;
