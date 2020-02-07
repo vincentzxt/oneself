@@ -22,7 +22,7 @@
 							<text>总数量：{{ item.qty }}</text>
 						</view>
 						<view class="item-content3">
-							<text>总金额：¥{{ item.salesamount }}</text>
+							<text>总金额：¥{{ item.purchaseamount }}</text>
 						</view>
 					</view>
 				</view>

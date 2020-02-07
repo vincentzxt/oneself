@@ -20,23 +20,18 @@
 							<input slot="footer" type="number" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱"/>
 						</cu-cell>
 						<cu-cell title="密码">
-							<input slot="footer" type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="请输入密码"/>
-						</cu-cell>
-						<cu-cell title="确认密码">
-							<input slot="footer" type="text" v-model="reqData.re_password" placeholder-style="color:#c5c8ce" placeholder="请再次输入密码"/>
+							<input slot="footer" type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="不输入密码则不修改"/>
 						</cu-cell>
 						<cu-cell title="分配角色" isLastCell>
 						</cu-cell>
-						<view>
-							 <radio-group @change="handleRoleChanage" class="uni-list-cell">
-							 	<radio color="#2db7f5" value=0 :checked="reqData.roleid == 0" style="margin: 10upx 16upx;">老板</radio>
-							 	<radio color="#2db7f5" value=1 :checked="reqData.roleid == 1" style="margin: 10upx 16upx;">超级业务员</radio>
-							 	<radio color="#2db7f5" value=2 :checked="reqData.roleid == 2" style="margin: 10upx 16upx;">业务员</radio>
-							 	<radio color="#2db7f5" value=3 :checked="reqData.roleid == 3" style="margin: 10upx 16upx;">采购人员</radio>
-							 	<radio color="#2db7f5" value=4 :checked="reqData.roleid == 4" style="margin: 10upx 16upx;">仓库人员</radio>
-							 </radio-group>
+						<view style="padding: 16upx;">
+							<radio-group @change="handleRoleChanage" class="uni-list-cell">
+							<label class="uni-list-cell uni-list-cell-pd" v-for="(item,index) in rolelist" :key="item.roleid">
+							<view><radio color="#2db7f5" :value="item.roleid" />{{ item.rolename }}</radio></view></label>
+							</radio-group>
 						</view>
 				</cu-panel>
+				<cu-loading ref="loading"></cu-loading>
 			</scroll-view>
 		</view>
 		<view class="footer">
@@ -52,6 +47,7 @@
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import { post,tokenpost} from '@/api/user.js';
+	import cuLoading from '@/components/custom/cu-loading.vue';
 	import { api } from '@/config/common.js';
 	export default {
 		components: {
@@ -70,9 +66,10 @@
 					telephone:'',
 					email:'',
 					password:'',
-					re_password:'',
 					roleid:0
 				},
+				rolelist: [],
+				userId:0,
 				loading:false,
 				title: '编辑账号'
 			};
@@ -80,15 +77,18 @@
 		onShow() {
 			this.loadRole();
 		},
-		onLoad(){
+		onLoad(option){
+			this.userId = option.userid;
+			this.loadData();
 		},
 		methods: {
 			handleSexChanage(val) {
 				this.reqData.sex = val.detail.value
 			},
 			handleRoleChanage(val) {
-					this.reqData.roleid = val.detail.value
-						},
+				this.reqData.roleid = val.detail.value;
+				console.log(this.reqData.roleid);
+			},
 			handleNavbarClickLeft() {
 				uni.navigateBack({
 					delta: 1
@@ -102,34 +102,37 @@
 				};
 				tokenpost(api.GetRoleList,sendData).then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						console.log(res.data.data.resultList);
-					 // this.dataList = res.data.data.resultList
+						this.rolelist = res.data.data.resultList;
 					} else {
 						this.$api.msg(res.data.returnMessage) 
 					}
-					this.loading =false;
 				}).catch(error => {
-					this.loading =false;
 					this.$api.msg('请求失败fail') 
 				})
 			},
 			loadData() {
 				this.$refs.loading.open()
-				tokenpost(api.GetUserInfo)
+				const sendData = {userId:this.userId}
+				tokenpost(api.GetUserInfoByUserId+'?userId='+this.userId,sendData)
 					.then(res => {
 						if (res.status == 200) {
-							this.$refs.loading.close()
 							if (res.data.returnCode == '0000') {
-								this.dataList = res.data.data;
-								this.login_status = true;
+								this.reqData = {
+									userid:res.data.data.userid,
+									loginname:res.data.data.loginname,
+									realname:res.data.data.realname,
+									telephone:res.data.data.telephone,
+									email:res.data.data.email,
+									roleid:res.data.data.roleid
+								}
 							} else {
-								//this.$api.msg(res.data.returnMessage);
-								this.dataList = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
-								this.login_status = false;
+								this.$api.msg(res.data.returnMessage);
+								this.reqData = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
 							}
 						} else {
 							this.$api.msg(res.data.returnMessage);
 						}
+						this.$refs.loading.close()
 					})
 					.catch(error => {
 						this.$refs.loading.close()
@@ -137,25 +140,13 @@
 					});
 			},
 			handleSubmit() {
-				const {userid, loginname, realname, telephone, email, password,re_password,roleid} = this.reqData;
+				const {userid, loginname, realname, telephone, email, password,roleid} = this.reqData;
 				if (loginname.length == 0) {
 					this.$api.msg('登录账号不能为空！');
 					return;
 				}
 				if (realname.length == 0) {
 					this.$api.msg('姓名不能为空！');
-					return;
-				}
-				if (password.length == 0) {
-					this.$api.msg('登录密码不能为空！');
-					return;
-				}
-				if (re_password.length == 0) {
-					this.$api.msg('重复密码不能为空！');
-					return;
-				}
-				if(password!= re_password){
-					this.$api.msg('两次密码不一致！');
 					return;
 				}
 				if (telephone.length!= 11) {
@@ -166,7 +157,13 @@
 					this.$api.msg('电子邮箱不能为空！');
 					return;
 				}
-				const sendData ={userid,loginname, realname, telephone, email, password,roleid};
+				var sendData={};
+				if(password==""){
+					sendData ={userid,loginname, realname, telephone, email,roleid};
+				}else{
+				    sendData ={userid,loginname, realname, telephone, email, password,roleid};
+				}
+				
 				this.loading = true;
 				tokenpost(api.SaveUser, sendData)
 					.then(res => {

@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<view class="content" v-if="content_show_id===0">
 					<helang-checkbox ref="checkbox" :list="productList" ></helang-checkbox>
-					<button class="recharge-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">购买</button>
+					<button class="recharge-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">兑换</button>
 				<cu-loading ref="loading"></cu-loading>
 				</view>
 				<view v-if="content_show_id===1" class="content">
@@ -70,7 +70,7 @@ import { post,tokenpost} from '@/api/user.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 import WucTab from '@/components/wuc-tab/wuc-tab.vue';
-import helangCheckbox from "@/components/helang-checkbox/helang-checkbox.vue"
+import helangCheckbox from "@/components/helang-checkbox/helang-checkbox-jf.vue"
 export default {
 	components: {
 		uniLoadMore,
@@ -84,12 +84,12 @@ export default {
 			loadmore:'more',
 			pageIndex: 0,
 			pageRows: 15,
-			title: '续费/订单',
+			title: '积分兑换',
 			pickerIndex:2,
 			TabCur: 0,
 			content_show_id:0,
 			dataList: [],
-			tabList: [{ name: '续费' }, { name: '我的订单' }],
+			tabList: [{ name: '续费' }, { name: '我的兑换' }],
 			OrderStatusList:['待支付','已支付'],
 			PayTypeList:{
 				'0': '',

@@ -207,7 +207,7 @@ export default {
 		height: 64px;
 	}
 	.con {
-		padding: 10px 16px;
+		padding: 10upx 16upx;
 	}
 
 	input::-webkit-input-placeholder {

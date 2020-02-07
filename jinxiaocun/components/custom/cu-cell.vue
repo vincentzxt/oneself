@@ -6,7 +6,7 @@
 		<view v-if="isSub" class="cu-cell-sub">
 		</view>
 		<view class="cu-cell-bd" :style="{ 'width': isIcon || isSub ? '30%' : '40%' }">
-			<view class="cu-cell-bd-title">{{ title }}</view>
+			<view class="cu-cell-bd-title" @tap="handleTitle">{{ title }}</view>
 		</view>
 		<view class="cu-cell-ft">
 			<uni-icons v-if="isLink" type="arrow" color="#c5c8ce" size='20'></uni-icons>
@@ -82,6 +82,9 @@
 				} else {
 					this.$emit('clickCell')
 				}
+			},
+			handleTitle () {
+					this.$emit('clickTitle')
 			}
 		}
 	}

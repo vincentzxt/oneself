@@ -1,66 +1,176 @@
 {
-	"pages": 
-	[
-		{ "path": "pages/index/index" },
-		{ "path": "pages/index/sale/sale" },
-		{ "path": "pages/index/sale/payment/payment" },
-		{ "path": "pages/index/purchase/purchase" },
-		{ "path": "pages/index/purchase/payment/payment" },
-		{ 
-			"path": "pages/index/current-unit/current-unit",
-			"style": { "enablePullDownRefresh": true }
+	"pages": [{
+			"path": "pages/index/index"
 		},
-		{ "path": "pages/index/current-unit/add/add" },
-		{ "path": "pages/index/current-unit/edit/edit" },
-		{ "path": "pages/index/product/product" },
-		{ "path": "pages/index/product/add/add" },
-		{ "path": "pages/index/product/edit/edit" },
-		{ "path": "pages/index/product/type/type" },
-		{ "path": "pages/index/product/unit/unit" },
-		{ "path": "pages/index/receipt/receipt" },
-		{ "path": "pages/index/payment/payment" },
-		{ "path": "pages/index/cost/cost" },
-		{ "path": "pages/index/return-order/return-order" },
-		{ "path": "pages/index/return-order/payment/payment" },
-		{ "path" : "pages/index/return-order/orders/orders" },
-		{ "path" : "pages/index/early-stage/early-stage" },
-		{ "path" : "pages/index/inventory/inventory" },
-		{	"path" : "pages/index/inventory/add/add" },
-		{ "path": "pages/bill/bill" },
-		{ "path" : "pages/bill/stock-list/stock-list" },
-		{ "path": "pages/data/data" },
-		{ "path": "pages/my/my" },
-		{ "path": "pages/my/login/login" },
-		{	"path": "pages/my/set" },
-		{ "path": "pages/my/login/reg" },
-		{ "path": "pages/my/login/forget" }, 
-		{ "path": "pages/my/account/accountadd" },
-		{ "path" : "pages/my/myorder" },
-		{ "path" : "pages/my/user/user" },
-		{ "path" : "pages/my/user/useradd" },
-		{ "path" : "pages/my/user/useredit" },
-		{ "path" : "pages/my/account/accountlist" },
-		{ "path" : "pages/my/account/recharge" },
-		{ "path" : "pages/my/login/editPassword" },
-		{ "path" : "pages/my/givetime" },
-		{ "path" : "pages/my/share/share" },
-		{ "path" : "pages/my/account/accountedit" },
-		{	"path" : "pages/my/account/accountdetail" },
-    {	"path" : "pages/bill/sell-list/sell-list" },
-    { "path" : "pages/bill/sell-list/sell-detail" },
-    { "path" : "pages/bill/purchase-list/purchase-list" },
-	    { "path" : "pages/bill/purchase-list/purchase-detail" },
-		{ "path" : "pages/bill/payment-list/payment-list" },
-    { "path" : "pages/bill/receipt-list/receipt-list" },
-		{ "path" : "pages/bill/fee-list/fee-list" },
-		{ "path" : "pages/bill/sell-red-list/sell-red-list" },
-		{ "path" : "pages/bill/sell-red-list/sell-detail" },
-		{ "path" : "pages/bill/purchase-red-list/purchase-red-list" },
-		{ "path" : "pages/bill/purchase-red-list/purchase-detail" },
-		{	"path" : "pages/bill/inventory-list/inventory-list" },
-		{	"path" : "pages/bill/begin-list/begin-list" },
-		{	"path" : "pages/bill/earlywarn-list/earlywarn-list" }
-   ],
+		{
+			"path": "pages/index/sale/sale"
+		},
+		{
+			"path": "pages/index/sale/payment/payment"
+		},
+		{
+			"path": "pages/index/purchase/purchase"
+		},
+		{
+			"path": "pages/index/purchase/payment/payment"
+		},
+		{
+			"path": "pages/index/current-unit/current-unit",
+			"style": {
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/current-unit/add/add"
+		},
+		{
+			"path": "pages/index/current-unit/edit/edit"
+		},
+		{
+			"path": "pages/index/product/product"
+		},
+		{
+			"path": "pages/index/product/add/add"
+		},
+		{
+			"path": "pages/index/product/edit/edit"
+		},
+		{
+			"path": "pages/index/product/type/type"
+		},
+		{
+			"path": "pages/index/product/unit/unit"
+		},
+		{
+			"path": "pages/index/receipt/receipt"
+		},
+		{
+			"path": "pages/index/payment/payment"
+		},
+		{
+			"path": "pages/index/cost/cost"
+		},
+		{
+			"path": "pages/index/return-order/return-order"
+		},
+		{
+			"path": "pages/index/return-order/payment/payment"
+		},
+		{
+			"path": "pages/index/return-order/orders/orders"
+		},
+		{
+			"path": "pages/index/early-stage/early-stage"
+		},
+		{
+			"path": "pages/index/inventory/inventory"
+		},
+		{
+			"path": "pages/index/inventory/add/add"
+		},
+		{
+			"path": "pages/bill/bill"
+		},
+		{
+			"path": "pages/bill/stock-list/stock-list"
+		},
+		{
+			"path": "pages/data/data"
+		},
+		{
+			"path": "pages/my/my"
+		},
+		{
+			"path": "pages/my/login/login"
+		},
+		{
+			"path": "pages/my/set"
+		},
+		{
+			"path": "pages/my/login/reg"
+		},
+		{
+			"path": "pages/my/login/forget"
+		},
+		{
+			"path": "pages/my/account/accountadd"
+		},
+		{
+			"path": "pages/my/user/user"
+		},
+		{
+			"path": "pages/my/user/useradd"
+		},
+		{
+			"path": "pages/my/user/useredit"
+		},
+		{
+			"path": "pages/my/account/accountlist"
+		},
+		{
+			"path": "pages/my/login/editPassword"
+		},
+		{
+			"path": "pages/my/givetime"
+		},
+		{
+			"path": "pages/my/share/share"
+		},
+		{
+			"path": "pages/my/account/accountedit"
+		},
+		{
+			"path": "pages/my/account/accountdetail"
+		},
+		{
+			"path": "pages/bill/sell-list/sell-list"
+		},
+		{
+			"path": "pages/bill/sell-list/sell-detail"
+		},
+		{
+			"path": "pages/bill/purchase-list/purchase-list"
+		},
+		{
+			"path": "pages/bill/purchase-list/purchase-detail"
+		},
+		{
+			"path": "pages/bill/payment-list/payment-list"
+		},
+		{
+			"path": "pages/bill/receipt-list/receipt-list"
+		},
+		{
+			"path": "pages/bill/fee-list/fee-list"
+		},
+		{
+			"path": "pages/bill/sell-red-list/sell-red-list"
+		},
+		{
+			"path": "pages/bill/sell-red-list/sell-detail"
+		},
+		{
+			"path": "pages/bill/purchase-red-list/purchase-red-list"
+		},
+		{
+			"path": "pages/bill/purchase-red-list/purchase-detail"
+		},
+		{
+			"path": "pages/bill/inventory-list/inventory-list"
+		},
+		{
+			"path": "pages/bill/begin-list/begin-list"
+		},
+		{
+			"path": "pages/bill/earlywarn-list/earlywarn-list"
+		}, {
+			"path": "pages/my/integral/integral",
+			"style": {}
+		}, {
+			"path": "pages/my/recharge/recharge",
+			"style": {}
+		}
+	],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

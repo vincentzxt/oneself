@@ -151,3 +151,29 @@
 		}
 	}
 }
+.list-item3 {
+	padding: 16upx 24upx;
+	background: #fff;
+	border-bottom: 0.8upx solid $uni-border-color;
+	.list-between {
+		display: flex;
+		flex-direction: row;
+		// justify-content: spac;
+		.item-content {
+			flex: 4;
+			font-size: $uni-font-size-min;
+			line-height: 60upx;
+		}
+		.item-content2 {
+			flex: 6;
+			font-size: $uni-font-size-min;
+			line-height: 60upx;
+		}
+		.item-content3 {
+			flex: 1;
+			text-align: right;
+			font-size: $uni-font-size-min;
+			line-height: 60upx;
+		}
+	}
+}
