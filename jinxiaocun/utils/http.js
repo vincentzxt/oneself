@@ -16,7 +16,6 @@ const http = axios.create({
 
 // 拦截器 在请求之前拦截
 http.interceptors.request.use(config => {
-	
 	let userInfo = uni.getStorageSync('userInfo')
 	if (userInfo.token) {
 		config.headers.Authorization = 'Bearer ' + userInfo.token
@@ -42,7 +41,6 @@ http.interceptors.response.use(response => {
         // })
     // }
 	// 
-	
 	const url =response.config.url;
 	if(url.includes("GetUserInfo")== false){
 		if (response.status == 200){

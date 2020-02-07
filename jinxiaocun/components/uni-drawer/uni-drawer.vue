@@ -88,7 +88,7 @@
 
 <style lang="scss" scoped>
 	// 抽屉宽度
-	$drawer-width: 100px;
+	$drawer-width: 150px;
 	.uni-drawer {
 		/* #ifndef APP-NVUE */
 		display: block;

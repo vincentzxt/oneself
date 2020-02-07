@@ -9,7 +9,7 @@
 			<view class="main" :style="{'height': mainHeight + 'px'}">
 				<view class="main-sale">
 					<view class="main-sale-header">
-						<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
+						<uni-icons type="fenxi" color="#51a9f3" size=20></uni-icons>
 						<text style="margin-left: 10px">销售情况</text>
 					</view>
 					<view class="main-sale-content">
@@ -32,7 +32,7 @@
 				</view>
 				<view class="main-recpay">
 					<view class="main-recpay-header">
-						<uni-icons type="chart-column" color="#59bffb" size=20></uni-icons>
+						<uni-icons type="c-amount" color="#5cdbd3" size=20></uni-icons>
 						<text style="margin-left: 10px">收付情况</text>
 					</view>
 					<view class="main-recpay-content">
@@ -74,7 +74,7 @@
 					<swiper class="main-account-swiper" :indicator-dots="true" :autoplay="true">
 						<swiper-item>
 							<view class="main-account-header">
-								<uni-icons type="finance" color="#ed3f14" size=20></uni-icons>
+								<uni-icons type="shoukuan" color="#90dc5d" size=20></uni-icons>
 								<text style="margin-left: 10px">收款情况</text>
 							</view>
 							<view class="main-account-content">
@@ -86,7 +86,7 @@
 						</swiper-item>
 						<swiper-item>
 							<view class="main-account-header">
-								<uni-icons type="finance" color="#ff9900" size=20></uni-icons>
+								<uni-icons type="fukuan" color="#f29d6e" size=20></uni-icons>
 								<text style="margin-left: 10px">付款情况</text>
 							</view>
 							<view class="main-account-content">
@@ -100,7 +100,7 @@
 				</view>	
 				<view class="main-warning">
 					<view class="main-warning-header">
-						<uni-icons type="yujing-fill" color="#ef5a62" size=20></uni-icons>
+						<uni-icons type="yujing" color="#ef5a62" size=20></uni-icons>
 						<text style="margin-left: 10px">预警情况</text>
 					</view>
 					<view class="main-warning-content">

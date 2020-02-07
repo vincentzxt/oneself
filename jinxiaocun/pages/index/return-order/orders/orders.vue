@@ -7,7 +7,7 @@
 		</view>
 		<view class="main">
 			<uni-collapse>
-				<uni-collapse-item v-if="businessType == 0" :title="item1.purchaseorderid" :name="item1.purchaseorderid" :note="'订单金额：' + item1.amount +'元|订单创建时间：' + item1.createtime" 
+				<uni-collapse-item open v-if="businessType == 0" :title="item1.purchaseorderid" :name="item1.purchaseorderid" :note="'订单金额：' + item1.amount +'元|订单创建时间：' + item1.createtime" 
 				isIcon :icon="{type:'payment', color:'#ff9900', size:15}" v-for="(item1, index1) in searchDatas" :key="index1" @onArrow="handleOnArrow(item1)" @onReturn="handleOnReturn(item1)">
 					<view v-if="item1.productList.length > 0" class="product-list">
 						<text style="display: inline-block;color:#2d8cf0;width: 30%;">商品名称</text>

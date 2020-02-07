@@ -8,21 +8,23 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell title="退款帐号" isIcon :icon="{ type: 'c-contacts', color: '#ff9900', 'size': 18 }">
-							<radio-group slot="footer" v-if="businessType == 0" @change="handleCashAccountChange">
-								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.payaccountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-							</radio-group>
-							<radio-group slot="footer" v-else @change="handleCashAccountChange">
-								<radio color="#2db7f5" :style="{'margin-left': index !== 0 ? '10px' : '0'}" v-for="(item, index) in cashAccountDict" :value="item.cashaccountid" :checked="reqData.order.accountid == item.cashaccountid">{{item.cashaccountname}}</radio>
-							</radio-group>
+						<cu-cell title="退款帐号" isLink>
+							<view slot="footer" style="width:100%;">
+								<picker v-if="businessType == 0" @change="handleCashAccountChange" :value="reqData.order.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
+									<view class="main-picker">
+										<text v-if="!reqData.order.payAccountName" style="color:#c5c8ce">选择退款帐号</text>
+										<text v-else>{{reqData.order.payAccountName}}</text>
+									</view>
+								</picker>
+								<picker v-if="businessType == 1" @change="handleCashAccountChange" :value="reqData.order.accountid" :range="cashAccountDict" range-key='cashaccountname'>
+									<view class="main-picker">
+										<text v-if="!reqData.order.accountName" style="color:#c5c8ce">选择退款帐号</text>
+										<text v-else>{{reqData.order.accountName}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
-						<cu-cell title="生成退货单" isIcon :icon="{ type: 'c-right', color: '#19be6b', 'size': 18 }">
-							<radio-group slot="footer" @change="handleStatusChange">
-								<radio color="#2db7f5" value=1 :checked="reqData.order.status == 1">否</radio>
-								<radio color="#2db7f5" value=2 :checked="reqData.order.status == 2" style="margin-left: 10px;">是</radio>
-							</radio-group>
-						</cu-cell>
-						<cu-cell title="打印单据" isIcon :icon="{ type: 'c-print', color: '#b37fec', 'size': 18 }" isLastCell>
+						<cu-cell title="打印单据" isLastCell>
 							<radio-group slot="footer" @change="handlePrintChange">
 								<radio color="#2db7f5" value=0 :checked="reqData.order.isprint == 0">否</radio>
 								<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
@@ -34,8 +36,14 @@
 		</view>
 		<view class="footer">
 			<view class="footer-text">
-				<text>订单金额：</text>
-				<text style="color:#ef5a62">￥{{reqData.order.amount}}</text>
+				<view class="footer-text-item">
+					<text>小计数量：</text>
+					<text style="color:#ef5a62">{{reqData.order.totalCount}}</text>
+				</view>
+				<view class="footer-text-item">
+					<text>小计金额：</text>
+					<text style="color:#ef5a62">￥{{reqData.order.amount}}</text>
+				</view>
 			</view>
 			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
 		</view>
@@ -65,11 +73,14 @@
 					order: {
 						billtype: 2,
 						accountid: '',
+						accountName: '',
 						contactunitid: '',
 						payaccountid: '',
+						payAccountName: '',
 						amount: 0.00,
+						totalCount: 0,
 						isprint: 0,
-						status: 1
+						status: 0
 					},
 					orderlist: []
 				},
@@ -86,6 +97,7 @@
 				let data = JSON.parse(options.reqData)
 				this.reqData.order.contactunitid = data.contactunitid
 				this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2)
+				this.reqData.order.totalCount = data.totalCount
 				this.reqData.orderlist = data.productList
 			}
 			this.$refs.loading.open()
@@ -114,13 +126,12 @@
 			},
 			handleCashAccountChange(val) {
 				if (this.businessType == 0) {
-					this.reqData.order.payaccountid = val.detail.value
+					this.reqData.order.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
+					this.reqData.order.payAccountName = this.cashAccountDict[val.detail.value].cashaccountname
 				} else {
-					this.reqData.order.accountid = val.detail.value
+					this.reqData.order.accountid = this.cashAccountDict[val.detail.value].cashaccountid
+					this.reqData.order.accountName = this.cashAccountDict[val.detail.value].cashaccountname
 				}
-			},
-			handleStatusChange(val) {
-				this.reqData.order.status = val.detail.value
 			},
 			handlePrintChange(val) {
 				this.reqData.order.isprint = val.detail.value
@@ -227,15 +238,22 @@
 			display: flex;
 			background-color:$uni-split-color;
 			&-text {
-				width: 60%;
+				width: 50%;
 				height: 100%;
 				display: flex;
-				flex-direction: row;
-				align-items: center;
-				margin-left: $uni-spacing-row-lg;
+				justify-content: center;
+				flex-direction: column;
+				font-size: $uni-font-size-sm;
+				margin-left: 20upx;
+				&-item {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					margin-left: $uni-spacing-row-lg;
+				}
 			}
 			&-btn	{
-				width: 40%;
+				width: 50%;
 				height: 100%;
 			}
 		}

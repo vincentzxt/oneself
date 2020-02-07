@@ -69,10 +69,16 @@
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量" height=110>
+				<cu-cell title="单价">
+					<input slot="footer" type="digit" v-model="curSelectPruduct.salesunitprice" placeholder="0"/>
+				</cu-cell>
+				<cu-cell title="库存">
+					<text slot="footer">{{curSelectPruduct.totalqty}}</text>
+				</cu-cell>
+				<cu-cell title="数量" height=140>
 					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
 						<view class="popup-qty">
-							<uni-number-box :min="1" :value="curSelectPruduct.salesqty" @change="handleSalesqtyChange"></uni-number-box>
+							<uni-number-box :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleSalesqtyChange"></uni-number-box>
 							<view class="popup-qty-items">
 								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
 								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
@@ -82,14 +88,11 @@
 						</view>
 					</view>
 				</cu-cell>
-				<cu-cell title="计量单位">
+				<cu-cell title="计量单位" isLastCell>
 					<radio-group slot="footer" @change="handleUnitChange">
 						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
 						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
 					</radio-group>
-				</cu-cell>
-				<cu-cell isLastCell title="单价">
-					<input slot="footer" type="digit" v-model="curSelectPruduct.salesunitprice" placeholder="0"/>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
@@ -227,6 +230,7 @@
 				this.$set(this.curSelectPruduct, 'salesqty', 1)
 				this.$set(this.curSelectPruduct, 'ismainunit', 1)
 				this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple)
+				this.$set(this.curSelectPruduct, 'totalqty', val.totalqty)
 				let isExists = false
 				for (let item of this.reqData.productList) {
 					if (item.productid == this.curSelectPruduct.productid) {
@@ -376,12 +380,12 @@
 			flex-direction: column;
 			align-items: flex-end;
 			&-items {
-				margin-top: 20px;
+				margin-top: 30px;
 				display: flex;
 				align-items: center;
 				&-item {
 					width: 100upx;
-					height: 50upx;
+					height: 60upx;
 					display: flex;
 					justify-content: center;
 					align-items: center;

@@ -12,7 +12,7 @@
 							<input slot="footer" type="text" v-model="reqData.productname" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称"/>
 						</cu-cell>
 						<cu-cell title="产品速查码">
-							<input slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称"/>
+							<input slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="用于开单快速搜索"/>
 						</cu-cell>
 						<cu-cell title="建议零售价">
 							<input slot="footer" type="digit" v-model="reqData.price" placeholder-style="color:#c5c8ce" placeholder="请输入建议零售价"/>
