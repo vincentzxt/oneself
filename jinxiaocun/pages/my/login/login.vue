@@ -4,7 +4,7 @@
 			<uni-navbar :title="title" left-icon="back"  background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<!-- <view class="space"></view> -->
+		<view class="space"></view>
 		<!-- <view class="tou"><img src="@/static/image/logo.png"/></img></view> -->
 		<view class="con">
 			<view class="con_02">

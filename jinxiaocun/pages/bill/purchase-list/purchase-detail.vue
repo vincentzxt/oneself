@@ -19,7 +19,7 @@
 					</view>
 					<view class="list-between">
 						<view class="item-content2">
-							<text>总数量：{{ item.qty }}</text>
+							<text>总数量：{{ item.qty }}{{ item.unit }}</text>
 						</view>
 						<view class="item-content3">
 							<text>总金额：¥{{ item.purchaseamount }}</text>

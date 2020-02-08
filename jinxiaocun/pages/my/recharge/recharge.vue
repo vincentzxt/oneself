@@ -145,76 +145,76 @@ export default {
 			}
 		},
 		
-		handleSubmit() {
-			let data = this.$refs.checkbox.get();	// 组件返回的数据
-		    console.log("发起支付:"+data.value);
-		    this.loading = true;
-		    uni.login({
-		        success: (e) => {
-		            console.log("login success", e);
-		            uni.request({
-		                url: `https://unidemo.dcloud.net.cn/payment/wx/mp?code=${e.code}&amount=${data.value}`,
-		                success: (res) => {
-		                    console.log("pay request success", res);
-		                    if (res.statusCode !== 200) {
-		                        uni.showModal({
-		                            content: "支付失败，请重试！",
-		                            showCancel: false
-		                        });
-		                        return;
-		                    }
-		                    if (res.data.ret === 0) {
-		                        console.log("得到接口prepay_id", res.data.payment);
-		                        let paymentData = res.data.payment;
-		                        uni.requestPayment({
-		                            timeStamp: paymentData.timeStamp,
-		                            nonceStr: paymentData.nonceStr,
-		                            package: paymentData.package,
-		                            signType: 'MD5',
-		                            paySign: paymentData.paySign,
-		                            success: (res) => {
-		                                uni.showToast({
-		                                    title: "感谢您的赞助!"
-		                                })
-		                            },
-		                            fail: (res) => {
-		                                uni.showModal({
-		                                    content: "支付失败,原因为: " + res
-		                                        .errMsg,
-		                                    showCancel: false
-		                                })
-		                            },
-		                            complete: () => {
-		                                this.loading = false;
-		                            }
-		                        })
-		                    } else {
-		                        uni.showModal({
-		                            content: res.data.desc,
-		                            showCancel: false
-		                        })
-		                    }
-		                },
-		                fail: (e) => {
-		                    console.log("fail", e);
-		                    this.loading = false;
-		                    uni.showModal({
-		                        content: "支付失败,原因为: " + e.errMsg,
-		                        showCancel: false
-		                    })
-		                }
-		            })
-		        },
-		        fail: (e) => {
-		            console.log("fail", e);
-		            this.loading = false;
-		            uni.showModal({
-		                content: "支付失败,原因为: " + e.errMsg,
-		                showCancel: false
-		            })
-		        }
-		    })
-		},
+		// handleSubmit() {
+		// 	let data = this.$refs.checkbox.get();	// 组件返回的数据
+		//     console.log("发起支付:"+data.value);
+		//     this.loading = true;
+		//     uni.login({
+		//         success: (e) => {
+		//             console.log("login success", e);
+		//             uni.request({
+		//                 url: `https://unidemo.dcloud.net.cn/payment/wx/mp?code=${e.code}&amount=${data.value}`,
+		//                 success: (res) => {
+		//                     console.log("pay request success", res);
+		//                     if (res.statusCode !== 200) {
+		//                         uni.showModal({
+		//                             content: "支付失败，请重试！",
+		//                             showCancel: false
+		//                         });
+		//                         return;
+		//                     }
+		//                     if (res.data.ret === 0) {
+		//                         console.log("得到接口prepay_id", res.data.payment);
+		//                         let paymentData = res.data.payment;
+		//                         uni.requestPayment({
+		//                             timeStamp: paymentData.timeStamp,
+		//                             nonceStr: paymentData.nonceStr,
+		//                             package: paymentData.package,
+		//                             signType: 'MD5',
+		//                             paySign: paymentData.paySign,
+		//                             success: (res) => {
+		//                                 uni.showToast({
+		//                                     title: "感谢您的赞助!"
+		//                                 })
+		//                             },
+		//                             fail: (res) => {
+		//                                 uni.showModal({
+		//                                     content: "支付失败,原因为: " + res
+		//                                         .errMsg,
+		//                                     showCancel: false
+		//                                 })
+		//                             },
+		//                             complete: () => {
+		//                                 this.loading = false;
+		//                             }
+		//                         })
+		//                     } else {
+		//                         uni.showModal({
+		//                             content: res.data.desc,
+		//                             showCancel: false
+		//                         })
+		//                     }
+		//                 },
+		//                 fail: (e) => {
+		//                     console.log("fail", e);
+		//                     this.loading = false;
+		//                     uni.showModal({
+		//                         content: "支付失败,原因为: " + e.errMsg,
+		//                         showCancel: false
+		//                     })
+		//                 }
+		//             })
+		//         },
+		//         fail: (e) => {
+		//             console.log("fail", e);
+		//             this.loading = false;
+		//             uni.showModal({
+		//                 content: "支付失败,原因为: " + e.errMsg,
+		//                 showCancel: false
+		//             })
+		//         }
+		//     })
+		// },
 		loadProduct(){
 			this.$refs.loading.open();
 			const senddata = {
@@ -235,6 +235,9 @@ export default {
 				this.$refs.loading.close();
 				this.$api.msg('请求失败fail');
 			});
+		},
+		handleSubmit(){
+			let data = this.$refs.checkbox.get();	
 		},
 		loadData(){
 			this.loadmore = 'loading';

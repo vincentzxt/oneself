@@ -170,7 +170,11 @@
 			"path": "pages/my/recharge/recharge",
 			"style": {}
 		}
-	],
+	    ,{
+            "path" : "pages/my/share/myshare",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},
