@@ -4,7 +4,7 @@
 			<uni-navbar :title="title" left-icon="back"  background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
 			</uni-navbar>
 		</view>
-		<view class="space"></view>
+		<!-- <view class="space"></view> -->
 		<!-- <view class="tou"><img src="@/static/image/logo.png"/></img></view> -->
 		<view class="con">
 			<view class="con_02">
@@ -122,7 +122,7 @@
 	font-size: 28upx;
 	.tou{text-align: center;}
 	.tou img{width: 64px;height: 64px;}
-	.con{padding: 10px 16px;}
+	.con{padding: 24upx 16upx;}
 	.con_02 {
 		border-bottom: 2upx solid #f7f7f7;
 		//padding-top: 10px;

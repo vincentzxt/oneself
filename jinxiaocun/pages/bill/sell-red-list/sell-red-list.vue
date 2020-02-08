@@ -121,6 +121,7 @@ export default {
 			this.search_endDate = val.search_endDate;
 			this.order_name = this.orderList[val.order_index].value;
 			this.order_type = val.order_type;
+			this.search_value = val.search_value;
 			this.dataList = [];
 			this.pageIndex = 0;
 			this.loadMore = 'more';
@@ -148,7 +149,8 @@ export default {
 				orderName: this.order_name,
 				orderType: this.order_type,
 				beginttime: this.search_startDate,
-				endtime: this.search_endDate
+				endtime: this.search_endDate,
+				contactunitname:this.search_value
 			};
 			console.log(senddata);
 			query(api.salesOrder, senddata)

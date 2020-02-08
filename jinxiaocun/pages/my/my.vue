@@ -18,20 +18,20 @@
 					<view class="size_16">游客</view>
 					<view class="size_16" @click="this.$api.login">点击登录</view>
 				</view>
-				<view class="edit size_16" @click="handleSet()">设置</view>
+				<view class="edit size_16" @click="handleSet()" v-if="dataList.ismain===1">设置</view>
 			</view>
 		</view>
-		<uni-list>
+		<uni-list v-if="dataList.ismain===1">
 			<uni-list-item title="员工管理" thumb="../../static/my/icon/list.png" @tap="handleUserManage()" :show-arrow="true"></uni-list-item>
 			<!-- 			<uni-list-item title="员工列表"  thumb="../../static/my/icon/list.png"></uni-list-item>
  -->
 			<uni-list-item title="收款账号" thumb="../../static/my/icon/bankcard.png" @tap="handleBankSet()"></uni-list-item>
-			<uni-list-item title="购买/续费" thumb="../../static/my/icon/recharge.png" @tap="handleMyorder()"></uni-list-item>
+			<uni-list-item title="购买/续费" thumb="../../static/my/icon/recharge.png" @tap="handleRecharge()"></uni-list-item>
 		</uni-list>
-		<view class="space"></view>
+		<view class="space" v-if="dataList.ismain===1"></view>
 		<uni-list>
 			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @tap="handlePassword()"></uni-list-item>
-			<!-- <uni-list-item title="我的订单" thumb="../../static/my/icon/order.png" @tap="handleMyorder()" :show-badge="true" :badge-text="dataList.ordercount"></uni-list-item> -->
+			<uni-list-item title="积分兑换" thumb="../../static/my/icon/order.png" @tap="handleIntegral()"></uni-list-item>
 			<!-- <uni-list-item title="时长" thumb="../../static/my/icon/time.png" @tap="handleTime()" show-text="true" :content="dataList.daycount"></uni-list-item> -->
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @tap="handleShare()"></uni-list-item>
 			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png"></uni-list-item>
@@ -69,7 +69,8 @@ export default {
 				companyname: '',
 				expiredate: '',
 				daycount: 0,
-				ordercount: '0'
+				ordercount: '0',
+				ismain:0
 			}
 		};
 	},
@@ -112,7 +113,7 @@ export default {
 				return;
 			}
 			uni.navigateTo({
-				url: '/pages/my/account/recharge'
+				url: '/pages/my/recharge/recharge'
 			});
 		},
 		handleUserManage() {
@@ -133,13 +134,13 @@ export default {
 				url: '/pages/my/givetime'
 			});
 		},
-		handleMyorder() {
+		handleIntegral() {
 			if (!this.login_status) {
 				this.$api.login();
 				return;
 			}
 			uni.navigateTo({
-				url: '/pages/my/myorder'
+				url: '/pages/my/integral/integral'
 			});
 		},
 		handleShare() {
@@ -291,6 +292,7 @@ export default {
 	padding-right: 16upx;
 	.logout_btn {
 		background-color: #ffffff;
+		padding: 8upx;
 		//border: $uni-border-color;
 	}
 }

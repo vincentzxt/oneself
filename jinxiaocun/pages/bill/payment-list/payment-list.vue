@@ -118,6 +118,7 @@ export default {
 			this.search_startDate = val.search_startDate;
 			this.search_endDate = val.search_endDate;
 			this.order_name = this.orderList[val.order_index].value;
+			this.search_value = val.search_value;
 			this.order_type = val.order_type;
 			this.dataList = [];
 			this.pageIndex = 0;
@@ -146,6 +147,7 @@ export default {
 				orderName: this.order_name,
 				orderType: this.order_type,
 				beginttime: this.search_startDate,
+				contactunitname:this.search_value,
 				endtime: this.search_endDate
 			};
 			query(api.capPayment, senddata)

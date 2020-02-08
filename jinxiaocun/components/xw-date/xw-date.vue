@@ -20,7 +20,7 @@
 			</view>
 		</view>
 		<view class="filter-order" v-if="orderShow">
-			<view class="filter-order-item" v-for="(item, index) in orderList" :key="index" @tap="order_select(index)" :class="[orderIndex === index ? 'order_select_cur':'']"><text>{{item.name}}</text><view v-if="orderIndex===index"><text>{{orderTypeList[orderType]}}</text><uni-icon type="checkmarkempty" size="30"></uni-icon></view></view>
+			<view class="filter-order-item" v-for="(item, index) in orderList" :key="index" @tap="order_select(index)" :class="[orderIndex === index ? 'order_select_cur':'']"><text>{{item.name}}</text><view v-if="orderIndex===index"><text>{{orderTypeList[orderType]}}</text><uni-icon type="checkmarkempty" size="24"></uni-icon></view></view>
 		</view>
 		<view class="filter-search" v-if="searchShow">
 			                <view class="search-title">{{searchName}}</view>
@@ -403,7 +403,7 @@ export default {
 
 
 .filter-order{
-	font-size: 36upx;
+	font-size: 32upx;
 	position: absolute;
 	background-color: #FFFFFF;
 	z-index:1000;
@@ -415,6 +415,7 @@ export default {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+		align-items: center;
 		border-bottom: 1upx solid $uni-border-color;
 		padding: 24upx 24upx;
 		.order_select_cur {
@@ -423,7 +424,7 @@ export default {
 	}
 }
 .filter-search{
-	font-size: 36upx;
+	font-size: 32upx;
 	position: absolute;
 	background-color: #FFFFFF;
 	z-index:1000;

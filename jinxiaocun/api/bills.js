@@ -7,6 +7,13 @@ export const query = (url, data = {}) => {
 		method: 'post'
   })
 }
+export const tokenpost = (url, data = {}) => {
+  return http.request({
+    url: url,
+		data: data,
+		method: 'post'
+  })
+}
 export const get = (url, data = {}) => {
   return http.request({
     url: url + '/Get/'+data.id,
