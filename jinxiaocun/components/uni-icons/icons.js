@@ -58,6 +58,7 @@ export default {
 	'fukuan': '\ue602',
 	'yujing': '\ue639',
 	'fenxi': '\ue623',
+	'tb-change': '\ueb09',
 	'c-phone': '\ue6cb',
 	'c-position': '\ue611',
 	'c-search': '\ue736',
