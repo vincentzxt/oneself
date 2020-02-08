@@ -104,6 +104,9 @@
 			handleSearch(val) {
 				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
+						if (!item) {
+							item = ''
+						}
 						return item.indexOf(val.value) !== -1
 					})
 				} else {

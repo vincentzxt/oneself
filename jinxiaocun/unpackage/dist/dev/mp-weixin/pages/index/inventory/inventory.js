@@ -280,6 +280,9 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
     handleSearch: function handleSearch(val) {
       if (val.value) {
         this.searchDatas = this.datas.filter(function (item) {
+          if (!item.productname) {
+            item.productname = '';
+          }
           return item.productname.indexOf(val.value) !== -1;
         });
       } else {

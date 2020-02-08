@@ -55,7 +55,8 @@
     "pages/bill/begin-list/begin-list",
     "pages/bill/earlywarn-list/earlywarn-list",
     "pages/my/integral/integral",
-    "pages/my/recharge/recharge"
+    "pages/my/recharge/recharge",
+    "pages/my/share/myshare"
   ],
   "subPackages": [],
   "window": {

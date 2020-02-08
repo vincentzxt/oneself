@@ -236,6 +236,12 @@ __webpack_require__.r(__webpack_exports__);
     handleSearch: function handleSearch(val) {
       if (val.value) {
         this.searchDatas = this.datas.filter(function (item) {
+          if (!item.productname) {
+            item.contactunitname = '';
+          }
+          if (!item.querycode) {
+            item.querycode = '';
+          }
           return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1;
         });
       } else {

@@ -312,6 +312,15 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
     handleSearchCurrentUnit: function handleSearchCurrentUnit(val) {
       if (val.value) {
         this.currentUnitSearchDatas = this.currentUnitDatas.filter(function (item) {
+          if (!item.contactunitname) {
+            item.contactunitname = '';
+          }
+          if (!item.querycode) {
+            item.querycode = '';
+          }
+          if (!item.bseContactUnitContactModels[0].telephone) {
+            item.bseContactUnitContactModels[0].telephone = '';
+          }
           return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
         });
         this.searchCurrentUnit = true;

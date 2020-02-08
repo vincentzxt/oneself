@@ -286,6 +286,12 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
     handleSearchProduct: function handleSearchProduct(val) {
       if (val.value) {
         this.productSearchDatas = this.productDatas.filter(function (item) {
+          if (!item.productname) {
+            item.productname = '';
+          }
+          if (!item.querycode) {
+            item.querycode = '';
+          }
           return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1;
         });
         this.searchProduct = true;
