@@ -138,40 +138,25 @@ export default {
 		},
 		send() {
 			const telephone = this.telephone;
+			if(telephone.length!=11){
+				this.$api.msg('请输入手机号！');
+				return;
+			}
 			this.code_status = true;
-			// this.loading = true;
-			// const sendData = {
-			// 	telephone:this.telephone
-			// };
-			// post(api.GetSmsCode, sendData)
-			// 	.then(res => {
-			// 		if (res.status == 200 && res.data.returnCode == '0000') {
-			// 			let userInfo = {
-			// 				token: res.data.data.token,
-			// 				exp: res.data.data.exp,
-			// 				userId: res.data.data.userId
-			// 			};
-			// 			uni.setStorage({
-			// 				key: 'userInfo',
-			// 				data: userInfo,
-			// 				success: function() {
-			// 					uni.switchTab({
-			// 						url: '/pages/index/index'
-			// 					});
-			// 				}
-			// 			});
-			// 		} else {
-			// 			this.$api.msg(res.data.returnMessage);
-			// 		}
-			// 		this.loading = false;
-			// 	})
-			// 	.catch(error => {
-			// 		this.loading = false;
-			// 		this.$api.msg('请求失败fail');
-			// 	});
-			
-			
-			this.settime(60);
+			const sendData = {
+				telephone:this.telephone
+			};
+			post(api.GetSmsCode, sendData)
+				.then(res => {
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.settime(60);
+					} else {
+						this.$api.msg(res.data.returnMessage);
+					}
+				})
+				.catch(error => {
+					this.$api.msg('请求失败fail');
+				});
 		},
 		settime(smiao) {
 			const miao = this.miao;

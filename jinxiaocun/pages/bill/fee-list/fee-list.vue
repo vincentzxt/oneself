@@ -15,23 +15,13 @@
 			</view>
 			
 		</view>
-		<!-- 	<view class="list-header" v-if="dataList.length>0">
-			<view class="item-content">
-				<text>客户名称</text>
-			</view>
-			<view class="item-content2">
-				<text>金额</text>
-			</view>
-			<view class="item-content3">
-				<text></text>
-			</view>
-		</view> -->
+
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<view v-for="(item, index) in dataList" :key="index" class="list-item" @tap="handleDetail()">
 					<view class="list-between">
 						<view class="item-content">
-							<text>费用类型：{{ item.feecategory }}</text>
+							<text>费用类型：{{ item.feecategory ||'' }}</text>
 						</view>
 						<view class="item-content2">
 							<text>付款账号：{{item.payaccountname}}</text>

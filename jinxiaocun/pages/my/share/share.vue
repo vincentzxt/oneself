@@ -10,6 +10,7 @@
 			<view class="uni-uploader" style="padding:15upx; background:#FFF;"><image class="uni-uploader__img" v-if="image" :src="image"></image></view>
 			<!-- #ifdef MP -->
 			<view class="uni-btn-v uni-common-mt"><button type="primary" style="background-color: #2d8cf0;" open-type="share" >分享</button></view>
+			<view class="uni-btn-v uni-common-mt" style="padding-top: 36upx;"><button type="primary" style="background-color: #2d8cf0;" @tap="handleMyshare" >我的分享</button></view>
 			<!-- #endif -->
 		</view>
 	</view>
@@ -117,6 +118,11 @@ export default {
 				delta: 1
 			});
 		},
+		handleMyshare(){
+			uni.navigateTo({
+				url:'./myshare'
+			})
+		},
 		loadData(){
 			tokenpost(api.GetCurrentActivity).then(res => {
 				console.log(res);
@@ -155,6 +161,9 @@ export default {
 		height: 90%;
 		padding: 0 15upx;
 		background-color: #ffffff;
+		.uni-title{
+			padding: 16upx 0upx;
+		}
 		.uni-textarea{
 			margin:10upx 0;
 			padding: 10upx;

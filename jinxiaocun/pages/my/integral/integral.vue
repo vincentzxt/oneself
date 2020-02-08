@@ -145,76 +145,25 @@ export default {
 				break;
 			}
 		},
-		
-		handleSubmit() {
-			let data = this.$refs.checkbox.get();	// 组件返回的数据
-		    console.log("发起支付:"+data.value);
-		    this.loading = true;
-		    uni.login({
-		        success: (e) => {
-		            console.log("login success", e);
-		            uni.request({
-		                url: `https://unidemo.dcloud.net.cn/payment/wx/mp?code=${e.code}&amount=${data.value}`,
-		                success: (res) => {
-		                    console.log("pay request success", res);
-		                    if (res.statusCode !== 200) {
-		                        uni.showModal({
-		                            content: "支付失败，请重试！",
-		                            showCancel: false
-		                        });
-		                        return;
-		                    }
-		                    if (res.data.ret === 0) {
-		                        console.log("得到接口prepay_id", res.data.payment);
-		                        let paymentData = res.data.payment;
-		                        uni.requestPayment({
-		                            timeStamp: paymentData.timeStamp,
-		                            nonceStr: paymentData.nonceStr,
-		                            package: paymentData.package,
-		                            signType: 'MD5',
-		                            paySign: paymentData.paySign,
-		                            success: (res) => {
-		                                uni.showToast({
-		                                    title: "感谢您的赞助!"
-		                                })
-		                            },
-		                            fail: (res) => {
-		                                uni.showModal({
-		                                    content: "支付失败,原因为: " + res
-		                                        .errMsg,
-		                                    showCancel: false
-		                                })
-		                            },
-		                            complete: () => {
-		                                this.loading = false;
-		                            }
-		                        })
-		                    } else {
-		                        uni.showModal({
-		                            content: res.data.desc,
-		                            showCancel: false
-		                        })
-		                    }
-		                },
-		                fail: (e) => {
-		                    console.log("fail", e);
-		                    this.loading = false;
-		                    uni.showModal({
-		                        content: "支付失败,原因为: " + e.errMsg,
-		                        showCancel: false
-		                    })
-		                }
-		            })
-		        },
-		        fail: (e) => {
-		            console.log("fail", e);
-		            this.loading = false;
-		            uni.showModal({
-		                content: "支付失败,原因为: " + e.errMsg,
-		                showCancel: false
-		            })
-		        }
-		    })
+		handleSubmit(){
+			let data = this.$refs.checkbox.get();
+			if(!data){
+				this.$api.msg("请选择要兑换的产品!");
+				return;
+			}
+			const sendData ={productid:data.productid};
+			tokenpost(api.IntegralExchange,sendData).then(res => {
+				if (res.status == 200 && res.data.returnCode == '0000') {
+					this.$api.msg("兑换成功！");
+					uni.$emit('changecompany',{'msg':'company变化了'});
+				} else {
+					this.$api.msg(res.data.returnMessage);
+				}
+			})
+			.catch(error => {
+				this.$api.msg('请求失败fail');
+			});
+			
 		},
 		loadProduct(){
 			this.$refs.loading.open();

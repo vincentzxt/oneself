@@ -35,8 +35,10 @@ export const api = {
 	UploadImg:'/api/BseUser/UploadImg',
 	GetMyDayLogList:'/api/BseUser/GetMyDayLogList',
 	GetOrderList:'/api/SysOrder/GetMyOrderList',
+	IntegralExchange:'/api/BseUser/IntegralExchange',
 	GetCurrentActivity:'/api/SysActivity/GetCurrentActivity',
-	GetSmsCode:'',
+	SysOrderQueryResult:'/api/BseUser/SysOrderQueryResult',
+	GetSmsCode:'/api/SysMessage/SendVerificationCode',
 	GetProductList:'/api/SysProduct/GetProductList'
 	
 }
