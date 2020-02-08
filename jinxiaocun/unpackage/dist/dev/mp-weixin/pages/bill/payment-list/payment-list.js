@@ -434,6 +434,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       this.search_startDate = val.search_startDate;
       this.search_endDate = val.search_endDate;
       this.order_name = this.orderList[val.order_index].value;
+      this.search_value = val.search_value;
       this.order_type = val.order_type;
       this.dataList = [];
       this.pageIndex = 0;
@@ -462,6 +463,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         orderName: this.order_name,
         orderType: this.order_type,
         beginttime: this.search_startDate,
+        contactunitname: this.search_value,
         endtime: this.search_endDate };
 
       (0, _bills.query)(_common.api.capPayment, senddata).

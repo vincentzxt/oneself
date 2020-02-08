@@ -360,5 +360,6 @@ textarea.data-v-02334104, input.data-v-02334104 {
 }
 .user_bottom .logout_btn.data-v-02334104 {
     background-color: #ffffff;
+    padding: 8rpx;
 }
 

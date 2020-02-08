@@ -26,7 +26,7 @@
     height: 64px;
 }
 .login .con.data-v-475765c6 {
-    padding: 10px 16px;
+    padding: 10rpx 16rpx;
 }
 .login input.data-v-475765c6::-webkit-input-placeholder {
     color: #d2d2d2;

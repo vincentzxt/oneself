@@ -402,7 +402,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       pageIndex: 0,
       pageRows: 15,
       title: '费用单据',
-      searchName: '客户名称',
+      searchName: '付款账号',
       billtype: 1,
       totalAmount: '0.00',
       totalRecords: '0',
@@ -436,6 +436,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       this.search_endDate = val.search_endDate;
       this.order_name = this.orderList[val.order_index].value;
       this.order_type = val.order_type;
+      this.search_value = val.search_value;
       this.dataList = [];
       this.pageIndex = 0;
       this.loadMore = 'more';
@@ -463,7 +464,8 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         orderName: this.order_name,
         orderType: this.order_type,
         beginttime: this.search_startDate,
-        endtime: this.search_endDate };
+        endtime: this.search_endDate,
+        feecategory: this.search_value };
 
       (0, _bills.query)(_common.api.capFee, senddata).
       then(function (res) {

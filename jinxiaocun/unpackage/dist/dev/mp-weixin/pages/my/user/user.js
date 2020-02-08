@@ -201,7 +201,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
     },
     handleEdit: function handleEdit(val) {
       uni.navigateTo({
-        url: '/pages/my/user/useredit' });
+        url: '/pages/my/user/useredit?userid=' + val });
 
 
     },

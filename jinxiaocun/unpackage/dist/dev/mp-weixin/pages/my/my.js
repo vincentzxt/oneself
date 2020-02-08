@@ -388,7 +388,8 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         companyname: '',
         expiredate: '',
         daycount: 0,
-        ordercount: '0' } };
+        ordercount: '0',
+        ismain: 0 } };
 
 
   },
@@ -431,7 +432,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         return;
       }
       uni.navigateTo({
-        url: '/pages/my/account/recharge' });
+        url: '/pages/my/recharge/recharge' });
 
     },
     handleUserManage: function handleUserManage() {
@@ -452,13 +453,13 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         url: '/pages/my/givetime' });
 
     },
-    handleMyorder: function handleMyorder() {
+    handleIntegral: function handleIntegral() {
       if (!this.login_status) {
         this.$api.login();
         return;
       }
       uni.navigateTo({
-        url: '/pages/my/myorder' });
+        url: '/pages/my/integral/integral' });
 
     },
     handleShare: function handleShare() {

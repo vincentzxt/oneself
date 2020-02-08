@@ -200,6 +200,9 @@ var _default2 =
       } else {
         this.$emit('clickCell');
       }
+    },
+    handleTitle: function handleTitle() {
+      this.$emit('clickTitle');
     } } };exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

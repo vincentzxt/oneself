@@ -26,7 +26,7 @@
     height: 64px;
 }
 .login .con.data-v-6f3928ca {
-    padding: 10px 16px;
+    padding: 24rpx 16rpx;
 }
 .login .con_02.data-v-6f3928ca {
     border-bottom: 2rpx solid #f7f7f7;
