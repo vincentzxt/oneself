@@ -95,5 +95,6 @@
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  }
+  },
+  "sitemapLocation": "sitemap14.json"
 }

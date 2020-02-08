@@ -7,32 +7,41 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell-group>
-						<cu-cell title="产品名称">
-							<input slot="footer" type="text" v-model="reqData.productname" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称"/>
-						</cu-cell>
-						<cu-cell title="产品速查码">
-							<input slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="用于开单快速搜索"/>
-						</cu-cell>
-						<cu-cell title="建议零售价">
-							<input slot="footer" type="digit" v-model="reqData.price" placeholder-style="color:#c5c8ce" placeholder="请输入建议零售价"/>
-						</cu-cell>
-						<cu-cell title="产品分类" isLink url="../type/type" params="name=type">
-							<text slot="footer">{{reqData.productcategory}}</text>
-						</cu-cell>
-						<cu-cell title="主计量单位" :value="reqData.unit" isLink url="../unit/unit" params="name=unit">
-							<text slot="footer">{{reqData.unit}}</text>
-						</cu-cell>
-						<cu-cell v-if="reqData.unit" title="辅计量单位" isLink url="../unit/unit" params="name=subunit">
-							<text slot="footer">{{reqData.subunit}}</text>
-						</cu-cell>
-						<cu-cell v-if="reqData.unit && reqData.subunit" title="计量单位倍率">
-							<input slot="footer" type="digit" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="请输入计量单位倍率"/>
-						</cu-cell>
-						<cu-cell title="库存预警数量">
-							<input slot="footer" type="digit" v-model="reqData.warningStockQty" placeholder-style="color:#c5c8ce" placeholder="0"/>
-						</cu-cell>
-					</cu-cell-group>
+					<cu-cell title="产品名称">
+						<input slot="footer" type="text" v-model="reqData.productname" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称"/>
+					</cu-cell>
+					<cu-cell title="产品速查码">
+						<input slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="用于开单快速搜索"/>
+					</cu-cell>
+					<cu-cell title="建议零售价">
+						<input slot="footer" type="digit" v-model="reqData.price" placeholder-style="color:#c5c8ce" placeholder="请输入建议零售价"/>
+					</cu-cell>
+					<cu-cell title="产品分类" isLink url="../type/type" params="name=type">
+						<text slot="footer">{{reqData.productcategory}}</text>
+					</cu-cell>
+					<cu-cell title="主计量单位" :value="reqData.unit" isLink url="../unit/unit" params="name=unit">
+						<text slot="footer">{{reqData.unit}}</text>
+					</cu-cell>
+					<cu-cell v-if="reqData.unit" title="多计量">
+						<switch slot="footer" color="#2db7f5" @change="handleMultiUnitSwitch"/>
+					</cu-cell>
+					<cu-cell v-if="isMultiUnit" title="辅计量单位" isLink url="../unit/unit" params="name=subunit">
+						<text slot="footer">{{reqData.subunit}}</text>
+					</cu-cell>
+					<cu-cell v-if="isMultiUnit && reqData.subunit" title="计量单位转换率">
+						<view slot="footer" class="unitmultiple-wrap">
+							<view class="unitmultiple-wrap-content1">
+								<text>1{{reqData.subunit}} = </text>
+							</view>
+							<view class="unitmultiple-wrap-content2">
+								<input class="unitmultiple-wrap-content2-input" type="digit" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="0"/>
+								<text>{{reqData.unit}}</text>
+							</view>
+						</view>
+					</cu-cell>
+					<cu-cell title="库存预警数量" isLastCell>
+						<input slot="footer" type="digit" v-model="reqData.warningStockQty" placeholder-style="color:#c5c8ce" placeholder="0"/>
+					</cu-cell>
 				</cu-panel>
 			</scroll-view>
 		</view>
@@ -70,7 +79,8 @@
 					warningStockQty: '',
 					remarks: '',
 				},
-				disableSubmit: true
+				disableSubmit: true,
+				isMultiUnit: false
 			}
 		},
 		onShow() {
@@ -79,10 +89,10 @@
 			if (curPage.data.rData) {
 				if (curPage.data.rData.key == 'type') {
 					this.reqData.productcategory = curPage.data.rData.value
-				} else if(curPage.data.rName == 'unit') {
-					this.reqData.unit = curPage.data.datas.name
-				} else if (curPage.data.rName == 'subunit') {
-					this.reqData.subunit = curPage.data.datas.name
+				} else if(curPage.data.rData.key == 'unit') {
+					this.reqData.unit = curPage.data.rData.value
+				} else if (curPage.data.rData.key == 'subUnit') {
+					this.reqData.subunit = curPage.data.rData.value
 				}
 			}
 		},
@@ -99,6 +109,9 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			handleMultiUnitSwitch(val) {
+				this.isMultiUnit = val.detail.value
 			},
 			handleSubmit() {
 				create(api.baseProduct, this.reqData).then(res => {
@@ -158,6 +171,21 @@
 			margin-top: 5px;
 			.cu-form-group .title {
 				min-width: calc(6em + 30px);
+			}
+			.unitmultiple-wrap {
+				display: flex;
+				align-items: center;
+				&-content2 {
+					display: flex;
+					align-items: center;
+					margin-left: 5px;
+					&-input {
+						width: 70px;
+						border: 0.5px solid $uni-border-color;
+						text-align: center;
+						margin-right: 5px;
+					}
+				}
 			}
 		}
 		.footer {

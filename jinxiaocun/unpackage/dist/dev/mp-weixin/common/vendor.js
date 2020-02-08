@@ -10932,91 +10932,6 @@ module.exports = function mergeConfig(config1, config2) {
 
 /***/ }),
 
-/***/ 502:
-/*!**********************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _sale$cost$purchase$p;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_sale$cost$purchase$p = {
-  'sale': "\uE622",
-  'cost': "\uE604",
-  'purchase': "\uE887",
-  'purchase-fill': "\uE888",
-  'early-stage': "\uE640",
-  'inventory': "\uE67F",
-  'stock': "\uE88F",
-  'stock-fill': "\uE890",
-  'customer': "\uE8A8",
-  'customer-fill': "\uE8A9",
-  'multiple': "\uE8B5",
-  'multiple-fill': "\uE8B4",
-  'search': "\uE8B8",
-  'home': "\uE8BA",
-  'home-fill': "\uE8B9",
-  'user': "\uE8C8",
-  'user-fill': "\uE8C9",
-  'profile': "\uE8CA",
-  'add': "\uE8E1",
-  'back': "\uE8EF",
-  'arrow': "\uE8F1",
-  'arrow-down': "\uE8F2",
-  'arrow-up': "\uE8F5",
-  'location': "\uE8FE",
-  'location-fill': "\uE8FF",
-  'data': "\uE902",
-  'data-fill': "\uE905",
-  'phone': "\uE8BD",
-  'mobile': "\uE8DC",
-  'product': "\uE8A1",
-  'product-fill': "\uE8A0",
-  'finance': "\uE8AF",
-  'finance-fill': "\uE8AE",
-  'edit': "\uE8CC",
-  'edit-fill': "\uE8CD",
-  'refresh': "\uE8FC",
-  'delete': "\uE775",
-  'email': "\uE60F",
-  'company': "\uEDB4",
-  'contacts': "\uE605",
-  'classify': "\uE898",
-  'classify-fill': "\uE897",
-  'unit': "\uE8A3",
-  'unit-fill': "\uE8A2",
-  'receipt': "\uE668",
-  'payment': "\uE691",
-  'return-order': "\uE6FE",
-  'chart-line': "\uE906",
-  'chart-column': "\uE904",
-  'yujing': "\uE8ED",
-  'yujing-fill': "\uE8EC",
-  'rexiao': "\uE606",
-  'zhixiao': "\uE607",
-  'circle': "\uE601",
-  'type': "\uE625",
-  'shoukuan': "\uE62D",
-  'fukuan': "\uE602" }, _defineProperty(_sale$cost$purchase$p, "yujing",
-"\uE639"), _defineProperty(_sale$cost$purchase$p,
-'fenxi', "\uE623"), _defineProperty(_sale$cost$purchase$p,
-'c-phone', "\uE6CB"), _defineProperty(_sale$cost$purchase$p,
-'c-position', "\uE611"), _defineProperty(_sale$cost$purchase$p,
-'c-search', "\uE736"), _defineProperty(_sale$cost$purchase$p,
-'c-search-log', "\uE631"), _defineProperty(_sale$cost$purchase$p,
-'c-home', "\uE610"), _defineProperty(_sale$cost$purchase$p,
-'c-email', "\uE626"), _defineProperty(_sale$cost$purchase$p,
-'c-right', "\uE69E"), _defineProperty(_sale$cost$purchase$p,
-'c-type', "\uE655"), _defineProperty(_sale$cost$purchase$p,
-'c-unit', "\uE630"), _defineProperty(_sale$cost$purchase$p,
-'c-print', "\uE68B"), _defineProperty(_sale$cost$purchase$p,
-'c-contacts', "\uE61C"), _defineProperty(_sale$cost$purchase$p,
-'c-discount', "\uE62F"), _defineProperty(_sale$cost$purchase$p,
-'c-amount', "\uE621"), _defineProperty(_sale$cost$purchase$p,
-'c-product', "\uE7A6"), _sale$cost$purchase$p);exports.default = _default;
-
-/***/ }),
-
 /***/ 51:
 /*!********************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/cancel/Cancel.js ***!
@@ -11112,6 +11027,92 @@ CancelToken.source = function source() {
 };
 
 module.exports = CancelToken;
+
+/***/ }),
+
+/***/ 526:
+/*!**********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _sale$cost$purchase$p;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_sale$cost$purchase$p = {
+  'sale': "\uE622",
+  'cost': "\uE604",
+  'purchase': "\uE887",
+  'purchase-fill': "\uE888",
+  'early-stage': "\uE640",
+  'inventory': "\uE67F",
+  'stock': "\uE88F",
+  'stock-fill': "\uE890",
+  'customer': "\uE8A8",
+  'customer-fill': "\uE8A9",
+  'multiple': "\uE8B5",
+  'multiple-fill': "\uE8B4",
+  'search': "\uE8B8",
+  'home': "\uE8BA",
+  'home-fill': "\uE8B9",
+  'user': "\uE8C8",
+  'user-fill': "\uE8C9",
+  'profile': "\uE8CA",
+  'add': "\uE8E1",
+  'back': "\uE8EF",
+  'arrow': "\uE8F1",
+  'arrow-down': "\uE8F2",
+  'arrow-up': "\uE8F5",
+  'location': "\uE8FE",
+  'location-fill': "\uE8FF",
+  'data': "\uE902",
+  'data-fill': "\uE905",
+  'phone': "\uE8BD",
+  'mobile': "\uE8DC",
+  'product': "\uE8A1",
+  'product-fill': "\uE8A0",
+  'finance': "\uE8AF",
+  'finance-fill': "\uE8AE",
+  'edit': "\uE8CC",
+  'edit-fill': "\uE8CD",
+  'refresh': "\uE8FC",
+  'delete': "\uE775",
+  'email': "\uE60F",
+  'company': "\uEDB4",
+  'contacts': "\uE605",
+  'classify': "\uE898",
+  'classify-fill': "\uE897",
+  'unit': "\uE8A3",
+  'unit-fill': "\uE8A2",
+  'receipt': "\uE668",
+  'payment': "\uE691",
+  'return-order': "\uE6FE",
+  'chart-line': "\uE906",
+  'chart-column': "\uE904",
+  'yujing': "\uE8ED",
+  'yujing-fill': "\uE8EC",
+  'rexiao': "\uE606",
+  'zhixiao': "\uE607",
+  'circle': "\uE601",
+  'type': "\uE625",
+  'shoukuan': "\uE62D",
+  'fukuan': "\uE602" }, _defineProperty(_sale$cost$purchase$p, "yujing",
+"\uE639"), _defineProperty(_sale$cost$purchase$p,
+'fenxi', "\uE623"), _defineProperty(_sale$cost$purchase$p,
+'tb-change', "\uEB09"), _defineProperty(_sale$cost$purchase$p,
+'c-phone', "\uE6CB"), _defineProperty(_sale$cost$purchase$p,
+'c-position', "\uE611"), _defineProperty(_sale$cost$purchase$p,
+'c-search', "\uE736"), _defineProperty(_sale$cost$purchase$p,
+'c-search-log', "\uE631"), _defineProperty(_sale$cost$purchase$p,
+'c-home', "\uE610"), _defineProperty(_sale$cost$purchase$p,
+'c-email', "\uE626"), _defineProperty(_sale$cost$purchase$p,
+'c-right', "\uE69E"), _defineProperty(_sale$cost$purchase$p,
+'c-type', "\uE655"), _defineProperty(_sale$cost$purchase$p,
+'c-unit', "\uE630"), _defineProperty(_sale$cost$purchase$p,
+'c-print', "\uE68B"), _defineProperty(_sale$cost$purchase$p,
+'c-contacts', "\uE61C"), _defineProperty(_sale$cost$purchase$p,
+'c-discount', "\uE62F"), _defineProperty(_sale$cost$purchase$p,
+'c-amount', "\uE621"), _defineProperty(_sale$cost$purchase$p,
+'c-product', "\uE7A6"), _sale$cost$purchase$p);exports.default = _default;
 
 /***/ }),
 
@@ -11366,19 +11367,46 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.queryProductCategory = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.createProductUnit = exports.createProductCategory = exports.queryProductCategory = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var queryProductCategory = function queryProductCategory(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return _http.default.request({
-    url: url + '/queryProductCategory',
+    url: url + '/QueryProductCategory',
     data: data,
     method: 'post' });
 
 };exports.queryProductCategory = queryProductCategory;
 
+var createProductCategory = function createProductCategory(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/CreateProductCategory',
+    data: data,
+    method: 'post' });
+
+};exports.createProductCategory = createProductCategory;
+
+var createProductUnit = function createProductUnit(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/CreateProductUnit',
+    data: data,
+    method: 'post' });
+
+};exports.createProductUnit = createProductUnit;
+
 /***/ }),
 
-/***/ 585:
+/***/ 6:
+/*!******************************************************!*\
+  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
+  \******************************************************/
+/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
+/***/ (function(module) {
+
+module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2.0.0-alpha-25120200103005","_inBundle":false,"_integrity":"sha512-nYoIrRV2e5o/vzr6foSdWi3Rl2p0GuO+LPY3JctyY6uTKgPnuH99d7aL/QQdJ1SacQjBWO+QGK1qankN7oyrWw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@alpha","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"alpha","saveSpec":null,"fetchSpec":"alpha"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-alpha-25120200103005.tgz","_shasum":"a77a63481f36474f3e86686868051219d1bb12df","_spec":"@dcloudio/uni-stat@alpha","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/alpha/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"6be187a3dfe15f95dd6146d9fec08e1f81100987","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-alpha-25120200103005"};
+
+/***/ }),
+
+/***/ 609:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/province.js ***!
   \****************************************************************************************************************/
@@ -11532,7 +11560,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 586:
+/***/ 610:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/city.js ***!
   \************************************************************************************************************/
@@ -13050,7 +13078,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 587:
+/***/ 611:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/area.js ***!
   \************************************************************************************************************/
@@ -25609,17 +25637,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 6:
-/*!******************************************************!*\
-  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
-  \******************************************************/
-/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
-/***/ (function(module) {
-
-module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2.0.0-alpha-25120200103005","_inBundle":false,"_integrity":"sha512-nYoIrRV2e5o/vzr6foSdWi3Rl2p0GuO+LPY3JctyY6uTKgPnuH99d7aL/QQdJ1SacQjBWO+QGK1qankN7oyrWw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@alpha","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"alpha","saveSpec":null,"fetchSpec":"alpha"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-alpha-25120200103005.tgz","_shasum":"a77a63481f36474f3e86686868051219d1bb12df","_spec":"@dcloudio/uni-stat@alpha","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/alpha/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"6be187a3dfe15f95dd6146d9fec08e1f81100987","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-alpha-25120200103005"};
-
-/***/ }),
-
 /***/ 66:
 /*!*******************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/utils/tools.js ***!
@@ -25646,7 +25663,7 @@ var cloneObj = function cloneObj(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item", "cu-loading": "/components/custom/cu-loading" }, "usingAutoImportComponents": {} }, "pages/index/sale/sale": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/sale/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/purchase/purchase": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/purchase/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true, "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "simple-address": "/components/simple-address/simple-address" }, "usingAutoImportComponents": {} }, "pages/index/current-unit/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "simple-address": "/components/simple-address/simple-address" }, "usingAutoImportComponents": {} }, "pages/index/product/product": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-drawer": "/components/uni-drawer/uni-drawer" }, "usingAutoImportComponents": {} }, "pages/index/product/add/add": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/product/edit/edit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/product/type/type": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/product/unit/unit": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group" }, "usingAutoImportComponents": {} }, "pages/index/receipt/receipt": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/payment/payment": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/cost/cost": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/return-order/return-order": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/return-order/payment/payment": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/index/return-order/orders/orders": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-collapse": "/components/uni-collapse/uni-collapse", "uni-collapse-item": "/components/uni-collapse-item/uni-collapse-item" }, "usingAutoImportComponents": {} }, "pages/index/early-stage/early-stage": { "usingComponents": { "cu-search-bar": "/components/custom/cu-search-bar", "uni-popup": "/components/uni-popup/uni-popup", "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/index/inventory/inventory": { "usingComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-drawer": "/components/uni-drawer/uni-drawer" }, "usingAutoImportComponents": {} }, "pages/index/inventory/add/add": { "usingComponents": { "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/bill/bill": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell" }, "usingAutoImportComponents": {} }, "pages/bill/stock-list/stock-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/data/data": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/my": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/login/login": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/set": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "image-cropper": "/components/invinbg-image-cropper/invinbg-image-cropper" }, "usingAutoImportComponents": {} }, "pages/my/login/reg": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/login/forget": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/account/accountadd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/myorder": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/user/user": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/user/useradd": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/user/useredit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/account/accountlist": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell" }, "usingAutoImportComponents": {} }, "pages/my/account/recharge": { "usingComponents": { "helang-checkbox": "/components/helang-checkbox/helang-checkbox" }, "usingAutoImportComponents": {} }, "pages/my/login/editPassword": { "usingComponents": { "uni-icon": "/components/uni-icon/uni-icon" }, "usingAutoImportComponents": {} }, "pages/my/givetime": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/share/share": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/my/account/accountedit": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/my/account/accountdetail": { "usingComponents": { "cu-panel": "/components/custom/cu-panel", "cu-cell": "/components/custom/cu-cell", "cu-cell-group": "/components/custom/cu-cell-group", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": {} }, "pages/bill/sell-list/sell-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/sell-list/sell-detail": { "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "cu-loading": "/components/custom/cu-loading" }, "usingAutoImportComponents": {} }, "pages/bill/purchase-list/purchase-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/payment-list/payment-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/receipt-list/receipt-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/fee-list/fee-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/sell-red-list/sell-red-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/purchase-red-list/purchase-red-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/inventory-list/inventory-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/begin-list/begin-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/earlywarn-list/earlywarn-list": { "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-icon": "/components/uni-icon/uni-icon", "xw-date": "/components/xw-date/xw-date" }, "usingAutoImportComponents": {} }, "pages/bill/purchase-list/purchase-detail": {}, "pages/bill/sell-red-list/sell-detail": {}, "pages/bill/purchase-red-list/purchase-detail": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/index/inventory/add/add": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/myorder": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/account/recharge": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/bill/sell-list/sell-list": {}, "pages/bill/sell-list/sell-detail": {}, "pages/bill/purchase-list/purchase-list": {}, "pages/bill/purchase-list/purchase-detail": {}, "pages/bill/payment-list/payment-list": {}, "pages/bill/receipt-list/receipt-list": {}, "pages/bill/fee-list/fee-list": {}, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/sell-red-list/sell-detail": {}, "pages/bill/purchase-red-list/purchase-red-list": {}, "pages/bill/purchase-red-list/purchase-detail": {}, "pages/bill/inventory-list/inventory-list": {}, "pages/bill/begin-list/begin-list": {}, "pages/bill/earlywarn-list/earlywarn-list": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 
