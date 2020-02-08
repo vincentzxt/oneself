@@ -31,12 +31,10 @@
     "pages/my/login/reg",
     "pages/my/login/forget",
     "pages/my/account/accountadd",
-    "pages/my/myorder",
     "pages/my/user/user",
     "pages/my/user/useradd",
     "pages/my/user/useredit",
     "pages/my/account/accountlist",
-    "pages/my/account/recharge",
     "pages/my/login/editPassword",
     "pages/my/givetime",
     "pages/my/share/share",
@@ -55,7 +53,9 @@
     "pages/bill/purchase-red-list/purchase-detail",
     "pages/bill/inventory-list/inventory-list",
     "pages/bill/begin-list/begin-list",
-    "pages/bill/earlywarn-list/earlywarn-list"
+    "pages/bill/earlywarn-list/earlywarn-list",
+    "pages/my/integral/integral",
+    "pages/my/recharge/recharge"
   ],
   "subPackages": [],
   "window": {

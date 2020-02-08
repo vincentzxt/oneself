@@ -183,6 +183,7 @@
 								cancelColor: '#2d8cf0',
 						    success: function (res) {
 						        if (res.confirm) {
+											this.reqData.contactunitid = ''
 											this.reqData.contactunitname = val.value
 											this.reqData.telephone = ' '
 											this.$refs.sc.cancel()
@@ -293,6 +294,9 @@
 				})
 			},
 			handleNext() {
+				if (this.reqData.telephone == ' ') {
+					this.reqData.telephone = ''
+				}
 				uni.navigateTo({
 					url: './payment/payment?reqData='+JSON.stringify(this.reqData)
 				})
@@ -319,7 +323,7 @@
 			},
 			reqData: {
 				handler(val) {
-					if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
+					if (val.contactunitname && val.productList.length > 0 && val.totalPrice) {
 						if (val.productList.some((item) => {
 							return item.purchaseunitprice == 0
 						})) {

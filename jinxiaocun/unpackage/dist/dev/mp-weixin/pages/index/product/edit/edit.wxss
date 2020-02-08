@@ -33,9 +33,6 @@
     -webkit-align-items: center;
             align-items: center;
 }
-.container .main .unit-wrap-content.data-v-79ca71b2 {
-      width: 90%;
-}
 .container .main .unit-wrap-change.data-v-79ca71b2 {
       display: -webkit-box;
       display: -webkit-flex;

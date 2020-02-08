@@ -25,6 +25,26 @@
 .container .main .cu-form-group .title.data-v-595bdc6b {
     min-width: calc(6em + 30px);
 }
+.container .main .unit-wrap.data-v-595bdc6b {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+}
+.container .main .unit-wrap-change.data-v-595bdc6b {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+              justify-content: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      width: 10%;
+}
 .container .main .unitmultiple-wrap.data-v-595bdc6b {
     display: -webkit-box;
     display: -webkit-flex;

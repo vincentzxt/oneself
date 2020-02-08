@@ -343,6 +343,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
             cancelColor: '#2d8cf0',
             success: function (res) {
               if (res.confirm) {
+                this.reqData.contactunitid = '';
                 this.reqData.contactunitname = val.value;
                 this.reqData.telephone = ' ';
                 this.$refs.sc.cancel();
@@ -453,6 +454,9 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
       });
     },
     handleNext: function handleNext() {
+      if (this.reqData.telephone == ' ') {
+        this.reqData.telephone = '';
+      }
       uni.navigateTo({
         url: './payment/payment?reqData=' + JSON.stringify(this.reqData) });
 
@@ -479,7 +483,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);var cuSearchBar = f
 
     reqData: {
       handler: function handler(val) {
-        if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
+        if (val.contactunitname && val.productList.length > 0 && val.totalPrice) {
           if (val.productList.some(function (item) {
             return item.purchaseunitprice == 0;
           })) {

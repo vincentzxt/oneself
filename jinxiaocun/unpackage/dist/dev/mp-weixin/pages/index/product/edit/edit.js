@@ -188,16 +188,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
 var _common = __webpack_require__(/*! @/api/common.js */ 22);
 var _common2 = __webpack_require__(/*! @/config/common.js */ 56);
 var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 557));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 564));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 592));};var _default =
@@ -222,8 +212,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         warningStockQty: 0,
         remarks: '' },
 
-      disableSubmit: true,
-      isMultiUnit: false };
+      disableSubmit: true };
 
   },
   onLoad: function onLoad(options) {
@@ -266,13 +255,12 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         delta: 1 });
 
     },
-    handleMultiUnitSwitch: function handleMultiUnitSwitch(val) {
-      this.isMultiUnit = val.detail.value;
-    },
     handleUnitChange: function handleUnitChange() {
-      var tmp = this.reqData.unit;
-      this.reqData.unit = this.reqData.subunit;
-      this.reqData.subunit = tmp;
+      if (this.reqData.unit && this.reqData.subunit) {
+        var tmp = this.reqData.unit;
+        this.reqData.unit = this.reqData.subunit;
+        this.reqData.subunit = tmp;
+      }
     },
     handleSubmit: function handleSubmit() {
       (0, _common.update)(_common2.api.baseProduct, this.reqData).then(function (res) {

@@ -188,7 +188,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 557));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 564));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 592));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 571));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 578));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 557));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 564));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 592));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 571));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 578));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -207,6 +208,8 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
           payaccountid: '',
           payaccountName: '',
           contactunitid: '',
+          contactunitname: '',
+          telephone: '',
           amount: 0.00,
           isprint: 0,
           discountamount: '' },
@@ -222,6 +225,8 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
     if (options) {
       var data = JSON.parse(options.reqData);
       this.reqData.order.contactunitid = data.contactunitid;
+      this.reqData.order.contactunitname = data.contactunitname;
+      this.reqData.order.telephone = data.telephone;
       this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2);
       this.tmpAmount = this.reqData.order.amount;
       this.reqData.orderlist = data.productList;
@@ -280,15 +285,27 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
       (0, _common2.create)(_common.api.purPurchaseOrder, this.reqData).then(function (res) {
         _this2.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
-          uni.showToast({
-            icon: 'success',
-            title: '提交成功' });
+          _business.default.getCurrentUnit().then(function (res) {
+            uni.showToast({
+              icon: 'success',
+              title: '提交成功' });
 
-          setTimeout(function () {
-            uni.navigateBack({
-              delta: 1 });
+            setTimeout(function () {
+              uni.navigateBack({
+                delta: 1 });
 
-          }, 500);
+            }, 500);
+          }).catch(function (err) {
+            uni.showToast({
+              icon: 'success',
+              title: '提交成功' });
+
+            setTimeout(function () {
+              uni.navigateBack({
+                delta: 1 });
+
+            }, 500);
+          });
         } else {
           uni.showToast({
             icon: 'none',
