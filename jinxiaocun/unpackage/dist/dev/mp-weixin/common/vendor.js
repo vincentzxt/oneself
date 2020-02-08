@@ -11037,7 +11037,45 @@ module.exports = CancelToken;
 
 /***/ }),
 
-/***/ 526:
+/***/ 53:
+/*!*********************************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/spread.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+               * Syntactic sugar for invoking a function and expanding an array for arguments.
+               *
+               * Common use case would be to use `Function.prototype.apply`.
+               *
+               *  ```js
+               *  function f(x, y, z) {}
+               *  var args = [1, 2, 3];
+               *  f.apply(null, args);
+               *  ```
+               *
+               * With `spread` this example can be re-written.
+               *
+               *  ```js
+               *  spread(function(x, y, z) {})([1, 2, 3]);
+               *  ```
+               *
+               * @param {Function} callback
+               * @returns {Function}
+               */
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+/***/ }),
+
+/***/ 534:
 /*!**********************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
   \**********************************************************************************************/
@@ -11120,44 +11158,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 'c-discount', "\uE62F"), _defineProperty(_sale$cost$purchase$p,
 'c-amount', "\uE621"), _defineProperty(_sale$cost$purchase$p,
 'c-product', "\uE7A6"), _sale$cost$purchase$p);exports.default = _default;
-
-/***/ }),
-
-/***/ 53:
-/*!*********************************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/node_modules/axios/lib/helpers/spread.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-               * Syntactic sugar for invoking a function and expanding an array for arguments.
-               *
-               * Common use case would be to use `Function.prototype.apply`.
-               *
-               *  ```js
-               *  function f(x, y, z) {}
-               *  var args = [1, 2, 3];
-               *  f.apply(null, args);
-               *  ```
-               *
-               * With `spread` this example can be re-written.
-               *
-               *  ```js
-               *  spread(function(x, y, z) {})([1, 2, 3]);
-               *  ```
-               *
-               * @param {Function} callback
-               * @returns {Function}
-               */
-module.exports = function spread(callback) {
-  return function wrap(arr) {
-    return callback.apply(null, arr);
-  };
-};
 
 /***/ }),
 
@@ -11364,8 +11364,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   UploadImg: '/api/BseUser/UploadImg',
   GetMyDayLogList: '/api/BseUser/GetMyDayLogList',
   GetOrderList: '/api/SysOrder/GetMyOrderList',
+  IntegralExchange: '/api/BseUser/IntegralExchange',
   GetCurrentActivity: '/api/SysActivity/GetCurrentActivity',
-  GetSmsCode: '',
+  SysOrderQueryResult: '/api/BseUser/SysOrderQueryResult',
+  GetSmsCode: '/api/SysMessage/SendVerificationCode',
   GetProductList: '/api/SysProduct/GetProductList' };exports.api = api;
 
 /***/ }),
@@ -11417,7 +11419,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 
 /***/ }),
 
-/***/ 609:
+/***/ 617:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/province.js ***!
   \****************************************************************************************************************/
@@ -11571,7 +11573,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 610:
+/***/ 618:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/city.js ***!
   \************************************************************************************************************/
@@ -13089,7 +13091,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 611:
+/***/ 619:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/area.js ***!
   \************************************************************************************************************/
@@ -25674,7 +25676,7 @@ var cloneObj = function cloneObj(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/index/inventory/add/add": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/bill/sell-list/sell-list": {}, "pages/bill/sell-list/sell-detail": {}, "pages/bill/purchase-list/purchase-list": {}, "pages/bill/purchase-list/purchase-detail": {}, "pages/bill/payment-list/payment-list": {}, "pages/bill/receipt-list/receipt-list": {}, "pages/bill/fee-list/fee-list": {}, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/sell-red-list/sell-detail": {}, "pages/bill/purchase-red-list/purchase-red-list": {}, "pages/bill/purchase-red-list/purchase-detail": {}, "pages/bill/inventory-list/inventory-list": {}, "pages/bill/begin-list/begin-list": {}, "pages/bill/earlywarn-list/earlywarn-list": {}, "pages/my/integral/integral": {}, "pages/my/recharge/recharge": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/index/inventory/add/add": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {}, "pages/data/data": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/bill/sell-list/sell-list": {}, "pages/bill/sell-list/sell-detail": {}, "pages/bill/purchase-list/purchase-list": {}, "pages/bill/purchase-list/purchase-detail": {}, "pages/bill/payment-list/payment-list": {}, "pages/bill/receipt-list/receipt-list": {}, "pages/bill/fee-list/fee-list": {}, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/sell-red-list/sell-detail": {}, "pages/bill/purchase-red-list/purchase-red-list": {}, "pages/bill/purchase-red-list/purchase-detail": {}, "pages/bill/inventory-list/inventory-list": {}, "pages/bill/begin-list/begin-list": {}, "pages/bill/earlywarn-list/earlywarn-list": {}, "pages/my/integral/integral": {}, "pages/my/recharge/recharge": {}, "pages/my/share/myshare": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 

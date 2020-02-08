@@ -150,6 +150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _user = __webpack_require__(/*! @/api/user.js */ 271);
 var _common = __webpack_require__(/*! @/config/common.js */ 56); //
 //
@@ -167,8 +168,8 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56); //
 //
 //
 //
-var _default = { data: function data() {return { title: '分享', userId: 0, shareText: '微账通，邀请你一起体验！', href: '', image: 'http://allchain.oss-cn-shanghai.aliyuncs.com/uploads/20190521/f57ebce8a72b823912904fe76eda0909.png', shareType: 1, providerList: [], dataList: {} };}, computed: { isDisableButton: function isDisableButton() {return function (item) {
-        if (this.shareType === 0 && item.id === 'qq') {
+//
+var _default = { data: function data() {return { title: '分享', userId: 0, shareText: '微账通，邀请你一起体验！', href: '', image: 'http://allchain.oss-cn-shanghai.aliyuncs.com/uploads/20190521/f57ebce8a72b823912904fe76eda0909.png', shareType: 1, providerList: [], dataList: {} };}, computed: { isDisableButton: function isDisableButton() {return function (item) {if (this.shareType === 0 && item.id === 'qq') {
           return true;
         }
         if (this.shareType === 5 && item.name !== '分享到微信好友') {
@@ -250,6 +251,11 @@ var _default = { data: function data() {return { title: '分享', userId: 0, sha
     handleNavbarClickLeft: function handleNavbarClickLeft() {
       uni.navigateBack({
         delta: 1 });
+
+    },
+    handleMyshare: function handleMyshare() {
+      uni.navigateTo({
+        url: './myshare' });
 
     },
     loadData: function loadData() {var _this2 = this;

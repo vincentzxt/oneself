@@ -55,7 +55,8 @@
     "pages/bill/begin-list/begin-list",
     "pages/bill/earlywarn-list/earlywarn-list",
     "pages/my/integral/integral",
-    "pages/my/recharge/recharge"
+    "pages/my/recharge/recharge",
+    "pages/my/share/myshare"
   ],
   "subPackages": [],
   "window": {
@@ -96,5 +97,5 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
   },
-  "sitemapLocation": "sitemap22.json"
+  "sitemapLocation": "sitemap52.json"
 }

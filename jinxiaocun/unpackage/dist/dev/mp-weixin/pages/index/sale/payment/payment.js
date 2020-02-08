@@ -188,7 +188,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 557));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 564));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 571));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 578));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 565));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 572));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 579));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 586));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -200,14 +200,14 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     return {
       title: '销售收款',
       reqData: {
-        contactunitname: '',
-        telephone: '',
         order: {
           billtype: 1,
           isOnCredit: 0,
           accountid: '',
           accountName: '',
           contactunitid: '',
+          contactunitname: '',
+          telephone: '',
           amount: 0.00,
           isprint: 0,
           discountamount: '' },
@@ -223,8 +223,8 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     if (options) {
       var data = JSON.parse(options.reqData);
       this.reqData.order.contactunitid = data.contactunitid;
-      this.reqData.contactunitname = data.contactunitname;
-      this.reqData.telephone = data.telephone;
+      this.reqData.order.contactunitname = data.contactunitname;
+      this.reqData.order.telephone = data.telephone;
       this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2);
       this.tmpAmount = this.reqData.order.amount;
       this.reqData.orderlist = data.productList;

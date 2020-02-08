@@ -65,14 +65,14 @@
 			return {
 				title: '销售收款',
 				reqData: {
-					contactunitname: '',
-					telephone: '',
 					order: {
 						billtype: 1,
 						isOnCredit: 0,
 						accountid: '',
 						accountName: '',
 						contactunitid: '',
+						contactunitname: '',
+						telephone: '',
 						amount: 0.00,
 						isprint: 0,
 						discountamount: ''
@@ -88,8 +88,8 @@
 			if (options) {
 				let data = JSON.parse(options.reqData)
 				this.reqData.order.contactunitid = data.contactunitid
-				this.reqData.contactunitname = data.contactunitname
-				this.reqData.telephone = data.telephone
+				this.reqData.order.contactunitname = data.contactunitname
+				this.reqData.order.telephone = data.telephone
 				this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2)
 				this.tmpAmount = this.reqData.order.amount
 				this.reqData.orderlist = data.productList

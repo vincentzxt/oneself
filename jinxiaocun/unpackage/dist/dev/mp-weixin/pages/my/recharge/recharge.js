@@ -383,7 +383,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _user = __webpack_require__(/*! @/api/user.js */ 271);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 571));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 578));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 642));};var WucTab = function WucTab() {return __webpack_require__.e(/*! import() | components/wuc-tab/wuc-tab */ "components/wuc-tab/wuc-tab").then(__webpack_require__.bind(null, /*! @/components/wuc-tab/wuc-tab.vue */ 663));};var helangCheckbox = function helangCheckbox() {return __webpack_require__.e(/*! import() | components/helang-checkbox/helang-checkbox */ "components/helang-checkbox/helang-checkbox").then(__webpack_require__.bind(null, /*! @/components/helang-checkbox/helang-checkbox.vue */ 677));};var _default =
+var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 579));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 586));};var uniLoadMore = function uniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more/uni-load-more */ "components/uni-load-more/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 650));};var WucTab = function WucTab() {return __webpack_require__.e(/*! import() | components/wuc-tab/wuc-tab */ "components/wuc-tab/wuc-tab").then(__webpack_require__.bind(null, /*! @/components/wuc-tab/wuc-tab.vue */ 671));};var helangCheckbox = function helangCheckbox() {return __webpack_require__.e(/*! import() | components/helang-checkbox/helang-checkbox */ "components/helang-checkbox/helang-checkbox").then(__webpack_require__.bind(null, /*! @/components/helang-checkbox/helang-checkbox.vue */ 685));};var _default =
 
 
 {
@@ -461,98 +461,101 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
 
     },
 
-    handleSubmit: function handleSubmit() {var _this = this;
-      var data = this.$refs.checkbox.get(); // 组件返回的数据
-      console.log("发起支付:" + data.value);
-      this.loading = true;
-      uni.login({
-        success: function success(e) {
-          console.log("login success", e);
-          uni.request({
-            url: "https://unidemo.dcloud.net.cn/payment/wx/mp?code=".concat(e.code, "&amount=").concat(data.value),
-            success: function success(res) {
-              console.log("pay request success", res);
-              if (res.statusCode !== 200) {
-                uni.showModal({
-                  content: "支付失败，请重试！",
-                  showCancel: false });
-
-                return;
-              }
-              if (res.data.ret === 0) {
-                console.log("得到接口prepay_id", res.data.payment);
-                var paymentData = res.data.payment;
-                uni.requestPayment({
-                  timeStamp: paymentData.timeStamp,
-                  nonceStr: paymentData.nonceStr,
-                  package: paymentData.package,
-                  signType: 'MD5',
-                  paySign: paymentData.paySign,
-                  success: function success(res) {
-                    uni.showToast({
-                      title: "感谢您的赞助!" });
-
-                  },
-                  fail: function fail(res) {
-                    uni.showModal({
-                      content: "支付失败,原因为: " + res.
-                      errMsg,
-                      showCancel: false });
-
-                  },
-                  complete: function complete() {
-                    _this.loading = false;
-                  } });
-
-              } else {
-                uni.showModal({
-                  content: res.data.desc,
-                  showCancel: false });
-
-              }
-            },
-            fail: function fail(e) {
-              console.log("fail", e);
-              _this.loading = false;
-              uni.showModal({
-                content: "支付失败,原因为: " + e.errMsg,
-                showCancel: false });
-
-            } });
-
-        },
-        fail: function fail(e) {
-          console.log("fail", e);
-          _this.loading = false;
-          uni.showModal({
-            content: "支付失败,原因为: " + e.errMsg,
-            showCancel: false });
-
-        } });
-
-    },
-    loadProduct: function loadProduct() {var _this2 = this;
+    // handleSubmit() {
+    // 	let data = this.$refs.checkbox.get();	// 组件返回的数据
+    //     console.log("发起支付:"+data.value);
+    //     this.loading = true;
+    //     uni.login({
+    //         success: (e) => {
+    //             console.log("login success", e);
+    //             uni.request({
+    //                 url: `https://unidemo.dcloud.net.cn/payment/wx/mp?code=${e.code}&amount=${data.value}`,
+    //                 success: (res) => {
+    //                     console.log("pay request success", res);
+    //                     if (res.statusCode !== 200) {
+    //                         uni.showModal({
+    //                             content: "支付失败，请重试！",
+    //                             showCancel: false
+    //                         });
+    //                         return;
+    //                     }
+    //                     if (res.data.ret === 0) {
+    //                         console.log("得到接口prepay_id", res.data.payment);
+    //                         let paymentData = res.data.payment;
+    //                         uni.requestPayment({
+    //                             timeStamp: paymentData.timeStamp,
+    //                             nonceStr: paymentData.nonceStr,
+    //                             package: paymentData.package,
+    //                             signType: 'MD5',
+    //                             paySign: paymentData.paySign,
+    //                             success: (res) => {
+    //                                 uni.showToast({
+    //                                     title: "感谢您的赞助!"
+    //                                 })
+    //                             },
+    //                             fail: (res) => {
+    //                                 uni.showModal({
+    //                                     content: "支付失败,原因为: " + res
+    //                                         .errMsg,
+    //                                     showCancel: false
+    //                                 })
+    //                             },
+    //                             complete: () => {
+    //                                 this.loading = false;
+    //                             }
+    //                         })
+    //                     } else {
+    //                         uni.showModal({
+    //                             content: res.data.desc,
+    //                             showCancel: false
+    //                         })
+    //                     }
+    //                 },
+    //                 fail: (e) => {
+    //                     console.log("fail", e);
+    //                     this.loading = false;
+    //                     uni.showModal({
+    //                         content: "支付失败,原因为: " + e.errMsg,
+    //                         showCancel: false
+    //                     })
+    //                 }
+    //             })
+    //         },
+    //         fail: (e) => {
+    //             console.log("fail", e);
+    //             this.loading = false;
+    //             uni.showModal({
+    //                 content: "支付失败,原因为: " + e.errMsg,
+    //                 showCancel: false
+    //             })
+    //         }
+    //     })
+    // },
+    loadProduct: function loadProduct() {var _this = this;
       this.$refs.loading.open();
       var senddata = {
         pageIndex: 1,
         pageRows: -1 };
 
       (0, _user.tokenpost)(_common.api.GetProductList, senddata).then(function (res) {
-        _this2.$refs.loading.close();
+        _this.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this2.productList = res.data.data.resultList;
-          console.log(_this2.productList);
+          _this.productList = res.data.data.resultList;
+          console.log(_this.productList);
         } else {
-          _this2.$api.msg(res.data.returnMessage);
+          _this.$api.msg(res.data.returnMessage);
         }
       }).
       catch(function (error) {
-        _this2.loadmore = 'more',
-        _this2.$refs.loading.close();
-        _this2.$api.msg('请求失败fail');
+        _this.loadmore = 'more',
+        _this.$refs.loading.close();
+        _this.$api.msg('请求失败fail');
       });
     },
-    loadData: function loadData() {var _this3 = this;
+    handleSubmit: function handleSubmit() {
+      var data = this.$refs.checkbox.get();
+    },
+    loadData: function loadData() {var _this2 = this;
       this.loadmore = 'loading';
       this.$refs.loading.open();
       var senddata = {
@@ -560,26 +563,26 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         pageRows: this.pageRows };
 
       (0, _user.tokenpost)(_common.api.GetOrderList, senddata).then(function (res) {
-        _this3.$refs.loading.close();
+        _this2.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
           if (res.data.data.resultList.length === 0) {
-            _this3.loadmore = "noMore";
+            _this2.loadmore = "noMore";
             return;
           } else {
-            _this3.dataList = _this3.dataList.concat(res.data.data.resultList);
-            _this3.pageIndex = _this3.pageIndex + 1;
-            _this3.loadmore = "more";
+            _this2.dataList = _this2.dataList.concat(res.data.data.resultList);
+            _this2.pageIndex = _this2.pageIndex + 1;
+            _this2.loadmore = "more";
           }
 
         } else {
-          _this3.loadmore = 'more',
-          _this3.$api.msg(res.data.returnMessage);
+          _this2.loadmore = 'more',
+          _this2.$api.msg(res.data.returnMessage);
         }
       }).
       catch(function (error) {
-        _this3.loadmore = 'more',
-        _this3.$refs.loading.close();
-        _this3.$api.msg('请求失败fail');
+        _this2.loadmore = 'more',
+        _this2.$refs.loading.close();
+        _this2.$api.msg('请求失败fail');
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
