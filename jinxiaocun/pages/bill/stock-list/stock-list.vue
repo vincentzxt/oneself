@@ -4,20 +4,6 @@
 			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
 		<xw-date title="null" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
-	<!-- 	<view class="total">
-			<view class="total-item"><text>总订单</text><text>{{totalRecords}}</text></view><view class="total-item"><text>总金额</text><text>{{totalAmount}}</text></view><view class="total-item"><text>毛利</text><text>{{totalAmount}}</text></view>
-		</view> -->
-<!-- 		<view class="list-header"  v-if="dataList.length>0">
-			<view class="item-content">
-				<text>客户名称</text>
-			</view>
-			<view class="item-content2">
-				<text>金额</text>
-			</view>
-			<view class="item-content3">
-				<text></text>
-			</view>
-		</view> -->
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<view v-for="(item, index) in dataList" :key="index" class="list-item2"  @tap="handleDetail()">

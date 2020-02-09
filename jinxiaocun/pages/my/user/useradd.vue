@@ -129,10 +129,6 @@ export default {
 				this.$api.msg('手机号码不正确！');
 				return;
 			}
-			if (email.length == 0) {
-				this.$api.msg('电子邮箱不能为空！');
-				return;
-			}
 			if (roleid == 0) {
 				this.$api.msg('角色不能为空！');
 				return;

@@ -1,26 +1,28 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
+			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
 		<xw-date title="销售日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
-			<view class="total-item"><text>总订单</text><text>{{totalRecords}}</text></view><view class="total-item"><text>总金额</text><text>{{totalAmount}}</text></view><view class="total-item"><text>毛利</text><text>{{totalGrossProfit}}</text></view>
+			<view class="total-item">
+				<text>{{ totalRecords }}</text>
+				<text>总订单</text>
+				
+			</view>
+			<view class="total-item">
+				<text>{{ totalAmount }}</text>
+				<text>总金额</text>
+			</view>
+			<view class="total-item">
+				<text>{{ totalGrossProfit }}</text>
+				<text>毛利</text>
+			</view>
 		</view>
-	<!-- 	<view class="list-header"  v-if="dataList.length>0">
-			<view class="item-content">
-				<text>客户名称</text>
-			</view>
-			<view class="item-content2">
-				<text>金额</text>
-			</view>
-			<view class="item-content3">
-				<text></text>
-			</view>
-		</view> -->
+
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
-				<view v-for="(item, index) in dataList" :key="index" class="list-item"  @tap="handleDetail(item.salesorderid)">
+				<view v-for="(item, index) in dataList" :key="index" class="list-item" @tap="handleDetail(item.salesorderid)">
 					<view class="list-between">
 						<view class="item-content">
 							<text>客户名称：{{ item.contactunitname }}</text>
@@ -42,20 +44,20 @@
 				<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
 			</scroll-view>
 		</view>
-		
+
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
 <script>
-import uniIcon from "@/components/uni-icon/uni-icon.vue";
+import uniIcon from '@/components/uni-icon/uni-icon.vue';
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { query } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
-import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
-import xwDate from "@/components/xw-date/xw-date.vue";
+import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
+import xwDate from '@/components/xw-date/xw-date.vue';
 
 export default {
 	components: {
@@ -74,46 +76,50 @@ export default {
 		const day = day_short < 10 ? '0' + day_short : day_short;
 		const nowDate = year + '-' + month + '-' + day;
 		return {
-			loadmore:'more',
+			loadmore: 'more',
 			pageIndex: 0,
 			pageRows: 15,
 			title: '销售单据',
-			searchName:'客户名称',
-			billtype:1,
-			totalAmount:'0.00',
-			totalRecords:'0',
-			totalGrossProfit:'0',
+			searchName: '客户名称',
+			billtype: 1,
+			totalAmount: '0.00',
+			totalRecords: '0',
+			totalGrossProfit: '0',
 			dataList: [],
-			search_startDate:nowDate,
-			search_endDate:nowDate,
-			order_name:'',
-			order_type:0,
-			search_value:'',
-			orderList:[{name:'销售日期',value:'createtime'},{name:'金额',value:'amount'}]
+			search_startDate: nowDate,
+			search_endDate: nowDate,
+			order_name: '',
+			order_type: 0,
+			search_value: '',
+			orderList: [{ name: '销售日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
 		};
 	},
-	onLoad() {this.loadData();},
-	onShow() {console.log(this.search_startDate);},
+	onLoad() {
+		this.loadData();
+	},
+	onShow() {
+		console.log(this.search_startDate);
+	},
 	onPullDownRefresh() {
-			this.dataList=[];
-			this.pageIndex = 0;
-			this.loadMore='more';
-	        this.loadData();
-	        setTimeout(function () {
-	            uni.stopPullDownRefresh();
-	        }, 1000);
-	    },
+		this.dataList = [];
+		this.pageIndex = 0;
+		this.loadMore = 'more';
+		this.loadData();
+		setTimeout(function() {
+			uni.stopPullDownRefresh();
+		}, 1000);
+	},
 	methods: {
-		handle_data_sub(val){
+		handle_data_sub(val) {
 			console.log(val);
 			this.search_startDate = val.search_startDate;
 			this.search_endDate = val.search_endDate;
 			this.order_name = this.orderList[val.order_index].value;
 			this.order_type = val.order_type;
 			this.search_value = val.search_value;
-			this.dataList=[];
+			this.dataList = [];
 			this.pageIndex = 0;
-			this.loadMore='more';
+			this.loadMore = 'more';
 			this.loadData();
 		},
 		handleRefreshPage() {
@@ -124,49 +130,45 @@ export default {
 				delta: 1
 			});
 		},
-		handleDetail(val){
+		handleDetail(val) {
 			uni.navigateTo({
-				url:'sell-detail?id='+val
-			})
+				url: 'sell-detail?id=' + val
+			});
 		},
 		loadData() {
-			this.loadmore = 'loading',
-			this.$refs.loading.open();
+			(this.loadmore = 'loading'), this.$refs.loading.open();
 			const senddata = {
-				pageIndex: this.pageIndex+1,
+				pageIndex: this.pageIndex + 1,
 				pageRows: this.pageRows,
-				billtype:this.billtype,
-				orderName:this.order_name,
-				orderType:this.order_type,
-				beginttime:this.search_startDate,
-				endtime:this.search_endDate,
-				contactunitname:this.search_value
+				billtype: this.billtype,
+				orderName: this.order_name,
+				orderType: this.order_type,
+				beginttime: this.search_startDate,
+				endtime: this.search_endDate,
+				contactunitname: this.search_value
 			};
 			console.log(senddata);
 			query(api.salesOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						if(res.data.data.resultList.length ===0){
-							this.loadmore = "noMore"
+						if (res.data.data.resultList.length === 0) {
+							this.loadmore = 'noMore';
 							return;
-						}else{
-							this.dataList =this.dataList.concat(res.data.data.resultList);
+						} else {
+							this.dataList = this.dataList.concat(res.data.data.resultList);
 							this.totalAmount = res.data.data.totalAmount;
 							this.totalRecords = res.data.data.pageInfo.totalRecords;
 							this.totalGrossProfit = res.data.data.totalGrossProfit;
-							this.pageIndex = this.pageIndex+1 ;
-							this.loadmore = "more"
+							this.pageIndex = this.pageIndex + 1;
+							this.loadmore = 'more';
 						}
-						
 					} else {
-						this.loadmore = 'more',
-						this.$api.msg(res.data.returnMessage);
+						(this.loadmore = 'more'), this.$api.msg(res.data.returnMessage);
 					}
 				})
 				.catch(error => {
-					this.loadmore = 'more',
-					this.$refs.loading.close();
+					(this.loadmore = 'more'), this.$refs.loading.close();
 					this.$api.msg('请求失败fail');
 				});
 		}
@@ -174,5 +176,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../bill.scss";
+@import '../bill.scss';
 </style>

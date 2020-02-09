@@ -88,6 +88,7 @@ export default {
 			TabCur: 0,
 			content_show_id:0,
 			dataList: [],
+			ordertype:'1,2',
 			tabList: [{ name: '续费' }, { name: '我的订单' }],
 			OrderStatusList:['待支付','已支付'],
 			PayTypeList:{
@@ -244,7 +245,8 @@ export default {
 			this.$refs.loading.open();
 			const senddata = {
 				pageIndex: this.pageIndex+1,
-				pageRows: this.pageRows
+				pageRows: this.pageRows,
+				ordertype:this.ordertype
 			};
 			tokenpost(api.GetOrderList,senddata).then(res => {
 				this.$refs.loading.close();

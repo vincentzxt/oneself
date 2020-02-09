@@ -162,6 +162,9 @@
 			"path": "pages/bill/begin-list/begin-list"
 		},
 		{
+			"path": "pages/bill/begin-list/begin-detail"
+		},
+		{
 			"path": "pages/bill/earlywarn-list/earlywarn-list"
 		}, {
 			"path": "pages/my/integral/integral",
@@ -172,6 +175,10 @@
 		}
 	    ,{
             "path" : "pages/my/share/myshare",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/inventory-list/inventory-detail",
             "style" : {}
         }
     ],

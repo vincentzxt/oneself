@@ -1,3 +1,4 @@
+<template>
 	<view class="container">
 		<view class="header">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
@@ -5,23 +6,19 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<uni-list>
-					<uni-list-item title="客户名称" :show-arrow="false" show-text="true" :content="dataList.contactunitname"></uni-list-item>
+					<uni-list-item title="订单编号" :show-arrow="false" show-text="true" :content="id"></uni-list-item>
 					<uni-list-item title="下单时间" :show-arrow="false" show-text="true" :content="dataList.createtime"></uni-list-item>
-					<uni-list-item title="总金额" :show-arrow="false" show-text="true" :content="dataList.amount"></uni-list-item>
-					<uni-list-item title="优惠金额" :show-arrow="false" show-text="true" :content="dataList.discountamount"></uni-list-item>
+					<uni-list-item title="盘点人" :show-arrow="false" show-text="true" :content="dataList.realname"></uni-list-item>
+				<uni-list-item title="盘亏数量" :show-arrow="false" show-text="true" :content="dataList.totalQty1 || '0'"></uni-list-item>
+				<uni-list-item title="盘盈数量" :show-arrow="false" show-text="true" :content="dataList.totalQty2 || '0'"></uni-list-item>
 				</uni-list>
 				<view v-for="(item, index) in dataList.detailModels" :key="index" class="detail-item">
 					<view class="list-between">
 						<view class="item-content">
 							<text>商品名称：{{ item.productname }}</text>
 						</view> 
-					</view>
-					<view class="list-between">
 						<view class="item-content2">
-							<text>总数量：{{ item.qty }}{{ item.unit }}</text>
-						</view>
-						<view class="item-content3">
-							<text>总金额：¥{{ item.purchaseamount }}</text>
+							<text>盘亏/盘盈：{{item.chanegeqty}}</text>
 						</view>
 					</view>
 				</view>
@@ -34,7 +31,7 @@
 <script>
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
-import { get } from '@/api/bills.js';
+import { getinventory } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
@@ -45,7 +42,7 @@ export default {
 	},
 	data() {
 		return {
-			title: '采购详情',
+			title: '盘点详情',
 			id:0,
 			dataList:{}
 		};
@@ -72,7 +69,7 @@ export default {
 			const senddata = {
 				id:this.id
 			};
-			get(api.purPurchaseOrder, senddata)
+			getinventory(api.stkStock, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
@@ -126,7 +123,7 @@ export default {
 				font-size: $uni-font-size-sm;
 				// justify-content: spac;
 				.item-content {
-					flex: 1;
+					flex: 2;
 					line-height: 60upx;
 					width: 0;
 					white-space: nowrap;

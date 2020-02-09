@@ -8,12 +8,12 @@
 		<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
-				<view class="item-content1">客户名称：{{item.companyname}}</view>
-				<view class="item-content2">类型：</view>
+				<view class="item-content1">客户名称：{{item.companyName }}</view>
+				<view class="item-content2">类型：{{item.sourcetype}}</view>
 			</view>
 			<view class="list-between">
-				<view  class="item-content1">时间：{{item. createtime}}</view>
-				<view  class="item-content2">积分：{{item.daycount}}天</view>
+				<view  class="item-content1">时间：{{item.createtime}}</view>
+				<view  class="item-content2">积分：{{item.integral}}</view>
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
@@ -77,7 +77,7 @@ export default {
 				pageIndex: this.pageIndex+1,
 				pageRows: this.pageRows
 			};
-			tokenpost(api.SysOrderQueryResult,senddata).then(res => {
+			tokenpost(api.GetMyPromotIntegralList,senddata).then(res => {
 				this.$refs.loading.close();
 				if (res.status == 200 && res.data.returnCode == '0000') {
 					if(res.data.data.resultList.length ===0){

@@ -6,28 +6,28 @@
 		<xw-date title="盘点日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
 			<view class="total-item">
-				<text>总单据数</text>
 				<text>{{ totalRecords }}</text>
+				<text>总单据数</text>
 			</view>
 			<view class="total-item">
+				<text>{{ totalQty1 }}</text>
 				<text>盘亏总数</text>
-				<text>{{ totalAmount }}</text>
 			</view>
 			<view class="total-item">
+				<text>{{ totalQty2 }}</text>
 				<text>盘盈总数</text>
-				<text>{{ totalAmount }}</text>
 			</view>
 		</view>
 	
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
-				<view v-for="(item, index) in dataList" :key="index" class="list-item" @tap="handleDetail(item.salesorderid)">
+				<view v-for="(item, index) in dataList" :key="index" class="list-item" @tap="handleDetail(item.inventoryorderid)">
 					<view class="list-between">
 						<view class="item-content">
 							<text>订单编号：{{ item.inventoryorderid }}</text>
 						</view>
 						<view class="item-content2">
-							<text>盘盈数量：{{ item.totalqty || 0 }}</text>
+							<text>盘盈数量：{{ item.totalQty2 || 0 }}</text>
 						</view>
 					</view>
 					<view class="list-between">
@@ -35,7 +35,7 @@
 							<text>日期：{{ item.createtime }}</text>
 						</view>
 						<view class="item-content2">
-							<text>盘亏数量：{{ item.amount || 0 }}</text>
+							<text>盘亏数量：{{ item.totalQty1 || 0 }}</text>
 						</view>
 					</view>
 				</view>
@@ -82,6 +82,8 @@ export default {
 			searchName: '名称',
 			totalAmount: '0.00',
 			totalRecords: '0',
+			totalQty1:0,
+			totalQty2:0,
 			totalGrossProfit: '0',
 			dataList: [],
 			search_startDate: nowDate,
@@ -130,7 +132,7 @@ export default {
 		},
 		handleDetail(val){
 			uni.navigateTo({
-				url:'sell-detail?id='+val
+				url:'inventory-detail?id='+val
 			})
 		},
 		loadData() {
@@ -155,7 +157,8 @@ export default {
 							this.dataList = this.dataList.concat(res.data.data.resultList);
 							this.totalAmount = res.data.data.totalAmount;
 							this.totalRecords = res.data.data.pageInfo.totalRecords;
-							this.totalGrossProfit = res.data.data.totalGrossProfit;
+							this.totalQty1 = res.data.data.totalQty1;
+							this.totalQty2 = res.data.data.totalQty2;
 							this.pageIndex = this.pageIndex + 1;
 							this.loadmore = 'more';
 						}

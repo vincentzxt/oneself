@@ -172,10 +172,6 @@
 					this.$api.msg('手机号码不正确！');
 					return;
 				}
-				if (email.length== 0) {
-					this.$api.msg('电子邮箱不能为空！');
-					return;
-				}
 				var sendData={};
 				if(password==""){
 					sendData ={userid,loginname, realname, telephone, email,roleid};

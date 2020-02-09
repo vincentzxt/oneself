@@ -77,8 +77,9 @@ export default {
 			TabCur: 0,
 			content_show_id:0,
 			dataList: [],
-			tabList: [{ name: '续费' }, { name: '我的兑换' }],
+			tabList: [{ name: '兑换' }, { name: '我的兑换' }],
 			OrderStatusList:['待支付','已支付'],
+			ordertype:3,
 			PayTypeList:{
 				'0': '',
 				'1': '银行账号',
@@ -117,7 +118,6 @@ export default {
 			switch (val){
 				case 0:
 					this.content_show_id = 0
-					
 					this.$refs.checkbox.set({
 						type:'radio',		// 类型：复选框
 						column:2,				// 分列：3
@@ -160,7 +160,8 @@ export default {
 			this.$refs.loading.open();
 			const senddata = {
 				pageIndex: 1,
-				pageRows: -1
+				pageRows: -1,
+				ordertype:this.ordertype
 			};
 			tokenpost(api.GetProductList,senddata).then(res => {
 				this.$refs.loading.close();

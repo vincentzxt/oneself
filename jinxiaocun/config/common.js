@@ -38,7 +38,7 @@ export const api = {
 	GetOrderList:'/api/SysOrder/GetMyOrderList',
 	IntegralExchange:'/api/BseUser/IntegralExchange',
 	GetCurrentActivity:'/api/SysActivity/GetCurrentActivity',
-	SysOrderQueryResult:'/api/BseUser/SysOrderQueryResult',
+	GetMyPromotIntegralList :'/api/BseUser/GetMyPromotIntegralList',
 	GetSmsCode:'/api/SysMessage/SendVerificationCode',
 	GetProductList:'/api/SysProduct/GetProductList'
 	
