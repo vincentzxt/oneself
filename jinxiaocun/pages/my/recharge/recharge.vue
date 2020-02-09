@@ -129,7 +129,6 @@ export default {
 			switch (val){
 				case 0:
 					this.content_show_id = 0
-					
 					this.$refs.checkbox.set({
 						type:'radio',		// 类型：复选框
 						column:2,				// 分列：3
