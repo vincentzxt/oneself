@@ -8,12 +8,12 @@
 		<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 		<view v-for="(item,index) in dataList" :key="index" class="list-item">
 			<view class="list-between">
-				<view><text>客户名称：</text><text>{{item.source}}</text></view>
-				<view><text>赠送类型：</text><text>{{item.daycount}}天</text></view>
+				<view class="item-content1">客户名称：{{item.companyname}}</view>
+				<view class="item-content2">类型：</view>
 			</view>
 			<view class="list-between">
-				<view><text>时间：</text><text>{{item.source}}</text></view>
-				<view><text>积分：</text><text>{{item.source}}</text></view>
+				<view  class="item-content1">时间：{{item. createtime}}</view>
+				<view  class="item-content2">积分：{{item.daycount}}天</view>
 			</view>
 		</view>
 		<view class="no_data" v-if="dataList.length===0"><text class="item_text">暂无数据</text></view>
@@ -168,8 +168,8 @@ export default {
 	.list-between {
 		display: flex;
 		flex-direction: row;
-		// justify-content: spac;
-		.item-content {
+		//justify-content: space-around;
+		.item-content1 {
 			flex: 2;
 			font-size: $uni-font-size-min;
 			line-height: 60upx;

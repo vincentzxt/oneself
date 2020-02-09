@@ -15,9 +15,9 @@
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#cccccc"></uni-icon></view>
 				<view class="con_02_r"><input v-model="password" password="true" class="uni-input" placeholder="请输入密码" style="height: 35px;background-color: #fff;"/></view> 
 			</view>
-			<!-- <view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;" >
+			<view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;" >
 				<view @click="forget_action()">忘记密码？</view>
-			</view> -->
+			</view>
 	
 			<view class="user_bottom">
 				<button type="primary" class="send_btn" :loading="loading" @tap="handleLogin">登录</button>

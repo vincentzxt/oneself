@@ -27,29 +27,17 @@
 						</view>
 						<view class="list-between">
 							<view>
-								订单金额：
-								<text>¥{{ item.orderamount }}</text>
-							</view>
-							<text class="payment" v-bind:class="item.orderstatus == 0 ? 'payment-blue' : 'payment-green'">{{ OrderStatusList[item.orderstatus] }}</text>
-						</view>
-						<view class="list-between">
-							<view>
-								付款类型：
-								<text>{{ PayTypeList[item.paytype] }}</text>
+								兑换积分：
+								<text>{{ item.orderamount }}</text>
 							</view>
 							<view>
-								购买时长：
+								兑换时长：
 								<text>{{ item.daycount }}天</text>
 							</view>
 						</view>
 						<view class="list-between">
 							<view class="list_bottom_box_item">
-								<text>下单时间：{{ item.createtime }}</text>
-							</view>
-						</view>
-						<view class="list-between">
-							<view class="list_bottom_box_item">
-								<text>付款时间：{{ item.paysuccesstime || '' }}</text>
+								<text>兑换时间：{{ item.createtime }}</text>
 							</view>
 						</view>
 					</view>
@@ -108,7 +96,7 @@ export default {
 		// 	list:this.list	// 列表数据
 		// });
 		this.pickerIndex = 3;
-		// //this.loadData();
+		this.loadData();
 		this.loadProduct();
 	},
 	onShow(){
@@ -155,6 +143,9 @@ export default {
 			tokenpost(api.IntegralExchange,sendData).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
 					this.$api.msg("兑换成功！");
+					this.pageIndex = 0;
+					this.loadData();
+					this.TabCur=1;
 					uni.$emit('changecompany',{'msg':'company变化了'});
 				} else {
 					this.$api.msg(res.data.returnMessage);
@@ -231,7 +222,7 @@ export default {
 		height: 10%;
 	}
 	.main {
-		font-size: $uni-font-size-base;
+		font-size: $uni-font-size-sm;
 		height: 90%;
 		padding: 15upx;
 		.content{

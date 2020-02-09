@@ -21,7 +21,7 @@
 						</view>
 						<view class="list-between">
 							<view>
-								商名名称：
+								商品名称：
 								<text>{{ item.ordertitle }}</text>
 							</view>
 						</view>
@@ -107,7 +107,7 @@ export default {
 		// 	list:this.list	// 列表数据
 		// });
 		this.pickerIndex = 3;
-		// //this.loadData();
+		this.loadData();
 		this.loadProduct();
 	},
 	onShow(){
@@ -284,7 +284,7 @@ export default {
 		height: 10%;
 	}
 	.main {
-		font-size: $uni-font-size-base;
+		font-size: $uni-font-size-sm;
 		height: 90%;
 		padding: 15upx;
 		.content{

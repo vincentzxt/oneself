@@ -14,12 +14,17 @@
 					<cu-cell title="确认密码">
 						<input slot="footer" type="text" v-model="reqData.re_password" placeholder-style="color:#c5c8ce" placeholder="请再次输入密码" />
 					</cu-cell>
+					<cu-cell title="账号角色" isLink>
+						<view slot="footer" style="width:100%;">
+							<picker @change="handleRoleChanage" value='1' :range="rolelist" range-key='rolename'>
+								<view class="main-picker">
+									<text v-if="rolename==''" style="color:#c5c8ce">请选择角色</text>
+									<text v-else>{{rolename}}</text>
+								</view>
+							</picker>
+						</view>
+					</cu-cell>
 				</cu-panel>
-				<view style="padding: 16upx;">	<radio-group @change="handleRoleChanage" class="uni-list-cell">
-				<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in rolelist" :key="item.roleid">
-				<view><radio color="#2db7f5" :value="item.roleid" />{{ item.rolename }}</radio></view></label>
-				</radio-group>
-				</view>
 			</scroll-view>
 		</view>
 		<view class="footer"><button class="footer-btn" style="background-color: #2d8cf0;" :loading="loading" type="primary" @click="handleSubmit">提交</button></view>
@@ -54,6 +59,7 @@ export default {
 				re_password: '',
 				roleid: 0
 			},
+			rolename:'',
 			rolelist: [],
 			loading: false,
 			title: '增加账号'
@@ -67,8 +73,10 @@ export default {
 			this.reqData.sex = val.detail.value;
 		},
 		handleRoleChanage(val) {
-			this.reqData.roleid = val.detail.value;
+			this.reqData.roleid = this.rolelist[val.detail.value].roleid;
+			this.rolename = this.rolelist[val.detail.value].rolename;
 			console.log(this.reqData.roleid);
+			//console.log(this.reqData.roleid);
 		},
 		handleNavbarClickLeft() {
 			uni.navigateBack({

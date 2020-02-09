@@ -19,6 +19,7 @@ export const api = {
 	token: '/api/Token',
 	login: '/api/BseUser/Login',
 	ChangePassword:'/api/BseUser/ChangePassword',
+	ResetPassword:'/api/BseUser/ResetPassword',
 	Regist:'/api/BseUser/Regist',
 	GetUserInfo:'/api/BseUser/GetUserInfo',
 	GetUserInfoByUserId:'/api/BseUser/GetUserInfoByUserId',
