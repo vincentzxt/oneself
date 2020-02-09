@@ -54,6 +54,7 @@
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import { api } from '@/config/common.js'
 	import { query, create } from '@/api/common.js'
+	import getGlobalData from '@/utils/business.js'
 	export default {
 		components: {
 			cuPanel,
@@ -72,6 +73,8 @@
 						payaccountid: '',
 						payaccountName: '',
 						contactunitid: '',
+						contactunitname: '',
+						telephone: '',
 						amount: 0.00,
 						isprint: 0,
 						discountamount: ''
@@ -87,6 +90,8 @@
 			if (options) {
 				let data = JSON.parse(options.reqData)
 				this.reqData.order.contactunitid = data.contactunitid
+				this.reqData.order.contactunitname = data.contactunitname
+				this.reqData.order.telephone = data.telephone
 				this.reqData.order.amount = parseFloat(data.totalPrice).toFixed(2)
 				this.tmpAmount = this.reqData.order.amount
 				this.reqData.orderlist = data.productList
@@ -145,15 +150,27 @@
 				create(api.purPurchaseOrder, this.reqData).then(res => {
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						uni.showToast({
-							icon: 'success',
-							title: '提交成功'
-						})
-						setTimeout(()=>{
-							uni.navigateBack({
-								delta: 1
+						getGlobalData.getCurrentUnit().then(res => {
+							uni.showToast({
+								icon: 'success',
+								title: '提交成功'
 							})
-						},500)
+							setTimeout(()=>{
+								uni.navigateBack({
+									delta: 1
+								})
+							},500)
+						}).catch(err => {
+							uni.showToast({
+								icon: 'success',
+								title: '提交成功'
+							})
+							setTimeout(()=>{
+								uni.navigateBack({
+									delta: 1
+								})
+							},500)
+						})
 					} else {
 						uni.showToast({
 							icon: 'none',

@@ -173,6 +173,15 @@
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
 					this.currentUnitSearchDatas = this.currentUnitDatas.filter((item) => {
+						if (!item.contactunitname) {
+							item.contactunitname = ''
+						}
+						if (!item.querycode) {
+							item.querycode = ''
+						}
+						if (!item.bseContactUnitContactModels[0].telephone) {
+							item.bseContactUnitContactModels[0].telephone = ''
+						}
 						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
 					if (this.currentUnitSearchDatas.length == 0) {
@@ -183,6 +192,7 @@
 								cancelColor: '#2d8cf0',
 						    success: function (res) {
 						        if (res.confirm) {
+											this.reqData.contactunitid = ''
 											this.reqData.contactunitname = val.value
 											this.reqData.telephone = ' '
 											this.$refs.sc.cancel()
@@ -203,6 +213,12 @@
 			handleSearchProduct(val) {
 				if (val.value) {
 					this.productSearchDatas = this.productDatas.filter((item) => {
+						if (!item.productname) {
+							item.productname = ''
+						}
+						if (!item.querycode) {
+							item.querycode = ''
+						}
 						return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1
 					})
 					this.searchProduct = true
@@ -217,7 +233,6 @@
 				this.reqData.telephone = val.bseContactUnitContactModels[0].telephone
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
-				console.log(this.$refs.contactUnitName)
 			},
 			handleSelectProduct(val) {
 				this.$set(this.curSelectPruduct, 'productid', val.productid)
@@ -294,6 +309,9 @@
 				})
 			},
 			handleNext() {
+				if (this.reqData.telephone == ' ') {
+					this.reqData.telephone = ''
+				}
 				uni.navigateTo({
 					url: './payment/payment?reqData='+JSON.stringify(this.reqData)
 				})
@@ -320,7 +338,7 @@
 			},
 			reqData: {
 				handler(val) {
-					if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
+					if (val.contactunitname && val.productList.length > 0 && val.totalPrice) {
 						if (val.productList.some((item) => {
 							return item.salesunitprice == 0
 						})) {

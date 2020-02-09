@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 					<cu-cell title="产品名称">
-						<input slot="footer" type="text" v-model="reqData.productname" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称"/>
+						<input slot="footer" type="text" v-model="reqData.productname" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称" focus />
 					</cu-cell>
 					<cu-cell title="产品速查码">
 						<input slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="用于开单快速搜索"/>
@@ -19,22 +19,29 @@
 					<cu-cell title="产品分类" isLink url="../type/type" params="name=type">
 						<text slot="footer">{{reqData.productcategory}}</text>
 					</cu-cell>
-					<cu-cell title="主计量单位" :value="reqData.unit" isLink url="../unit/unit" params="name=unit">
-						<text slot="footer">{{reqData.unit}}</text>
-					</cu-cell>
-					<cu-cell v-if="reqData.unit" title="多计量">
-						<switch slot="footer" color="#2db7f5" @change="handleMultiUnitSwitch"/>
-					</cu-cell>
-					<cu-cell v-if="isMultiUnit" title="辅计量单位" isLink url="../unit/unit" params="name=subunit">
-						<text slot="footer">{{reqData.subunit}}</text>
-					</cu-cell>
+					<view class="unit-wrap">
+						<view class="unit-wrap-content" :style="{width: isMultiUnit ? '90%' : '100%'}">
+							<cu-cell title="主计量单位" isLink url="../unit/unit" params="name=unit">
+								<text slot="footer">{{reqData.unit}}</text>
+							</cu-cell>
+							<cu-cell v-if="reqData.unit" title="多计量">
+								<switch slot="footer" color="#2db7f5" @change="handleMultiUnitSwitch"/>
+							</cu-cell>
+							<cu-cell v-if="isMultiUnit" title="辅计量单位" isLink url="../unit/unit" params="name=subunit">
+								<text slot="footer">{{reqData.subunit}}</text>
+							</cu-cell>
+						</view>
+						<view v-if="isMultiUnit" class="unit-wrap-change" @tap="handleUnitChange">
+							<uni-icons type="tb-change" color="#f29d6e" size=20></uni-icons>
+						</view>
+					</view>
 					<cu-cell v-if="isMultiUnit && reqData.subunit" title="计量单位转换率">
 						<view slot="footer" class="unitmultiple-wrap">
 							<view class="unitmultiple-wrap-content1">
 								<text>1{{reqData.subunit}} = </text>
 							</view>
 							<view class="unitmultiple-wrap-content2">
-								<input class="unitmultiple-wrap-content2-input" type="digit" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="0"/>
+								<input class="unitmultiple-wrap-content2-input" type="number" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="0"/>
 								<text>{{reqData.unit}}</text>
 							</view>
 						</view>
@@ -113,6 +120,13 @@
 			handleMultiUnitSwitch(val) {
 				this.isMultiUnit = val.detail.value
 			},
+			handleUnitChange() {
+				if (this.reqData.unit && this.reqData.subunit) {
+					let tmp = this.reqData.unit
+					this.reqData.unit = this.reqData.subunit
+					this.reqData.subunit = tmp
+				}
+			},
 			handleSubmit() {
 				create(api.baseProduct, this.reqData).then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
@@ -171,6 +185,16 @@
 			margin-top: 5px;
 			.cu-form-group .title {
 				min-width: calc(6em + 30px);
+			}
+			.unit-wrap {
+				display: flex;
+				align-items: center;
+				&-change {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 10%;
+				}
 			}
 			.unitmultiple-wrap {
 				display: flex;

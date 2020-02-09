@@ -145,6 +145,9 @@
 			handleSearch(val) {
 				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
+						if (!item.productname) {
+							item.productname = ''
+						}
 						return item.productname.indexOf(val.value) !== -1
 					})
 				} else {

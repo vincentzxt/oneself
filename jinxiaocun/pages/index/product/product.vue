@@ -101,6 +101,12 @@
 			handleSearch(val) {
 				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
+						if (!item.productname) {
+							item.contactunitname = ''
+						}
+						if (!item.querycode) {
+							item.querycode = ''
+						}
 						return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1
 					})
 				} else {
