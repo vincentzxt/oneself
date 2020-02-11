@@ -9,7 +9,7 @@
 					<cu-cell title="用户名"><input slot="footer" type="text" v-model="reqData.loginname" placeholder-style="color:#c5c8ce" placeholder="请输入用户名" /></cu-cell>
 					<cu-cell title="姓名"><input slot="footer" type="text" v-model="reqData.realname" placeholder-style="color:#c5c8ce" placeholder="请输入姓名" /></cu-cell>
 					<cu-cell title="+86"><input slot="footer" type="text" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入手机号" /></cu-cell>
-					<cu-cell title="邮箱"><input slot="footer" type="number" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
+					<cu-cell title="邮箱"><input slot="footer" type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
 					<cu-cell title="密码"><input slot="footer" type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="请输入密码" /></cu-cell>
 					<cu-cell title="确认密码">
 						<input slot="footer" type="text" v-model="reqData.re_password" placeholder-style="color:#c5c8ce" placeholder="请再次输入密码" />

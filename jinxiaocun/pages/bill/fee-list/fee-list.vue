@@ -84,7 +84,7 @@ export default {
 			search_startDate: nowDate,
 			search_endDate: nowDate,
 			order_name: '',
-			order_type: 0,
+			order_type: 1,
 			search_value: '',
 			orderList: [{ name: '销售日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
 		};

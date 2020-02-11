@@ -4,15 +4,25 @@
 			<uni-navbar :title="title"  left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
 		<xw-date title="null" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
+		<view class="total">
+			<view class="total-item">
+				<text>{{ totalRecords }}</text>
+				<text>总数量</text>
+			</view>
+			<view class="total-item">
+				<text¥{{ totalAmount }}</text>
+				<text>总金额</text>
+			</view>
+		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<view v-for="(item, index) in dataList" :key="index" class="list-item2"  @tap="handleDetail()">
 					<view class="list-between">
 						<view class="item-content">
-							<text>商品名称：{{ item.productname }}</text>
+							<text>{{ item.productname }}</text>
 						</view>
 						<view class="item-content2">
-							<text>总金额：{{ item.totalamount }}</text>
+							<text>库龄：{{ item.totalamount }}</text>
 						</view>
 					</view>
 					<view class="list-between">
@@ -64,7 +74,7 @@ export default {
 			pageIndex: 0,
 			pageRows: 15,
 			title: '库存列表',
-			searchName:'商口名称',
+			searchName:'商品名称',
 			billtype:1,
 			totalAmount:'0.00',
 			totalRecords:'0',
@@ -72,9 +82,9 @@ export default {
 			search_startDate:nowDate,
 			search_endDate:nowDate,
 			order_name:'',
-			order_type:0,
+			order_type:1,
 			search_value:'',
-			orderList:[{name:'销售日期',value:'date'},{name:'金额',value:'amount'}]
+			orderList:[{name:'总金额',value:'totalamount'},{name:'库龄',value:'amount'},{name:'金数量',value:'amount'}]
 		};
 	},
 	onLoad() {this.loadData();},
@@ -181,7 +191,7 @@ export default {
 		}
 	}
 	.main {
-		height: calc(90% - 58px);
+		height: calc(80% - 58px);
 		padding: 0;
 		margin-top: 6px;
 		.cu-form-group .title {

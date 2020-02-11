@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<view class="content" v-if="content_show_id===0">
 					<helang-checkbox ref="checkbox" :list="productList" ></helang-checkbox>
-					<button class="recharge-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">购买</button>
+					<button class="recharge-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">兑换</button>
 				<cu-loading ref="loading"></cu-loading>
 				</view>
 				<view v-if="content_show_id===1" class="content">
@@ -52,9 +52,10 @@
 								<text>付款时间：{{ item.paysuccesstime || '' }}</text>
 							</view>
 						</view>
-					</view>
+					</view>	
 					<view class="no_data" v-if="dataList.length === 0"><text class="item_text">暂无数据</text></view>
 					<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
+					<cu-loading ref="loading"></cu-loading>
 				</view>
 			</scroll-view>
 		</view>
@@ -144,82 +145,35 @@ export default {
 				break;
 			}
 		},
-		
-		// handleSubmit() {
-		// 	let data = this.$refs.checkbox.get();	// 组件返回的数据
-		//     console.log("发起支付:"+data.value);
-		//     this.loading = true;
-		//     uni.login({
-		//         success: (e) => {
-		//             console.log("login success", e);
-		//             uni.request({
-		//                 url: `https://unidemo.dcloud.net.cn/payment/wx/mp?code=${e.code}&amount=${data.value}`,
-		//                 success: (res) => {
-		//                     console.log("pay request success", res);
-		//                     if (res.statusCode !== 200) {
-		//                         uni.showModal({
-		//                             content: "支付失败，请重试！",
-		//                             showCancel: false
-		//                         });
-		//                         return;
-		//                     }
-		//                     if (res.data.ret === 0) {
-		//                         console.log("得到接口prepay_id", res.data.payment);
-		//                         let paymentData = res.data.payment;
-		//                         uni.requestPayment({
-		//                             timeStamp: paymentData.timeStamp,
-		//                             nonceStr: paymentData.nonceStr,
-		//                             package: paymentData.package,
-		//                             signType: 'MD5',
-		//                             paySign: paymentData.paySign,
-		//                             success: (res) => {
-		//                                 uni.showToast({
-		//                                     title: "感谢您的赞助!"
-		//                                 })
-		//                             },
-		//                             fail: (res) => {
-		//                                 uni.showModal({
-		//                                     content: "支付失败,原因为: " + res
-		//                                         .errMsg,
-		//                                     showCancel: false
-		//                                 })
-		//                             },
-		//                             complete: () => {
-		//                                 this.loading = false;
-		//                             }
-		//                         })
-		//                     } else {
-		//                         uni.showModal({
-		//                             content: res.data.desc,
-		//                             showCancel: false
-		//                         })
-		//                     }
-		//                 },
-		//                 fail: (e) => {
-		//                     console.log("fail", e);
-		//                     this.loading = false;
-		//                     uni.showModal({
-		//                         content: "支付失败,原因为: " + e.errMsg,
-		//                         showCancel: false
-		//                     })
-		//                 }
-		//             })
-		//         },
-		//         fail: (e) => {
-		//             console.log("fail", e);
-		//             this.loading = false;
-		//             uni.showModal({
-		//                 content: "支付失败,原因为: " + e.errMsg,
-		//                 showCancel: false
-		//             })
-		//         }
-		//     })
-		// },
+		handleSubmit(){
+			let data = this.$refs.checkbox.get();
+			if(!data){
+				this.$api.msg("请选择要兑换的产品!");
+				return;
+			}
+			const sendData ={productid:data.productid};
+			tokenpost(api.IntegralExchange,sendData).then(res => {
+				if (res.status == 200 && res.data.returnCode == '0000') {
+					this.$api.msg("兑换成功！");
+					this.pageIndex = 0;
+					this.loadData();
+					this.TabCur=1;
+					uni.$emit('changecompany',{'msg':'company变化了'});
+				} else {
+					this.$api.msg(res.data.returnMessage);
+				}
+			})
+			.catch(error => {
+				this.$api.msg('请求失败fail');
+			});
+			
+		},
 		loadProduct(){
 			this.$refs.loading.open();
 			const senddata = {
 				pageIndex: 1,
-				pageRows: -1
+				pageRows: -1,
+				ordertype:this.ordertype
 			};
 			tokenpost(api.GetProductList,senddata).then(res => {
 				this.$refs.loading.close();
@@ -236,16 +190,12 @@ export default {
 				this.$api.msg('请求失败fail');
 			});
 		},
-		handleSubmit(){
-			let data = this.$refs.checkbox.get();	
-		},
 		loadData(){
 			this.loadmore = 'loading';
 			this.$refs.loading.open();
 			const senddata = {
 				pageIndex: this.pageIndex+1,
-				pageRows: this.pageRows,
-				ordertype:this.ordertype
+				pageRows: this.pageRows
 			};
 			tokenpost(api.GetOrderList,senddata).then(res => {
 				this.$refs.loading.close();

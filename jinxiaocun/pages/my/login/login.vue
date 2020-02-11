@@ -130,7 +130,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		margin-bottom: 10upx;
-		padding: 0upx 16upx;
+		padding: 16upx 16upx;
 		background-color: #ffffff;
 		align-items: center;
 	}
