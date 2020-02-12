@@ -181,6 +181,10 @@
             "path" : "pages/bill/inventory-list/inventory-detail",
             "style" : {}
         }
+        ,{
+            "path" : "pages/my/about/about",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

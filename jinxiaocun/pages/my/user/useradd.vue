@@ -85,8 +85,9 @@ export default {
 		},
 		loadRole() {
 			const sendData = {
-				pageIndex: 1,
-				pageRows: -1
+				'pageIndex': 1,
+				'pageRows': -1,
+				'roledtype':1
 			};
 			tokenpost(api.GetRoleList, sendData)
 				.then(res => {

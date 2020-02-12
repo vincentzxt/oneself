@@ -103,7 +103,8 @@
 			loadRole(){
 				const sendData = {
 					'pageIndex':1,
-					'pageRows':-1
+					'pageRows':-1,
+					'roledtype':1
 				};
 				tokenpost(api.GetRoleList,sendData).then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {

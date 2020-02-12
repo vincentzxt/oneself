@@ -242,8 +242,6 @@ export default {
 	// padding-left:20rpx;padding-right:20rpx;
 	.send_btn {
 		background-color: #2d8cf0;
-		height: 76rpx;
-		line-height: 76rpx;
 	}
 }
 </style>
