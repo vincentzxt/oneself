@@ -26,7 +26,7 @@
 /* 垂直间距 */
 /* 透明度 */
 .uni-list-item.data-v-0be73b92 {
-  font-size: 40rpx;
+  font-size: 38rpx;
   position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -88,18 +88,18 @@
   padding-top: 10rpx;
 }
 .uni-list-item__content-title.data-v-0be73b92 {
-  font-size: 36rpx;
+  font-size: 34rpx;
   overflow: hidden;
-  line-height: 36rpx;
+  line-height: 34rpx;
 }
 .uni-list-item__content-content.data-v-0be73b92 {
   color: #808695;
-  font-size: 30rpx;
+  font-size: 28rpx;
 }
 .uni-list-item__content-note.data-v-0be73b92 {
   margin-top: 20rpx;
   color: #808695;
-  font-size: 30rpx;
+  font-size: 28rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

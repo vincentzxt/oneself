@@ -24,7 +24,7 @@
 .uni-numbox__value.data-v-69bc1346 {
   background-color: #f7f7f7;
   text-align: center;
-  font-size: 40rpx;
+  font-size: 38rpx;
   border-width: 1rpx;
   border-style: solid;
   border-color: #dddee1;

@@ -69,7 +69,7 @@
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
-  font-size: 36rpx;
+  font-size: 34rpx;
   color: #495060;
   padding: 0px 5px;
 }
@@ -81,7 +81,7 @@
   padding-left: 5px;
 }
 .cu-searchbar__text-placeholder.data-v-7732dff8 {
-  font-size: 36rpx;
+  font-size: 34rpx;
   color: #c5c8ce;
   margin-left: 5px;
 }

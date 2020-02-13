@@ -8,7 +8,7 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<uni-list>
-					<uni-list-item :title="item" v-for="(item, index) in searchDatas" :show-arrow="false" :key="index" @clickItem="handleClickItem(item)">
+					<uni-list-item :title="item" v-for="(item, index) in searchDatas" :show-arrow="false" :key="index" @clickItem="handleClickItem(item)" showSwitch>
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
@@ -19,13 +19,10 @@
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
 				<cu-cell title="分类名称">
-					<input slot="footer" type="text" v-model="reqData.productcategoryname" placeholder="请输入分类名称"/>
+					<input class="h50" slot="footer" type="text" v-model="reqData.productcategoryname" placeholder="请输入分类名称"/>
 				</cu-cell>
-				<cu-cell title="是否启用" isLastCell>
-					<radio-group slot="footer" @change="handleStatusChange">
-						<radio color="#2db7f5" value=1 :checked="reqData.status == 1">是</radio>
-						<radio color="#2db7f5" value=2 :checked="reqData.status == 2" style="margin-left: 10px;">否</radio>
-					</radio-group>
+				<cu-cell title="停用/启用" isLastCell>
+					<switch class="h50 fc" slot="footer" color="#2db7f5" :checked="reqData.status == 1 ? true : false" @change="handleStatusChange"/>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleAdd">添加</button>
@@ -74,6 +71,7 @@
 				return item !== '所有分类'
 			})
 			this.searchDatas = this.datas
+			console.log(this.searchDatas)
 		},
 		computed: {
 			headerHeight() {
@@ -121,7 +119,11 @@
 				this.$refs.popup.open()
 			},
 			handleStatusChange(val) {
-				this.reqData.status = val.detail.value
+				if (val.detail.value) {
+					this.reqData.status = 1
+				} else {
+					this.reqData.status = 2
+				}
 			},
 			handleAdd() {
 				createProductCategory(api.baseProduct, this.reqData).then(res => {
@@ -154,6 +156,13 @@
 	.fill {
 		width: 100%;
 		height: 100%;
+	}
+	.h50 {
+		height: 50px;
+	}
+	.fc {
+		display: flex;
+		align-items: center;
 	}
 	.container {
 		.main {

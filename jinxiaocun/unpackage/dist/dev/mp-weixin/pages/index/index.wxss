@@ -44,6 +44,6 @@
             align-items: center;
 }
 .item-content-text.data-v-1f1d1caa {
-    font-size: 40rpx;
+    font-size: 38rpx;
 }
 

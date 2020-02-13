@@ -190,9 +190,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _currentUnit = __webpack_require__(/*! @/api/current-unit.js */ 115);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 565));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 572));};var simpleAddress = function simpleAddress() {return Promise.all(/*! import() | components/simple-address/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address/simple-address")]).then(__webpack_require__.bind(null, /*! @/components/simple-address/simple-address.nvue */ 612));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 579));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 586));};var simpleAddress = function simpleAddress() {return Promise.all(/*! import() | components/simple-address/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address/simple-address")]).then(__webpack_require__.bind(null, /*! @/components/simple-address/simple-address.nvue */ 626));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -222,8 +223,13 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
 
         remarks: '' },
 
-      disableSubmit: true,
-      addressArray: [0, 0, 0] };
+      verify: {
+        contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
+        telephone: { okVerify: true, disVerMessage: false, message: '号码长度不能超过11位' },
+        email: { okVerify: true, disVerMessage: false, message: '请输入正确的邮箱地址' } },
+
+      addressArray: [0, 0, 0],
+      showArea: true };
 
   },
   onLoad: function onLoad(options) {
@@ -245,6 +251,8 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     this.addressArray.push(this.reqData.province);
     this.addressArray.push(this.reqData.city);
     this.addressArray.push(this.reqData.district);
+
+    this.verify.contactunitname.okVerify = true;
   },
   computed: {
     headerHeight: function headerHeight() {
@@ -264,6 +272,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       this.reqData.contactunittype = val.detail.value;
     },
     handleOpenAddress: function handleOpenAddress() {
+      this.showArea = false;
       this.$refs.address.open();
     },
     handleAddressChange: function handleAddressChange(val) {
@@ -274,43 +283,90 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       this.reqData.province = this.addressArray[0];
       this.reqData.city = this.addressArray[1];
       this.reqData.district = this.addressArray[2];
+      this.showArea = true;
+    },
+    handleAddressCancel: function handleAddressCancel() {
+      this.showArea = true;
+    },
+    handleVerify: function handleVerify(val) {
+      switch (val) {
+        case 'contactunitname':
+          if (!this.reqData.contactunitname) {
+            this.verify.contactunitname.okVerify = false;
+            this.verify.contactunitname.disVerMessage = true;
+          } else {
+            this.verify.contactunitname.okVerify = true;
+            this.verify.contactunitname.disVerMessage = false;
+          }
+          break;
+        case 'telephone':
+          if (!this.reqData.bseContactUnitContactModels[0].telephone) {
+            this.verify.telephone.okVerify = true;
+            this.verify.telephone.disVerMessage = false;
+          } else {
+            if (this.reqData.bseContactUnitContactModels[0].telephone.length > 11) {
+              this.verify.telephone.okVerify = false;
+              this.verify.telephone.disVerMessage = true;
+            } else {
+              this.verify.telephone.okVerify = true;
+              this.verify.telephone.disVerMessage = false;
+            }
+          }
+          break;
+        case 'email':
+          if (!this.reqData.bseContactUnitContactModels[0].email) {
+            this.verify.email.okVerify = true;
+            this.verify.email.disVerMessage = false;
+          } else {
+            var reg = /.+@.+\..+/;
+            if (!reg.test(this.reqData.bseContactUnitContactModels[0].email)) {
+              this.verify.email.okVerify = false;
+              this.verify.email.disVerMessage = true;
+            } else {
+              this.verify.email.okVerify = true;
+              this.verify.email.disVerMessage = false;
+            }
+          }
+          break;}
+
+    },
+    checkVerify: function checkVerify() {
+      var result = true;
+      for (var item in this.verify) {
+        if (!this.verify[item].okVerify) {
+          this.verify[item].disVerMessage = true;
+          result = false;
+        }
+      }
+      return result;
     },
     handleSubmit: function handleSubmit() {
-      (0, _currentUnit.updateAll)(_common.api.contactUnit, { model: this.reqData }).then(function (res) {
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          _business.default.getCurrentUnit().then(function (res) {
-            uni.navigateBack({
-              delta: 1 });
+      if (this.checkVerify()) {
+        (0, _currentUnit.updateAll)(_common.api.contactUnit, { model: this.reqData }).then(function (res) {
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            _business.default.getCurrentUnit().then(function (res) {
+              uni.navigateBack({
+                delta: 1 });
 
-          }).catch(function (err) {
-            uni.navigateBack({
-              delta: 1 });
+            }).catch(function (err) {
+              uni.navigateBack({
+                delta: 1 });
 
-          });
-        } else {
+            });
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.returnMessage });
+
+          }
+        }).catch(function (error) {
           uni.showToast({
             icon: 'none',
-            title: res.data.returnMessage });
+            title: error });
 
-        }
-      }).catch(function (error) {
-        uni.showToast({
-          icon: 'none',
-          title: error });
-
-      });
-    } },
-
-  watch: {
-    reqData: {
-      handler: function handler(val) {
-        if (val.contactunitname) {
-          this.disableSubmit = false;
-        } else {
-          this.disableSubmit = true;
-        }
-      },
-      deep: true } } };exports.default = _default;
+        });
+      }
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

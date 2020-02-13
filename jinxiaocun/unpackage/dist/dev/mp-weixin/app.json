@@ -25,6 +25,8 @@
     "pages/bill/bill",
     "pages/bill/stock-list/stock-list",
     "pages/data/data",
+    "pages/data/sale/sale",
+    "pages/data/return/return",
     "pages/my/my",
     "pages/my/login/login",
     "pages/my/set",
@@ -97,5 +99,5 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
   },
-  "sitemapLocation": "sitemap54.json"
+  "sitemapLocation": "sitemap44.json"
 }

@@ -19,13 +19,7 @@
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
 				<cu-cell title="计量单位名称">
-					<input slot="footer" type="text" v-model="reqData.unit" placeholder="计量单位名称"/>
-				</cu-cell>
-				<cu-cell title="是否启用" isLastCell>
-					<radio-group slot="footer" @change="handleStatusChange">
-						<radio color="#2db7f5" value=1 :checked="reqData.status == 1">是</radio>
-						<radio color="#2db7f5" value=2 :checked="reqData.status == 2" style="margin-left: 10px;">否</radio>
-					</radio-group>
+					<input class="h50" slot="footer" type="text" v-model="reqData.unit" placeholder="计量单位名称"/>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleAdd">添加</button>
@@ -60,8 +54,7 @@
 				datas: [],
 				searchDatas: [],
 				reqData: {
-					unit: '',
-					status: 1
+					unit: ''
 				}
 			}
 		},
@@ -163,6 +156,9 @@
 	.fill {
 		width: 100%;
 		height: 100%;
+	}
+	.h50 {
+		height: 50px;
 	}
 	.container {
 		.main {

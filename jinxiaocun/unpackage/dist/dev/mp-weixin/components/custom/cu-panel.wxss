@@ -17,7 +17,7 @@
   overflow: hidden;
 }
 .cu-panel-title.data-v-61225c44 {
-    font-size: 36rpx;
+    font-size: 34rpx;
     line-height: 1;
     color: #1c2438;
     padding: 20px 16px 10px;

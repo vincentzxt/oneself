@@ -123,6 +123,11 @@
 		},
 		methods: {
 			handleNavbarClickLeft() {
+				let pages =  getCurrentPages()
+				let prevPage = pages[pages.length - 2]
+				prevPage.setData({
+					commandType: 'return'
+				})
 				uni.navigateBack({
 					delta: 1
 				})
@@ -154,6 +159,11 @@
 								title: '提交成功'
 							})
 							setTimeout(()=>{
+								let pages =  getCurrentPages()
+								let prevPage = pages[pages.length - 2]
+								prevPage.setData({
+									commandType: 'success'
+								})
 								uni.navigateBack({
 									delta: 1
 								})
@@ -164,6 +174,11 @@
 								title: '提交成功'
 							})
 							setTimeout(()=>{
+								let pages =  getCurrentPages()
+								let prevPage = pages[pages.length - 2]
+								prevPage.setData({
+									commandType: 'success'
+								})
 								uni.navigateBack({
 									delta: 1
 								})

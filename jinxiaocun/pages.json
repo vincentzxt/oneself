@@ -1,5 +1,6 @@
 {
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/index/index"
 		},
 		{
@@ -76,6 +77,12 @@
 		},
 		{
 			"path": "pages/data/data"
+		},
+		{
+		    "path" : "pages/data/sale/sale"
+		},
+		{
+		    "path" : "pages/data/return/return"
 		},
 		{
 			"path": "pages/my/my"
@@ -163,18 +170,17 @@
 		},
 		{
 			"path": "pages/bill/earlywarn-list/earlywarn-list"
-		}, {
-			"path": "pages/my/integral/integral",
-			"style": {}
-		}, {
-			"path": "pages/my/recharge/recharge",
-			"style": {}
+		},
+		{
+			"path": "pages/my/integral/integral"
+		},
+		{
+			"path": "pages/my/recharge/recharge"
+		},
+		{
+			"path" : "pages/my/share/myshare"
 		}
-	    ,{
-            "path" : "pages/my/share/myshare",
-            "style" : {}
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

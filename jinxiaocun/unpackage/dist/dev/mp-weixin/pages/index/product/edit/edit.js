@@ -100,6 +100,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var a0 = {
+    type: "lr-change",
+    color: "#808695",
+    size: 20
+  }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        a0: a0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -188,9 +201,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 var _common = __webpack_require__(/*! @/api/common.js */ 22);
 var _common2 = __webpack_require__(/*! @/config/common.js */ 56);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 565));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 572));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 600));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));
+var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 579));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 586));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 614));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -206,13 +231,20 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         querycode: '',
         price: 0,
         productcategory: '',
+        isMultiUnit: 0,
         unit: '',
         subunit: '',
         unitmultiple: 0,
-        warningStockQty: 0,
-        remarks: '' },
+        warningstockqty: 0,
+        remarks: '',
+        status: 1 },
 
-      disableSubmit: true };
+      verify: {
+        productname: { okVerify: false, disVerMessage: false, message: '产品名称不能为空' },
+        unit: { okVerify: false, disVerMessage: false, message: '主计量单位不能为空' },
+        subUnit: { okVerify: false, disVerMessage: false, message: '多计量模式下，辅计量单位不能为空' },
+        unitmultiple: { okVerify: false, disVerMessage: false, message: '多计量模式下，转换率不能为空，且必须大于1' } } };
+
 
   },
   onLoad: function onLoad(options) {
@@ -225,8 +257,15 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     this.reqData.unit = item.unit;
     this.reqData.subunit = item.subunit;
     this.reqData.unitmultiple = item.unitmultiple;
-    this.reqData.warningStockQty = item.warningStockQty;
+    this.reqData.warningstockqty = item.warningstockqty;
     this.reqData.remarks = item.remarks;
+    this.reqData.status = item.status;
+    this.reqData.isMultiUnit = item.isMultiUnit;
+
+    this.verify.productname.okVerify = true;
+    this.verify.unit.okVerify = true;
+    this.verify.subUnit.okVerify = true;
+    this.verify.unitmultiple.okVerify = true;
   },
   onShow: function onShow() {
     var pages = getCurrentPages();
@@ -255,6 +294,13 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         delta: 1 });
 
     },
+    handleMultiUnitSwitch: function handleMultiUnitSwitch(val) {
+      if (val.detail.value) {
+        this.reqData.isMultiUnit = 1;
+      } else {
+        this.reqData.isMultiUnit = 0;
+      }
+    },
     handleUnitChange: function handleUnitChange() {
       if (this.reqData.unit && this.reqData.subunit) {
         var tmp = this.reqData.unit;
@@ -262,34 +308,127 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         this.reqData.subunit = tmp;
       }
     },
-    handleSubmit: function handleSubmit() {
-      (0, _common.update)(_common2.api.baseProduct, this.reqData).then(function (res) {
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          _business.default.getBaseProduct().then(function (res) {
-            _business.default.getProductCategory().then(function (res) {
-              uni.navigateBack({
-                delta: 1 });
+    handleStatusChange: function handleStatusChange(val) {
+      if (val.detail.value) {
+        this.reqData.status = 1;
+      } else {
+        this.reqData.status = 2;
+      }
+    },
+    handlePriceBlur: function handlePriceBlur() {
+      if (this.reqData.price) {
+        this.reqData.price = (0, _tools.floatFormat)(this.reqData.price);
+      }
+    },
+    handleVerify: function handleVerify(val) {
+      switch (val) {
+        case 'productname':
+          if (!this.reqData.productname) {
+            this.verify.productname.okVerify = false;
+            this.verify.productname.disVerMessage = true;
+          } else {
+            this.verify.productname.okVerify = true;
+            this.verify.productname.disVerMessage = false;
+          }
+          break;
+        case 'unit':
+          if (!this.reqData.unit) {
+            this.verify.unit.okVerify = false;
+            this.verify.unit.disVerMessage = true;
+          } else {
+            this.verify.unit.okVerify = true;
+            this.verify.unit.disVerMessage = false;
+          }
+          break;
+        case 'subUnit':
+          if (!this.reqData.subunit) {
+            this.verify.subUnit.okVerify = false;
+            this.verify.subUnit.disVerMessage = true;
+          } else {
+            this.verify.subUnit.okVerify = true;
+            this.verify.subUnit.disVerMessage = false;
+          }
+          break;
+        case 'unitmultiple':
+          if (!this.reqData.unitmultiple) {
+            this.verify.unitmultiple.okVerify = false;
+            this.verify.unitmultiple.disVerMessage = true;
+          } else {
+            if (parseInt(this.reqData.unitmultiple) <= 1) {
+              this.verify.unitmultiple.okVerify = false;
+              this.verify.unitmultiple.disVerMessage = true;
+            } else {
+              this.verify.unitmultiple.okVerify = true;
+              this.verify.unitmultiple.disVerMessage = false;
+            }
+          }
+          break;}
 
+    },
+    checkVerify: function checkVerify() {
+      var result = true;
+      for (var item in this.verify) {
+        if (!this.verify[item].okVerify) {
+          if (item == 'subUnit') {
+            if (this.reqData.isMultiUnit) {
+              this.verify[item].disVerMessage = true;
+              result = false;
+            } else {
+              this.verify[item].disVerMessage = false;
+            }
+          } else if (item == 'unitmultiple') {
+            if (this.reqData.isMultiUnit) {
+              this.verify[item].disVerMessage = true;
+              result = false;
+            } else {
+              this.verify[item].disVerMessage = false;
+            }
+          } else {
+            this.verify[item].disVerMessage = true;
+            result = false;
+          }
+        }
+      }
+      return result;
+    },
+    handleSubmit: function handleSubmit() {
+      if (this.checkVerify()) {
+        if (!this.reqData.price) {
+          this.reqData.price = '0.00';
+        }
+        if (!this.reqData.warningstockqty) {
+          this.reqData.warningstockqty = 0;
+        }
+        (0, _common.update)(_common2.api.baseProduct, this.reqData).then(function (res) {
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            _business.default.getBaseProduct().then(function (res) {
+              _business.default.getProductCategory().then(function (res) {
+                uni.navigateBack({
+                  delta: 1 });
+
+              }).catch(function (err) {
+                uni.navigateBack({
+                  delta: 1 });
+
+              });
             }).catch(function (err) {
               uni.navigateBack({
                 delta: 1 });
 
             });
-          }).catch(function (err) {
-            uni.navigateBack({
-              delta: 1 });
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.returnMessage });
 
-          });
-        } else {
+          }
+        }).catch(function (error) {
           uni.showToast({
-            title: '修改失败' });
+            icon: 'none',
+            title: error });
 
-        }
-      }).catch(function (error) {
-        uni.showToast({
-          title: '修改失败' });
-
-      });
+        });
+      }
     } },
 
   watch: {

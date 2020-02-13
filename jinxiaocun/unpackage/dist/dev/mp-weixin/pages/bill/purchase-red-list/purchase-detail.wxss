@@ -17,7 +17,7 @@
   height: 100%;
 }
 .container.data-v-088dad67 {
-  font-size: 30rpx;
+  font-size: 28rpx;
   height: 100vh;
   width: 100vw;
 }
@@ -58,7 +58,7 @@
         -webkit-box-direction: normal;
         -webkit-flex-direction: row;
                 flex-direction: row;
-        font-size: 30rpx;
+        font-size: 28rpx;
 }
 .container .main .detail-item .list-between .item-content.data-v-088dad67 {
           -webkit-box-flex: 1;

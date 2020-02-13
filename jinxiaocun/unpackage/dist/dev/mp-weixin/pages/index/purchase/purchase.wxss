@@ -43,7 +43,7 @@
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
             flex-direction: column;
-    font-size: 30rpx;
+    font-size: 28rpx;
     margin-left: 20rpx;
 }
 .container .footer-text-item.data-v-7380ffa7 {

@@ -13,7 +13,7 @@
 /* 垂直间距 */
 /* 透明度 */
 page {
-  font-size: 36rpx;
+  font-size: 34rpx;
   color: #495060;
   background-color: #f7f7f7;
 }

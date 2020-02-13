@@ -44,7 +44,7 @@
 							:showArrow="false"
 							showIcon
 							:icon="{type: 'delete', color:'#f4613d', size: '25'}"
-							:note="['销售数量：'+item.qty, '销售单价：'+item.purchaseunitprice, '计量单位：'+item.unit]"
+							:note="['采购数量：'+item.qty, '采购单价：'+item.purchaseunitprice, '计量单位：'+item.unit]"
 							v-for="(item, index) in reqData.productList"
 							:key="index"
 							@clickContent="handleShowPopup(item)"

@@ -20,6 +20,7 @@ import uniGrid from '@/components/uni-grid/uni-grid.vue';
 import uniGridItem from '@/components/uni-grid-item/uni-grid-item.vue';
 import cuLoading from '@/components/custom/cu-loading.vue';
 import getGlobalData from '@/utils/business.js';
+import { dateFormat, numberFormat } from '@/utils/tools.js'
 export default {
 	components: {
 		uniGrid,
@@ -45,11 +46,11 @@ export default {
 		};
 	},
 	onLoad(option) {
-		 this.load();
-		 // uni.$on('tokenchange', this.load);
-		 if (option.promoterid) {
-				this.promoterid = option.promoterid;
-		 }
+		this.load();
+		// uni.$on('tokenchange', this.load);
+		if (option.promoterid) {
+			this.promoterid = option.promoterid;
+		}
 	},
 	onShow() {
 		uni.setStorage({
@@ -59,7 +60,6 @@ export default {
 				console.log('设置promoterid成功！');
 			}
 		});
-		console.log(uni.getStorageSync('promoterid'));
 	},
 	onUnload(){
 		// uni.$off('tokenchange')

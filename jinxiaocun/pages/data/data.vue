@@ -6,24 +6,46 @@
 		</view>
 		<scroll-view scroll-y="true"  class="fill" style="margin-top: 5px">
 			<cover-view></cover-view>
-			<view class="main" :style="{'height': mainHeight + 'px'}">
+			<view class="header2">
+				<view class="header2-wrap" :class="date == 'day' ? 'header2-wrap-hover' : ''" @tap="handleDateChange('day')">
+					<text>今日</text>
+					<view :class="date == 'day' ? 'header2-wrap-sline' : 'header2-wrap-nline'"></view>
+				</view>
+				<view class="header2-wrap" :class="date == 'yesterday' ? 'header2-wrap-hover' : ''" @tap="handleDateChange('yesterday')">
+					<text>昨日</text>
+					<view :class="date == 'yesterday' ? 'header2-wrap-sline' : 'header2-wrap-nline'"></view>
+				</view>
+				<view class="header2-wrap" :class="date == 'week' ? 'header2-wrap-hover' : ''" @tap="handleDateChange('week')">
+					<text>本周</text>
+					<view :class="date == 'week' ? 'header2-wrap-sline' : 'header2-wrap-nline'"></view>
+				</view>
+				<view class="header2-wrap" :class="date == 'month' ? 'header2-wrap-hover' : ''" @tap="handleDateChange('month')">
+					<text>本月</text>
+					<view :class="date == 'month' ? 'header2-wrap-sline' : 'header2-wrap-nline'"></view>
+				</view>
+				<view class="header2-wrap" :class="date == 'year' ? 'header2-wrap-hover' : ''" @tap="handleDateChange('year')">
+					<text>本年</text>
+					<view :class="date == 'year' ? 'header2-wrap-sline' : 'header2-wrap-nline'"></view>
+				</view>
+			</view>
+			<view class="main">
 				<view class="main-sale">
 					<view class="main-sale-header">
 						<uni-icons type="fenxi" color="#51a9f3" size=20></uni-icons>
 						<text style="margin-left: 10px">销售情况</text>
 					</view>
 					<view class="main-sale-content">
-						<view class="main-sale-content-block">
-							<text class="main-sale-content-block-title">{{datas.salesAmount}}</text>
-							<text class="main-sale-content-block-des">今日销货(元)</text>
+						<view class="main-sale-content-block" @tap="handleNavTo('./sale/sale', 'date='+date+'&startDate='+startDate+'&endDate='+endDate)">
+							<text class="main-sale-content-block-title">{{numberFilter(datas.salesAmount)}}</text>
+							<text class="main-sale-content-block-des">销货(元)</text>
 						</view>
 						<view class="main-sale-content-block">
-							<text class="main-sale-content-block-title">{{datas.salesReturnAmount}}</text>
-							<text class="main-sale-content-block-des">今日退货(元)</text>
+							<text class="main-sale-content-block-title">{{numberFilter(datas.salesReturnAmount)}}</text>
+							<text class="main-sale-content-block-des">退货(元)</text>
 						</view>
 						<view class="main-sale-content-block">
-							<text class="main-sale-content-block-title">{{datas.grossProfit}}</text>
-							<text class="main-sale-content-block-des">今日利润(元)</text>
+							<text class="main-sale-content-block-title">{{numberFilter(datas.grossProfit)}}</text>
+							<text class="main-sale-content-block-des">毛利(元)</text>
 						</view>
 					</view>
 					<view>
@@ -41,7 +63,7 @@
 								<text style="margin-left: 10px">应收金额</text>
 							</view>
 							<view class="main-recpay-content-wrap-content">
-								<text>￥{{datas.receivableAmount}}</text>
+								<text>￥{{numberFilter(datas.receivableAmount)}}</text>
 							</view>
 						</view>
 						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;">
@@ -49,7 +71,7 @@
 								<text style="margin-left: 10px">应付金额</text>
 							</view>
 							<view class="main-recpay-content-wrap-content">
-								<text>￥{{datas.payableAmount}}</text>
+								<text>￥{{numberFilter(datas.payableAmount)}}</text>
 							</view>
 						</view>
 						<view class="main-recpay-content-wrap" style="width:45%">
@@ -57,7 +79,7 @@
 								<text style="margin-left: 10px">已收金额</text>
 							</view>
 							<view class="main-recpay-content-wrap-content">
-								<text>￥{{datas.receivedAmount}}</text>
+								<text>￥{{numberFilter(datas.receivedAmount)}}</text>
 							</view>
 						</view>
 						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;width:45%;">
@@ -65,7 +87,7 @@
 								<text style="margin-left: 10px">已付金额</text>
 							</view>
 							<view class="main-recpay-content-wrap-content">
-								<text>￥{{datas.paymentAmount}}</text>
+								<text>￥{{numberFilter(datas.paymentAmount)}}</text>
 							</view>
 						</view>
 					</view>
@@ -80,7 +102,7 @@
 							<view class="main-account-content">
 								<canvas canvas-id="receivableRing" id="receivableRing" class="main-account-content-charts"></canvas>
 								<view class="main-account-content-lables">
-									<text class="main-account-content-lables-lable" v-for="(item, index) in receivableRingArr" :key="index">{{item.data}}(元)</text>
+									<text class="main-account-content-lables-lable" v-for="(item, index) in receivableRingArr" :key="index">{{numberFilter(item.data)}}(元)</text>
 								</view>
 							</view>
 						</swiper-item>
@@ -92,7 +114,7 @@
 							<view class="main-account-content">
 								<canvas canvas-id="paymentRing" id="paymentRing" class="main-account-content-charts"></canvas>
 								<view class="main-account-content-lables">
-									<text class="main-account-content-lables-lable" v-for="(item, index) in paymentRingArr" :key="index">{{item.data}}(元)</text>
+									<text class="main-account-content-lables-lable" v-for="(item, index) in paymentRingArr" :key="index">{{numberFilter(item.data)}}(元)</text>
 								</view>
 							</view>
 						</swiper-item>
@@ -136,11 +158,11 @@
 						<view class="main-top-wrap-content">
 							<view class="main-top-wrap-content-list">
 								<view class="main-top-wrap-content-list-item" v-for="(item, index) in hotSellingProduct" :key="index">
-									<uni-icons type="circle" color="#f29d6e" size=10 style="width:10%;"></uni-icons>
-									<view class="main-top-wrap-content-list-item-text" style="width:90%;">
-										<text style="display:inline-block;width:50%;">{{item.productName}}</text>
-										<text style="display:inline-block;width:25%;">{{item.qty}}{{item.unit}}</text>
-										<text style="display:inline-block;width:25%;">￥{{item.amount}}</text>
+									<uni-icons type="circle" color="#f29d6e" size=10 style="width:5%;"></uni-icons>
+									<view class="main-top-wrap-content-list-item-text" style="width:95%;">
+										<text style="display:inline-block;width:40%;">{{item.productName}}</text>
+										<text style="display:inline-block;width:30%;">{{item.qty}}{{item.unit}}</text>
+										<text style="display:inline-block;width:30%;">￥{{numberFilter(item.amount)}}</text>
 									</view>
 								</view>
 							</view>
@@ -169,8 +191,8 @@
 						<view class="main-top-wrap-content">
 							<view class="main-top-wrap-content-list">
 								<view class="main-top-wrap-content-list-item" v-for="(item, index) in slowSellingProduct" :key="index">
-									<uni-icons type="circle" color="#51a9f3" size=10 style="width:10%;"></uni-icons>
-									<view class="main-top-wrap-content-list-item-text" style="width:90%;">
+									<uni-icons type="circle" color="#51a9f3" size=10 style="width:5%;"></uni-icons>
+									<view class="main-top-wrap-content-list-item-text" style="width:95%;">
 										<text style="display:inline-block;width:50%;">{{item.productName}}</text>
 										<text style="display:inline-block;width:50%;">{{item.qty}}{{item.unit}}</text>
 									</view>
@@ -193,6 +215,7 @@
 	import { api } from '@/config/common.js'
 	import { query } from '@/api/common.js'
 	import { queryHotSellingProduct, querySlowSellingProduct } from '@/api/data.js'
+	import { dateFormat, numberFormat } from '@/utils/tools.js'
 	var scaleLine = null
 	var receivableRing = null
 	var paymentRing = null
@@ -211,6 +234,8 @@
 				rHeight: '',
 				pixelRation: 1,
 				date: 'day',
+				startDate: '',
+				endDate: '',
 				receivableRingArr: [],
 				paymentRingArr: [],
 				receivableRingTotal: 0,
@@ -226,31 +251,80 @@
 			this.cHeight = uni.upx2px(400)
 			this.rWidth = uni.upx2px(550)
 			this.rHeight = uni.upx2px(400)
-			this.$refs.loading.open()
-			query(api.report).then(res => {
-				this.$refs.loading.close()
-				if (res.status == 200 && res.data.returnCode == '0000') {
-					this.datas = res.data.data
-					this.hotSellingProduct = this.datas.hotSellingProduct
-					this.slowSellingProduct = this.datas.slowSellingProduct
-					this.getDayData()
-					this.getAccountData()
-				}
-			}).catch(error => {
-				this.$refs.loading.close()
-			})
+			this.datas = []
+			this.date = 'day'
+			this.startDate = dateFormat('YYYY-mm-dd', new Date()) + ' 00:00:00'
+			this.endDate = dateFormat('YYYY-mm-dd', new Date()) + ' 23:59:59'
+			this.getData(this.startDate, this.endDate)
 		},
 		computed: {
 			headerHeight() {
 				return this.$headerHeight
-			},
-			mainHeight() {
-				return this.$mainHeight
 			}
 		},
 		methods: {
+			numberFilter(number) {
+				return numberFormat(number)
+			},
+			handleNavTo(url, params) {
+				uni.navigateTo({
+					url: url+'?'+params
+				})
+			},
+			getData(startDate, endDate) {
+				this.$refs.loading.open()
+				let reqData = {
+					startDate: startDate,
+					endDate: endDate
+				}
+				query(api.report, reqData).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.datas = res.data.data
+						this.hotSellingProduct = this.datas.hotSellingProduct
+						this.slowSellingProduct = this.datas.slowSellingProduct
+						this.getDayData()
+						this.getAccountData()
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+				})
+			},
 			handleDateChange(val) {
 				this.date = val
+				let sDate = new Date()
+				let eDate = new Date()
+				switch(val) {
+					case 'day':
+						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
+						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						break
+					case 'yesterday':
+						sDate.setDate(sDate.getDate() - 1)
+						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
+						eDate.setDate(eDate.getDate() - 1)
+						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						break
+					case 'week':
+						let w = sDate.getDay()
+						w = w == 0 ? 6 : w - 1
+						sDate.setDate(sDate.getDate() - w)
+						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
+						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						break
+					case 'month': 
+						sDate.setDate(1)
+						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
+						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						break
+					case 'year':
+						sDate.setMonth(0)
+						sDate.setDate(1)
+						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
+						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						break
+				}
+				this.getData(this.startDate, this.endDate)
 			},
 			showSaleLine(canvasId, chartData){
 				scaleLine = new uCharts({
@@ -261,9 +335,8 @@
 					padding:[15,15,0,15],
 					legend:{
 						show:true,
-						padding:10,
 						lineHeight:11,
-						margin:0,
+						margin:15,
 						fontColor:'#808695'
 					},
 					dataLabel:false,
@@ -283,7 +356,10 @@
 						gridType:'solid',
 						gridColor:'#f3f3f3',
 						axisLineColor:'#808695',
-						fontColor: '#808695'
+						fontColor: '#808695',
+						format: (val) => {
+							return numberFormat(val)
+						}
 					},
 					width:this.cWidth * this.pixelRation,
 					height: this.cHeight * this.pixelRation,
@@ -312,7 +388,7 @@
 							fontSize: 14
 					  },
 					title: {
-						name: this.receivableRingTotal,
+						name: numberFormat(this.receivableRingTotal),
 						color: '#1c2438',
 						fontSize: 20,
 						offsetY:-8
@@ -358,7 +434,7 @@
 							fontSize: 14
 					  },
 					title: {
-						name: this.paymentRingTotal,
+						name: numberFormat(this.paymentRingTotal),
 						color: '#1c2438',
 						fontSize: 20,
 						offsetY:-8
@@ -464,9 +540,37 @@
 			//padding-top: 20px;
 			height: calc(100% - 60px);;
 		}
+		.header2 {
+			background-color: #FFFFFF;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			&-wrap {
+				display: flex;
+				width: 20%;
+				flex-direction: column;
+				align-items: center;
+				margin-top: $uni-spacing-col-lg;
+				margin-bottom: $uni-spacing-col-lg;
+				&-hover {
+					color: #f29c6e;
+				}
+				&-sline {
+					width: 80upx;
+					height: 3px;
+					background-color: #f29c6e;
+				}
+				&-nline {
+					width: 80upx;
+					height: 3px;
+					background-color: #FFFFFF;
+				}
+			}
+		}
 		.main {
 			//margin-top: $uni-spacing-col-base;
 			&-sale {
+				margin-top: $uni-spacing-col-base;
 				background-color: #FFFFFF;
 				&-header {
 					margin-left: 10px;
@@ -491,7 +595,7 @@
 						justify-content: center;
 						align-items: center;
 						&-title {
-							font-size:$uni-font-size-base;
+							font-size:$uni-font-size-sm;
 							color:$uni-title-color;
 						}
 						&-des {

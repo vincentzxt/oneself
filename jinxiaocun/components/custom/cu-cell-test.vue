@@ -1,5 +1,5 @@
 <template>
-	<view class="cu-cell" :class="isLastCell ? 'cu-cell-last' : ''" :style="{'height': height + 'px'}" @tap="handleCell">
+	<view class="cu-cell" :class="isLastCell ? 'cu-cell-last' : ''" @tap="handleCell">
 		<view class="cu-cell-wrap">
 			<view v-if="isIcon" class="cu-cell-wrap-icon">
 				<uni-icons :type="icon.type" :color="icon.color" :size="icon.size"></uni-icons>
@@ -7,10 +7,11 @@
 			<view v-if="isSub" class="cu-cell-wrap-sub">
 			</view>
 			<view class="cu-cell-wrap-content" :style="{ 'width': contentWidth }">
-				<view v-if="isSub" class="cu-cell-wrap-content-title">
+				<view class="cu-cell-wrap-content-title">
+					{{ title }}
 				</view>
 				<view class="cu-cell-wrap-content-body">
-					<view class="cu-cell-bd-title" @tap="handleTitle">{{ title }}</view>
+					<slot name="body"></slot>
 				</view>
 			</view>
 			<view class="cu-cell-content-footer">
@@ -18,11 +19,14 @@
 				<slot name="footer"></slot>
 			</view>
 		</view>
+		<view class="cu-cell-extend">
+			<slot name="extend"></slot>
+		</view>
 		<view class="cu-cell-note">
-			
+			<slot name="note"></slot>
 		</view>
 		<view class="cu-cell-verify">
-			
+			<slot name="verify"></slot>
 		</view>
 	</view>
 </template>
@@ -31,10 +35,6 @@
 	export default {
 		name: 'cu-cell',
 		props: {
-			height: {
-				type: Number,
-				default: 70
-			},
 			title: {
 				type: String,
 				default: ''
@@ -53,6 +53,10 @@
 					}
 				}
 			},
+			isSub: {
+				type: Boolean,
+				default: false
+			},
 			isLink: {
 				type: Boolean,
 				default: false
@@ -66,10 +70,6 @@
 				default: ''
 			},
 			isLastCell: {
-				type: Boolean,
-				default: false
-			},
-			isSub: {
 				type: Boolean,
 				default: false
 			}
