@@ -17,19 +17,21 @@
 							<input slot="footer" type="text" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入手机号"/>
 						</cu-cell>
 						<cu-cell title="邮箱">
-							<input slot="footer" type="number" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱"/>
+							<input slot="footer" type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱"/>
 						</cu-cell>
 						<cu-cell title="密码">
 							<input slot="footer" type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="不输入密码则不修改"/>
 						</cu-cell>
-						<cu-cell title="分配角色" isLastCell>
+						<cu-cell title="账号角色" isLink>
+							<view slot="footer" style="width:100%;">
+								<picker @change="handleRoleChanage" :range="rolelist" :value="roleindex" range-key='rolename'>
+									<view class="main-picker">
+										<text v-if="rolename==''" style="color:#c5c8ce">请选择角色</text>
+										<text v-else>{{rolename}}</text>
+									</view>
+								</picker>
+							</view>
 						</cu-cell>
-						<view style="padding: 16upx;">
-							<radio-group @change="handleRoleChanage" class="uni-list-cell">
-							<label class="uni-list-cell uni-list-cell-pd" v-for="(item,index) in rolelist" :key="item.roleid">
-							<view><radio color="#2db7f5" :value="item.roleid" />{{ item.rolename }}</radio></view></label>
-							</radio-group>
-						</view>
 				</cu-panel>
 				<cu-loading ref="loading"></cu-loading>
 			</scroll-view>
@@ -68,6 +70,8 @@
 					password:'',
 					roleid:0
 				},
+				rolename:'',
+				roleindex:0,
 				rolelist: [],
 				userId:0,
 				loading:false,
@@ -86,8 +90,9 @@
 				this.reqData.sex = val.detail.value
 			},
 			handleRoleChanage(val) {
-				this.reqData.roleid = val.detail.value;
-				console.log(this.reqData.roleid);
+				console.log(val);
+				this.reqData.roleid = this.rolelist[val.detail.value].roleid;
+				this.rolename = this.rolelist[val.detail.value].rolename;
 			},
 			handleNavbarClickLeft() {
 				uni.navigateBack({
@@ -98,7 +103,8 @@
 			loadRole(){
 				const sendData = {
 					'pageIndex':1,
-					'pageRows':-1
+					'pageRows':-1,
+					'roledtype':1
 				};
 				tokenpost(api.GetRoleList,sendData).then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
@@ -123,8 +129,12 @@
 									realname:res.data.data.realname,
 									telephone:res.data.data.telephone,
 									email:res.data.data.email,
-									roleid:res.data.data.roleid
+									roleid:res.data.data.roleid,
 								}
+								setTimeout(()=>{
+									this.roleindex = this.arrayLookup(this.rolelist,'roleid',this.reqData.roleid);
+									this.rolename = this.rolelist[this.roleindex].rolename;
+								},1000);
 							} else {
 								this.$api.msg(res.data.returnMessage);
 								this.reqData = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
@@ -139,6 +149,16 @@
 						this.$api.msg('请求失败fail');
 					});
 			},
+			arrayLookup(data,key,value){
+			    var targetValue = "";
+			    for (var i = 0; i < data.length; i++) {
+			        if(data[i][key]==value){
+			            targetValue = i;
+			            break;
+			        }
+			    }
+			    return targetValue;
+				},
 			handleSubmit() {
 				const {userid, loginname, realname, telephone, email, password,roleid} = this.reqData;
 				if (loginname.length == 0) {
@@ -151,10 +171,6 @@
 				}
 				if (telephone.length!= 11) {
 					this.$api.msg('手机号码不正确！');
-					return;
-				}
-				if (email.length== 0) {
-					this.$api.msg('电子邮箱不能为空！');
 					return;
 				}
 				var sendData={};

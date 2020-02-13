@@ -6,13 +6,13 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-						<cu-cell title="设置头像">
+						<cu-cell title="公司Logo">
 							<view>
 								<!-- <button @tap="upload">上传</button> -->
-								<image-cropper :src="tempFilePath" @confirm="confirm" @cancel="cancel"></image-cropper>
+								
 								<!-- <image :src="reqData.companylogourl || '/static/image/logo.png'" mode="aspectFit" style="width: 100%;" ></image> -->
 							</view>
-							<image   slot="footer" class="portrait" :src="reqData.companylogourl || '/static/image/logo.png'" @tap="upload"></image>
+							<image slot="footer" class="portrait" :src="reqData.companylogourl || '/static/image/logo.png'" @tap="upload"></image>
 						</cu-cell>
 						<cu-cell title="商户名称">
 							<input slot="footer" type="text" v-model="reqData.companyname" placeholder-style="color:#c5c8ce" placeholder="商户名称" />
@@ -21,13 +21,15 @@
 						<cu-cell title="联系电话">
 							<input slot="footer" type="number" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入联系人电话" />
 						</cu-cell>
-						<cu-cell title="邮箱" isLastCell><input slot="footer" type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
+						<cu-cell title="邮箱" isLastCell><input slot="footer" type="text" v-model="reqData.cusemail" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
 				</cu-panel>
 				<view style="background-color: #FFFFFF;padding: 16upx;">
 				<textarea  style="height: 80px" maxlength="-1" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="地址"></textarea>
 				</view>
 			</scroll-view>
 		</view>
+		 <image-cropper :src="tempFilePath" @confirm="confirm"  @cancel="cancel"></image-cropper>
+
 		<cu-loading ref="loading"></cu-loading>
 		<view class="footer"><button class="footer-btn" style="background-color: #2d8cf0;"  :loading="loading"  type="primary" @click="handleSubmit">提交</button></view>
 	</view>
@@ -62,6 +64,7 @@ export default {
 				companyname: '',
 				contact: '',
 				telephone: '',
+				cusemail:'',
 				email: '',
 				address: ''
 			},
@@ -69,6 +72,9 @@ export default {
 		};
 	},
 	onShow() {
+		
+	},
+	onLoad(){
 		this.loadData();
 	},
 	methods: {
@@ -83,7 +89,9 @@ export default {
 				sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 				sourceType: ['album'], //从相册选择
 				success: res => {
+					
 					this.tempFilePath = res.tempFilePaths.shift();
+					//this.confirm();
 				}
 			});
 		},
@@ -115,6 +123,7 @@ export default {
 			console.log('canceled');
 		},
 		loadData() {
+			console.log("kkk");
 			this.$refs.loading.open();
 			tokenpost(api.GetUserInfo)
 				.then(res => {
@@ -132,13 +141,13 @@ export default {
 				});
 		},
 		handleSubmit() {
-			const { companylogourl, companyname, contact, telephone, email, address } = this.reqData;
+			const { companylogourl, companyname, contact, telephone, email,cusemail, address } = this.reqData;
 			const sendData = {
 				companylogourl,
 				companyname,
 				contact,
 				telephone,
-				email,
+				email:cusemail,
 				address
 			};
 			this.loading = true;

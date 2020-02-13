@@ -169,7 +169,11 @@
 			"path": "pages/bill/begin-list/begin-list"
 		},
 		{
+			"path": "pages/bill/begin-list/begin-detail"
+		},
+		{
 			"path": "pages/bill/earlywarn-list/earlywarn-list"
+<<<<<<< HEAD
 		},
 		{
 			"path": "pages/my/integral/integral"
@@ -181,6 +185,28 @@
 			"path" : "pages/my/share/myshare"
 		}
 	],
+=======
+		}, {
+			"path": "pages/my/integral/integral",
+			"style": {}
+		}, {
+			"path": "pages/my/recharge/recharge",
+			"style": {}
+		}
+	    ,{
+            "path" : "pages/my/share/myshare",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bill/inventory-list/inventory-detail",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/about/about",
+            "style" : {}
+        }
+    ],
+>>>>>>> 9733e7bc00d2e13f9a60d77de93c350d7d55d48e
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

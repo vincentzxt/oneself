@@ -3,7 +3,7 @@
 		<view class="header">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
-		<view class="space"></view>
+		<!-- <view class="space"></view> -->
 		<!-- <view class="tou"><img src="@/static/image/logo.png"/></img></view> -->
 
 		<view class="con">
@@ -132,116 +132,51 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.space {
-	height: 120rpx;
+.space{
+	height: 60upx;
 }
-.login {
+.login{
 	// padding-top:100px;
 	// .head{font-size: 22px;padding: 20px;}
-	.tou {
-		text-align: center;
-	}
-	.tou img {
-		width: 64px;
-		height: 64px;
-	}
-	.con {
-		padding: 10px 16px;
-	}
-	.con_01 {
-		border-bottom: 2px solid #f7f7f7;
-		height: 48px;
-		padding-top: 10px;
-		display: flex;
-	}
-	.con_01_l {
-		width: 40px;
-		text-align: center;
-		padding: 10px 0 8px;
-		background-color: #ffffff;
-	}
-	.con_01_r {
-		flex-grow: 1;
-		padding-right: 10px;
-		padding-top: 5px;
-		background-color: #ffffff;
-	}
-	input::-webkit-input-placeholder {
-		color: #d2d2d2;
-	}
-	.con_03 {
-		font-size: 12px;
-		color: #f78674;
-		padding: 10px 0 33px 8px;
-		display: flex;
-		justify-content: space-between;
-	}
-	.con_04_1 {
-		background-color: #e61874;
-		color: #ffffff;
-		border-radius: 25px;
-		height: 35px;
-		line-height: 35px;
-		font-size: 14px;
-		text-align: center;
-		border: 1px solid #f0f0f0;
-		width: 100%;
-	}
-	.con_04_2 {
-		background-color: #e61874;
-		color: #ffffff;
-		width: 40%;
-	}
-	.con_04_3 {
-		background-color: #e9e8e5;
-		color: #81817e;
-		width: 40%;
-	}
-	.con_05 {
-		padding: 20px 0;
-		text-align: center;
-		color: #f78674;
-	}
-	.con_05 span {
-		padding-left: 20px;
-	}
+	font-size: 28upx;
+	.tou{text-align: center;}
+	.tou img{width: 64px;height: 64px;}
+	.con{padding: 24upx 16upx;}
 	.con_02 {
-		border-bottom: 2px solid #f7f7f7;
-		padding-top: 10px;
+		border-bottom: 2upx solid #f7f7f7;
+		//padding-top: 10px;
 		display: flex;
+		flex-direction: row;
 		justify-content: space-between;
-		height: 48px;
+		margin-bottom: 10upx;
+		padding: 0upx 16upx;
+		background-color: #ffffff;
+		align-items: center;
 	}
 	.con_02_t {
-		background-color: #e0441d;
 		color: #fff;
-		height: 30px;
-		line-height: 30px;
-		border-radius: 20px;
-		padding: 0 20px;
-		margin-bottom: 5px;
-		font-size: 28upx;
+		border-radius: 20upx;
+		//font-size: 28upx;
 	}
 	.con_02_r {
 		flex-grow: 1;
-		padding-right: 10px;
-		padding-top: 5px;
-		background-color: #ffffff;
+		padding: 10upx 24upx;
 	}
 	.con_02_l {
-		width: 40px;
+		width: 40upx;
 		text-align: center;
-		padding: 10px 0 8px;
-		background-color: #ffffff;
+		padding-right: 12px;
+		vertical-align: center;
+		padding: 10upx 0upx;
 	}
 }
-.user_bottom {
-	margin-top: 60upx;
-	// padding-left:20rpx;padding-right:20rpx;
-	.send_btn {
-		background-color: #2d8cf0;
-		height: 76rpx;
-		line-height: 76rpx;
-	}
-}
+.user_bottom{
+		margin-top:60upx;
+		// padding-left:20rpx;padding-right:20rpx;
+		.send_btn{
+			background-color:#2d8cf0;
+			height: 76rpx;
+			line-height: 76rpx;
+		}
+}		
 </style>

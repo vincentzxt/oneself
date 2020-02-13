@@ -19,6 +19,7 @@ export const api = {
 	token: '/api/Token',
 	login: '/api/BseUser/Login',
 	ChangePassword:'/api/BseUser/ChangePassword',
+	ResetPassword:'/api/BseUser/ResetPassword',
 	Regist:'/api/BseUser/Regist',
 	GetUserInfo:'/api/BseUser/GetUserInfo',
 	GetUserInfoByUserId:'/api/BseUser/GetUserInfoByUserId',
@@ -37,7 +38,7 @@ export const api = {
 	GetOrderList:'/api/SysOrder/GetMyOrderList',
 	IntegralExchange:'/api/BseUser/IntegralExchange',
 	GetCurrentActivity:'/api/SysActivity/GetCurrentActivity',
-	SysOrderQueryResult:'/api/BseUser/SysOrderQueryResult',
+	GetMyPromotIntegralList :'/api/BseUser/GetMyPromotIntegralList',
 	GetSmsCode:'/api/SysMessage/SendVerificationCode',
 	GetProductList:'/api/SysProduct/GetProductList'
 	

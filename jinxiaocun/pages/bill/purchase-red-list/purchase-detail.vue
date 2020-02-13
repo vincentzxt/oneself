@@ -46,7 +46,7 @@ export default {
 	},
 	data() {
 		return {
-			title: '采购详情',
+			title: '采购退货详情',
 			id:0,
 			dataList:{}
 		};

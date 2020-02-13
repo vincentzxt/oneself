@@ -219,6 +219,7 @@
 	.uni-list-item__content-title {
 		font-size: $uni-font-size-base;
 		overflow: hidden;
+		padding-top: 10upx;
 		//vertical-align: center;
 		line-height: $uni-font-size-base;
 	}

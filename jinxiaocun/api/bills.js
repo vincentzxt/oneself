@@ -21,3 +21,17 @@ export const get = (url, data = {}) => {
 		method: 'post'
   })
 }
+export const getinit = (url, data = {}) => {
+  return http.request({
+    url: url + '/GetInit/'+data.id,
+		data: data,
+		method: 'post'
+  })  
+}
+export const getinventory = (url, data = {}) => {
+  return http.request({
+    url: url + '/GetInventory/'+data.id,
+		data: data,
+		method: 'post'
+  })  
+}

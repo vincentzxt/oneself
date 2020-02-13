@@ -9,15 +9,15 @@
 		<view class="con">
 			<view class="con_02">
 				<view class="con_02_l"><uni-icon type="contact" size="25" color="#cccccc"></uni-icon></view>
-				<view class="con_02_r"><input v-model="loginname" class="uni-input" focus placeholder="请输入用户名" style="height: 35px;background-color: #fff;"/></view>
+				<view class="con_02_r"><input v-model="loginname" class="uni-input" focus placeholder="请输入用户名" style="background-color: #fff;"/></view>
 			</view> 
 			<view class="con_02">
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#cccccc"></uni-icon></view>
-				<view class="con_02_r"><input v-model="password" password="true" class="uni-input" placeholder="请输入密码" style="height: 35px;background-color: #fff;"/></view> 
+				<view class="con_02_r"><input v-model="password" password="true" class="uni-input" placeholder="请输入密码" style="background-color: #fff;"/></view> 
 			</view>
-			<!-- <view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;" >
+			<view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;" >
 				<view @click="forget_action()">忘记密码？</view>
-			</view> -->
+			</view>
 	
 			<view class="user_bottom">
 				<button type="primary" class="send_btn" :loading="loading" @tap="handleLogin">登录</button>
@@ -130,7 +130,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		margin-bottom: 10upx;
-		padding: 0upx 16upx;
+		padding: 16upx 16upx;
 		background-color: #ffffff;
 		align-items: center;
 	}
@@ -156,8 +156,7 @@
 		// padding-left:20rpx;padding-right:20rpx;
 		.send_btn{
 			background-color:#2d8cf0;
-			height: 76rpx;
-			line-height: 76rpx;
+			//padding:8upx
 		}
 		}
 </style>

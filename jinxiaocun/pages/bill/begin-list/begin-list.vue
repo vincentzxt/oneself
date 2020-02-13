@@ -6,17 +6,17 @@
 		<xw-date title="单据日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
 			<view class="total-item">
-				<text>总单据数</text>
 				<text>{{ totalRecords }}</text>
+				<text>总单据数</text>	
 			</view>
 			<view class="total-item">
-				<text>总数量</text>
 				<text>{{ totalAmount }}</text>
+				<text>总数量</text>
 			</view>
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
-				<view v-for="(item, index) in dataList" :key="index" class="list-item3" @tap="handleDetail(item.salesorderid)">
+				<view v-for="(item, index) in dataList" :key="index" class="list-item3" @tap="handleDetail(item.initorderid)">
 					<view class="list-between">
 						<view class="item-content">
 							<text>编号：{{ item.initorderid }}</text>
@@ -27,10 +27,10 @@
 					</view>
 					<view class="list-between">
 						<view class="item-content">
-							<text>商品总数：{{ item.displayqty }}</text>
+							<text>商品总数：{{ item.totalQty }}</text>
 						</view>
 						<view class="item-content2">
-							<text>总金额：¥{{ item.totalamount }}</text>
+							<text>总金额：¥{{ item.totalAmount }}</text>
 						</view>
 					</view>
 				</view>
@@ -82,9 +82,9 @@ export default {
 			search_startDate: nowDate,
 			search_endDate: nowDate,
 			order_name: '',
-			order_type: 0,
+			order_type: 1,
 			search_value: '',
-			orderList: [{ name: '销售日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
+			orderList: [{ name: '日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
 		};
 	},
 	onLoad() {
@@ -125,7 +125,7 @@ export default {
 		},
 		handleDetail(val){
 			uni.navigateTo({
-				url:'sell-detail?id='+val
+				url:'begin-detail?id='+val
 			})
 		},
 		loadData() {

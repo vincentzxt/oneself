@@ -34,6 +34,7 @@
 			<uni-list-item title="积分兑换" thumb="../../static/my/icon/order.png" @tap="handleIntegral()"></uni-list-item>
 			<!-- <uni-list-item title="时长" thumb="../../static/my/icon/time.png" @tap="handleTime()" show-text="true" :content="dataList.daycount"></uni-list-item> -->
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @tap="handleShare()"></uni-list-item>
+			<uni-list-item title="关于我们" thumb="../../static/my/icon/xinxi.png" @tap="handleAbout()"></uni-list-item>
 			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
@@ -105,6 +106,15 @@ export default {
 			}
 			uni.navigateTo({
 				url: '/pages/my/account/accountlist'
+			});
+		},
+		handleAbout() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
+			uni.navigateTo({
+				url: '/pages/my/about/about'
 			});
 		},
 		handleRecharge() {

@@ -16,7 +16,7 @@
 			</view>
 			<view class="con_02">
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#CCCCCC"></uni-icon></view>
-				<view class="con_02_r"><input v-model="code" class="uni-input" focus placeholder="请输入验证码" /></view>
+				<view class="con_02_r"><input v-model="verificationCode" class="uni-input" focus placeholder="请输入验证码" /></view>
 				<button type="default" size="mini"  @click="send"  :disabled="code_status" class="code_btn">{{codeText}}</button>
 			</view>
 			<view class="con_02">
@@ -53,7 +53,7 @@ export default {
 			code_status:false,
 			loginname: '',
 			telephone: '',
-			code: '',
+			verificationCode: '',
 			password: '',
 			re_password: '',
 			title: '注册',
@@ -81,9 +81,17 @@ export default {
 			});
 		},
 		handleReg() {
-			const { loginname, password, telephone, re_password, promoterid } = this;
+			const { loginname, password, telephone, re_password, promoterid,verificationCode} = this;
 			if (loginname.length == 0) {
 				this.$api.msg('登录账号不能为空！');
+				return;
+			}
+			if (telephone.length != 11) {
+				this.$api.msg('手机号码不正确！');
+				return;
+			}
+			if (verificationCode.length == 0) {
+				this.$api.msg('手机验证码不能为空！');
 				return;
 			}
 			if (password.length == 0) {
@@ -98,14 +106,12 @@ export default {
 				this.$api.msg('两次密码不一致！');
 				return;
 			}
-			if (telephone.length != 11) {
-				this.$api.msg('手机号码不正确！');
-				return;
-			}
+		
 			const sendData = {
 				loginname,
 				password,
 				telephone,
+				verificationCode,
 				promoterid
 			};
 			this.loading = true;
@@ -122,7 +128,7 @@ export default {
 							data: userInfo,
 							success: function() {
 								uni.switchTab({
-									url: '/pages/index/index'
+									url: '/pages/my/my'
 								});
 							}
 						});
@@ -144,7 +150,8 @@ export default {
 			}
 			this.code_status = true;
 			const sendData = {
-				telephone:this.telephone
+				telephone:this.telephone,
+				sendType:1
 			};
 			post(api.GetSmsCode, sendData)
 				.then(res => {
@@ -152,6 +159,7 @@ export default {
 						this.settime(60);
 					} else {
 						this.$api.msg(res.data.returnMessage);
+						this.code_status = false;
 					}
 				})
 				.catch(error => {
@@ -234,8 +242,6 @@ export default {
 	// padding-left:20rpx;padding-right:20rpx;
 	.send_btn {
 		background-color: #2d8cf0;
-		height: 76rpx;
-		line-height: 76rpx;
 	}
 }
 </style>

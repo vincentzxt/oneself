@@ -9,17 +9,22 @@
 					<cu-cell title="用户名"><input slot="footer" type="text" v-model="reqData.loginname" placeholder-style="color:#c5c8ce" placeholder="请输入用户名" /></cu-cell>
 					<cu-cell title="姓名"><input slot="footer" type="text" v-model="reqData.realname" placeholder-style="color:#c5c8ce" placeholder="请输入姓名" /></cu-cell>
 					<cu-cell title="+86"><input slot="footer" type="text" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入手机号" /></cu-cell>
-					<cu-cell title="邮箱"><input slot="footer" type="number" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
+					<cu-cell title="邮箱"><input slot="footer" type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
 					<cu-cell title="密码"><input slot="footer" type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="请输入密码" /></cu-cell>
 					<cu-cell title="确认密码">
 						<input slot="footer" type="text" v-model="reqData.re_password" placeholder-style="color:#c5c8ce" placeholder="请再次输入密码" />
 					</cu-cell>
+					<cu-cell title="账号角色" isLink>
+						<view slot="footer" style="width:100%;">
+							<picker @change="handleRoleChanage" value='1' :range="rolelist" range-key='rolename'>
+								<view class="main-picker">
+									<text v-if="rolename==''" style="color:#c5c8ce">请选择角色</text>
+									<text v-else>{{rolename}}</text>
+								</view>
+							</picker>
+						</view>
+					</cu-cell>
 				</cu-panel>
-				<view style="padding: 16upx;">	<radio-group @change="handleRoleChanage" class="uni-list-cell">
-				<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in rolelist" :key="item.roleid">
-				<view><radio color="#2db7f5" :value="item.roleid" />{{ item.rolename }}</radio></view></label>
-				</radio-group>
-				</view>
 			</scroll-view>
 		</view>
 		<view class="footer"><button class="footer-btn" style="background-color: #2d8cf0;" :loading="loading" type="primary" @click="handleSubmit">提交</button></view>
@@ -54,6 +59,7 @@ export default {
 				re_password: '',
 				roleid: 0
 			},
+			rolename:'',
 			rolelist: [],
 			loading: false,
 			title: '增加账号'
@@ -67,8 +73,10 @@ export default {
 			this.reqData.sex = val.detail.value;
 		},
 		handleRoleChanage(val) {
-			this.reqData.roleid = val.detail.value;
+			this.reqData.roleid = this.rolelist[val.detail.value].roleid;
+			this.rolename = this.rolelist[val.detail.value].rolename;
 			console.log(this.reqData.roleid);
+			//console.log(this.reqData.roleid);
 		},
 		handleNavbarClickLeft() {
 			uni.navigateBack({
@@ -77,8 +85,9 @@ export default {
 		},
 		loadRole() {
 			const sendData = {
-				pageIndex: 1,
-				pageRows: -1
+				'pageIndex': 1,
+				'pageRows': -1,
+				'roledtype':1
 			};
 			tokenpost(api.GetRoleList, sendData)
 				.then(res => {
@@ -119,10 +128,6 @@ export default {
 			}
 			if (telephone.length != 11) {
 				this.$api.msg('手机号码不正确！');
-				return;
-			}
-			if (email.length == 0) {
-				this.$api.msg('电子邮箱不能为空！');
 				return;
 			}
 			if (roleid == 0) {
