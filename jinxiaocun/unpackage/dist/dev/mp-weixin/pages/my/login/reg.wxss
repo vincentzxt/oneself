@@ -72,7 +72,5 @@
 }
 .user_bottom .send_btn.data-v-475765c6 {
   background-color: #2d8cf0;
-  height: 76rpx;
-  line-height: 76rpx;
 }
 

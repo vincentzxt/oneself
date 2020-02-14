@@ -362,9 +362,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _user = __webpack_require__(/*! @/api/user.js */ 285);
 var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));
-var _common = __webpack_require__(/*! @/config/common.js */ 56);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 579));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 586));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 614));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 593));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 600));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 603));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 610));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 638));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 617));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 624));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -384,6 +386,8 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);function _intero
         password: '',
         roleid: 0 },
 
+      rolename: '',
+      roleindex: 0,
       rolelist: [],
       userId: 0,
       loading: false,
@@ -402,8 +406,9 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);function _intero
       this.reqData.sex = val.detail.value;
     },
     handleRoleChanage: function handleRoleChanage(val) {
-      this.reqData.roleid = val.detail.value;
-      console.log(this.reqData.roleid);
+      console.log(val);
+      this.reqData.roleid = this.rolelist[val.detail.value].roleid;
+      this.rolename = this.rolelist[val.detail.value].rolename;
     },
     handleNavbarClickLeft: function handleNavbarClickLeft() {
       uni.navigateBack({
@@ -414,7 +419,8 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);function _intero
     loadRole: function loadRole() {var _this = this;
       var sendData = {
         'pageIndex': 1,
-        'pageRows': -1 };
+        'pageRows': -1,
+        'roledtype': 1 };
 
       (0, _user.tokenpost)(_common.api.GetRoleList, sendData).then(function (res) {
         if (res.status == 200 && res.data.returnCode == '0000') {
@@ -441,6 +447,10 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);function _intero
               email: res.data.data.email,
               roleid: res.data.data.roleid };
 
+            setTimeout(function () {
+              _this2.roleindex = _this2.arrayLookup(_this2.rolelist, 'roleid', _this2.reqData.roleid);
+              _this2.rolename = _this2.rolelist[_this2.roleindex].rolename;
+            }, 1000);
           } else {
             _this2.$api.msg(res.data.returnMessage);
             _this2.reqData = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
@@ -455,6 +465,16 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);function _intero
         _this2.$api.msg('请求失败fail');
       });
     },
+    arrayLookup: function arrayLookup(data, key, value) {
+      var targetValue = "";
+      for (var i = 0; i < data.length; i++) {
+        if (data[i][key] == value) {
+          targetValue = i;
+          break;
+        }
+      }
+      return targetValue;
+    },
     handleSubmit: function handleSubmit() {var _this3 = this;var _this$reqData =
       this.reqData,userid = _this$reqData.userid,loginname = _this$reqData.loginname,realname = _this$reqData.realname,telephone = _this$reqData.telephone,email = _this$reqData.email,password = _this$reqData.password,roleid = _this$reqData.roleid;
       if (loginname.length == 0) {
@@ -467,10 +487,6 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);function _intero
       }
       if (telephone.length != 11) {
         this.$api.msg('手机号码不正确！');
-        return;
-      }
-      if (email.length == 0) {
-        this.$api.msg('电子邮箱不能为空！');
         return;
       }
       var sendData = {};

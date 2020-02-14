@@ -90,6 +90,7 @@
 .uni-list-item__content-title.data-v-0be73b92 {
   font-size: 34rpx;
   overflow: hidden;
+  padding-top: 10rpx;
   line-height: 34rpx;
 }
 .uni-list-item__content-content.data-v-0be73b92 {

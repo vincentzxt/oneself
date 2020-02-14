@@ -9,7 +9,7 @@
 				<view>
 					<cu-panel>
 						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
-							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
+							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @blur="handleSearchBlurCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub>
 							<input class="form-input" slot="footer" type="text" v-model="reqData.contactunitname" focus/>
@@ -22,7 +22,7 @@
 				<view style="margin-top: 5px;">
 					<cu-panel>
 						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }">
-							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
+							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none" @focus="handleSearchFocusProduct" @blur="handleSearchBlurProduct"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -69,30 +69,29 @@
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
+				<cu-cell title="产品名称">
+					<view class="h50 fc" slot="footer">{{curSelectPruduct.productname}}</view>
+				</cu-cell>
 				<cu-cell title="单价">
-					<input slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0"/>
+					<input class="h50" slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
 				</cu-cell>
-				<cu-cell title="库存">
-					<text slot="footer">{{curSelectPruduct.totalqty}}</text>
-				</cu-cell>
-				<cu-cell title="数量" height=140>
-					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
-						<view class="popup-qty">
-							<uni-number-box :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleqtyChange"></uni-number-box>
-							<view class="popup-qty-items">
-								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #ffa268;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #ffa268;" @tap="handleSelectQty(300)">300</view>
-							</view>
+				<cu-cell title="数量">
+					<uni-number-box slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
+					<view slot="footer2">
+						<view class="popup-qty-items">
+							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
 						</view>
 					</view>
 				</cu-cell>
 				<cu-cell title="计量单位" isLastCell>
-					<radio-group slot="footer" @change="handleUnitChange">
+					<radio-group v-if="curSelectPruduct.isMultiUnit" class="h50 fc" slot="footer" @change="handleUnitChange">
 						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
 						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
 					</radio-group>
+					<view v-else class="h50 fc" slot="footer">{{curSelectPruduct.mainUnit}}</view>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
@@ -108,7 +107,7 @@
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
-	import { cloneObj } from '@/utils/tools.js'
+	import { cloneObj, floatFormat } from '@/utils/tools.js'
 	export default {
 		components: {
 			cuSearchBar,
@@ -147,13 +146,19 @@
 			this.productDatas = uni.getStorageSync('productList')
 			this.currentUnitSearchDatas = this.currentUnitDatas
 			this.productSearchDatas = this.productDatas
-			this.reqData = {
-				contactunitid: '',
-				contactunitname: '',
-				telephone: '',
-				productList: [],
-				totalCount: 0,
-				totalPrice: 0.00,
+			let pages =  getCurrentPages()
+			let curPage = pages[pages.length - 1]
+			if (curPage.data.commandType) {
+				if (curPage.data.commandType == 'success') {
+					this.reqData = {
+						contactunitid: '',
+						contactunitname: '',
+						telephone: '',
+						productList: [],
+						totalCount: 0,
+						totalPrice: 0.00,
+					}
+				}
 			}
 		},
 		computed: {
@@ -169,6 +174,14 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			handleSearchFocusCurrentUnit() {
+				this.currentUnitSearchDatas = this.currentUnitDatas
+				this.searchCurrentUnit = true
+			},
+			handleSearchBlurCurrentUnit() {
+				this.searchCurrentUnit = false
+				this.$refs.sc.cancel()
 			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
@@ -207,8 +220,16 @@
 					}
 				} else {
 					this.currentUnitSearchDatas = this.currentUnitDatas
-					this.searchCurrentUnit = false
+					this.searchCurrentUnit = true
 				}
+			},
+			handleSearchFocusProduct() {
+				this.productSearchDatas = this.productDatas
+				this.searchProduct = true
+			},
+			handleSearchBlurProduct() {
+				this.searchProduct = false
+				this.$refs.sp.cancel()
 			},
 			handleSearchProduct(val) {
 				if (val.value) {
@@ -224,7 +245,7 @@
 					this.searchProduct = true
 				} else {
 					this.productSearchDatas = this.productDatas
-					this.searchProduct = false
+					this.searchProduct = true
 				}
 			},
 			handleSelectCurrentUnit(val) {
@@ -246,6 +267,7 @@
 				this.$set(this.curSelectPruduct, 'ismainunit', 1)
 				this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple)
 				this.$set(this.curSelectPruduct, 'totalqty', val.totalqty)
+				this.$set(this.curSelectPruduct, 'isMultiUnit', val.isMultiUnit)
 				let isExists = false
 				for (let item of this.reqData.productList) {
 					if (item.productid == this.curSelectPruduct.productid) {
@@ -283,7 +305,12 @@
 					this.$refs.popup.close()
 				})
 			},
-			handleqtyChange(val) {
+			handlePriceBlur() {
+				if (this.curSelectPruduct.purchaseunitprice) {
+					this.curSelectPruduct.purchaseunitprice = floatFormat(this.curSelectPruduct.purchaseunitprice)
+				}
+			},
+			handleQtyChange(val) {
 				if (this.curSelectPruduct) {
 					this.curSelectPruduct.qty = val
 				}
@@ -338,14 +365,8 @@
 			},
 			reqData: {
 				handler(val) {
-					if (val.contactunitname && val.productList.length > 0 && val.totalPrice) {
-						if (val.productList.some((item) => {
-							return item.purchaseunitprice == 0
-						})) {
-							this.disableSubmit = true
-						} else {
-							this.disableSubmit = false
-						}
+					if (val.contactunitname && val.productList.length > 0) {
+						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true
 					}
@@ -360,6 +381,13 @@
 	.fill {
 		width: 100%;
 		height: 100%;
+	}
+	.h50 {
+		height: 50px;
+	}
+	.fc {
+		display: flex;
+		align-items: center;
 	}
 	.container {
 		.main {
@@ -398,11 +426,11 @@
 			flex-direction: column;
 			align-items: flex-end;
 			&-items {
-				margin-top: 30px;
+				margin-top: 20px;
 				display: flex;
 				align-items: center;
 				&-item {
-					width: 100upx;
+					width: 90upx;
 					height: 60upx;
 					display: flex;
 					justify-content: center;

@@ -115,7 +115,7 @@
     height: 10%;
 }
 .container .total.data-v-596ba57c {
-    font-size: 28rpx;
+    font-size: 34rpx;
     height: 8%;
     background-color: #FFFFFF;
     display: -webkit-box;

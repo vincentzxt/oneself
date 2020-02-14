@@ -173,20 +173,8 @@
 		},
 		{
 			"path": "pages/bill/earlywarn-list/earlywarn-list"
-<<<<<<< HEAD
 		},
 		{
-			"path": "pages/my/integral/integral"
-		},
-		{
-			"path": "pages/my/recharge/recharge"
-		},
-		{
-			"path" : "pages/my/share/myshare"
-		}
-	],
-=======
-		}, {
 			"path": "pages/my/integral/integral",
 			"style": {}
 		}, {
@@ -206,7 +194,6 @@
             "style" : {}
         }
     ],
->>>>>>> 9733e7bc00d2e13f9a60d77de93c350d7d55d48e
 	"globalStyle": {
 		"navigationStyle": "custom"
 	},

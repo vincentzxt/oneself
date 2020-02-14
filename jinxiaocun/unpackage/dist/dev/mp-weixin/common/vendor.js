@@ -7965,7 +7965,7 @@ _uniAxios.axios;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.get = exports.tokenpost = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.getinventory = exports.getinit = exports.get = exports.tokenpost = exports.query = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var query = function query(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return _http.default.request({
@@ -7988,6 +7988,20 @@ var get = function get(url) {var data = arguments.length > 1 && arguments[1] !==
     method: 'post' });
 
 };exports.get = get;
+var getinit = function getinit(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/GetInit/' + data.id,
+    data: data,
+    method: 'post' });
+
+};exports.getinit = getinit;
+var getinventory = function getinventory(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return _http.default.request({
+    url: url + '/GetInventory/' + data.id,
+    data: data,
+    method: 'post' });
+
+};exports.getinventory = getinventory;
 
 /***/ }),
 
@@ -11143,94 +11157,6 @@ var adapter = function adapter(config) {
 
 /***/ }),
 
-/***/ 548:
-/*!**********************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _sale$cost$purchase$p;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_sale$cost$purchase$p = {
-  'sale': "\uE622",
-  'cost': "\uE604",
-  'purchase': "\uE887",
-  'purchase-fill': "\uE888",
-  'early-stage': "\uE640",
-  'inventory': "\uE67F",
-  'stock': "\uE88F",
-  'stock-fill': "\uE890",
-  'customer': "\uE8A8",
-  'customer-fill': "\uE8A9",
-  'multiple': "\uE8B5",
-  'multiple-fill': "\uE8B4",
-  'search': "\uE8B8",
-  'home': "\uE8BA",
-  'home-fill': "\uE8B9",
-  'user': "\uE8C8",
-  'user-fill': "\uE8C9",
-  'profile': "\uE8CA",
-  'add': "\uE8E1",
-  'back': "\uE8EF",
-  'arrow': "\uE8F1",
-  'arrow-down': "\uE8F2",
-  'arrow-up': "\uE8F5",
-  'location': "\uE8FE",
-  'location-fill': "\uE8FF",
-  'data': "\uE902",
-  'data-fill': "\uE905",
-  'phone': "\uE8BD",
-  'mobile': "\uE8DC",
-  'product': "\uE8A1",
-  'product-fill': "\uE8A0",
-  'finance': "\uE8AF",
-  'finance-fill': "\uE8AE",
-  'edit': "\uE8CC",
-  'edit-fill': "\uE8CD",
-  'refresh': "\uE8FC",
-  'delete': "\uE775",
-  'email': "\uE60F",
-  'company': "\uEDB4",
-  'contacts': "\uE605",
-  'classify': "\uE898",
-  'classify-fill': "\uE897",
-  'unit': "\uE8A3",
-  'unit-fill': "\uE8A2",
-  'receipt': "\uE668",
-  'payment': "\uE691",
-  'return-order': "\uE6FE",
-  'chart-line': "\uE906",
-  'chart-column': "\uE904",
-  'yujing': "\uE8ED",
-  'yujing-fill': "\uE8EC",
-  'rexiao': "\uE606",
-  'zhixiao': "\uE607",
-  'circle': "\uE601",
-  'type': "\uE625",
-  'shoukuan': "\uE62D",
-  'fukuan': "\uE602" }, _defineProperty(_sale$cost$purchase$p, "yujing",
-"\uE639"), _defineProperty(_sale$cost$purchase$p,
-'fenxi', "\uE623"), _defineProperty(_sale$cost$purchase$p,
-'lr-change', "\uE613"), _defineProperty(_sale$cost$purchase$p,
-'filter', "\uE612"), _defineProperty(_sale$cost$purchase$p,
-'calendar', "\uE8CF"), _defineProperty(_sale$cost$purchase$p,
-'c-phone', "\uE6CB"), _defineProperty(_sale$cost$purchase$p,
-'c-position', "\uE611"), _defineProperty(_sale$cost$purchase$p,
-'c-search', "\uE736"), _defineProperty(_sale$cost$purchase$p,
-'c-search-log', "\uE631"), _defineProperty(_sale$cost$purchase$p,
-'c-home', "\uE610"), _defineProperty(_sale$cost$purchase$p,
-'c-email', "\uE626"), _defineProperty(_sale$cost$purchase$p,
-'c-right', "\uE69E"), _defineProperty(_sale$cost$purchase$p,
-'c-type', "\uE655"), _defineProperty(_sale$cost$purchase$p,
-'c-unit', "\uE630"), _defineProperty(_sale$cost$purchase$p,
-'c-print', "\uE68B"), _defineProperty(_sale$cost$purchase$p,
-'c-contacts', "\uE61C"), _defineProperty(_sale$cost$purchase$p,
-'c-discount', "\uE62F"), _defineProperty(_sale$cost$purchase$p,
-'c-amount', "\uE621"), _defineProperty(_sale$cost$purchase$p,
-'c-product', "\uE7A6"), _sale$cost$purchase$p);exports.default = _default;
-
-/***/ }),
-
 /***/ 55:
 /*!**************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/js-sdk/uni-axios/await-timeout.js ***!
@@ -11350,6 +11276,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   token: '/api/Token',
   login: '/api/BseUser/Login',
   ChangePassword: '/api/BseUser/ChangePassword',
+  ResetPassword: '/api/BseUser/ResetPassword',
   Regist: '/api/BseUser/Regist',
   GetUserInfo: '/api/BseUser/GetUserInfo',
   GetUserInfoByUserId: '/api/BseUser/GetUserInfoByUserId',
@@ -11368,7 +11295,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   GetOrderList: '/api/SysOrder/GetMyOrderList',
   IntegralExchange: '/api/BseUser/IntegralExchange',
   GetCurrentActivity: '/api/SysActivity/GetCurrentActivity',
-  SysOrderQueryResult: '/api/BseUser/SysOrderQueryResult',
+  GetMyPromotIntegralList: '/api/BseUser/GetMyPromotIntegralList',
   GetSmsCode: '/api/SysMessage/SendVerificationCode',
   GetProductList: '/api/SysProduct/GetProductList' };exports.api = api;
 
@@ -11407,6 +11334,96 @@ var createProductUnit = function createProductUnit(url) {var data = arguments.le
     method: 'post' });
 
 };exports.createProductUnit = createProductUnit;
+
+/***/ }),
+
+/***/ 572:
+/*!**********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/uni-icons/icons.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _sale$cost$purchase$p;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = (_sale$cost$purchase$p = {
+  'sale': "\uE622",
+  'cost': "\uE604",
+  'purchase': "\uE887",
+  'purchase-fill': "\uE888",
+  'early-stage': "\uE640",
+  'inventory': "\uE67F",
+  'stock': "\uE88F",
+  'stock-fill': "\uE890",
+  'customer': "\uE8A8",
+  'customer-fill': "\uE8A9",
+  'multiple': "\uE8B5",
+  'multiple-fill': "\uE8B4",
+  'search': "\uE8B8",
+  'home': "\uE8BA",
+  'home-fill': "\uE8B9",
+  'user': "\uE8C8",
+  'user-fill': "\uE8C9",
+  'profile': "\uE8CA",
+  'add': "\uE8E1",
+  'back': "\uE8EF",
+  'arrow': "\uE8F1",
+  'arrow-down': "\uE8F2",
+  'arrow-up': "\uE8F5",
+  'location': "\uE8FE",
+  'location-fill': "\uE8FF",
+  'data': "\uE902",
+  'data-fill': "\uE905",
+  'phone': "\uE8BD",
+  'mobile': "\uE8DC",
+  'product': "\uE8A1",
+  'product-fill': "\uE8A0",
+  'finance': "\uE8AF",
+  'finance-fill': "\uE8AE",
+  'edit': "\uE8CC",
+  'edit-fill': "\uE8CD",
+  'refresh': "\uE8FC",
+  'delete': "\uE775",
+  'email': "\uE60F",
+  'company': "\uEDB4",
+  'contacts': "\uE605",
+  'classify': "\uE898",
+  'classify-fill': "\uE897",
+  'unit': "\uE8A3",
+  'unit-fill': "\uE8A2",
+  'identifying-code': "\uE6BA",
+  'clear': "\uE713",
+  'receipt': "\uE668",
+  'payment': "\uE691",
+  'return-order': "\uE6FE",
+  'chart-line': "\uE906",
+  'chart-column': "\uE904",
+  'yujing': "\uE8ED",
+  'yujing-fill': "\uE8EC",
+  'rexiao': "\uE606",
+  'zhixiao': "\uE607",
+  'circle': "\uE601",
+  'type': "\uE625",
+  'shoukuan': "\uE62D",
+  'fukuan': "\uE602" }, _defineProperty(_sale$cost$purchase$p, "yujing",
+"\uE639"), _defineProperty(_sale$cost$purchase$p,
+'fenxi', "\uE623"), _defineProperty(_sale$cost$purchase$p,
+'lr-change', "\uE613"), _defineProperty(_sale$cost$purchase$p,
+'filter', "\uE612"), _defineProperty(_sale$cost$purchase$p,
+'calendar', "\uE8CF"), _defineProperty(_sale$cost$purchase$p,
+'c-phone', "\uE6CB"), _defineProperty(_sale$cost$purchase$p,
+'c-position', "\uE611"), _defineProperty(_sale$cost$purchase$p,
+'c-search', "\uE736"), _defineProperty(_sale$cost$purchase$p,
+'c-search-log', "\uE631"), _defineProperty(_sale$cost$purchase$p,
+'c-home', "\uE610"), _defineProperty(_sale$cost$purchase$p,
+'c-email', "\uE626"), _defineProperty(_sale$cost$purchase$p,
+'c-right', "\uE69E"), _defineProperty(_sale$cost$purchase$p,
+'c-type', "\uE655"), _defineProperty(_sale$cost$purchase$p,
+'c-unit', "\uE630"), _defineProperty(_sale$cost$purchase$p,
+'c-print', "\uE68B"), _defineProperty(_sale$cost$purchase$p,
+'c-contacts', "\uE61C"), _defineProperty(_sale$cost$purchase$p,
+'c-discount', "\uE62F"), _defineProperty(_sale$cost$purchase$p,
+'c-amount', "\uE621"), _defineProperty(_sale$cost$purchase$p,
+'c-product', "\uE7A6"), _sale$cost$purchase$p);exports.default = _default;
 
 /***/ }),
 
@@ -11493,7 +11510,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 
 /***/ }),
 
-/***/ 631:
+/***/ 655:
 /*!****************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/province.js ***!
   \****************************************************************************************************************/
@@ -11647,7 +11664,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 632:
+/***/ 656:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/city.js ***!
   \************************************************************************************************************/
@@ -13165,7 +13182,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 633:
+/***/ 657:
 /*!************************************************************************************************************!*\
   !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/components/simple-address/city-data/area.js ***!
   \************************************************************************************************************/
@@ -25724,19 +25741,31 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 690:
+/***/ 7:
+/*!********************************************************************************************!*\
+  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/pages.json?{"type":"style"} ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/index/inventory/add/add": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {}, "pages/data/data": {}, "pages/data/sale/sale": {}, "pages/data/return/return": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/bill/sell-list/sell-list": {}, "pages/bill/sell-list/sell-detail": {}, "pages/bill/purchase-list/purchase-list": {}, "pages/bill/purchase-list/purchase-detail": {}, "pages/bill/payment-list/payment-list": {}, "pages/bill/receipt-list/receipt-list": {}, "pages/bill/fee-list/fee-list": {}, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/sell-red-list/sell-detail": {}, "pages/bill/purchase-red-list/purchase-red-list": {}, "pages/bill/purchase-red-list/purchase-detail": {}, "pages/bill/inventory-list/inventory-list": {}, "pages/bill/begin-list/begin-list": {}, "pages/bill/begin-list/begin-detail": {}, "pages/bill/earlywarn-list/earlywarn-list": {}, "pages/my/integral/integral": {}, "pages/my/recharge/recharge": {}, "pages/my/share/myshare": {}, "pages/bill/inventory-list/inventory-detail": {}, "pages/my/about/about": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
+
+/***/ }),
+
+/***/ 714:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 691);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 715);
 
 
 /***/ }),
 
-/***/ 691:
+/***/ 715:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -25767,7 +25796,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 692);
+module.exports = __webpack_require__(/*! ./runtime */ 716);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -25784,7 +25813,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 692:
+/***/ 716:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -26513,18 +26542,6 @@ if (hadRuntime) {
   })() || Function("return this")()
 );
 
-
-/***/ }),
-
-/***/ 7:
-/*!********************************************************************************************!*\
-  !*** /Users/vincent/Documents/project/code/oneself/jinxiaocun/pages.json?{"type":"style"} ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/index/sale/sale": {}, "pages/index/sale/payment/payment": {}, "pages/index/purchase/purchase": {}, "pages/index/purchase/payment/payment": {}, "pages/index/current-unit/current-unit": { "enablePullDownRefresh": true }, "pages/index/current-unit/add/add": {}, "pages/index/current-unit/edit/edit": {}, "pages/index/product/product": {}, "pages/index/product/add/add": {}, "pages/index/product/edit/edit": {}, "pages/index/product/type/type": {}, "pages/index/product/unit/unit": {}, "pages/index/receipt/receipt": {}, "pages/index/payment/payment": {}, "pages/index/cost/cost": {}, "pages/index/return-order/return-order": {}, "pages/index/return-order/payment/payment": {}, "pages/index/return-order/orders/orders": {}, "pages/index/early-stage/early-stage": {}, "pages/index/inventory/inventory": {}, "pages/index/inventory/add/add": {}, "pages/bill/bill": {}, "pages/bill/stock-list/stock-list": {}, "pages/data/data": {}, "pages/data/sale/sale": {}, "pages/data/return/return": {}, "pages/my/my": {}, "pages/my/login/login": {}, "pages/my/set": {}, "pages/my/login/reg": {}, "pages/my/login/forget": {}, "pages/my/account/accountadd": {}, "pages/my/user/user": {}, "pages/my/user/useradd": {}, "pages/my/user/useredit": {}, "pages/my/account/accountlist": {}, "pages/my/login/editPassword": {}, "pages/my/givetime": {}, "pages/my/share/share": {}, "pages/my/account/accountedit": {}, "pages/my/account/accountdetail": {}, "pages/bill/sell-list/sell-list": {}, "pages/bill/sell-list/sell-detail": {}, "pages/bill/purchase-list/purchase-list": {}, "pages/bill/purchase-list/purchase-detail": {}, "pages/bill/payment-list/payment-list": {}, "pages/bill/receipt-list/receipt-list": {}, "pages/bill/fee-list/fee-list": {}, "pages/bill/sell-red-list/sell-red-list": {}, "pages/bill/sell-red-list/sell-detail": {}, "pages/bill/purchase-red-list/purchase-red-list": {}, "pages/bill/purchase-red-list/purchase-detail": {}, "pages/bill/inventory-list/inventory-list": {}, "pages/bill/begin-list/begin-list": {}, "pages/bill/earlywarn-list/earlywarn-list": {}, "pages/my/integral/integral": {}, "pages/my/recharge/recharge": {}, "pages/my/share/myshare": {} }, "globalStyle": { "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 

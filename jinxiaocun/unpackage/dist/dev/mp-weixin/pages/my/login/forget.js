@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 657));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -172,108 +172,136 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+var _user = __webpack_require__(/*! @/api/user.js */ 285);
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 681));};var _default =
 {
   data: function data() {
     return {
       loading: false,
       stop: false,
       miao: 60,
+      codeText: '获取验证码',
+      code_status: false,
       loginname: '',
-      mobile: '',
-      code: '',
-      status: 0,
+      telephone: '',
+      verificationCode: '',
       password: '',
-      new_password: '',
-      re_new_password: '',
+      re_password: '',
       title: '忘记密码' };
 
   },
   components: { uniIcon: uniIcon },
+  onLoad: function onLoad() {
+  },
   methods: {
     login_action: function login_action() {
       uni.reLaunch({
         url: '/pages/my/login/login' });
 
     },
-    handleLForget: function handleLForget() {var _this = this;var
-      loginname = this.loginname,password = this.password;
+    handleReg: function handleReg() {var _this = this;var
+      loginname = this.loginname,password = this.password,telephone = this.telephone,re_password = this.re_password,verificationCode = this.verificationCode;
       if (loginname.length == 0) {
         this.$api.msg('登录账号不能为空！');
+        return;
+      }
+      if (telephone.length != 11) {
+        this.$api.msg('手机号码不正确！');
+        return;
+      }
+      if (verificationCode.length == 0) {
+        this.$api.msg('手机验证码不能为空！');
         return;
       }
       if (password.length == 0) {
         this.$api.msg('登录密码不能为空！');
         return;
       }
-      var sendData = {
-        loginname: loginname,
-        password: password };
-
-      this.loading = true;
-      // uni.showLoading({  
-      //             title: '正在请求中'  
-      //         }); 
-      var url = "http://120.210.132.94:5599/api/BseUser/Login";
-      uni.request({
-        url: url,
-        data: sendData,
-        header: {
-          'Content-Type': 'application/json' },
-
-        method: "POST",
-        success: function success(res) {
-          if (res.statusCode == 200 && res.data.returnCode === '0000') {
-            var userinfo = {
-              "token": res.data.data.token,
-              "exp": res.data.data.exp };
-
-            uni.setStorage({
-              key: 'userinfo',
-              data: userinfo,
-              success: function success() {
-                setTimeout(function () {
-                  uni.switchTab({
-                    url: '/pages/index/index' });
-
-                }, 2000);
-              } });
-
-
-          } else {_this.$api.msg(res.data.returnMessage);}
-        },
-        fail: function fail() {
-          _this.$api.msg('请求失败fail');
-        },
-        complete: function complete() {
-          _this.loading = false;
-        } });
-
-
-
-
-    },
-    send: function send() {
-      var mobile = this.mobile;
-      this.settime(60);
-      if (mobile.length != 11) {
-        this.$api.msg('手机号错误');
+      if (re_password.length == 0) {
+        this.$api.msg('重复密码不能为空！');
         return;
       }
-    },
-    settime: function settime(smiao) {var _this2 = this;
-      var that = this;
-      var miao = that.miao;
-      if (miao == 0) {
-        that.miao = 0;
-        this.stop = false;
-      } else {
-        setTimeout(function () {
-          smiao--;
-          _this2.miao = smiao;
-          that.settime(smiao);
-        }, 1000);
+      if (password != re_password) {
+        this.$api.msg('两次密码不一致！');
+        return;
       }
 
+      var sendData = {
+        loginname: loginname,
+        password: password,
+        telephone: telephone,
+        verificationCode: verificationCode };
+
+      this.loading = true;
+      (0, _user.post)(_common.api.ResetPassword, sendData).
+      then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          var userInfo = {
+            token: res.data.data.token,
+            exp: res.data.data.exp,
+            userId: res.data.data.userId };
+
+          uni.setStorage({
+            key: 'userInfo',
+            data: userInfo,
+            success: function success() {
+              uni.switchTab({
+                url: '/pages/my/my' });
+
+            } });
+
+        } else {
+          _this.$api.msg(res.data.returnMessage);
+        }
+        _this.loading = false;
+      }).
+      catch(function (error) {
+        _this.loading = false;
+        _this.$api.msg('请求失败fail');
+      });
+    },
+    send: function send() {var _this2 = this;
+      var telephone = this.telephone;
+      if (telephone.length != 11) {
+        this.$api.msg('请输入手机号！');
+        return;
+      }
+      this.code_status = true;
+      var sendData = {
+        telephone: this.telephone,
+        sendType: 2 };
+
+      (0, _user.post)(_common.api.GetSmsCode, sendData).
+      then(function (res) {
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this2.settime(60);
+        } else {
+          _this2.code_status = false;
+          _this2.$api.msg(res.data.returnMessage);
+        }
+      }).
+      catch(function (error) {
+        _this2.$api.msg('请求失败fail');
+      });
+    },
+    settime: function settime(smiao) {var _this3 = this;
+      var miao = this.miao;
+      if (miao != 0) {
+        setTimeout(function () {
+          smiao--;
+          _this3.miao = smiao;
+          _this3.codeText = _this3.miao + '秒后重新获取';
+          _this3.settime(smiao);
+        }, 1000);
+      } else {
+        this.code_status = false;
+        this.codeText = '获取验证码';
+        this.miao = 60;
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

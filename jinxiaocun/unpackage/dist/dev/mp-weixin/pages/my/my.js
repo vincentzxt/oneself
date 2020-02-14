@@ -366,9 +366,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _user = __webpack_require__(/*! @/api/user.js */ 285);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 593));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 600));};var _default =
+var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 617));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 624));};var _default =
 {
   components: {
     // adCell
@@ -424,6 +425,15 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       }
       uni.navigateTo({
         url: '/pages/my/account/accountlist' });
+
+    },
+    handleAbout: function handleAbout() {
+      if (!this.login_status) {
+        this.$api.login();
+        return;
+      }
+      uni.navigateTo({
+        url: '/pages/my/about/about' });
 
     },
     handleRecharge: function handleRecharge() {

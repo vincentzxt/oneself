@@ -43,6 +43,8 @@ export default {
 	'classify-fill': '\ue897',
 	'unit': '\ue8a3',
 	'unit-fill': '\ue8a2',
+	'identifying-code': '\ue6ba',
+	'clear': '\ue713',
 	'receipt': '\ue668',
 	'payment': '\ue691',
 	'return-order': '\ue6fe',

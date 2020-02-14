@@ -355,10 +355,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _user = __webpack_require__(/*! @/api/user.js */ 285);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 
-var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 579));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 586));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 614));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 593));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 600));};var ImageCropper = function ImageCropper() {return __webpack_require__.e(/*! import() | components/invinbg-image-cropper/invinbg-image-cropper */ "components/invinbg-image-cropper/invinbg-image-cropper").then(__webpack_require__.bind(null, /*! @/components/invinbg-image-cropper/invinbg-image-cropper.vue */ 695));};var _default =
+var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/custom/cu-loading.vue */ 246));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 603));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 610));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 638));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 617));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 624));};var ImageCropper = function ImageCropper() {return __webpack_require__.e(/*! import() | components/invinbg-image-cropper/invinbg-image-cropper */ "components/invinbg-image-cropper/invinbg-image-cropper").then(__webpack_require__.bind(null, /*! @/components/invinbg-image-cropper/invinbg-image-cropper.vue */ 719));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -378,6 +380,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         companyname: '',
         contact: '',
         telephone: '',
+        cusemail: '',
         email: '',
         address: '' },
 
@@ -385,6 +388,9 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
 
   },
   onShow: function onShow() {
+
+  },
+  onLoad: function onLoad() {
     this.loadData();
   },
   methods: {
@@ -399,7 +405,9 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album'], //从相册选择
         success: function success(res) {
+
           _this.tempFilePath = res.tempFilePaths.shift();
+          //this.confirm();
         } });
 
     },
@@ -431,6 +439,7 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       console.log('canceled');
     },
     loadData: function loadData() {var _this3 = this;
+      console.log("kkk");
       this.$refs.loading.open();
       (0, _user.tokenpost)(_common.api.GetUserInfo).
       then(function (res) {
@@ -448,13 +457,13 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       });
     },
     handleSubmit: function handleSubmit() {var _this4 = this;var _this$reqData =
-      this.reqData,companylogourl = _this$reqData.companylogourl,companyname = _this$reqData.companyname,contact = _this$reqData.contact,telephone = _this$reqData.telephone,email = _this$reqData.email,address = _this$reqData.address;
+      this.reqData,companylogourl = _this$reqData.companylogourl,companyname = _this$reqData.companyname,contact = _this$reqData.contact,telephone = _this$reqData.telephone,email = _this$reqData.email,cusemail = _this$reqData.cusemail,address = _this$reqData.address;
       var sendData = {
         companylogourl: companylogourl,
         companyname: companyname,
         contact: contact,
         telephone: telephone,
-        email: email,
+        email: cusemail,
         address: address };
 
       this.loading = true;

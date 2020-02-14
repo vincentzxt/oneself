@@ -192,7 +192,7 @@
     -webkit-flex-direction: row;
             flex-direction: row;
 }
-.list-item .list-between .item-content.data-v-284b75db {
+.list-item .list-between .item-content1.data-v-284b75db {
       -webkit-box-flex: 2;
       -webkit-flex: 2;
               flex: 2;

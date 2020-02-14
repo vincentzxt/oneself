@@ -9,7 +9,7 @@
 				<view>
 					<cu-panel>
 						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
-							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
+							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @blur="handleSearchBlurCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub>
 							<input class="form-input" slot="footer" type="text" v-model="reqData.contactunitname" focus/>
@@ -22,7 +22,7 @@
 				<view style="margin-top: 5px;">
 					<cu-panel>
 						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }">
-							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
+							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none" @focus="handleSearchFocusProduct" @blur="handleSearchBlurProduct"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -156,7 +156,7 @@
 						telephone: '',
 						productList: [],
 						totalCount: 0,
-						totalPrice: 0.00,
+						totalPrice: 0.00
 					}
 				}
 			}
@@ -174,6 +174,14 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			handleSearchFocusCurrentUnit() {
+				this.currentUnitSearchDatas = this.currentUnitDatas
+				this.searchCurrentUnit = true
+			},
+			handleSearchBlurCurrentUnit() {
+				this.searchCurrentUnit = false
+				this.$refs.sc.cancel()
 			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
@@ -212,8 +220,16 @@
 					}
 				} else {
 					this.currentUnitSearchDatas = this.currentUnitDatas
-					this.searchCurrentUnit = false
+					this.searchCurrentUnit = true
 				}
+			},
+			handleSearchFocusProduct() {
+				this.productSearchDatas = this.productDatas
+				this.searchProduct = true
+			},
+			handleSearchBlurProduct() {
+				this.searchProduct = false
+				this.$refs.sp.cancel()
 			},
 			handleSearchProduct(val) {
 				if (val.value) {
@@ -229,7 +245,7 @@
 					this.searchProduct = true
 				} else {
 					this.productSearchDatas = this.productDatas
-					this.searchProduct = false
+					this.searchProduct = true
 				}
 			},
 			handleSelectCurrentUnit(val) {
@@ -371,11 +387,6 @@
 	}
 	.fc {
 		display: flex;
-		align-items: center;
-	}
-	.fcc {
-		display: flex;
-		justify-content: center;
 		align-items: center;
 	}
 	.container {

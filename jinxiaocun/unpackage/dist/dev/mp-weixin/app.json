@@ -55,10 +55,13 @@
     "pages/bill/purchase-red-list/purchase-detail",
     "pages/bill/inventory-list/inventory-list",
     "pages/bill/begin-list/begin-list",
+    "pages/bill/begin-list/begin-detail",
     "pages/bill/earlywarn-list/earlywarn-list",
     "pages/my/integral/integral",
     "pages/my/recharge/recharge",
-    "pages/my/share/myshare"
+    "pages/my/share/myshare",
+    "pages/bill/inventory-list/inventory-detail",
+    "pages/my/about/about"
   ],
   "subPackages": [],
   "window": {
@@ -99,5 +102,5 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
   },
-  "sitemapLocation": "sitemap44.json"
+  "sitemapLocation": "sitemap81.json"
 }

@@ -177,7 +177,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _user = __webpack_require__(/*! @/api/user.js */ 285);
-var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 657));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 681));};var _default =
 {
   data: function data() {
     return {
@@ -188,7 +188,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
       code_status: false,
       loginname: '',
       telephone: '',
-      code: '',
+      verificationCode: '',
       password: '',
       re_password: '',
       title: '注册',
@@ -216,9 +216,17 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
 
     },
     handleReg: function handleReg() {var _this = this;var
-      loginname = this.loginname,password = this.password,telephone = this.telephone,re_password = this.re_password,promoterid = this.promoterid;
+      loginname = this.loginname,password = this.password,telephone = this.telephone,re_password = this.re_password,promoterid = this.promoterid,verificationCode = this.verificationCode;
       if (loginname.length == 0) {
         this.$api.msg('登录账号不能为空！');
+        return;
+      }
+      if (telephone.length != 11) {
+        this.$api.msg('手机号码不正确！');
+        return;
+      }
+      if (verificationCode.length == 0) {
+        this.$api.msg('手机验证码不能为空！');
         return;
       }
       if (password.length == 0) {
@@ -233,14 +241,12 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
         this.$api.msg('两次密码不一致！');
         return;
       }
-      if (telephone.length != 11) {
-        this.$api.msg('手机号码不正确！');
-        return;
-      }
+
       var sendData = {
         loginname: loginname,
         password: password,
         telephone: telephone,
+        verificationCode: verificationCode,
         promoterid: promoterid };
 
       this.loading = true;
@@ -257,7 +263,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
             data: userInfo,
             success: function success() {
               uni.switchTab({
-                url: '/pages/index/index' });
+                url: '/pages/my/my' });
 
             } });
 
@@ -279,7 +285,8 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
       }
       this.code_status = true;
       var sendData = {
-        telephone: this.telephone };
+        telephone: this.telephone,
+        sendType: 1 };
 
       (0, _user.post)(_common.api.GetSmsCode, sendData).
       then(function (res) {
@@ -287,6 +294,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniIcon = fu
           _this2.settime(60);
         } else {
           _this2.$api.msg(res.data.returnMessage);
+          _this2.code_status = false;
         }
       }).
       catch(function (error) {

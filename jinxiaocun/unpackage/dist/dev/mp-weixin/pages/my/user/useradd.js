@@ -167,8 +167,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 var _user = __webpack_require__(/*! @/api/user.js */ 285);
-var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 579));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 586));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 614));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 593));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 600));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 603));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 610));};var cuCellGroup = function cuCellGroup() {return __webpack_require__.e(/*! import() | components/custom/cu-cell-group */ "components/custom/cu-cell-group").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell-group.vue */ 638));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 617));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 624));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -189,6 +194,7 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
         re_password: '',
         roleid: 0 },
 
+      rolename: '',
       rolelist: [],
       loading: false,
       title: '增加账号' };
@@ -202,8 +208,10 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
       this.reqData.sex = val.detail.value;
     },
     handleRoleChanage: function handleRoleChanage(val) {
-      this.reqData.roleid = val.detail.value;
+      this.reqData.roleid = this.rolelist[val.detail.value].roleid;
+      this.rolename = this.rolelist[val.detail.value].rolename;
       console.log(this.reqData.roleid);
+      //console.log(this.reqData.roleid);
     },
     handleNavbarClickLeft: function handleNavbarClickLeft() {
       uni.navigateBack({
@@ -212,8 +220,9 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
     },
     loadRole: function loadRole() {var _this = this;
       var sendData = {
-        pageIndex: 1,
-        pageRows: -1 };
+        'pageIndex': 1,
+        'pageRows': -1,
+        'roledtype': 1 };
 
       (0, _user.tokenpost)(_common.api.GetRoleList, sendData).
       then(function (res) {
@@ -254,10 +263,6 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var cuPanel = fu
       }
       if (telephone.length != 11) {
         this.$api.msg('手机号码不正确！');
-        return;
-      }
-      if (email.length == 0) {
-        this.$api.msg('电子邮箱不能为空！');
         return;
       }
       if (roleid == 0) {
