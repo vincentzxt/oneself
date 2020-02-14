@@ -151,13 +151,13 @@ export default {
 		handleSubmit(){
 			let data = this.$refs.checkbox.get();
 			if(!data){
-				this.$api.msg("请选择要兑换的产品!");
+				this.$api.msg("请选择要购买的产品!");
 				return;
 			}
 			const sendData ={productid:data.productid};
-			tokenpost(api.IntegralExchange,sendData).then(res => {
+			tokenpost(api.AddOrder,sendData).then(res => {
 				if (res.status == 200 && res.data.returnCode == '0000') {
-					this.$api.msg("兑换成功！");
+					this.$api.msg("购买成功！");
 					this.pageIndex = 0;
 					this.loadData();
 					this.TabCur=1;
