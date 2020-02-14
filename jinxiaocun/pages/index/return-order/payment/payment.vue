@@ -9,7 +9,7 @@
 				<view>
 					<cu-panel>
 						<cu-cell title="退款帐号" isLink>
-							<view slot="footer" style="width:100%;">
+							<view class="h50 fc" slot="footer" style="width:100%;">
 								<picker v-if="businessType == 0" @change="handleCashAccountChange" :value="reqData.order.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
 									<view class="main-picker">
 										<text v-if="!reqData.order.payAccountName" style="color:#c5c8ce">选择退款帐号</text>
@@ -25,7 +25,7 @@
 							</view>
 						</cu-cell>
 						<cu-cell title="打印单据" isLastCell>
-							<radio-group slot="footer" @change="handlePrintChange">
+							<radio-group class="h50 fc" slot="footer" @change="handlePrintChange">
 								<radio color="#2db7f5" value=0 :checked="reqData.order.isprint == 0">否</radio>
 								<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
@@ -105,6 +105,8 @@
 				this.$refs.loading.close()
 				if (res.status == 200 && res.data.returnCode == '0000') {
 					this.cashAccountDict = res.data.data.resultList
+					this.reqData.order.accountid = this.cashAccountDict[0].cashaccountid
+					this.reqData.order.accountName = this.cashAccountDict[0].cashaccountname
 				}
 			}).catch(error => {
 				this.$refs.loading.close()
@@ -223,6 +225,13 @@
 	.fill {
 		width: 100%;
 		height: 100%;
+	}
+	.h50 {
+		height: 50px;
+	}
+	.fc {
+		display: flex;
+		align-items: center;
 	}
 	.container {
 		.main {

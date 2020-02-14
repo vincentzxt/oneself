@@ -231,8 +231,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 589));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 596));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 603));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 610));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 617));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 624));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 631));};var _default =
@@ -282,6 +280,19 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
       uni.navigateBack({
         delta: 1 });
 
+    },
+    handlePriceBlur: function handlePriceBlur() {
+      if (this.curSelectPruduct.salesunitprice) {
+        this.curSelectPruduct.salesunitprice = (0, _tools.floatFormat)(this.curSelectPruduct.salesunitprice);
+      }
+    },
+    handleSearchFocusProduct: function handleSearchFocusProduct() {
+      this.productSearchDatas = this.productDatas;
+      this.searchProduct = true;
+    },
+    handleSearchClearProduct: function handleSearchClearProduct() {
+      this.searchProduct = false;
+      this.$refs.sp.cancel();
     },
     handleSearchProduct: function handleSearchProduct(val) {
       if (val.value) {

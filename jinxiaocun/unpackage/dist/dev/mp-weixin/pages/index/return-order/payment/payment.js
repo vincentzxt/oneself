@@ -240,6 +240,8 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
       _this.$refs.loading.close();
       if (res.status == 200 && res.data.returnCode == '0000') {
         _this.cashAccountDict = res.data.data.resultList;
+        _this.reqData.order.accountid = _this.cashAccountDict[0].cashaccountid;
+        _this.reqData.order.accountName = _this.cashAccountDict[0].cashaccountname;
       }
     }).catch(function (error) {
       _this.$refs.loading.close();

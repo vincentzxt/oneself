@@ -92,8 +92,8 @@
             align-items: center;
 }
 .container .popup-qty-items-item.data-v-297702b2 {
-      width: 100rpx;
-      height: 50rpx;
+      width: 90rpx;
+      height: 60rpx;
       display: -webkit-box;
       display: -webkit-flex;
       display: flex;

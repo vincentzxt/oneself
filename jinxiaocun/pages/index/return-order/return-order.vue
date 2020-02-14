@@ -94,16 +94,14 @@
 		</view>
 		<uni-popup ref="purchasePopup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量" height=110 isLastCell>
-					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
-						<view class="popup-qty">
-							<uni-number-box :min="1" :max="maxNum" :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
-							<view class="popup-qty-items">
-								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fbe490;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #bffe94;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd969c;" @tap="handleSelectQty(300)">300</view>
-							</view>
+				<cu-cell title="数量" isLastCell>
+					<uni-number-box slot="footer" :min="1" :max="maxNum" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
+					<view slot="footer2">
+						<view class="popup-qty-items">
+							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
 						</view>
 					</view>
 				</cu-cell>
@@ -112,16 +110,14 @@
 		</uni-popup>
 		<uni-popup ref="salePopup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量" height=110 isLastCell>
-					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
-						<view class="popup-qty">
-							<uni-number-box :min="1" :max="maxNum" :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
-							<view class="popup-qty-items">
-								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fbe490;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #bffe94;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd969c;" @tap="handleSelectQty(300)">300</view>
-							</view>
+				<cu-cell title="数量" isLastCell>
+					<uni-number-box slot="footer" :min="1" :max="maxNum" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
+					<view slot="footer2">
+						<view class="popup-qty-items">
+							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
 						</view>
 					</view>
 				</cu-cell>
@@ -412,14 +408,8 @@
 			},
 			salesReqData: {
 				handler(val) {
-					if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
-						if (val.productList.some((item) => {
-							return item.salesunitprice == 0
-						})) {
-							this.disableSubmit = true
-						} else {
-							this.disableSubmit = false
-						}
+					if (val.contactunitid && val.productList.length > 0) {
+						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true
 					}
@@ -479,8 +469,8 @@
 				display: flex;
 				align-items: center;
 				&-item {
-					width: 100upx;
-					height: 50upx;
+					width: 90upx;
+					height: 60upx;
 					display: flex;
 					justify-content: center;
 					align-items: center;

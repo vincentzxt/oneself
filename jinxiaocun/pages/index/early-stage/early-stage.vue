@@ -9,7 +9,7 @@
 				<view>
 					<cu-panel>
 						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" isLastCell>
-							<cu-search-bar slot="footer" ref="sp" style="width:100%;" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none"></cu-search-bar>
+							<cu-search-bar slot="footer" ref="sp" style="width:100%;" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none" @focus="handleSearchFocusProduct" @clear="handleSearchClearProduct"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -42,16 +42,14 @@
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量" height=110>
-					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
-						<view class="popup-qty">
-							<uni-number-box :min="1" :value="curSelectPruduct.qty" @change="handleqtyChange"></uni-number-box>
-							<view class="popup-qty-items">
-								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
-							</view>
+				<cu-cell title="数量" isLastCell>
+					<uni-number-box slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleqtyChange"></uni-number-box>
+					<view slot="footer2">
+						<view class="popup-qty-items">
+							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
 						</view>
 					</view>
 				</cu-cell>
@@ -62,7 +60,7 @@
 					</radio-group>
 				</cu-cell>
 				<cu-cell isLastCell title="成本价">
-					<input slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0"/>
+					<input slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
@@ -79,7 +77,7 @@
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
-	import { cloneObj } from '@/utils/tools.js'
+	import { cloneObj, floatFormat } from '@/utils/tools.js'
 	import { api } from '@/config/common.js'
 	import { create } from '@/api/common.js'
 	export default {
@@ -128,6 +126,19 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			handlePriceBlur() {
+				if (this.curSelectPruduct.salesunitprice) {
+					this.curSelectPruduct.salesunitprice = floatFormat(this.curSelectPruduct.salesunitprice)
+				}
+			},
+			handleSearchFocusProduct() {
+				this.productSearchDatas = this.productDatas
+				this.searchProduct = true
+			},
+			handleSearchClearProduct() {
+				this.searchProduct = false
+				this.$refs.sp.cancel()
 			},
 			handleSearchProduct(val) {
 				if (val.value) {
@@ -305,8 +316,8 @@
 				display: flex;
 				align-items: center;
 				&-item {
-					width: 100upx;
-					height: 50upx;
+					width: 90upx;
+					height: 60upx;
 					display: flex;
 					justify-content: center;
 					align-items: center;
