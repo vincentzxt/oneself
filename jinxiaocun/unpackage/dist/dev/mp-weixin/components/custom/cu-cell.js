@@ -203,11 +203,19 @@ var _default2 =
       type: String,
       default: '' },
 
+    notesColor: {
+      type: String,
+      default: '' },
+
     disVerMessage: {
       type: Boolean,
       default: false },
 
     verify: {
+      type: String,
+      default: '' },
+
+    verifyColor: {
       type: String,
       default: '' },
 

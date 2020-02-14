@@ -128,7 +128,7 @@
     display: flex;
     font-size: 26rpx;
     margin-top: 5px;
-    color: #808695;
+    color: #f7d767;
 }
 .cu-cell-verify.data-v-5f2c1378 {
     padding: 0 15px;
