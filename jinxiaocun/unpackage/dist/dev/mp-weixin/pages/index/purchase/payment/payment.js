@@ -235,8 +235,8 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       _this.$refs.loading.close();
       if (res.status == 200 && res.data.returnCode == '0000') {
         _this.cashAccountDict = res.data.data.resultList;
-        _this.reqData.order.accountid = _this.cashAccountDict[0].cashaccountid;
-        _this.reqData.order.accountName = _this.cashAccountDict[0].cashaccountname;
+        _this.reqData.order.payaccountid = _this.cashAccountDict[0].cashaccountid;
+        _this.reqData.order.payaccountName = _this.cashAccountDict[0].cashaccountname;
       } else {
         uni.showToast({
           icon: 'none',

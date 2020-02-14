@@ -339,7 +339,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       this.currentUnitSearchDatas = this.currentUnitDatas;
       this.searchCurrentUnit = true;
     },
-    handleSearchBlurCurrentUnit: function handleSearchBlurCurrentUnit() {
+    handleSearchClearCurrentUnit: function handleSearchClearCurrentUnit() {
       this.searchCurrentUnit = false;
       this.$refs.sc.cancel();
     },
@@ -387,7 +387,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       this.productSearchDatas = this.productDatas;
       this.searchProduct = true;
     },
-    handleSearchBlurProduct: function handleSearchBlurProduct() {
+    handleSearchClearProduct: function handleSearchClearProduct() {
       this.searchProduct = false;
       this.$refs.sp.cancel();
     },

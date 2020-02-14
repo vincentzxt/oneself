@@ -185,9 +185,6 @@ __webpack_require__.r(__webpack_exports__);
     handleFocus: function handleFocus() {
       this.$emit('focus');
     },
-    handleBlur: function handleBlur() {
-      this.$emit('blur');
-    },
     searchClick: function searchClick() {var _this = this;
       if (this.show) {
         return;
@@ -199,8 +196,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     clear: function clear() {
-      this.searchVal = "";
-      this.showSync = false;
+      this.$emit('clear');
     },
     cancel: function cancel() {
       this.$emit("cancel", {

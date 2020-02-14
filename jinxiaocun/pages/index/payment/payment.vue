@@ -9,17 +9,17 @@
 				<view>
 					<cu-panel>
 						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
-							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
+							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @clear="handleSearchClearCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub isLastCell>
-							<text slot="footer">{{reqData.contactunitname}}</text>
+							<text class="h50 fc" slot="footer">{{reqData.contactunitname}}</text>
 						</cu-cell>
 					</cu-panel>
 				</view>
 				<view style="margin-top:5px;">
 					<cu-panel>
 						<cu-cell v-if="!searchCurrentUnit" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }">
-							<view slot="footer" style="width:100%;">
+							<view class="h50 fc" slot="footer" style="width:100%;">
 								<picker @change="handleCashAccountChange" :value="reqData.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
 									<view class="main-picker">
 										<text v-if="!reqData.payaccountName" style="color:#c5c8ce">选择付款帐号</text>
@@ -29,7 +29,7 @@
 							</view>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="付款金额" isIcon :icon="{ type: 'c-amount', color: '#c4c6cb', 'size': 20 }" isLastCell>
-							<input slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0"/>
+							<input class="h50" slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0.00" @blur="handlePriceBlur"/>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -59,6 +59,7 @@
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import { api } from '@/config/common.js'
 	import { query, create } from '@/api/common.js'
+	import { floatFormat } from '@/utils/tools.js'
 	export default {
 		components: {
 			cuSearchBar,
@@ -120,6 +121,11 @@
 					delta: 1
 				})
 			},
+			handlePriceBlur() {
+				if (this.reqData.amount) {
+					this.reqData.amount = floatFormat(this.reqData.amount)
+				}
+			},
 			handleCashAccountChange(val) {
 				this.reqData.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
 				this.reqData.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname				
@@ -143,6 +149,14 @@
 					this.currentUnitSearchDatas = this.currentUnitDatas
 					this.searchCurrentUnit = false
 				}
+			},
+			handleSearchFocusCurrentUnit() {
+				this.currentUnitSearchDatas = this.currentUnitDatas
+				this.searchCurrentUnit = true
+			},
+			handleSearchClearCurrentUnit() {
+				this.searchCurrentUnit = false
+				this.$refs.sc.cancel()
 			},
 			handleSelectCurrentUnit(val) {
 				this.reqData.contactunitid = val.contactunitid
@@ -200,6 +214,13 @@
 	.fill {
 		width: 100%;
 		height: 100%;
+	}
+	.h50 {
+		height: 50px;
+	}
+	.fc {
+		display: flex;
+		align-items: center;
 	}
 	.container {
 		.main {
