@@ -88,6 +88,8 @@
       -webkit-box-align: center;
       -webkit-align-items: center;
               align-items: center;
+      -webkit-flex-wrap: wrap;
+              flex-wrap: wrap;
 }
 .cu-cell-wrap-bd-notnull.data-v-5f2c1378 {
         color: #f4613d;
@@ -126,7 +128,7 @@
     display: flex;
     font-size: 26rpx;
     margin-top: 5px;
-    color: #f7d767;
+    color: #808695;
 }
 .cu-cell-verify.data-v-5f2c1378 {
     padding: 0 15px;

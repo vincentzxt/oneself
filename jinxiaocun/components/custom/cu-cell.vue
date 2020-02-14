@@ -203,6 +203,7 @@
 			&-bd{
 				display: flex;
 				align-items: center;
+				flex-wrap: wrap;
 				&-notnull {
 					color:#f4613d;
 					margin-right:2px;
@@ -229,7 +230,7 @@
 			display: flex;
 			font-size: $uni-font-size-min;
 			margin-top: 5px;
-			color: #f7d767;
+			color: #808695;
 		}
 		&-verify {
 			padding: 0 15px;
