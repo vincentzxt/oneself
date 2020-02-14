@@ -21,11 +21,11 @@
 						<cu-cell title="联系电话">
 							<input slot="footer" type="number" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入联系人电话" />
 						</cu-cell>
-						<cu-cell title="邮箱" isLastCell><input slot="footer" type="text" v-model="reqData.cusemail" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
-				</cu-panel>
-				<view style="background-color: #FFFFFF;padding: 16upx;">
-				<textarea  style="height: 80px" maxlength="-1" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="地址"></textarea>
-				</view>
+						<cu-cell title="邮箱"><input slot="footer" type="text" v-model="reqData.cusemail" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
+				<cu-cell title="地址"  isLastCell>
+					<textarea  style="height: 80px" slot="footer" maxlength="-1" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="地址"></textarea>
+						</cu-cell>
+						</cu-panel>
 			</scroll-view>
 		</view>
 		 <image-cropper :src="tempFilePath" @confirm="confirm"  @cancel="cancel"></image-cropper>
