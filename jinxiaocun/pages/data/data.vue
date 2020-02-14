@@ -251,7 +251,13 @@
 			this.cHeight = uni.upx2px(400)
 			this.rWidth = uni.upx2px(550)
 			this.rHeight = uni.upx2px(400)
-			this.datas = []
+			this.datas = {}
+			this.receivableRingArr = []
+			this.paymentRingArr = []
+			this.receivableRingTotal = 0
+			this.paymentRingTotal = 0
+			this.hotSellingProduct = []
+			this.slowSellingProduct = []
 			this.date = 'day'
 			this.startDate = dateFormat('YYYY-mm-dd', new Date()) + ' 00:00:00'
 			this.endDate = dateFormat('YYYY-mm-dd', new Date()) + ' 23:59:59'

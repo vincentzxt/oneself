@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
+						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.contactunitname.disVerMessage" :verify="verify.contactunitname.message">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @clear="handleSearchClearCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub>
@@ -21,7 +21,7 @@
 				</view>
 				<view style="margin-top: 5px;">
 					<cu-panel>
-						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }">
+						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.productList.disVerMessage" :verify="verify.productList.message">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none" @focus="handleSearchFocusProduct" @clear="handleSearchClearProduct"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
@@ -138,11 +138,16 @@
 				title: '采购',
 				curSelectPruduct: {},
 				checkedUnit: 0,
-				disableSubmit: true
+				verify: {
+					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
+					productList: { okVerify: false, disVerMessage: false, message: '至少选择一个产品' }
+				}
 			};
 		},
 		onShow() {
-			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
+			this.currentUnitDatas = uni.getStorageSync('currentUnitList').filter((item) => {
+				return item.contactunittype !== 1
+			})
 			this.productDatas = uni.getStorageSync('productList')
 			this.currentUnitSearchDatas = this.currentUnitDatas
 			this.productSearchDatas = this.productDatas
@@ -195,7 +200,7 @@
 						if (!item.bseContactUnitContactModels[0].telephone) {
 							item.bseContactUnitContactModels[0].telephone = ''
 						}
-						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
+						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
 					if (this.currentUnitSearchDatas.length == 0) {
 						uni.showModal({
@@ -254,6 +259,7 @@
 				this.reqData.telephone = val.bseContactUnitContactModels[0].telephone
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
+				this.handleVerify('contactunitname')
 			},
 			handleSelectProduct(val) {
 				this.$set(this.curSelectPruduct, 'productid', val.productid)
@@ -281,6 +287,7 @@
 				}
 				this.searchProduct = false
 				this.$refs.sp.cancel()
+				this.handleVerify('productList')
 				this.$nextTick(function(){
 					this.$refs.popup.open()
 				})
@@ -334,14 +341,55 @@
 				this.reqData.productList = this.reqData.productList.filter((item) => {
 					return item.productid !== val.productid
 				})
+				this.handleVerify('productList')
+			},
+			handleVerify(val) {
+				switch(val) {
+					case 'contactunitname':
+						if (!this.reqData.contactunitname) {
+							this.verify.contactunitname.okVerify = false
+							this.verify.contactunitname.disVerMessage = true
+						} else {
+							this.verify.contactunitname.okVerify = true
+							this.verify.contactunitname.disVerMessage = false
+						}
+						break
+					case 'productList':
+						if (this.reqData.productList.length == 0) {
+							this.verify.productList.okVerify = false
+							this.verify.productList.disVerMessage = true
+						} else {
+							this.verify.productList.okVerify = true
+							this.verify.productList.disVerMessage = false
+						}
+						break
+				}
+			},
+			checkVerify() {
+				let result = true
+				for (let item in this.verify) {
+					if (!this.verify[item].okVerify) {
+						this.verify[item].disVerMessage = true
+						result = false
+					}
+				}
+				return result
 			},
 			handleNext() {
 				if (this.reqData.telephone == ' ') {
 					this.reqData.telephone = ''
 				}
-				uni.navigateTo({
-					url: './payment/payment?reqData='+JSON.stringify(this.reqData)
+				this.reqData.productList = this.reqData.productList.map((item)=>{
+					if (!item.purchaseunitprice) {
+						item.purchaseunitprice = '0.00'
+					}
+					return item
 				})
+				if (this.checkVerify()) {
+					uni.navigateTo({
+						url: './payment/payment?reqData='+JSON.stringify(this.reqData)
+					})
+				}
 			}
 		},
 		watch: {
@@ -359,16 +407,6 @@
 							this.reqData.totalCount += parseInt(item.qty)
 						}
 						this.reqData.totalPrice = parseFloat(this.reqData.totalPrice).toFixed(2)
-					}
-				},
-				deep: true
-			},
-			reqData: {
-				handler(val) {
-					if (val.contactunitname && val.productList.length > 0) {
-						this.disableSubmit = false
-					} else {
-						this.disableSubmit = true
 					}
 				},
 				deep: true

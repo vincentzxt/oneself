@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
+						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.contactunitname.disVerMessage" :verify="verify.contactunitname.message">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @clear="handleSearchClearCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub isLastCell>
@@ -18,7 +18,7 @@
 				</view>
 				<view style="margin-top:5px;">
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }">
+						<cu-cell v-if="!searchCurrentUnit" title="付款帐号" isLink isIcon :icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.payaccountName.disVerMessage" :verify="verify.payaccountName.message">
 							<view class="h50 fc" slot="footer" style="width:100%;">
 								<picker @change="handleCashAccountChange" :value="reqData.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
 									<view class="main-picker">
@@ -28,7 +28,7 @@
 								</picker>
 							</view>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit" title="付款金额" isIcon :icon="{ type: 'c-amount', color: '#c4c6cb', 'size': 20 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit" title="付款金额" isIcon :icon="{ type: 'c-amount', color: '#c4c6cb', 'size': 20 }" isLastCell :disVerMessage="verify.amount.disVerMessage" :verify="verify.amount.message">
 							<input class="h50" slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0.00" @blur="handlePriceBlur"/>
 						</cu-cell>
 					</cu-panel>
@@ -45,7 +45,7 @@
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="fill" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
@@ -82,30 +82,17 @@
 					amount: ''
 				},
 				cashAccountDict: [],
-				disableSubmit: true
+				verify: {
+					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
+					payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' },
+					amount: { okVerify: false, disVerMessage: false, message: '付款金额不能为空，且不能为零' }
+				}
 			}
 		},
 		onLoad() {
 			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
 			this.currentUnitSearchDatas = this.currentUnitDatas
-			this.$refs.loading.open()
-			query(api.cashAccount).then(res => {
-				this.$refs.loading.close()
-				if (res.status == 200 && res.data.returnCode == '0000') {
-					this.cashAccountDict = res.data.data.resultList
-				} else {
-					uni.showToast({
-						icon: 'none',
-						title: res.data.returnMessage
-					})
-				}
-			}).catch(error => {
-				this.$refs.loading.close()
-				uni.showToast({
-					icon: 'none',
-					title: error
-				})
-			})
+			this.getCashAccount()
 		},
 		computed: {
 			headerHeight() {
@@ -121,14 +108,36 @@
 					delta: 1
 				})
 			},
+			getCashAccount() {
+				this.$refs.loading.open()
+				query(api.cashAccount).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.cashAccountDict = res.data.data.resultList
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.returnMessage
+						})
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+					uni.showToast({
+						icon: 'none',
+						title: error
+					})
+				})
+			},
 			handlePriceBlur() {
 				if (this.reqData.amount) {
 					this.reqData.amount = floatFormat(this.reqData.amount)
 				}
+				this.handleVerify('amount')
 			},
 			handleCashAccountChange(val) {
 				this.reqData.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
-				this.reqData.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname				
+				this.reqData.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname
+				this.handleVerify('payaccountName')
 			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
@@ -142,7 +151,7 @@
 						if (!item.bseContactUnitContactModels[0].telephone) {
 							item.bseContactUnitContactModels[0].telephone = ''
 						}
-						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
+						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
 					this.searchCurrentUnit = true
 				} else {
@@ -163,36 +172,80 @@
 				this.reqData.contactunitname = val.contactunitname
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
+				this.handleVerify('contactunitname')
+			},
+			handleVerify(val) {
+				switch(val) {
+					case 'contactunitname':
+						if (!this.reqData.contactunitname) {
+							this.verify.contactunitname.okVerify = false
+							this.verify.contactunitname.disVerMessage = true
+						} else {
+							this.verify.contactunitname.okVerify = true
+							this.verify.contactunitname.disVerMessage = false
+						}
+						break
+					case 'payaccountName':
+						if (!this.reqData.payaccountName) {
+							this.verify.payaccountName.okVerify = false
+							this.verify.payaccountName.disVerMessage = true
+						} else {
+							this.verify.payaccountName.okVerify = true
+							this.verify.payaccountName.disVerMessage = false
+						}
+						break
+					case 'amount':
+						if (!this.reqData.amount || this.reqData.amount == '0.00') {
+							this.verify.amount.okVerify = false
+							this.verify.amount.disVerMessage = true
+						} else {
+							this.verify.amount.okVerify = true
+							this.verify.amount.disVerMessage = false
+						}
+						break	
+				}
+			},
+			checkVerify() {
+				let result = true
+				for (let item in this.verify) {
+					if (!this.verify[item].okVerify) {
+						this.verify[item].disVerMessage = true
+						result = false
+					}
+				}
+				return result
 			},
 			handleSubmit() {
-				this.$refs.loading.open()
-				create(api.capPayment, this.reqData).then(res => {
-					this.$refs.loading.close()
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						uni.showToast({
-							icon: 'success',
-							title: '提交成功'
-						})
-						this.reqData = {
-							contactunitid: '',
-							contactunitname: '',
-							payaccountid: '',
-							payaccountName: '',
-							amount: ''
+				if (this.checkVerify()) {
+					this.$refs.loading.open()
+					create(api.capPayment, this.reqData).then(res => {
+						this.$refs.loading.close()
+						if (res.status == 200 && res.data.returnCode == '0000') {
+							uni.showToast({
+								icon: 'success',
+								title: '提交成功'
+							})
+							this.reqData = {
+								contactunitid: '',
+								contactunitname: '',
+								payaccountid: '',
+								payaccountName: '',
+								amount: ''
+							}
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: res.data.returnMessage
+							})
 						}
-					} else {
+					}).catch(error => {
+						this.$refs.loading.close()
 						uni.showToast({
 							icon: 'none',
-							title: res.data.returnMessage
+							title: error
 						})
-					}
-				}).catch(error => {
-					this.$refs.loading.close()
-					uni.showToast({
-						icon: 'none',
-						title: error
 					})
-				})
+				}
 			}
 		},
 		watch:{

@@ -10,10 +10,10 @@
 				<view v-if="notNull" class="cu-cell-wrap-bd-notnull">*</view>
 				<view class="cu-cell-wrap-bd-title">{{ title }}</view>
 			</view>
-			<view class="cu-cell-wrap-ft">
+			<view class="cu-cell-wrap-ft" @tap="handleFt">
 				<view class="cu-cell-wrap-ft-item">
 					<slot name="footer"></slot>
-					<view @tap="handleExtend">
+					<view @tap.stop="handleExtend">
 						<uni-icons v-if="isLink" type="arrow" color="#c5c8ce" size='20'></uni-icons>
 						<uni-icons v-if="isExtendIcon" :type="extendIcon.type" :color="extendIcon.color" :size='extendIcon.size'></uni-icons>
 						<text v-if="isExtendText">{{extendText}}</text>
@@ -151,6 +151,9 @@
 			},
 			handleBd () {
 				this.$emit('clickTitle')
+			},
+			handleFt () {
+				this.$emit('clickFooter')
 			},
 			handleExtend () {
 				this.$emit('clickExtend')
