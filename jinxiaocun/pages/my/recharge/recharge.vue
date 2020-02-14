@@ -236,7 +236,7 @@ export default {
 	}
 	.main {
 		font-size: $uni-font-size-sm;
-		height: 80%;
+		height: 82%;
 		padding: 15upx;
 		.content{
 			height: 100%;
