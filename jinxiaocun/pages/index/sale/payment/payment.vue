@@ -29,8 +29,8 @@
 							<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
 						</radio-group>
 					</cu-cell>
-					<cu-cell title="优惠金额" isLastCell>
-						<input class="h50" slot="footer" type="digit" v-model="reqData.order.discountamount" @blur="handleDisCount" placeholder="0"/>
+					<cu-cell title="抹零" isLastCell :notes="showDisCount" notesColor="#f97d5f">
+						<switch class="h50 fc" slot="footer" color="#2db7f5" :checked="discount == 1 ? true : false" @change="handleDisCount"/>
 					</cu-cell>
 				</cu-panel>
 			</scroll-view>
@@ -80,7 +80,9 @@
 					orderlist: []
 				},
 				tmpAmount: 0.00,
-				cashAccountDict: []
+				cashAccountDict: [],
+				discount: 0,
+				showDisCount: ''
 			};
 		},
 		onLoad(options) {
@@ -93,26 +95,7 @@
 				this.tmpAmount = this.reqData.order.amount
 				this.reqData.orderlist = data.productList
 			}
-			this.$refs.loading.open()
-			query(api.cashAccount).then(res => {
-				this.$refs.loading.close()
-				if (res.status == 200 && res.data.returnCode == '0000') {
-					this.cashAccountDict = res.data.data.resultList
-					this.reqData.order.accountid = this.cashAccountDict[0].cashaccountid
-					this.reqData.order.accountName = this.cashAccountDict[0].cashaccountname
-				} else {
-					uni.showToast({
-						icon: 'none',
-						title: res.data.returnMessage
-					})
-				}
-			}).catch(error => {
-				this.$refs.loading.close()
-				uni.showToast({
-					icon: 'none',
-					title: error
-				})
-			})
+			this.getCashAccount()
 		},
 		computed: {
 			headerHeight() {
@@ -133,6 +116,28 @@
 					delta: 1
 				})
 			},
+			getCashAccount() {
+				this.$refs.loading.open()
+				query(api.cashAccount).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.cashAccountDict = res.data.data.resultList
+						this.reqData.order.accountid = this.cashAccountDict[0].cashaccountid
+						this.reqData.order.accountName = this.cashAccountDict[0].cashaccountname
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.returnMessage
+						})
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+					uni.showToast({
+						icon: 'none',
+						title: error
+					})
+				})
+			},
 			handleCreditChange(val) {
 				this.reqData.order.isOnCredit = val.detail.value
 			},
@@ -143,10 +148,13 @@
 			handlePrintChange(val) {
 				this.reqData.order.isprint = val.detail.value
 			},
-			handleDisCount(e) {
-				if (e.detail.value) {
-					this.reqData.order.discountamount = parseFloat(e.detail.value).toFixed(2)
-					this.reqData.order.amount = parseFloat(this.tmpAmount - this.reqData.order.discountamount).toFixed(2)
+			handleDisCount(val) {
+				if (val.detail.value) {
+					this.reqData.order.discountamount = '0.' + this.tmpAmount.split('.')[1]
+					this.reqData.order.amount = this.tmpAmount.split('.')[0] + '.00'
+				} else {
+					this.reqData.order.discountamount = '0.00'
+					this.reqData.order.amount = this.tmpAmount
 				}
 			},
 			handleSubmit() {
@@ -198,6 +206,18 @@
 						title: error
 					})
 				})
+			}
+		},
+		watch: {
+			'reqData.order.discountamount': {
+				handler(val) {
+					if (val && val !== '0.00') {
+						this.showDisCount = '抹零金额：￥' + this.reqData.order.discountamount
+					} else {
+						this.showDisCount = ''
+					}
+				},
+				deep: true
 			}
 		}
 	}

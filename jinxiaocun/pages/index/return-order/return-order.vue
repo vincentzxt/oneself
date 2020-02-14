@@ -18,7 +18,7 @@
 				</view>
 				<view style="margin-top: 5px;">
 					<cu-panel>
-						<cu-cell :isLastCell="!salesReqData.contactunitname || !purchaseReqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
+						<cu-cell :isLastCell="!salesReqData.contactunitname || !purchaseReqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.contactunitname.disVerMessage" :verify="verify.contactunitname.message">
 							<cu-search-bar slot="footer" ref="sc" style="width:100%;" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @clear="handleSearchClearCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)" title="单位名称" isSub isLastCell>
@@ -29,10 +29,10 @@
 				</view>
 				<view style="margin-top: 5px;" v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)">
 					<cu-panel>
-						<cu-cell v-if="businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#c4c6cb', 'size': 20 }">
+						<cu-cell v-if="businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.productList.disVerMessage" :verify="verify.productList.message">
 							<view class="h50 fc" slot="footer"></view>
 						</cu-cell>
-						<cu-cell v-else-if="businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#c4c6cb', 'size': 20 }">
+						<cu-cell v-else-if="businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.productList.disVerMessage" :verify="verify.productList.message">
 							<view class="h50 fc" slot="footer"></view>
 						</cu-cell>
 					</cu-panel>
@@ -90,7 +90,7 @@
 					<text v-else style="color:#ef5a62">￥{{salesReqData.totalPrice}}</text>
 				</view>
 			</view>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleNext">{{submitText}}</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleNext">{{submitText}}</button>
 		</view>
 		<uni-popup ref="purchasePopup" type="bottom">
 			<cu-panel>
@@ -170,9 +170,12 @@
 				title: '退货单',
 				curSelectPruduct: {},
 				checkedUnit: 0,
-				disableSubmit: true,
 				maxNum: 0,
-				submitText: '收款'
+				submitText: '收款',
+				verify: {
+					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
+					productList: { okVerify: false, disVerMessage: false, message: '请选择一个订单' }
+				}
 			};
 		},
 		onShow() {
@@ -204,6 +207,7 @@
 							this.salesReqData.productList = curPage.data.productList
 						}
 					}
+					this.handleVerify('productList')
 				}
 			}
 		},
@@ -263,7 +267,7 @@
 						if (!item.bseContactUnitContactModels[0].telephone) {
 							item.bseContactUnitContactModels[0].telephone = ''
 						}
-						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
+						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
 					this.searchCurrentUnit = true
 				} else {
@@ -281,6 +285,7 @@
 				}
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
+				this.handleVerify('contactunitname')
 			},
 			handleShowPopup(val) {
 				this.curSelectPruduct = cloneObj(val)
@@ -349,15 +354,72 @@
 					})
 				}
 			},
+			handleVerify(val) {
+				switch(val) {
+					case 'contactunitname':
+						if (this.businessType == 0) {
+							if (!this.purchaseReqData.contactunitname) {
+								this.verify.contactunitname.okVerify = false
+								this.verify.contactunitname.disVerMessage = true
+							} else {
+								this.verify.contactunitname.okVerify = true
+								this.verify.contactunitname.disVerMessage = false
+							}
+						} else {
+							if (!this.salesReqData.contactunitname) {
+								this.verify.contactunitname.okVerify = false
+								this.verify.contactunitname.disVerMessage = true
+							} else {
+								this.verify.contactunitname.okVerify = true
+								this.verify.contactunitname.disVerMessage = false
+							}
+						}
+						break
+					case 'productList':
+						if (this.businessType == 0) {
+							if (this.purchaseReqData.productList.length == 0) {
+								this.verify.productList.okVerify = false
+								this.verify.productList.disVerMessage = true
+							} else {
+								this.verify.productList.okVerify = true
+								this.verify.productList.disVerMessage = false
+							}
+						} else {
+							if (this.salesReqData.productList.length == 0) {
+								this.verify.productList.okVerify = false
+								this.verify.productList.disVerMessage = true
+							} else {
+								this.verify.productList.okVerify = true
+								this.verify.productList.disVerMessage = false
+							}
+						}
+						break
+				}
+			},
+			checkVerify() {
+				let result = true
+				for (let item in this.verify) {
+					if (item == 'productList' && !this.purchaseReqData.contactunitname && !this.salesReqData.contactunitname) {
+						continue
+					}
+					if (!this.verify[item].okVerify) {
+						this.verify[item].disVerMessage = true
+						result = false
+					}
+				}
+				return result
+			},
 			handleNext() {
-				if (this.businessType == 0) {
-					uni.navigateTo({
-						url: './payment/payment?reqData='+JSON.stringify(this.purchaseReqData)+'&businessType='+this.businessType
-					})
-				} else {
-					uni.navigateTo({
-						url: './payment/payment?reqData='+JSON.stringify(this.salesReqData)+'&businessType='+this.businessType
-					})
+				if (this.checkVerify()) {
+					if (this.businessType == 0) {
+						uni.navigateTo({
+							url: './payment/payment?reqData='+JSON.stringify(this.purchaseReqData)+'&businessType='+this.businessType
+						})
+					} else {
+						uni.navigateTo({
+							url: './payment/payment?reqData='+JSON.stringify(this.salesReqData)+'&businessType='+this.businessType
+						})
+					}
 				}
 			}
 		},
@@ -386,32 +448,6 @@
 							this.salesReqData.totalCount += parseInt(item.salesqty)
 						}
 						this.salesReqData.totalPrice = parseFloat(this.salesReqData.totalPrice).toFixed(2)
-					}
-				},
-				deep: true
-			},
-			purchaseReqData: {
-				handler(val) {
-					if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
-						if (val.productList.some((item) => {
-							return item.purchaseunitprice == 0
-						})) {
-							this.disableSubmit = true
-						} else {
-							this.disableSubmit = false
-						}
-					} else {
-						this.disableSubmit = true
-					}
-				},
-				deep: true
-			},
-			salesReqData: {
-				handler(val) {
-					if (val.contactunitid && val.productList.length > 0) {
-						this.disableSubmit = false
-					} else {
-						this.disableSubmit = true
 					}
 				},
 				deep: true

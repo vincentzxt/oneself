@@ -348,9 +348,12 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       title: '退货单',
       curSelectPruduct: {},
       checkedUnit: 0,
-      disableSubmit: true,
       maxNum: 0,
-      submitText: '收款' };
+      submitText: '收款',
+      verify: {
+        contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
+        productList: { okVerify: false, disVerMessage: false, message: '请选择一个订单' } } };
+
 
   },
   onShow: function onShow() {
@@ -382,6 +385,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
             this.salesReqData.productList = curPage.data.productList;
           }
         }
+        this.handleVerify('productList');
       }
     }
   },
@@ -441,7 +445,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
           if (!item.bseContactUnitContactModels[0].telephone) {
             item.bseContactUnitContactModels[0].telephone = '';
           }
-          return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
+          return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
         });
         this.searchCurrentUnit = true;
       } else {
@@ -459,6 +463,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       }
       this.searchCurrentUnit = false;
       this.$refs.sc.cancel();
+      this.handleVerify('contactunitname');
     },
     handleShowPopup: function handleShowPopup(val) {
       this.curSelectPruduct = (0, _tools.cloneObj)(val);
@@ -527,15 +532,72 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
         });
       }
     },
+    handleVerify: function handleVerify(val) {
+      switch (val) {
+        case 'contactunitname':
+          if (this.businessType == 0) {
+            if (!this.purchaseReqData.contactunitname) {
+              this.verify.contactunitname.okVerify = false;
+              this.verify.contactunitname.disVerMessage = true;
+            } else {
+              this.verify.contactunitname.okVerify = true;
+              this.verify.contactunitname.disVerMessage = false;
+            }
+          } else {
+            if (!this.salesReqData.contactunitname) {
+              this.verify.contactunitname.okVerify = false;
+              this.verify.contactunitname.disVerMessage = true;
+            } else {
+              this.verify.contactunitname.okVerify = true;
+              this.verify.contactunitname.disVerMessage = false;
+            }
+          }
+          break;
+        case 'productList':
+          if (this.businessType == 0) {
+            if (this.purchaseReqData.productList.length == 0) {
+              this.verify.productList.okVerify = false;
+              this.verify.productList.disVerMessage = true;
+            } else {
+              this.verify.productList.okVerify = true;
+              this.verify.productList.disVerMessage = false;
+            }
+          } else {
+            if (this.salesReqData.productList.length == 0) {
+              this.verify.productList.okVerify = false;
+              this.verify.productList.disVerMessage = true;
+            } else {
+              this.verify.productList.okVerify = true;
+              this.verify.productList.disVerMessage = false;
+            }
+          }
+          break;}
+
+    },
+    checkVerify: function checkVerify() {
+      var result = true;
+      for (var item in this.verify) {
+        if (item == 'productList' && !this.purchaseReqData.contactunitname && !this.salesReqData.contactunitname) {
+          continue;
+        }
+        if (!this.verify[item].okVerify) {
+          this.verify[item].disVerMessage = true;
+          result = false;
+        }
+      }
+      return result;
+    },
     handleNext: function handleNext() {
-      if (this.businessType == 0) {
-        uni.navigateTo({
-          url: './payment/payment?reqData=' + JSON.stringify(this.purchaseReqData) + '&businessType=' + this.businessType });
+      if (this.checkVerify()) {
+        if (this.businessType == 0) {
+          uni.navigateTo({
+            url: './payment/payment?reqData=' + JSON.stringify(this.purchaseReqData) + '&businessType=' + this.businessType });
 
-      } else {
-        uni.navigateTo({
-          url: './payment/payment?reqData=' + JSON.stringify(this.salesReqData) + '&businessType=' + this.businessType });
+        } else {
+          uni.navigateTo({
+            url: './payment/payment?reqData=' + JSON.stringify(this.salesReqData) + '&businessType=' + this.businessType });
 
+        }
       }
     } },
 
@@ -564,32 +626,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
               this.salesReqData.totalCount += parseInt(item.salesqty);
             }} catch (err) {_didIteratorError4 = true;_iteratorError4 = err;} finally {try {if (!_iteratorNormalCompletion4 && _iterator4.return != null) {_iterator4.return();}} finally {if (_didIteratorError4) {throw _iteratorError4;}}}
           this.salesReqData.totalPrice = parseFloat(this.salesReqData.totalPrice).toFixed(2);
-        }
-      },
-      deep: true },
-
-    purchaseReqData: {
-      handler: function handler(val) {
-        if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
-          if (val.productList.some(function (item) {
-            return item.purchaseunitprice == 0;
-          })) {
-            this.disableSubmit = true;
-          } else {
-            this.disableSubmit = false;
-          }
-        } else {
-          this.disableSubmit = true;
-        }
-      },
-      deep: true },
-
-    salesReqData: {
-      handler: function handler(val) {
-        if (val.contactunitid && val.productList.length > 0) {
-          this.disableSubmit = false;
-        } else {
-          this.disableSubmit = true;
         }
       },
       deep: true } } };exports.default = _default;

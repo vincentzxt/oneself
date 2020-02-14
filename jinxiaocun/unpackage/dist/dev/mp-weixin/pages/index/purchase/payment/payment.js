@@ -217,10 +217,12 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         orderlist: [] },
 
       tmpAmount: 0.00,
-      cashAccountDict: [] };
+      cashAccountDict: [],
+      discount: 0,
+      showDisCount: '' };
 
   },
-  onLoad: function onLoad(options) {var _this = this;
+  onLoad: function onLoad(options) {
     if (options) {
       var data = JSON.parse(options.reqData);
       this.reqData.order.contactunitid = data.contactunitid;
@@ -230,26 +232,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       this.tmpAmount = this.reqData.order.amount;
       this.reqData.orderlist = data.productList;
     }
-    this.$refs.loading.open();
-    (0, _common2.query)(_common.api.cashAccount).then(function (res) {
-      _this.$refs.loading.close();
-      if (res.status == 200 && res.data.returnCode == '0000') {
-        _this.cashAccountDict = res.data.data.resultList;
-        _this.reqData.order.payaccountid = _this.cashAccountDict[0].cashaccountid;
-        _this.reqData.order.payaccountName = _this.cashAccountDict[0].cashaccountname;
-      } else {
-        uni.showToast({
-          icon: 'none',
-          title: res.data.returnMessage });
-
-      }
-    }).catch(function (error) {
-      _this.$refs.loading.close();
-      uni.showToast({
-        icon: 'none',
-        title: error });
-
-    });
+    this.getCashAccount();
   },
   computed: {
     headerHeight: function headerHeight() {
@@ -270,6 +253,28 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         delta: 1 });
 
     },
+    getCashAccount: function getCashAccount() {var _this = this;
+      this.$refs.loading.open();
+      (0, _common2.query)(_common.api.cashAccount).then(function (res) {
+        _this.$refs.loading.close();
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this.cashAccountDict = res.data.data.resultList;
+          _this.reqData.order.payaccountid = _this.cashAccountDict[0].cashaccountid;
+          _this.reqData.order.payaccountName = _this.cashAccountDict[0].cashaccountname;
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.data.returnMessage });
+
+        }
+      }).catch(function (error) {
+        _this.$refs.loading.close();
+        uni.showToast({
+          icon: 'none',
+          title: error });
+
+      });
+    },
     handleCreditChange: function handleCreditChange(val) {
       this.reqData.order.isOnCredit = val.detail.value;
     },
@@ -280,10 +285,13 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     handlePrintChange: function handlePrintChange(val) {
       this.reqData.order.isprint = val.detail.value;
     },
-    handleDisCount: function handleDisCount(e) {
-      if (e.detail.value) {
-        this.reqData.order.discountamount = parseFloat(e.detail.value).toFixed(2);
-        this.reqData.order.amount = parseFloat(this.tmpAmount - this.reqData.order.discountamount).toFixed(2);
+    handleDisCount: function handleDisCount(val) {
+      if (val.detail.value) {
+        this.reqData.order.discountamount = '0.' + this.tmpAmount.split('.')[1];
+        this.reqData.order.amount = this.tmpAmount.split('.')[0] + '.00';
+      } else {
+        this.reqData.order.discountamount = '0.00';
+        this.reqData.order.amount = this.tmpAmount;
       }
     },
     handleSubmit: function handleSubmit() {var _this2 = this;
@@ -335,7 +343,18 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
           title: error });
 
       });
-    } } };exports.default = _default;
+    } },
+
+  watch: {
+    'reqData.order.discountamount': {
+      handler: function handler(val) {
+        if (val && val !== '0.00') {
+          this.showDisCount = '抹零金额：￥' + this.reqData.order.discountamount;
+        } else {
+          this.showDisCount = '';
+        }
+      },
+      deep: true } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

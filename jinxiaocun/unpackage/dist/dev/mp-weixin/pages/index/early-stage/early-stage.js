@@ -231,6 +231,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 589));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 596));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 603));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 610));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 617));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 624));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 631));};var _default =
@@ -260,7 +261,9 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
       title: '期初',
       curSelectPruduct: {},
       checkedUnit: 0,
-      disableSubmit: true };
+      verify: {
+        orderList: { okVerify: false, disVerMessage: false, message: '至少选择一个产品' } } };
+
 
   },
   onShow: function onShow() {
@@ -303,7 +306,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
           if (!item.querycode) {
             item.querycode = '';
           }
-          return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1;
+          return item.productname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1;
         });
         this.searchProduct = true;
       } else {
@@ -321,6 +324,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
       this.$set(this.curSelectPruduct, 'qty', 1);
       this.$set(this.curSelectPruduct, 'ismainunit', 1);
       this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple);
+      this.$set(this.curSelectPruduct, 'isMultiUnit', val.isMultiUnit);
       var isExists = false;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
         for (var _iterator = this.reqData.orderlist[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
           if (item.productid == this.curSelectPruduct.productid) {
@@ -334,6 +338,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
       }
       this.searchProduct = false;
       this.$refs.sp.cancel();
+      this.handleVerify('orderList');
       this.$nextTick(function () {
         this.$refs.popup.open();
       });
@@ -381,36 +386,62 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuSearchBar = 
       this.reqData.orderlist = this.reqData.orderlist.filter(function (item) {
         return item.productid !== val.productid;
       });
+      this.handleVerify('orderList');
+    },
+    handleVerify: function handleVerify(val) {
+      switch (val) {
+        case 'orderList':
+          if (this.reqData.orderlist.length == 0) {
+            this.verify.orderList.okVerify = false;
+            this.verify.orderList.disVerMessage = true;
+          } else {
+            this.verify.orderList.okVerify = true;
+            this.verify.orderList.disVerMessage = false;
+          }
+          break;}
+
+    },
+    checkVerify: function checkVerify() {
+      var result = true;
+      for (var item in this.verify) {
+        if (!this.verify[item].okVerify) {
+          this.verify[item].disVerMessage = true;
+          result = false;
+        }
+      }
+      return result;
     },
     handleSubmit: function handleSubmit() {var _this = this;
-      this.$refs.loading.open();
-      (0, _common2.create)(_common.api.stkStock, this.reqData).then(function (res) {
-        _this.$refs.loading.close();
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          uni.showToast({
-            icon: 'success',
-            title: '提交成功' });
+      if (this.checkVerify()) {
+        this.$refs.loading.open();
+        (0, _common2.create)(_common.api.stkStock, this.reqData).then(function (res) {
+          _this.$refs.loading.close();
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            uni.showToast({
+              icon: 'success',
+              title: '提交成功' });
 
-          _this.reqData = {
-            order: {
-              isprint: 0,
-              status: 0 },
+            _this.reqData = {
+              order: {
+                isprint: 0,
+                status: 0 },
 
-            orderlist: [] };
+              orderlist: [] };
 
-        } else {
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.returnMessage });
+
+          }
+        }).catch(function (error) {
+          _this.$refs.loading.close();
           uni.showToast({
             icon: 'none',
-            title: res.data.returnMessage });
+            title: error });
 
-        }
-      }).catch(function (error) {
-        _this.$refs.loading.close();
-        uni.showToast({
-          icon: 'none',
-          title: error });
-
-      });
+        });
+      }
     } },
 
   watch: {

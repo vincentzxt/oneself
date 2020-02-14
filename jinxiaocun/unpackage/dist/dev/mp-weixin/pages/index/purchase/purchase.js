@@ -298,11 +298,16 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       title: '采购',
       curSelectPruduct: {},
       checkedUnit: 0,
-      disableSubmit: true };
+      verify: {
+        contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
+        productList: { okVerify: false, disVerMessage: false, message: '至少选择一个产品' } } };
+
 
   },
   onShow: function onShow() {
-    this.currentUnitDatas = uni.getStorageSync('currentUnitList');
+    this.currentUnitDatas = uni.getStorageSync('currentUnitList').filter(function (item) {
+      return item.contactunittype !== 1;
+    });
     this.productDatas = uni.getStorageSync('productList');
     this.currentUnitSearchDatas = this.currentUnitDatas;
     this.productSearchDatas = this.productDatas;
@@ -355,7 +360,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
           if (!item.bseContactUnitContactModels[0].telephone) {
             item.bseContactUnitContactModels[0].telephone = '';
           }
-          return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
+          return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
         });
         if (this.currentUnitSearchDatas.length == 0) {
           uni.showModal({
@@ -414,6 +419,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       this.reqData.telephone = val.bseContactUnitContactModels[0].telephone;
       this.searchCurrentUnit = false;
       this.$refs.sc.cancel();
+      this.handleVerify('contactunitname');
     },
     handleSelectProduct: function handleSelectProduct(val) {
       this.$set(this.curSelectPruduct, 'productid', val.productid);
@@ -441,6 +447,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       }
       this.searchProduct = false;
       this.$refs.sp.cancel();
+      this.handleVerify('productList');
       this.$nextTick(function () {
         this.$refs.popup.open();
       });
@@ -494,14 +501,55 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       this.reqData.productList = this.reqData.productList.filter(function (item) {
         return item.productid !== val.productid;
       });
+      this.handleVerify('productList');
+    },
+    handleVerify: function handleVerify(val) {
+      switch (val) {
+        case 'contactunitname':
+          if (!this.reqData.contactunitname) {
+            this.verify.contactunitname.okVerify = false;
+            this.verify.contactunitname.disVerMessage = true;
+          } else {
+            this.verify.contactunitname.okVerify = true;
+            this.verify.contactunitname.disVerMessage = false;
+          }
+          break;
+        case 'productList':
+          if (this.reqData.productList.length == 0) {
+            this.verify.productList.okVerify = false;
+            this.verify.productList.disVerMessage = true;
+          } else {
+            this.verify.productList.okVerify = true;
+            this.verify.productList.disVerMessage = false;
+          }
+          break;}
+
+    },
+    checkVerify: function checkVerify() {
+      var result = true;
+      for (var item in this.verify) {
+        if (!this.verify[item].okVerify) {
+          this.verify[item].disVerMessage = true;
+          result = false;
+        }
+      }
+      return result;
     },
     handleNext: function handleNext() {
       if (this.reqData.telephone == ' ') {
         this.reqData.telephone = '';
       }
-      uni.navigateTo({
-        url: './payment/payment?reqData=' + JSON.stringify(this.reqData) });
+      this.reqData.productList = this.reqData.productList.map(function (item) {
+        if (!item.purchaseunitprice) {
+          item.purchaseunitprice = '0.00';
+        }
+        return item;
+      });
+      if (this.checkVerify()) {
+        uni.navigateTo({
+          url: './payment/payment?reqData=' + JSON.stringify(this.reqData) });
 
+      }
     } },
 
   watch: {
@@ -519,16 +567,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
               this.reqData.totalCount += parseInt(item.qty);
             }} catch (err) {_didIteratorError3 = true;_iteratorError3 = err;} finally {try {if (!_iteratorNormalCompletion3 && _iterator3.return != null) {_iterator3.return();}} finally {if (_didIteratorError3) {throw _iteratorError3;}}}
           this.reqData.totalPrice = parseFloat(this.reqData.totalPrice).toFixed(2);
-        }
-      },
-      deep: true },
-
-    reqData: {
-      handler: function handler(val) {
-        if (val.contactunitname && val.productList.length > 0) {
-          this.disableSubmit = false;
-        } else {
-          this.disableSubmit = true;
         }
       },
       deep: true } } };exports.default = _default;

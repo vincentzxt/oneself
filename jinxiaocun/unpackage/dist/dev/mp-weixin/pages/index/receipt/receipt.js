@@ -217,6 +217,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
 var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 589));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 603));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 610));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 617));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 624));};var _default =
@@ -242,30 +249,17 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
         amount: '' },
 
       cashAccountDict: [],
-      disableSubmit: true };
+      verify: {
+        contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
+        accountName: { okVerify: false, disVerMessage: false, message: '收款帐号不能为空' },
+        amount: { okVerify: false, disVerMessage: false, message: '收款金额不能为空，且不能为零' } } };
+
 
   },
-  onLoad: function onLoad() {var _this = this;
+  onLoad: function onLoad() {
     this.currentUnitDatas = uni.getStorageSync('currentUnitList');
     this.currentUnitSearchDatas = this.currentUnitDatas;
-    this.$refs.loading.open();
-    (0, _common2.query)(_common.api.cashAccount).then(function (res) {
-      _this.$refs.loading.close();
-      if (res.status == 200 && res.data.returnCode == '0000') {
-        _this.cashAccountDict = res.data.data.resultList;
-      } else {
-        uni.showToast({
-          icon: 'none',
-          title: res.data.returnMessage });
-
-      }
-    }).catch(function (error) {
-      _this.$refs.loading.close();
-      uni.showToast({
-        icon: 'none',
-        title: error });
-
-    });
+    this.getCashAccount();
   },
   computed: {
     headerHeight: function headerHeight() {
@@ -281,14 +275,40 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
         delta: 1 });
 
     },
+    getCashAccount: function getCashAccount() {var _this = this;
+      this.$refs.loading.open();
+      (0, _common2.query)(_common.api.cashAccount).then(function (res) {
+        _this.$refs.loading.close();
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _this.cashAccountDict = res.data.data.resultList;
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.data.returnMessage });
+
+        }
+      }).catch(function (error) {
+        _this.$refs.loading.close();
+        uni.showToast({
+          icon: 'none',
+          title: error });
+
+      });
+    },
+    handleOpenCashAccount: function handleOpenCashAccount() {
+      console.log("####");
+      console.log(this.$refs.picker);
+    },
     handlePriceBlur: function handlePriceBlur() {
       if (this.reqData.amount) {
         this.reqData.amount = (0, _tools.floatFormat)(this.reqData.amount);
       }
+      this.handleVerify('amount');
     },
     handleCashAccountChange: function handleCashAccountChange(val) {
       this.reqData.accountid = this.cashAccountDict[val.detail.value].cashaccountid;
       this.reqData.accountName = this.cashAccountDict[val.detail.value].cashaccountname;
+      this.handleVerify('accountName');
     },
     handleSearchFocusCurrentUnit: function handleSearchFocusCurrentUnit() {
       this.currentUnitSearchDatas = this.currentUnitDatas;
@@ -310,7 +330,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
           if (!item.bseContactUnitContactModels[0].telephone) {
             item.bseContactUnitContactModels[0].telephone = '';
           }
-          return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
+          return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
         });
         this.searchCurrentUnit = true;
       } else {
@@ -323,36 +343,80 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       this.reqData.contactunitname = val.contactunitname;
       this.searchCurrentUnit = false;
       this.$refs.sc.cancel();
+      this.handleVerify('contactunitname');
+    },
+    handleVerify: function handleVerify(val) {
+      switch (val) {
+        case 'contactunitname':
+          if (!this.reqData.contactunitname) {
+            this.verify.contactunitname.okVerify = false;
+            this.verify.contactunitname.disVerMessage = true;
+          } else {
+            this.verify.contactunitname.okVerify = true;
+            this.verify.contactunitname.disVerMessage = false;
+          }
+          break;
+        case 'accountName':
+          if (!this.reqData.accountName) {
+            this.verify.accountName.okVerify = false;
+            this.verify.accountName.disVerMessage = true;
+          } else {
+            this.verify.accountName.okVerify = true;
+            this.verify.accountName.disVerMessage = false;
+          }
+          break;
+        case 'amount':
+          if (!this.reqData.amount || this.reqData.amount == '0.00') {
+            this.verify.amount.okVerify = false;
+            this.verify.amount.disVerMessage = true;
+          } else {
+            this.verify.amount.okVerify = true;
+            this.verify.amount.disVerMessage = false;
+          }
+          break;}
+
+    },
+    checkVerify: function checkVerify() {
+      var result = true;
+      for (var item in this.verify) {
+        if (!this.verify[item].okVerify) {
+          this.verify[item].disVerMessage = true;
+          result = false;
+        }
+      }
+      return result;
     },
     handleSubmit: function handleSubmit() {var _this2 = this;
-      this.$refs.loading.open();
-      (0, _common2.create)(_common.api.capreceipt, this.reqData).then(function (res) {
-        _this2.$refs.loading.close();
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          uni.showToast({
-            icon: 'success',
-            title: '提交成功' });
+      if (this.checkVerify()) {
+        this.$refs.loading.open();
+        (0, _common2.create)(_common.api.capreceipt, this.reqData).then(function (res) {
+          _this2.$refs.loading.close();
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            uni.showToast({
+              icon: 'success',
+              title: '提交成功' });
 
-          _this2.reqData = {
-            contactunitid: '',
-            contactunitname: '',
-            accountid: '',
-            accountName: '',
-            amount: '' };
+            _this2.reqData = {
+              contactunitid: '',
+              contactunitname: '',
+              accountid: '',
+              accountName: '',
+              amount: '' };
 
-        } else {
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.returnMessage });
+
+          }
+        }).catch(function (error) {
+          _this2.$refs.loading.close();
           uni.showToast({
             icon: 'none',
-            title: res.data.returnMessage });
+            title: error });
 
-        }
-      }).catch(function (error) {
-        _this2.$refs.loading.close();
-        uni.showToast({
-          icon: 'none',
-          title: error });
-
-      });
+        });
+      }
     } },
 
   watch: {

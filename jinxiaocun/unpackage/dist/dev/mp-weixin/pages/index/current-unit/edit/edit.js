@@ -340,9 +340,11 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       }
       return result;
     },
-    handleSubmit: function handleSubmit() {
+    handleSubmit: function handleSubmit() {var _this = this;
       if (this.checkVerify()) {
+        this.$refs.loading.open();
         (0, _currentUnit.updateAll)(_common.api.contactUnit, { model: this.reqData }).then(function (res) {
+          _this.$refs.loading.close();
           if (res.status == 200 && res.data.returnCode == '0000') {
             _business.default.getCurrentUnit().then(function (res) {
               uni.navigateBack({
@@ -360,6 +362,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
 
           }
         }).catch(function (error) {
+          _this.$refs.loading.close();
           uni.showToast({
             icon: 'none',
             title: error });

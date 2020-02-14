@@ -62,6 +62,7 @@ export default {
 	'fenxi': '\ue623',
 	'lr-change': '\ue613',
 	'filter': '\ue612',
+	'right': '\ue7a3',
 	'calendar': '\ue8cf',
 	'c-phone': '\ue6cb',
 	'c-position': '\ue611',

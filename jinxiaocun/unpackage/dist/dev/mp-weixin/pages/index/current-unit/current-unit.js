@@ -106,15 +106,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-}
-var recyclableRender = false
+var render = function () {}
 var staticRenderFns = []
-render._withStripped = true
+var recyclableRender
+var components
 
 
 
@@ -170,6 +165,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 643));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 617));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 624));};var _default =
 {
   components: {
@@ -181,7 +190,10 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     return {
       title: '客户&供应商',
       datas: null,
-      searchDatas: null };
+      searchDatas: null,
+      showMenu: false,
+      menuList: ['所有', '客户', '供应商', '客户&供应商'],
+      curSelectMenu: 0 };
 
   },
   onLoad: function onLoad() {
@@ -220,9 +232,23 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         url: './edit/edit?item=' + JSON.stringify(val) });
 
     },
+    handleShowMenu: function handleShowMenu() {
+      this.showMenu = !this.showMenu;
+    },
+    handleSelectMenu: function handleSelectMenu(val) {
+      this.curSelectMenu = val;
+      if (val == 0) {
+        this.searchDatas = this.datas;
+      } else {
+        this.searchDatas = this.datas.filter(function (item) {
+          return item.contactunittype == val;
+        });
+      }
+      this.showMenu = false;
+    },
     handleSearch: function handleSearch(val) {
       if (val.value) {
-        this.searchDatas = this.datas.filter(function (item) {
+        this.searchDatas = this.searchDatas.filter(function (item) {
           if (!item.contactunitname) {
             item.contactunitname = '';
           }
@@ -232,10 +258,10 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
           if (!item.bseContactUnitContactModels[0].telephone) {
             item.bseContactUnitContactModels[0].telephone = '';
           }
-          return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
+          return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1;
         });
       } else {
-        this.searchDatas = this.datas;
+        this.handleSelectMenu(this.curSelectMenu);
       }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

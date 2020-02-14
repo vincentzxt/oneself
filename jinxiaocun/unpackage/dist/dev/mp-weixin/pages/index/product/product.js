@@ -242,7 +242,7 @@ __webpack_require__.r(__webpack_exports__);
           if (!item.querycode) {
             item.querycode = '';
           }
-          return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1;
+          return item.productname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1;
         });
       } else {
         this.searchDatas = this.datas;

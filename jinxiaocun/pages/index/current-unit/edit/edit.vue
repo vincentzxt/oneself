@@ -207,7 +207,9 @@
 			},
 			handleSubmit() {
 				if (this.checkVerify()) {
+					this.$refs.loading.open()
 					updateAll(api.contactUnit, {model: this.reqData }).then(res => {
+						this.$refs.loading.close()
 						if (res.status == 200 && res.data.returnCode == '0000') {
 							getGlobalData.getCurrentUnit().then(res => {
 								uni.navigateBack({
@@ -225,6 +227,7 @@
 							})
 						}
 					}).catch(error => {
+						this.$refs.loading.close()
 						uni.showToast({
 							icon: 'none',
 							title: error

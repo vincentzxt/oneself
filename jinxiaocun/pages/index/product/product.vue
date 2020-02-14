@@ -107,7 +107,7 @@
 						if (!item.querycode) {
 							item.querycode = ''
 						}
-						return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1
+						return item.productname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1
 					})
 				} else {
 					this.searchDatas = this.datas

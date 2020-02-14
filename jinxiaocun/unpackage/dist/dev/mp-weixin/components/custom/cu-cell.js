@@ -270,6 +270,9 @@ var _default2 =
     handleBd: function handleBd() {
       this.$emit('clickTitle');
     },
+    handleFt: function handleFt() {
+      this.$emit('clickFooter');
+    },
     handleExtend: function handleExtend() {
       this.$emit('clickExtend');
     } } };exports.default = _default2;

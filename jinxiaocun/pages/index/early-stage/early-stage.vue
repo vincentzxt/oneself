@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" isLastCell>
+						<cu-cell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" isLastCell :disVerMessage="verify.orderList.disVerMessage" :verify="verify.orderList.message">
 							<cu-search-bar slot="footer" ref="sp" style="width:100%;" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none" @focus="handleSearchFocusProduct" @clear="handleSearchClearProduct"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
@@ -54,13 +54,14 @@
 					</view>
 				</cu-cell>
 				<cu-cell title="计量单位">
-					<radio-group slot="footer" @change="handleUnitChange">
+					<radio-group v-if="curSelectPruduct.isMultiUnit" class="h50 fc" slot="footer" @change="handleUnitChange">
 						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
 						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
 					</radio-group>
+					<view v-else class="h50 fc" slot="footer">{{curSelectPruduct.mainUnit}}</view>
 				</cu-cell>
 				<cu-cell isLastCell title="成本价">
-					<input slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
+					<input class="h50" slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
@@ -106,7 +107,9 @@
 				title: '期初',
 				curSelectPruduct: {},
 				checkedUnit: 0,
-				disableSubmit: true
+				verify: {
+					orderList: { okVerify: false, disVerMessage: false, message: '至少选择一个产品' }
+				}
 			};
 		},
 		onShow() {
@@ -149,7 +152,7 @@
 						if (!item.querycode) {
 							item.querycode = ''
 						}
-						return item.productname.indexOf(val.value) !== -1 || item.querycode.indexOf(val.value) !== -1
+						return item.productname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1
 					})
 					this.searchProduct = true
 				} else {
@@ -167,6 +170,7 @@
 				this.$set(this.curSelectPruduct, 'qty', 1)
 				this.$set(this.curSelectPruduct, 'ismainunit', 1)
 				this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple)
+				this.$set(this.curSelectPruduct, 'isMultiUnit', val.isMultiUnit)
 				let isExists = false
 				for (let item of this.reqData.orderlist) {
 					if (item.productid == this.curSelectPruduct.productid) {
@@ -180,6 +184,7 @@
 				}
 				this.searchProduct = false
 				this.$refs.sp.cancel()
+				this.handleVerify('orderList')
 				this.$nextTick(function(){
 					this.$refs.popup.open()
 				})
@@ -227,36 +232,62 @@
 				this.reqData.orderlist = this.reqData.orderlist.filter((item) => {
 					return item.productid !== val.productid
 				})
+				this.handleVerify('orderList')
+			},
+			handleVerify(val) {
+				switch(val) {
+					case 'orderList':
+						if (this.reqData.orderlist.length == 0) {
+							this.verify.orderList.okVerify = false
+							this.verify.orderList.disVerMessage = true
+						} else {
+							this.verify.orderList.okVerify = true
+							this.verify.orderList.disVerMessage = false
+						}
+						break
+				}
+			},
+			checkVerify() {
+				let result = true
+				for (let item in this.verify) {
+					if (!this.verify[item].okVerify) {
+						this.verify[item].disVerMessage = true
+						result = false
+					}
+				}
+				return result
 			},
 			handleSubmit() {
-				this.$refs.loading.open()
-				create(api.stkStock, this.reqData).then(res => {
-					this.$refs.loading.close()
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						uni.showToast({
-							icon: 'success',
-							title: '提交成功'
-						})
-						this.reqData = {
-							order: {
-								isprint: 0,
-								status: 0
-							},
-							orderlist: []
+				if (this.checkVerify()) {
+					this.$refs.loading.open()
+					create(api.stkStock, this.reqData).then(res => {
+						this.$refs.loading.close()
+						if (res.status == 200 && res.data.returnCode == '0000') {
+							uni.showToast({
+								icon: 'success',
+								title: '提交成功'
+							})
+							this.reqData = {
+								order: {
+									isprint: 0,
+									status: 0
+								},
+								orderlist: []
+							}
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: res.data.returnMessage
+							})
 						}
-					} else {
+					}).catch(error => {
+						this.$refs.loading.close()
 						uni.showToast({
 							icon: 'none',
-							title: res.data.returnMessage
+							title: error
 						})
-					}
-				}).catch(error => {
-					this.$refs.loading.close()
-					uni.showToast({
-						icon: 'none',
-						title: error
 					})
-				})
+				}
 			}
 		},
 		watch: {
