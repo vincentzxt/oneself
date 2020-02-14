@@ -2,10 +2,10 @@
 	<view class="cu-searchbar">
 		<view :style="{borderRadius:radius+'px',backgroundColor: bgColor}" class="cu-searchbar__box" @click="searchClick">
 			<input v-if="show" :focus="showSync" :maxlength="maxlength" @confirm="confirm" class="cu-searchbar__box-search-input"
-			 confirm-type="search" type="text" v-model="searchVal" />
+			 confirm-type="search" type="text" v-model="searchVal" @focus="handleFocus" @blur="handleBlur"/>
 			<text v-else class="cu-searchbar__text-placeholder">{{ placeholder }}</text>
-			<view v-if="show && (clearButton==='always'||clearButton==='auto'&&searchVal!=='')" class="cu-searchbar__box-icon-clear" @click="clear">
-				<uni-icons color="#c5c8ce" class="" size="24" type="clear" />
+			<view v-if="show && (showSync || clearButton==='always'||clearButton==='auto' && searchVal!=='')" class="cu-searchbar__box-icon-clear" @click.stop="clear">
+				<uni-icons style="margin-right:5px;" color="#c5c8ce" class="" size="24" type="clear" />
 			</view>
 		</view>
 		<text @click="cancel" class="cu-searchbar__cancel" v-if="cancelButton ==='always' || show && cancelButton ==='auto'">{{cancelText}}</text>
@@ -64,6 +64,12 @@
 			}
 		},
 		methods: {
+			handleFocus() {
+				this.$emit('focus')
+			},
+			handleBlur() {
+				this.$emit('blur')
+			},
 			searchClick() {
 				if (this.show) {
 					return
@@ -76,6 +82,7 @@
 			},
 			clear() {
 				this.searchVal = ""
+				this.showSync = false
 			},
 			cancel() {
 				this.$emit("cancel", {

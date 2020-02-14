@@ -49,7 +49,7 @@
 							:showArrow="false"
 							showIcon
 							:icon="{type: 'delete', color:'#ef5a62', size: '20'}"
-							:note="['采购数量：'+item.qty, '计量单位：'+item.unit, '采购单价：'+item.purchaseunitprice]"
+							:note="['退货数量：'+item.qty, '计量单位：'+item.unit, '采购单价：'+item.purchaseunitprice]"
 							v-for="(item, index) in purchaseReqData.productList"
 							:key="index"
 							@clickContent="handleShowPopup(item)"
@@ -65,7 +65,7 @@
 							:showArrow="false"
 							showIcon
 							:icon="{type: 'delete', color:'#ef5a62', size: '20'}"
-							:note="['销售数量：'+item.salesqty, '计量单位：'+item.unit, '采购单价：'+item.salesunitprice]"
+							:note="['销售数量：'+item.salesqty, '计量单位：'+item.unit, '销售单价：'+item.salesunitprice]"
 							v-for="(item, index) in salesReqData.productList"
 							:key="index"
 							@clickContent="handleShowPopup(item)"

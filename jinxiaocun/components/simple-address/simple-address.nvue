@@ -267,7 +267,7 @@
 		right: 0;
 		transition-property: transform;
 		transition-duration: 0.3s;
-		transform: translateY(460rpx);
+		transform: translateY(660rpx);
 		/* #ifndef APP-NVUE */
 		z-index: 99;
 		/* #endif */
@@ -281,7 +281,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		transform: translateY(500rpx);
+		transform: translateY(700rpx);
 	}
 
 	.content-ani {
@@ -355,7 +355,7 @@
 		/* #ifdef APP-NVUE */
 		width: 750rpx;
 		/* #endif */
-		height: 408rpx;
+		height: 608rpx;
 		background-color: rgba(255, 255, 255, 1);
 	}
 

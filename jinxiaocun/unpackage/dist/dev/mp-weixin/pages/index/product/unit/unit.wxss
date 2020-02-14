@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* padding尺寸 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.fill.data-v-f1667932 {
+  width: 100%;
+  height: 100%;
+}
+.h50.data-v-f1667932 {
+  height: 50px;
+}
+.container .main.data-v-f1667932 {
+  margin-top: 5px;
+}
+.container .footer.data-v-f1667932 {
+  height: 48px;
+}
+
