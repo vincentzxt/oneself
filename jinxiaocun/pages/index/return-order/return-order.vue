@@ -9,7 +9,7 @@
 				<view>
 					<cu-panel>
 						<cu-cell title="业务类型" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }" isLastCell>
-							<radio-group slot="footer" @change="handleTypeChange">
+							<radio-group class="h50 fc" slot="footer" @change="handleTypeChange">
 								<radio color="#2d8cf0" value=0 :checked="businessType == 0">采购</radio>
 								<radio color="#2d8cf0" style="margin-left: 10px;" value=1 :checked="businessType == 1">销售</radio>
 							</radio-group>
@@ -19,19 +19,21 @@
 				<view style="margin-top: 5px;">
 					<cu-panel>
 						<cu-cell :isLastCell="!salesReqData.contactunitname || !purchaseReqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
-							<cu-search-bar slot="footer" ref="sc" style="width:100%;" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none"></cu-search-bar>
+							<cu-search-bar slot="footer" ref="sc" style="width:100%;" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @clear="handleSearchClearCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)" title="单位名称" isSub isLastCell>
-							<text v-if="businessType == 0" slot="footer">{{purchaseReqData.contactunitname}}</text>
-							<text v-else slot="footer">{{salesReqData.contactunitname}}</text>
+							<text class="h50 fc" v-if="businessType == 0" slot="footer">{{purchaseReqData.contactunitname}}</text>
+							<text class="h50 fc" v-else slot="footer">{{salesReqData.contactunitname}}</text>
 						</cu-cell>
 					</cu-panel>
 				</view>
 				<view style="margin-top: 5px;" v-if="!searchCurrentUnit && (salesReqData.contactunitname || purchaseReqData.contactunitname)">
 					<cu-panel>
 						<cu-cell v-if="businessType == 0" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + purchaseReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#c4c6cb', 'size': 20 }">
+							<view class="h50 fc" slot="footer"></view>
 						</cu-cell>
 						<cu-cell v-else-if="businessType == 1" title="选择订单" isLink url="./orders/orders" :params="'businessType=' + businessType + '&currentUnitId=' + salesReqData.contactunitid" isIcon :icon="{ type: 'c-right', color: '#c4c6cb', 'size': 20 }">
+							<view class="h50 fc" slot="footer"></view>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -92,16 +94,14 @@
 		</view>
 		<uni-popup ref="purchasePopup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量" height=110 isLastCell>
-					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
-						<view class="popup-qty">
-							<uni-number-box :min="1" :max="maxNum" :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
-							<view class="popup-qty-items">
-								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fbe490;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #bffe94;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd969c;" @tap="handleSelectQty(300)">300</view>
-							</view>
+				<cu-cell title="数量" isLastCell>
+					<uni-number-box slot="footer" :min="1" :max="maxNum" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
+					<view slot="footer2">
+						<view class="popup-qty-items">
+							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
 						</view>
 					</view>
 				</cu-cell>
@@ -110,16 +110,14 @@
 		</uni-popup>
 		<uni-popup ref="salePopup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量" height=110 isLastCell>
-					<view slot="footer" style="display: flex; flex-direction: row-reverse;">
-						<view class="popup-qty">
-							<uni-number-box :min="1" :max="maxNum" :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
-							<view class="popup-qty-items">
-								<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fbe490;" @tap="handleSelectQty(50)">50</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #bffe94;" @tap="handleSelectQty(100)">100</view>
-								<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd969c;" @tap="handleSelectQty(300)">300</view>
-							</view>
+				<cu-cell title="数量" isLastCell>
+					<uni-number-box slot="footer" :min="1" :max="maxNum" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
+					<view slot="footer2">
+						<view class="popup-qty-items">
+							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
 						</view>
 					</view>
 				</cu-cell>
@@ -244,6 +242,14 @@
 					}
 					this.submitText = '付款'
 				}
+			},
+			handleSearchFocusCurrentUnit() {
+				this.currentUnitSearchDatas = this.currentUnitDatas
+				this.searchCurrentUnit = true
+			},
+			handleSearchClearCurrentUnit() {
+				this.searchCurrentUnit = false
+				this.$refs.sc.cancel()
 			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {
@@ -402,14 +408,8 @@
 			},
 			salesReqData: {
 				handler(val) {
-					if (val.contactunitid && val.productList.length > 0 && val.totalPrice) {
-						if (val.productList.some((item) => {
-							return item.salesunitprice == 0
-						})) {
-							this.disableSubmit = true
-						} else {
-							this.disableSubmit = false
-						}
+					if (val.contactunitid && val.productList.length > 0) {
+						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true
 					}
@@ -424,6 +424,13 @@
 	.fill {
 		width: 100%;
 		height: 100%;
+	}
+	.h50 {
+		height: 50px;
+	}
+	.fc {
+		display: flex;
+		align-items: center;
 	}
 	.container {
 		.main {
@@ -462,8 +469,8 @@
 				display: flex;
 				align-items: center;
 				&-item {
-					width: 100upx;
-					height: 50upx;
+					width: 90upx;
+					height: 60upx;
 					display: flex;
 					justify-content: center;
 					align-items: center;

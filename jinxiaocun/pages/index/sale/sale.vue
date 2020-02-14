@@ -9,7 +9,7 @@
 				<view>
 					<cu-panel>
 						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
-							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @blur="handleSearchBlurCurrentUnit"></cu-search-bar>
+							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @clear="handleSearchClearCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub>
 							<input class="form-input" slot="footer" type="text" v-model="reqData.contactunitname" focus/>
@@ -22,7 +22,7 @@
 				<view style="margin-top: 5px;">
 					<cu-panel>
 						<cu-cell isLastCell v-if="!searchCurrentUnit" title="选择产品" isIcon :icon="{ type: 'c-product', color: '#c4c6cb', 'size': 20 }">
-							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none" @focus="handleSearchFocusProduct" @blur="handleSearchBlurProduct"></cu-search-bar>
+							<cu-search-bar style="width:100%;" slot="footer" ref="sp" @input="handleSearchProduct" placeholder="速查码/名称" cancelButton="none" @focus="handleSearchFocusProduct" @clear="handleSearchClearProduct"></cu-search-bar>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -179,7 +179,7 @@
 				this.currentUnitSearchDatas = this.currentUnitDatas
 				this.searchCurrentUnit = true
 			},
-			handleSearchBlurCurrentUnit() {
+			handleSearchClearCurrentUnit() {
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
 			},
@@ -227,7 +227,7 @@
 				this.productSearchDatas = this.productDatas
 				this.searchProduct = true
 			},
-			handleSearchBlurProduct() {
+			handleSearchClearProduct() {
 				this.searchProduct = false
 				this.$refs.sp.cancel()
 			},

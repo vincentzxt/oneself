@@ -101,6 +101,13 @@
 		width: 100%;
 		height: 100%;
 	}
+	.h50 {
+		height: 50px;
+	}
+	.fc {
+		display: flex;
+		align-items: center;
+	}
 	.container {
 		.main {
 			margin-top: 5px;

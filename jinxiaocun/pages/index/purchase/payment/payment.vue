@@ -100,8 +100,8 @@
 				this.$refs.loading.close()
 				if (res.status == 200 && res.data.returnCode == '0000') {
 					this.cashAccountDict = res.data.data.resultList
-					this.reqData.order.accountid = this.cashAccountDict[0].cashaccountid
-					this.reqData.order.accountName = this.cashAccountDict[0].cashaccountname
+					this.reqData.order.payaccountid = this.cashAccountDict[0].cashaccountid
+					this.reqData.order.payaccountName = this.cashAccountDict[0].cashaccountname
 				} else {
 					uni.showToast({
 						icon: 'none',

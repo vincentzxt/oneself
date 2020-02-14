@@ -26,11 +26,11 @@
 		</view>
 		<view v-if="notes" class="cu-cell-notes">
 			<view v-if="isIcon || isSub" style="width:10%;"></view>
-			<view :style="{ 'width': isIcon || isSub ? '90%' : '100%' }">{{notes}}</view>
+			<view :style="{'width': isIcon || isSub ? '90%' : '100%', color: notesColor}">{{notes}}</view>
 		</view>
 		<view v-if="disVerMessage" class="cu-cell-verify">
 			<view v-if="isIcon || isSub" style="width:10%;"></view>
-			<view :style="{ 'width': isIcon || isSub ? '90%' : '100%' }">{{verify}}</view>
+			<view :style="{ 'width': isIcon || isSub ? '90%' : '100%', color: verifyColor }">{{verify}}</view>
 		</view>
 	</view>
 </template>
@@ -85,11 +85,19 @@
 				type: String,
 				default: ''
 			},
+			notesColor: {
+				type: String,
+				default: ''
+			},
 			disVerMessage: {
 				type: Boolean,
 				default: false
 			},
 			verify: {
+				type: String,
+				default: ''
+			},
+			verifyColor: {
 				type: String,
 				default: ''
 			},
@@ -203,6 +211,7 @@
 			&-bd{
 				display: flex;
 				align-items: center;
+				flex-wrap: wrap;
 				&-notnull {
 					color:#f4613d;
 					margin-right:2px;
