@@ -15,7 +15,7 @@
 				<view class="con_02_r"><input v-model="telephone" class="uni-input" placeholder="请输入手机号" /></view>
 			</view>
 			<view class="con_02">
-				<view class="con_02_l"><uni-icon type="locked" size="25" color="#CCCCCC"></uni-icon></view>
+				<view class="con_02_l"><uni-icons type="identifying-code" size="25" color="#CCCCCC"></uni-icons></view>
 				<view class="con_02_r"><input v-model="verificationCode" class="uni-input" focus placeholder="请输入验证码" /></view>
 				<button type="default" size="mini"  @click="send"  :disabled="code_status" class="code_btn">{{codeText}}</button>
 			</view>
@@ -41,6 +41,7 @@
 
 <script>
 import uniIcon from '@/components/uni-icon/uni-icon.vue';
+import uniIcons from "@/components/uni-icons/uni-icons.vue"
 import { post } from '@/api/user.js';
 import { api } from '@/config/common.js';
 export default {
@@ -60,7 +61,7 @@ export default {
 			promoterid: 0
 		};
 	},
-	components: { uniIcon },
+	components: { uniIcon,uniIcons },
 	onLoad() {
 		if (uni.getStorageSync('promoterid')) {
 			this.promoterid = uni.getStorageSync('promoterid');

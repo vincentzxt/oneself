@@ -11294,6 +11294,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.api = void
   GetMyDayLogList: '/api/BseUser/GetMyDayLogList',
   GetOrderList: '/api/SysOrder/GetMyOrderList',
   IntegralExchange: '/api/BseUser/IntegralExchange',
+  AddOrder: '/api/SysOrder/AddOrder',
   GetCurrentActivity: '/api/SysActivity/GetCurrentActivity',
   GetMyPromotIntegralList: '/api/BseUser/GetMyPromotIntegralList',
   GetSmsCode: '/api/SysMessage/SendVerificationCode',

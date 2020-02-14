@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 						<cu-cell title="用户名">
-							<input slot="footer" type="text" v-model="reqData.loginname" placeholder-style="color:#c5c8ce" placeholder="请输入用户名"/>
+							<text  slot="footer">{{reqData.loginname}}</text>
 						</cu-cell>
 						<cu-cell title="姓名">
 							<input slot="footer" type="text" v-model="reqData.realname" placeholder-style="color:#c5c8ce" placeholder="请输入姓名"/>
@@ -161,10 +161,6 @@
 				},
 			handleSubmit() {
 				const {userid, loginname, realname, telephone, email, password,roleid} = this.reqData;
-				if (loginname.length == 0) {
-					this.$api.msg('登录账号不能为空！');
-					return;
-				}
 				if (realname.length == 0) {
 					this.$api.msg('姓名不能为空！');
 					return;
@@ -175,9 +171,9 @@
 				}
 				var sendData={};
 				if(password==""){
-					sendData ={userid,loginname, realname, telephone, email,roleid};
+					sendData ={userid,loginname,realname, telephone, email,roleid};
 				}else{
-				    sendData ={userid,loginname, realname, telephone, email, password,roleid};
+				    sendData ={userid,loginname,realname, telephone, email, password,roleid};
 				}
 				
 				this.loading = true;

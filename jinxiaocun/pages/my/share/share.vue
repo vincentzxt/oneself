@@ -23,9 +23,9 @@ export default {
 		return {
 			title: '分享',
 			userId:0,
-			shareText: '微账通，邀请你一起体验！',
+			shareText: '',
 			href: '',
-			image: 'http://allchain.oss-cn-shanghai.aliyuncs.com/uploads/20190521/f57ebce8a72b823912904fe76eda0909.png',
+			image: '',
 			shareType: 1,
 			providerList: [],
 			dataList:{}
@@ -128,7 +128,10 @@ export default {
 				console.log(res);
 				if (res.status == 200 && res.data.returnCode == '0000') {
 				  this.shareText = res.data.data.activityexplain;
-				  this.image = res.data.data.imgurl;
+				  if(res.data.data.imgurl!=''){
+					  this.image = api.baseUrl+res.data.data.imgurl;
+				  }
+				  
 				} else {
 					this.$api.msg(res.data.returnMessage) 
 				}

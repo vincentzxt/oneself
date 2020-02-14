@@ -6,7 +6,7 @@
 			:class="{ 'active':(type=='radio' && index == i) || (type=='checkbox' && v.checked) }"
 			:data-i="i"
 			@tap="change"
-			><view>{{v.daycount}}天</view><view>积分：{{v.exchangeintegral}}</view></view>
+			><view>{{v.productname}}</view><view>时长：{{v.daycount}}天</view><view>积分：{{v.exchangeintegral}}</view></view>
 		</view>
 	</view>
 </template>
