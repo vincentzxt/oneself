@@ -6,11 +6,9 @@
 	</view>
 	<view class="main">
 		<view>
-			<cu-panel>
-				<cu-cell v-for="(item, index) in dataList" :key="index" :title="item.cashaccountname" isIcon :icon="{ type: 'c-product', color: '#f29d6e', 'size': 18 }">
-					<text slot="footer">¥{{item.amount}}</text>
-				</cu-cell>
-			</cu-panel>
+			<uni-list>
+			<uni-list-item v-for="(item, index) in dataList" disabled="true" :key="index" show-text="true" :show-arrow="false" :title="item.cashaccountname" :content="'¥'+item.amount"></uni-list-item>
+		</uni-list>
 		</view>
 	</view>
 	
@@ -19,15 +17,15 @@
 </template>
 
 <script>
-import cuPanel from '@/components/custom/cu-panel.vue';
-import cuCell from '@/components/custom/cu-cell.vue';
+import uniList from '@/components/uni-list/uni-list.vue';
+import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { post,tokenpost} from '@/api/user.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue'
 export default {
 	components: {
-		cuPanel,
-		cuCell
+		uniList,
+		uniListItem
 	},
 	data() {
 		return {
@@ -149,7 +147,11 @@ export default {
 			justify-content: flex-end;
 		}
 	}
-
+.h50{height: 72upx; }
+ .fc {
+	 justify-content:center;
+	 justify-items: center;
+ }
 .no_data{
 	
 	display: flex;

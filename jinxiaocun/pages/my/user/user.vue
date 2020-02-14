@@ -8,11 +8,13 @@
 				<!-- <view class="top"><view><text class="text">权限设置</text> </view><view><button type="default" size="mini" @tap="handleAdd">增加</button></view></view> -->
 				<view v-for="(item, index) in dataList" :key="index" class="list-item">
 					<cu-panel>
-						<cu-cell :title="item.loginname" :notes="item.telephone" notesColor='#555555' @clickTitle="handleEdit(item.userid)">
-							<radio-group @change="handleForbiddenChanage" :id="item.userid" class="h50 fc" slot="footer">
+						<cu-cell :title="item.loginname" :notes="item.telephone" notesColor="#555555" @clickTitle="handleEdit(item.userid)">
+							<view  class="h50 fc" slot="footer">
+								<radio-group @change="handleForbiddenChanage" :id="item.userid">
 								<radio color="#2db7f5" value="0" :checked="item.isdelete == 0" :id="item.userid">启用</radio>
 								<radio color="#2db7f5" value="1" :checked="item.isdelete == 1" :id="item.userid" style="margin-left: 10px;">禁用</radio>
 							</radio-group>
+							</view>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -135,10 +137,6 @@ export default {
 		}
 		.cu-form-group .title {
 			min-width: calc(5em + 30px);
-			.fc {
-				display: flex;
-				align-items: center;
-			}
 		}
 		.main-header {
 			display: flex;
@@ -177,5 +175,11 @@ export default {
 		color: #cccccc;
 	}
 }
-
+.h50{
+	height: 72upx;
+		}
+.fc {
+	display: flex;
+	align-items: center;
+}
 </style>

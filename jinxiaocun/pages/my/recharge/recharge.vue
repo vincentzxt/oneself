@@ -13,7 +13,7 @@
 				<button class="recharge-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">确定购买</button>
 				</view>
 				<view v-if="content_show_id===1" class="content">
-					<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
+					<scroll-view :scroll-y="true" class="fill2" @scrolltolower="loadData">
 					<view v-for="(item, index) in dataList" :key="index" class="list-item">
 						<view class="list-between">
 							<view>
@@ -242,6 +242,9 @@ export default {
 			height: 100%;
 			.fill{
 				height: 90%;
+			};
+			.fill2{
+				height: 100%;
 			};
 		}
 		.cu-form-group .title {

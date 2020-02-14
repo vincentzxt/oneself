@@ -8,19 +8,29 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 						<cu-cell title="用户名">
-							<text  slot="footer">{{reqData.loginname}}</text>
+							<view class="h50 fc" slot="footer">
+							<text>{{reqData.loginname}}</text>
+							</view>
 						</cu-cell>
 						<cu-cell title="姓名">
-							<input slot="footer" type="text" v-model="reqData.realname" placeholder-style="color:#c5c8ce" placeholder="请输入姓名"/>
+							<view class="h50 fc" slot="footer">
+							<input type="text" v-model="reqData.realname" placeholder-style="color:#c5c8ce" placeholder="请输入姓名"/>
+						</view>
 						</cu-cell>
 						<cu-cell title="+86">
-							<input slot="footer" type="text" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入手机号"/>
+							<view class="h50 fc" slot="footer">
+							<input type="text" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入手机号"/>
+						</view>
 						</cu-cell>
 						<cu-cell title="邮箱">
-							<input slot="footer" type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱"/>
+							<view class="h50 fc" slot="footer">
+							<input type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱"/>
+						</view>
 						</cu-cell>
 						<cu-cell title="密码">
-							<input slot="footer" type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="不输入密码则不修改"/>
+							<view class="h50 fc" slot="footer">
+							<input type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="不输入密码则不修改"/>
+						</view>
 						</cu-cell>
 						<cu-cell title="账号角色" isLink>
 							<view slot="footer" style="width:100%;">
@@ -247,4 +257,11 @@
 		flex-direction: column;
 	    justify-content: flex-start
 	}
+	.h50{
+	height: 72upx;
+		}
+.fc {
+	display: flex;
+	align-items: center;
+}
 </style>

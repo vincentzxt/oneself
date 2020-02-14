@@ -95,5 +95,6 @@
 		.h50{
 				height: 72upx;
 			}
+
 	}
 </style>

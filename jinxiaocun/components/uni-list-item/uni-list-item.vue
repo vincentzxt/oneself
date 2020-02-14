@@ -176,7 +176,7 @@
 	}
 
 	.uni-list-item--disabled {
-		opacity: 0.3;
+		// opacity: 0.3;
 	}
 
 	.uni-list-item--hover{
@@ -224,8 +224,8 @@
 		line-height: $uni-font-size-base;
 	}
     .uni-list-item__content-content{
-		color: $uni-text-color-grey;
-		font-size: $uni-font-size-sm;
+		color: #555555;
+		font-size: $uni-font-size-base;
 	}
 	.uni-list-item__content-note {
 		margin-top: 20rpx;

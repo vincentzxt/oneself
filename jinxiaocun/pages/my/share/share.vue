@@ -4,8 +4,8 @@
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
 		<view class="main">
-			<view class="uni-title">分享内容</view>
-			<view class="uni-textarea"><textarea class="textarea" v-model="shareText" /></view>
+			<!-- <view class="uni-title">分享内容</view> -->
+			<view class="uni-textarea"><textarea class="textarea" v-model="shareText" disabled="true" /></view>
 			<!-- <view class="uni-title">分享图片：</view> -->
 			<view class="uni-uploader" style="padding:15upx; background:#FFF;"><image class="uni-uploader__img" v-if="image" :src="image"></image></view>
 			<!-- #ifdef MP -->
@@ -165,12 +165,14 @@ export default {
 		padding: 0 15upx;
 		background-color: #ffffff;
 		.uni-title{
-			padding: 16upx 0upx;
+			padding: 16upx 16upx;
 		}
 		.uni-textarea{
-			margin:10upx 0;
-			padding: 10upx;
-			background-color: #f2f2f2;
+			padding: 16upx 10upx 10upx;
+			.textarea{
+				width: 100%;
+			}
+			// background-color: #f2f2f2;
 		}
 		.picker {
 			width: 100%;
