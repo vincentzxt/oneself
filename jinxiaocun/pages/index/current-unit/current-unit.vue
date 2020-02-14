@@ -11,7 +11,6 @@
 					<uni-icons v-else type="arrow-up" color="#2d8cf0" size=20></uni-icons>
 				</view>
 			</view>
-			<view>
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<view v-if="showMenu" class="main-menu">
