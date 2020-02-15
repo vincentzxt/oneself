@@ -49,7 +49,7 @@
 					</cu-cell>
 				</cu-panel>
 				<view class="main-remarks">
-					<textarea style="height: 80px;margin-left:15px;" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+					<textarea style="height: 80px;margin-left:15px;" maxlength="-1" v-model="reqData.remark" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
 				</view>
 			</scroll-view>
 		</view>
@@ -87,7 +87,7 @@
 					subunit: '',
 					unitmultiple: '',
 					warningstockqty: '',
-					remarks: '',
+					remark: '',
 					status: 1
 				},
 				verify: {

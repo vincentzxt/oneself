@@ -13,14 +13,18 @@
 							<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 						</radio-group>
 					</cu-cell>
-					<cu-cell v-if="reqData.order.isOnCredit == 0" title="付款帐号" isLink>
-						<view class="h50 fc" slot="footer" style="width:100%;">
-							<picker @change="handleCashAccountChange" :value="reqData.order.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
-								<view class="main-picker">
-									<text v-if="!reqData.order.payaccountName" style="color:#c5c8ce">选择付款帐号</text>
-									<text v-else>{{reqData.order.payaccountName}}</text>
-								</view>
-							</picker>
+					<cu-cell v-if="!searchCurrentUnit"
+						notNull
+						title="付款帐号"
+						:disVerMessage="verify.payaccountName.disVerMessage"
+						:verify="verify.payaccountName.message">
+						<view class="cash-account-list fc" slot="footer">
+							<view :class="reqData.order.payaccountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
+										v-for="(item, index) in cashAccountDict"
+										:key="index"
+										:style="{'margin-top':index>1 ? '10px' : '0'}"
+										@tap="handleSelectCashAccount(item)">
+							{{item.cashaccountname}}</view>
 						</view>
 					</cu-cell>
 					<cu-cell title="打印单据">
@@ -84,7 +88,10 @@
 				tmpAmount: 0.00,
 				cashAccountDict: [],
 				discount: 0,
-				showDisCount: ''
+				showDisCount: '',
+				verify: {
+					payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' }
+				}
 			};
 		},
 		onLoad(options) {
@@ -124,8 +131,6 @@
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.cashAccountDict = res.data.data.resultList
-						this.reqData.order.payaccountid = this.cashAccountDict[0].cashaccountid
-						this.reqData.order.payaccountName = this.cashAccountDict[0].cashaccountname
 					} else {
 						uni.showToast({
 							icon: 'none',
@@ -143,9 +148,10 @@
 			handleCreditChange(val) {
 				this.reqData.order.isOnCredit = val.detail.value
 			},
-			handleCashAccountChange(val) {
-				this.reqData.order.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
-				this.reqData.order.payaccountName = this.cashAccountDict[val.detail.value].cashaccountname
+			handleSelectCashAccount(val) {
+				this.reqData.order.payaccountid = val.cashaccountid
+				this.reqData.order.payaccountName = val.cashaccountname
+				this.handleVerify('payaccountName')
 			},
 			handlePrintChange(val) {
 				this.reqData.order.isprint = val.detail.value
@@ -159,55 +165,80 @@
 					this.reqData.order.amount = this.tmpAmount
 				}
 			},
+			handleVerify(val) {
+				switch(val) {
+					case 'payaccountName':
+						if (!this.reqData.order.payaccountName) {
+							this.verify.payaccountName.okVerify = false
+							this.verify.payaccountName.disVerMessage = true
+						} else {
+							this.verify.payaccountName.okVerify = true
+							this.verify.payaccountName.disVerMessage = false
+						}
+						break
+				}
+			},
+			checkVerify() {
+				let result = true
+				for (let item in this.verify) {
+					if (!this.verify[item].okVerify) {
+						this.verify[item].disVerMessage = true
+						result = false
+					}
+				}
+				return result
+			},
 			handleSubmit() {
-				this.$refs.loading.open()
-				create(api.purPurchaseOrder, this.reqData).then(res => {
-					this.$refs.loading.close()
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						getGlobalData.getCurrentUnit().then(res => {
-							uni.showToast({
-								icon: 'success',
-								title: '提交成功'
+				if (this.checkVerify()) {
+					this.$refs.loading.open()
+					create(api.purPurchaseOrder, this.reqData).then(res => {
+						this.$refs.loading.close()
+						if (res.status == 200 && res.data.returnCode == '0000') {
+							getGlobalData.getCurrentUnit().then(res => {
+								uni.showToast({
+									icon: 'success',
+									title: '提交成功'
+								})
+								setTimeout(()=>{
+									let pages =  getCurrentPages()
+									let prevPage = pages[pages.length - 2]
+									prevPage.setData({
+										commandType: 'success'
+									})
+									uni.navigateBack({
+										delta: 1
+									})
+								},500)
+							}).catch(err => {
+								uni.showToast({
+									icon: 'success',
+									title: '提交成功'
+								})
+								setTimeout(()=>{
+									let pages =  getCurrentPages()
+									let prevPage = pages[pages.length - 2]
+									prevPage.setData({
+										commandType: 'success'
+									})
+									uni.navigateBack({
+										delta: 1
+									})
+								},500)
 							})
-							setTimeout(()=>{
-								let pages =  getCurrentPages()
-								let prevPage = pages[pages.length - 2]
-								prevPage.setData({
-									commandType: 'success'
-								})
-								uni.navigateBack({
-									delta: 1
-								})
-							},500)
-						}).catch(err => {
+						} else {
 							uni.showToast({
-								icon: 'success',
-								title: '提交成功'
+								icon: 'none',
+								title: res.data.returnMessage
 							})
-							setTimeout(()=>{
-								let pages =  getCurrentPages()
-								let prevPage = pages[pages.length - 2]
-								prevPage.setData({
-									commandType: 'success'
-								})
-								uni.navigateBack({
-									delta: 1
-								})
-							},500)
-						})
-					} else {
+						}
+					}).catch(error => {
+						this.$refs.loading.close()
 						uni.showToast({
 							icon: 'none',
-							title: res.data.returnMessage
+							title: error
 						})
-					}
-				}).catch(error => {
-					this.$refs.loading.close()
-					uni.showToast({
-						icon: 'none',
-						title: error
 					})
-				})
+				}
 			}
 		},
 		watch: {
@@ -244,6 +275,33 @@
 				width: 100%;
 				display: flex;
 				justify-content: flex-end;
+			}
+			.cash-account-list {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				&-item-select {
+					width:40%;
+					padding:5px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: #fdeeeb;
+					color: #f4613d;
+					border-radius: 50px;
+					border: 0.5px solid #f4613d;
+				}
+				&-item-noselect {
+					width:40%;
+					padding:5px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: $uni-bg-color;
+					color: #808695;
+					border-radius: 50px;
+				}
 			}
 		}
 		.footer {

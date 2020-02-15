@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* padding尺寸 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.fill.data-v-cb60f960 {
+  width: 100%;
+  height: 100%;
+}
+.h50.data-v-cb60f960 {
+  height: 50px;
+}
+.fc.data-v-cb60f960 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.container .main.data-v-cb60f960 {
+  margin-top: 5px;
+}
+.container .main .cu-form-group .title.data-v-cb60f960 {
+    min-width: calc(5em + 30px);
+}
+.container .main .main-header.data-v-cb60f960 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    height: 140rpx;
+    background-color: #ffffff;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+}
+.container .main .main-remarks.data-v-cb60f960 {
+    background-color: #ffffff;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+.container .main .picker.data-v-cb60f960 {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+}
+.container .footer.data-v-cb60f960 {
+  height: 48px;
+}
+

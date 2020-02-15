@@ -40,7 +40,7 @@
 						</cu-panel>
 					</view>
 					<view class="main-remarks" :style="{display: showArea ? '' : 'none'}">
-						<textarea style="height: 80px;margin-left:15px;" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+						<textarea style="height: 80px;margin-left:15px;" maxlength="-1" v-model="reqData.remark" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
 					</view>
 			</scroll-view>
 		</view>
@@ -83,7 +83,7 @@
 							email: ''
 						}
 					],
-					remarks: ''
+					remark: ''
 				},
 				verify: {
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },

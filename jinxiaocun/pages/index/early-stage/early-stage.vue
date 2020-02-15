@@ -109,7 +109,8 @@
 				checkedUnit: 0,
 				verify: {
 					orderList: { okVerify: false, disVerMessage: false, message: '至少选择一个产品' }
-				}
+				},
+				productListTag: false
 			};
 		},
 		onShow() {
@@ -136,10 +137,12 @@
 				}
 			},
 			handleSearchFocusProduct() {
+				this.productListTag = false
 				this.productSearchDatas = this.productDatas
 				this.searchProduct = true
 			},
 			handleSearchClearProduct() {
+				this.productListTag = true
 				this.searchProduct = false
 				this.$refs.sp.cancel()
 			},
@@ -156,8 +159,13 @@
 					})
 					this.searchProduct = true
 				} else {
-					this.productSearchDatas = this.productDatas
-					this.searchProduct = false
+					if (this.productListTag) {
+						this.productSearchDatas = []
+						this.searchProduct = false
+					} else {
+						this.productSearchDatas = this.productDatas
+						this.searchProduct = true
+					}
 				}
 			},
 			handleSelectProduct(val) {
@@ -182,6 +190,7 @@
 				if (!isExists) {
 					this.reqData.orderlist.push(cloneObj(this.curSelectPruduct))
 				}
+				this.productListTag = true
 				this.searchProduct = false
 				this.$refs.sp.cancel()
 				this.handleVerify('orderList')
