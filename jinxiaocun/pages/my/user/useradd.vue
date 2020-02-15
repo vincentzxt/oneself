@@ -6,16 +6,16 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell title="用户名"><input slot="footer" type="text" v-model="reqData.loginname" placeholder-style="color:#c5c8ce" placeholder="请输入用户名" /></cu-cell>
-					<cu-cell title="姓名"><input slot="footer" type="text" v-model="reqData.realname" placeholder-style="color:#c5c8ce" placeholder="请输入姓名" /></cu-cell>
-					<cu-cell title="+86"><input slot="footer" type="text" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入手机号" /></cu-cell>
-					<cu-cell title="邮箱"><input slot="footer" type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
-					<cu-cell title="密码"><input slot="footer" type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="请输入密码" /></cu-cell>
+					<cu-cell title="用户名"><view class="h50 fc" slot="footer"><input  type="text" v-model="reqData.loginname" placeholder-style="color:#c5c8ce" placeholder="请输入用户名" /></view></cu-cell>
+					<cu-cell title="姓名"><view class="h50 fc" slot="footer"><input type="text" v-model="reqData.realname" placeholder-style="color:#c5c8ce" placeholder="请输入姓名" /></view></cu-cell>
+					<cu-cell title="+86"><view class="h50 fc" slot="footer"><input type="text" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入手机号" /></view></cu-cell>
+					<cu-cell title="邮箱"><view class="h50 fc" slot="footer"><input type="text" v-model="reqData.email" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></view></cu-cell>
+					<cu-cell title="密码"><view class="h50 fc" slot="footer"><input type="text" v-model="reqData.password" placeholder-style="color:#c5c8ce" placeholder="请输入密码" /></view></cu-cell>
 					<cu-cell title="确认密码">
-						<input slot="footer" type="text" v-model="reqData.re_password" placeholder-style="color:#c5c8ce" placeholder="请再次输入密码" />
+						<view class="h50 fc" slot="footer"><input type="text" v-model="reqData.re_password" placeholder-style="color:#c5c8ce" placeholder="请再次输入密码" /></view>
 					</cu-cell>
 					<cu-cell title="账号角色" isLink>
-						<view slot="footer" style="width:100%;">
+						<view class="h50 fc" slot="footer" style="width:100%;">
 							<picker @change="handleRoleChanage" value='1' :range="rolelist" range-key='rolename'>
 								<view class="main-picker">
 									<text v-if="rolename==''" style="color:#c5c8ce">请选择角色</text>
@@ -204,5 +204,12 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+}
+.h50{
+	height: 72upx;
+		}
+.fc {
+	display: flex;
+	align-items: center;
 }
 </style>

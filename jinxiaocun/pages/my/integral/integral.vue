@@ -5,13 +5,15 @@
 		</view>
 		<view class="tablist"><wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange"></wuc-tab></view>
 		<view class="main">
-			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
 				<view class="content" v-if="content_show_id===0">
+					<scroll-view :scroll-y="true" class="fill">
 					<helang-checkbox ref="checkbox" :list="productList" ></helang-checkbox>
-					<button class="recharge-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">兑换</button>
 				<cu-loading ref="loading"></cu-loading>
+				</scroll-view>
+				<button class="recharge-btn" style="background-color: #2d8cf0;" :loading="loading"  type="primary" @click="handleSubmit">确定购买</button>
 				</view>
 				<view v-if="content_show_id===1" class="content">
+					<scroll-view :scroll-y="true" class="fill2" @scrolltolower="loadData">
 					<view v-for="(item, index) in dataList" :key="index" class="list-item">
 						<view class="list-between">
 							<view>
@@ -44,8 +46,8 @@
 					<view class="no_data" v-if="dataList.length === 0"><text class="item_text">暂无数据</text></view>
 					<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
 					<cu-loading ref="loading"></cu-loading>	
+					</scroll-view>
 				</view>
-			</scroll-view>
 		</view>
 	</view>
 </template>
@@ -212,10 +214,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.fill {
-	width: 100%;
-	height: 100%;
-}
 .container {
 	height: 100vh;
 	width: 100vw;
@@ -224,10 +222,16 @@ export default {
 	}
 	.main {
 		font-size: $uni-font-size-sm;
-		height: 90%;
+		height: 82%;
 		padding: 15upx;
 		.content{
 			height: 100%;
+			.fill{
+				height: 90%;
+			};
+			.fill2{
+				height: 100%;
+			};
 		}
 		.cu-form-group .title {
 			min-width: calc(5em + 30px);
