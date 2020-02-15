@@ -240,12 +240,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
 var _capfee = __webpack_require__(/*! @/api/capfee.js */ 180);
-var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 590));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 604));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 611));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 618));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 625));};var _default =
+var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 591));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 605));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 612));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 619));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 626));};var _default =
 {
   components: {
     cuSearchBar: cuSearchBar,
@@ -274,7 +272,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       verify: {
         feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
         contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
-        payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' },
         amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' } },
 
       currentUnitTag: false };
@@ -313,7 +310,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       this.verify = {
         feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
         contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
-        payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' },
         amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' } };
 
     },
@@ -344,6 +340,8 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
         _this2.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
           _this2.cashAccountDict = res.data.data.resultList;
+          _this2.reqData.payaccountid = _this2.cashAccountDict[0].cashaccountid;
+          _this2.reqData.payaccountName = _this2.cashAccountDict[0].cashaccountname;
         } else {
           uni.showToast({
             icon: 'none',
@@ -371,7 +369,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
     handleSelectCashAccount: function handleSelectCashAccount(val) {
       this.reqData.payaccountid = val.cashaccountid;
       this.reqData.payaccountName = val.cashaccountname;
-      this.handleVerify('payaccountName');
     },
     handleSearchFocusCurrentUnit: function handleSearchFocusCurrentUnit() {
       this.currentUnitTag = false;
@@ -434,15 +431,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
           } else {
             this.verify.contactunitname.okVerify = true;
             this.verify.contactunitname.disVerMessage = false;
-          }
-          break;
-        case 'payaccountName':
-          if (!this.reqData.payaccountName) {
-            this.verify.payaccountName.okVerify = false;
-            this.verify.payaccountName.disVerMessage = true;
-          } else {
-            this.verify.payaccountName.okVerify = true;
-            this.verify.payaccountName.disVerMessage = false;
           }
           break;
         case 'amount':

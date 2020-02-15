@@ -194,11 +194,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
-var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 604));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 611));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 618));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 625));};var _default =
+var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 605));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 612));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 619));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 626));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -225,10 +222,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
 
         orderlist: [] },
 
-      cashAccountDict: [],
-      verify: {
-        payaccountName: { okVerify: false, disVerMessage: false, message: '退款帐号不能为空' } } };
-
+      cashAccountDict: [] };
 
   },
   onLoad: function onLoad(options) {
@@ -265,7 +259,13 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
         _this.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
           _this.cashAccountDict = res.data.data.resultList;
-          console.log(_this.cashAccountDict);
+          if (_this.businessType == 0) {
+            _this.reqData.order.payaccountid = _this.cashAccountDict[0].cashaccountid;
+            _this.reqData.order.payaccountName = _this.cashAccountDict[0].cashaccountname;
+          } else {
+            _this.reqData.order.accountid = _this.cashAccountDict[0].cashaccountid;
+            _this.reqData.order.accountName = _this.cashAccountDict[0].cashaccountname;
+          }
         } else {
           uni.showToast({
             icon: 'none',
@@ -288,111 +288,75 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
         this.reqData.order.accountid = val.cashaccountid;
         this.reqData.order.accountName = val.cashaccountname;
       }
-      this.handleVerify('payaccountName');
     },
     handlePrintChange: function handlePrintChange(val) {
       this.reqData.order.isprint = val.detail.value;
     },
-    handleVerify: function handleVerify(val) {
-      switch (val) {
-        case 'payaccountName':
-          if (this.businessType == 0) {
-            if (!this.reqData.order.payaccountName) {
-              this.verify.payaccountName.okVerify = false;
-              this.verify.payaccountName.disVerMessage = true;
-            } else {
-              this.verify.payaccountName.okVerify = true;
-              this.verify.payaccountName.disVerMessage = false;
-            }
-          } else {
-            if (!this.reqData.order.accountName) {
-              this.verify.payaccountName.okVerify = false;
-              this.verify.payaccountName.disVerMessage = true;
-            } else {
-              this.verify.payaccountName.okVerify = true;
-              this.verify.payaccountName.disVerMessage = false;
-            }
-          }
-          break;}
-
-    },
-    checkVerify: function checkVerify() {
-      var result = true;
-      for (var item in this.verify) {
-        if (!this.verify[item].okVerify) {
-          this.verify[item].disVerMessage = true;
-          result = false;
-        }
-      }
-      return result;
-    },
     handleSubmit: function handleSubmit() {var _this2 = this;
-      if (this.checkVerify()) {
-        if (this.businessType == 0) {
-          this.$refs.loading.open();
-          (0, _common2.create)(_common.api.purPurchaseOrder, this.reqData).then(function (res) {
-            _this2.$refs.loading.close();
-            if (res.status == 200 && res.data.returnCode == '0000') {
-              uni.showToast({
-                icon: 'success',
-                title: '提交成功' });
+      if (this.businessType == 0) {
+        this.$refs.loading.open();
+        (0, _common2.create)(_common.api.purPurchaseOrder, this.reqData).then(function (res) {
+          _this2.$refs.loading.close();
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            uni.showToast({
+              icon: 'success',
+              title: '提交成功' });
 
-              setTimeout(function () {
-                var pages = getCurrentPages();
-                var prevPage = pages[pages.length - 2];
-                prevPage.setData({
-                  commandType: 'success' });
+            setTimeout(function () {
+              var pages = getCurrentPages();
+              var prevPage = pages[pages.length - 2];
+              prevPage.setData({
+                commandType: 'success' });
 
-                uni.navigateBack({
-                  delta: 1 });
+              uni.navigateBack({
+                delta: 1 });
 
-              }, 500);
-            } else {
-              uni.showToast({
-                icon: 'none',
-                title: res.data.returnMessage });
-
-            }
-          }).catch(function (error) {
-            _this2.$refs.loading.close();
+            }, 500);
+          } else {
             uni.showToast({
               icon: 'none',
-              title: error });
+              title: res.data.returnMessage });
 
-          });
-        } else {
-          this.$refs.loading.open();
-          (0, _common2.create)(_common.api.salesOrder, this.reqData).then(function (res) {
-            _this2.$refs.loading.close();
-            if (res.status == 200 && res.data.returnCode == '0000') {
-              uni.showToast({
-                icon: 'success',
-                title: '提交成功' });
+          }
+        }).catch(function (error) {
+          _this2.$refs.loading.close();
+          uni.showToast({
+            icon: 'none',
+            title: error });
 
-              setTimeout(function () {
-                var pages = getCurrentPages();
-                var prevPage = pages[pages.length - 2];
-                prevPage.setData({
-                  commandType: 'success' });
+        });
+      } else {
+        this.$refs.loading.open();
+        (0, _common2.create)(_common.api.salesOrder, this.reqData).then(function (res) {
+          _this2.$refs.loading.close();
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            uni.showToast({
+              icon: 'success',
+              title: '提交成功' });
 
-                uni.navigateBack({
-                  delta: 1 });
+            setTimeout(function () {
+              var pages = getCurrentPages();
+              var prevPage = pages[pages.length - 2];
+              prevPage.setData({
+                commandType: 'success' });
 
-              }, 500);
-            } else {
-              uni.showToast({
-                icon: 'none',
-                title: res.data.returnMessage });
+              uni.navigateBack({
+                delta: 1 });
 
-            }
-          }).catch(function (error) {
-            _this2.$refs.loading.close();
+            }, 500);
+          } else {
             uni.showToast({
               icon: 'none',
-              title: error });
+              title: res.data.returnMessage });
 
-          });
-        }
+          }
+        }).catch(function (error) {
+          _this2.$refs.loading.close();
+          uni.showToast({
+            icon: 'none',
+            title: error });
+
+        });
       }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

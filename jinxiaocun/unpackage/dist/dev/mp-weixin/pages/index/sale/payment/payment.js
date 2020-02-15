@@ -187,12 +187,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 604));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 611));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 618));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 625));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 605));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 612));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 619));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 626));};var _default =
 {
   components: {
     cuPanel: cuPanel,
@@ -221,10 +218,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       tmpAmount: 0.00,
       cashAccountDict: [],
       discount: 0,
-      showDisCount: '',
-      verify: {
-        accountName: { okVerify: false, disVerMessage: false, message: '收款帐号不能为空' } } };
-
+      showDisCount: '' };
 
   },
   onLoad: function onLoad(options) {
@@ -264,6 +258,8 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         _this.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
           _this.cashAccountDict = res.data.data.resultList;
+          _this.reqData.order.accountid = _this.cashAccountDict[0].cashaccountid;
+          _this.reqData.order.accountName = _this.cashAccountDict[0].cashaccountname;
         } else {
           uni.showToast({
             icon: 'none',
@@ -284,7 +280,6 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     handleSelectCashAccount: function handleSelectCashAccount(val) {
       this.reqData.order.accountid = val.cashaccountid;
       this.reqData.order.accountName = val.cashaccountname;
-      this.handleVerify('accountName');
     },
     handlePrintChange: function handlePrintChange(val) {
       this.reqData.order.isprint = val.detail.value;
@@ -298,80 +293,55 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         this.reqData.order.amount = this.tmpAmount;
       }
     },
-    handleVerify: function handleVerify(val) {
-      switch (val) {
-        case 'accountName':
-          if (!this.reqData.order.accountName) {
-            this.verify.accountName.okVerify = false;
-            this.verify.accountName.disVerMessage = true;
-          } else {
-            this.verify.accountName.okVerify = true;
-            this.verify.accountName.disVerMessage = false;
-          }
-          break;}
-
-    },
-    checkVerify: function checkVerify() {
-      var result = true;
-      for (var item in this.verify) {
-        if (!this.verify[item].okVerify) {
-          this.verify[item].disVerMessage = true;
-          result = false;
-        }
-      }
-      return result;
-    },
     handleSubmit: function handleSubmit() {var _this2 = this;
-      if (this.checkVerify()) {
-        this.$refs.loading.open();
-        (0, _common2.create)(_common.api.salesOrder, this.reqData).then(function (res) {
-          _this2.$refs.loading.close();
-          if (res.status == 200 && res.data.returnCode == '0000') {
-            _business.default.getCurrentUnit().then(function (res) {
-              uni.showToast({
-                icon: 'success',
-                title: '提交成功' });
-
-              setTimeout(function () {
-                var pages = getCurrentPages();
-                var prevPage = pages[pages.length - 2];
-                prevPage.setData({
-                  commandType: 'success' });
-
-                uni.navigateBack({
-                  delta: 1 });
-
-              }, 500);
-            }).catch(function (err) {
-              uni.showToast({
-                icon: 'success',
-                title: '提交成功' });
-
-              setTimeout(function () {
-                var pages = getCurrentPages();
-                var prevPage = pages[pages.length - 2];
-                prevPage.setData({
-                  commandType: 'success' });
-
-                uni.navigateBack({
-                  delta: 1 });
-
-              }, 500);
-            });
-          } else {
+      this.$refs.loading.open();
+      (0, _common2.create)(_common.api.salesOrder, this.reqData).then(function (res) {
+        _this2.$refs.loading.close();
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          _business.default.getCurrentUnit().then(function (res) {
             uni.showToast({
-              icon: 'none',
-              title: res.data.returnMessage });
+              icon: 'success',
+              title: '提交成功' });
 
-          }
-        }).catch(function (error) {
-          _this2.$refs.loading.close();
+            setTimeout(function () {
+              var pages = getCurrentPages();
+              var prevPage = pages[pages.length - 2];
+              prevPage.setData({
+                commandType: 'success' });
+
+              uni.navigateBack({
+                delta: 1 });
+
+            }, 500);
+          }).catch(function (err) {
+            uni.showToast({
+              icon: 'success',
+              title: '提交成功' });
+
+            setTimeout(function () {
+              var pages = getCurrentPages();
+              var prevPage = pages[pages.length - 2];
+              prevPage.setData({
+                commandType: 'success' });
+
+              uni.navigateBack({
+                delta: 1 });
+
+            }, 500);
+          });
+        } else {
           uni.showToast({
             icon: 'none',
-            title: error });
+            title: res.data.returnMessage });
 
-        });
-      }
+        }
+      }).catch(function (error) {
+        _this2.$refs.loading.close();
+        uni.showToast({
+          icon: 'none',
+          title: error });
+
+      });
     } },
 
   watch: {

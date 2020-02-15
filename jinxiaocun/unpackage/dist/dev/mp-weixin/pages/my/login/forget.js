@@ -178,7 +178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _uniIcons = _interopRequireDefault(__webpack_require__(/*! @/components/uni-icons/uni-icons.vue */ 319));
 var _user = __webpack_require__(/*! @/api/user.js */ 286);
-var _common = __webpack_require__(/*! @/config/common.js */ 56);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 682));};var _default =
+var _common = __webpack_require__(/*! @/config/common.js */ 56);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniIcon = function uniIcon() {return __webpack_require__.e(/*! import() | components/uni-icon/uni-icon */ "components/uni-icon/uni-icon").then(__webpack_require__.bind(null, /*! @/components/uni-icon/uni-icon.vue */ 683));};var _default =
 {
   data: function data() {
     return {

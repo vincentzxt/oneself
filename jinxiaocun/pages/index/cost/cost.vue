@@ -35,9 +35,7 @@
 						<cu-cell v-if="!searchCurrentUnit"
 							title="付款帐号"
 							isIcon
-							:icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }"
-							:disVerMessage="verify.payaccountName.disVerMessage"
-							:verify="verify.payaccountName.message">
+							:icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }">
 							<view class="cash-account-list fc" slot="footer">
 								<view :class="reqData.payaccountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
 											v-for="(item, index) in cashAccountDict"
@@ -108,7 +106,6 @@
 				verify: {
 					feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
-					payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' }
 				},
 				currentUnitTag: false
@@ -147,7 +144,6 @@
 				this.verify = {
 					feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
-					payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' }
 				}
 			},
@@ -178,6 +174,8 @@
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.cashAccountDict = res.data.data.resultList
+						this.reqData.payaccountid = this.cashAccountDict[0].cashaccountid
+						this.reqData.payaccountName = this.cashAccountDict[0].cashaccountname
 					} else {
 						uni.showToast({
 							icon: 'none',
@@ -205,7 +203,6 @@
 			handleSelectCashAccount(val) {
 				this.reqData.payaccountid = val.cashaccountid
 				this.reqData.payaccountName = val.cashaccountname
-				this.handleVerify('payaccountName')
 			},
 			handleSearchFocusCurrentUnit() {
 				this.currentUnitTag = false
@@ -268,15 +265,6 @@
 						} else {
 							this.verify.contactunitname.okVerify = true
 							this.verify.contactunitname.disVerMessage = false
-						}
-						break
-					case 'payaccountName':
-						if (!this.reqData.payaccountName) {
-							this.verify.payaccountName.okVerify = false
-							this.verify.payaccountName.disVerMessage = true
-						} else {
-							this.verify.payaccountName.okVerify = true
-							this.verify.payaccountName.disVerMessage = false
 						}
 						break
 					case 'amount':
