@@ -173,9 +173,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _product = __webpack_require__(/*! @/api/product.js */ 57);
-var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 645));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 605));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 612));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 619));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 626));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 598));};var _default =
+var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 653));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 613));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 620));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 627));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 634));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 606));};var _default =
 {
   components: {
     uniSearchBar: uniSearchBar,
@@ -202,11 +215,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
   },
   onShow: function onShow() {
     this.datas = uni.getStorageSync('productCategory').productCategories;
-    this.datas = this.datas.filter(function (item) {
-      return item !== '所有分类';
-    });
     this.searchDatas = this.datas;
-    console.log(this.searchDatas);
   },
   computed: {
     headerHeight: function headerHeight() {
@@ -217,30 +226,37 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     } },
 
   methods: {
-    handleClickItem: function handleClickItem(val) {
-      var pages = getCurrentPages();
-      var prevPage = pages[pages.length - 2];
-      prevPage.setData(
-      {
-        rData: { key: 'type', value: val } });
-
-
-      uni.navigateBack({
-        delta: 1 });
-
-    },
     handleNavbarClickLeft: function handleNavbarClickLeft() {
       uni.navigateBack({
         delta: 1 });
 
     },
+    handleClickContent: function handleClickContent(val) {
+      if (val.status == 2) {
+        uni.showToast({
+          icon: 'none',
+          title: '请先启用该分类' });
+
+      } else {
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2];
+        prevPage.setData(
+        {
+          rData: { key: 'type', value: val.productcategoryname } });
+
+
+        uni.navigateBack({
+          delta: 1 });
+
+      }
+    },
     handleSearch: function handleSearch(val) {
       if (val.value) {
         this.searchDatas = this.datas.filter(function (item) {
-          if (!item) {
-            item = '';
+          if (!item.productcategoryname) {
+            item.productcategoryname = '';
           }
-          return item.indexOf(val.value) !== -1;
+          return item.productcategoryname.indexOf(val.value) !== -1;
         });
       } else {
         this.searchDatas = this.datas;
@@ -253,36 +269,86 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
 
       this.$refs.popup.open();
     },
-    handleStatusChange: function handleStatusChange(val) {
-      if (val.detail.value) {
-        this.reqData.status = 1;
-      } else {
-        this.reqData.status = 2;
-      }
-    },
-    handleAdd: function handleAdd() {var _this = this;
-      (0, _product.createProductCategory)(_common.api.baseProduct, this.reqData).then(function (res) {
-        _this.$refs.popup.close();
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          _business.default.getProductCategory().then(function (res) {
-            _this.datas = uni.getStorageSync('productCategory').productCategories;
-            _this.datas = _this.datas.filter(function (item) {
-              return item !== '所有分类';
+    handleStatusChange: function handleStatusChange(val, item) {var _this = this;
+      if (val.value) {
+        this.$refs.loading.open();
+        (0, _product.enableProductCategory)(_common.api.baseProduct, item.productcategoryid).then(function (res) {
+          _this.$refs.loading.close();
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            _business.default.getProductCategory().then(function (res) {
+              _this.datas = uni.getStorageSync('productCategory').productCategories;
+              _this.searchDatas = _this.datas;
             });
-            _this.searchDatas = _this.datas;
-          });
-        } else {
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.returnMessage });
+
+          }
+        }).catch(function (error) {
+          _this.$refs.loading.close();
           uni.showToast({
             icon: 'none',
-            title: res.data.returnMessage });
+            title: error });
 
-        }
-      }).catch(function (error) {
+        });
+      } else {
+        this.$refs.loading.open();
+        (0, _product.disableProductCategory)(_common.api.baseProduct, item.productcategoryid).then(function (res) {
+          _this.$refs.loading.close();
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            _business.default.getProductCategory().then(function (res) {
+              _this.datas = uni.getStorageSync('productCategory').productCategories;
+              _this.searchDatas = _this.datas;
+            });
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.returnMessage });
+
+          }
+        }).catch(function (error) {
+          _this.$refs.loading.close();
+          uni.showToast({
+            icon: 'none',
+            title: error });
+
+        });
+      }
+    },
+    handleAdd: function handleAdd() {var _this2 = this;
+      if (this.reqData.productcategoryname) {
+        this.$refs.loading.open();
+        (0, _product.createProductCategory)(_common.api.baseProduct, this.reqData).then(function (res) {
+          _this2.$refs.loading.close();
+          _this2.$refs.popup.close();
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            _business.default.getProductCategory().then(function (res) {
+              _this2.datas = uni.getStorageSync('productCategory').productCategories;
+              _this2.searchDatas = _this2.datas;
+            });
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.returnMessage });
+
+          }
+        }).catch(function (error) {
+          _this2.$refs.loading.close();
+          uni.showToast({
+            icon: 'none',
+            title: error });
+
+        });
+      } else {
         uni.showToast({
           icon: 'none',
-          title: error });
+          title: '请输入分类名称' });
 
-      });
+      }
+    },
+    handleCancel: function handleCancel() {
+      this.$refs.popup.close();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

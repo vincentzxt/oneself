@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 645));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 619));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 626));};var uniDrawer = function uniDrawer() {return __webpack_require__.e(/*! import() | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then(__webpack_require__.bind(null, /*! @/components/uni-drawer/uni-drawer.vue */ 662));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 653));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 627));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 634));};var uniDrawer = function uniDrawer() {return __webpack_require__.e(/*! import() | components/uni-drawer/uni-drawer */ "components/uni-drawer/uni-drawer").then(__webpack_require__.bind(null, /*! @/components/uni-drawer/uni-drawer.vue */ 670));};var _default =
 
 
 
@@ -184,17 +184,17 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       title: '产品',
-      productCategory: null,
-      datas: null,
-      searchDatas: null,
+      productCategory: [],
+      datas: [],
+      searchDatas: [],
       searchKey: '',
-      curSelectType: '所有分类',
+      curSelectType: '00000',
       typeMenu: false };
 
   },
   onShow: function onShow() {
     this.productCategory = uni.getStorageSync('productCategory').productCategories;
-    this.productCategory.unshift('所有分类');
+    this.productCategory.unshift({ productcategoryid: '00000', productcategoryname: '所有分类' });
     this.datas = uni.getStorageSync('productList');
     this.searchDatas = this.datas;
   },
@@ -222,11 +222,11 @@ __webpack_require__.r(__webpack_exports__);
         url: './edit/edit?item=' + JSON.stringify(val) });
 
     },
-    handleSelectType: function handleSelectType(type) {
-      this.curSelectType = type;
-      if (type !== '所有分类') {
+    handleSelectType: function handleSelectType(val) {
+      this.curSelectType = val.productcategoryid;
+      if (val.productcategoryid !== '00000') {
         this.searchDatas = this.datas.filter(function (item) {
-          return item.productcategory == type;
+          return item.productcategory == val.productcategoryname;
         });
       } else {
         this.searchDatas = this.datas;

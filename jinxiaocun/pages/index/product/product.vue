@@ -16,7 +16,7 @@
 			<uni-drawer :visible="typeMenu" @close="handleTypeMenuClose" :top="headerHeight+5" bottom=48>
 				<scroll-view :scroll-y="true" class="typeMenu">
 					<uni-list>
-						<uni-list-item :title="item" :class="item==curSelectType?'menuSelect':''" :show-arrow="false" v-for="(item, index) in productCategory" :key="index" @tap="handleSelectType(item)">
+						<uni-list-item :title="item.productcategoryname" :class="item.productcategoryid == curSelectType?'menuSelect':''" :show-arrow="false" v-for="(item, index) in productCategory" :key="index" @tap="handleSelectType(item)">
 						</uni-list-item>
 					</uni-list>
 				</scroll-view>
@@ -49,17 +49,17 @@
 		data() {
 			return {
 				title: '产品',
-				productCategory: null,
-				datas: null,
-				searchDatas: null,
+				productCategory: [],
+				datas: [],
+				searchDatas: [],
 				searchKey: '',
-				curSelectType: '所有分类',
+				curSelectType: '00000',
 				typeMenu: false
 			}
 		},
 		onShow() {
 			this.productCategory = uni.getStorageSync('productCategory').productCategories
-			this.productCategory.unshift('所有分类')
+			this.productCategory.unshift({ productcategoryid: '00000', productcategoryname: '所有分类' })
 			this.datas = uni.getStorageSync('productList')
 			this.searchDatas = this.datas
 		},
@@ -87,11 +87,11 @@
 					url: './edit/edit?item=' + JSON.stringify(val)
 				})
 			},
-			handleSelectType(type) {
-				this.curSelectType = type
-				if (type !== '所有分类') {
+			handleSelectType(val) {
+				this.curSelectType = val.productcategoryid
+				if (val.productcategoryid !== '00000') {
 					this.searchDatas = this.datas.filter((item) => {
-						return item.productcategory == type
+						return item.productcategory == val.productcategoryname
 					})
 				} else {
 					this.searchDatas = this.datas

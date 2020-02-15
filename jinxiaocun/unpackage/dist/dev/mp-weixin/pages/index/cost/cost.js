@@ -233,17 +233,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);
-var _capfee = __webpack_require__(/*! @/api/capfee.js */ 180);
-var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 591));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 605));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 612));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 619));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 626));};var _default =
+var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 599));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 613));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 620));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 627));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 634));};var _default =
 {
   components: {
     cuSearchBar: cuSearchBar,
@@ -267,7 +259,6 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
         amount: '',
         remark: '' },
 
-      feetypeDict: [],
       cashAccountDict: [],
       verify: {
         feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
@@ -277,11 +268,15 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       currentUnitTag: false };
 
   },
-  onLoad: function onLoad() {
+  onShow: function onShow() {
     this.currentUnitDatas = uni.getStorageSync('currentUnitList');
     this.currentUnitSearchDatas = this.currentUnitDatas;
-    this.getFeeCagetory();
     this.getCashAccount();
+    var pages = getCurrentPages();
+    var curPage = pages[pages.length - 1];
+    if (curPage.data.rData) {
+      this.reqData.feetype = curPage.data.rData;
+    }
   },
   computed: {
     headerHeight: function headerHeight() {
@@ -313,35 +308,14 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
         amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' } };
 
     },
-    getFeeCagetory: function getFeeCagetory() {var _this = this;
-      this.$refs.loading.open();
-      (0, _capfee.queryFeeCagetory)(_common.api.capFee).then(function (res) {
-        _this.$refs.loading.close();
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          //this.feetypeDict = res.data.data.resultList
-          _this.feetypeDict = ['测试类型'];
-        } else {
-          uni.showToast({
-            icon: 'none',
-            title: res.data.returnMessage });
-
-        }
-      }).catch(function (error) {
-        _this.$refs.loading.close();
-        uni.showToast({
-          icon: 'none',
-          title: error });
-
-      });
-    },
-    getCashAccount: function getCashAccount() {var _this2 = this;
+    getCashAccount: function getCashAccount() {var _this = this;
       this.$refs.loading.open();
       (0, _common2.query)(_common.api.cashAccount).then(function (res) {
-        _this2.$refs.loading.close();
+        _this.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
-          _this2.cashAccountDict = res.data.data.resultList;
-          _this2.reqData.payaccountid = _this2.cashAccountDict[0].cashaccountid;
-          _this2.reqData.payaccountName = _this2.cashAccountDict[0].cashaccountname;
+          _this.cashAccountDict = res.data.data.resultList;
+          _this.reqData.payaccountid = _this.cashAccountDict[0].cashaccountid;
+          _this.reqData.payaccountName = _this.cashAccountDict[0].cashaccountname;
         } else {
           uni.showToast({
             icon: 'none',
@@ -349,7 +323,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
 
         }
       }).catch(function (error) {
-        _this2.$refs.loading.close();
+        _this.$refs.loading.close();
         uni.showToast({
           icon: 'none',
           title: error });
@@ -362,8 +336,9 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       }
       this.handleVerify('amount');
     },
-    handleFeeTypeChange: function handleFeeTypeChange(val) {
-      this.reqData.feetype = this.feetypeDict[val.detail.value];
+    handleSelectType: function handleSelectType() {
+      console.log("###");
+      this.$refs.picker.open();
       this.handleVerify('feetype');
     },
     handleSelectCashAccount: function handleSelectCashAccount(val) {
@@ -454,17 +429,17 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
       }
       return result;
     },
-    handleSubmit: function handleSubmit() {var _this3 = this;
+    handleSubmit: function handleSubmit() {var _this2 = this;
       if (this.checkVerify()) {
         this.$refs.loading.open();
         (0, _common2.create)(_common.api.capFee, this.reqData).then(function (res) {
-          _this3.$refs.loading.close();
+          _this2.$refs.loading.close();
           if (res.status == 200 && res.data.returnCode == '0000') {
             uni.showToast({
               icon: 'success',
               title: '提交成功' });
 
-            _this3.initData();
+            _this2.initData();
           } else {
             uni.showToast({
               icon: 'none',
@@ -472,7 +447,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
 
           }
         }).catch(function (error) {
-          _this3.$refs.loading.close();
+          _this2.$refs.loading.close();
           uni.showToast({
             icon: 'none',
             title: error });
