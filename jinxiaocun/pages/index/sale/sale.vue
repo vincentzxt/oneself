@@ -120,10 +120,10 @@
 		},
 		data() {
 			return {
-				currentUnitDatas: null,
-				currentUnitSearchDatas: null,
-				productDatas: null,
-				productSearchDatas: null,
+				currentUnitDatas: [],
+				currentUnitSearchDatas: [],
+				productDatas: [],
+				productSearchDatas: [],
 				searchCurrentUnit: false,
 				searchProduct: false,
 				reqData: {
@@ -141,7 +141,9 @@
 				verify: {
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
 					productList: { okVerify: false, disVerMessage: false, message: '至少选择一个产品' }
-				}
+				},
+				currentUnitTag: false,
+				productListTag: false
 			};
 		},
 		onShow() {
@@ -181,10 +183,12 @@
 				})
 			},
 			handleSearchFocusCurrentUnit() {
+				this.currentUnitTag = false
 				this.currentUnitSearchDatas = this.currentUnitDatas
 				this.searchCurrentUnit = true
 			},
 			handleSearchClearCurrentUnit() {
+				this.currentUnitTag = true
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
 			},
@@ -213,8 +217,9 @@
 											this.reqData.contactunitid = ''
 											this.reqData.contactunitname = val.value
 											this.reqData.telephone = ' '
-											this.$refs.sc.cancel()
+											this.currentUnitTag = true
 											this.searchCurrentUnit = false
+											this.$refs.sc.cancel()
 						        } else if (res.cancel) {
 											this.searchCurrentUnit = false
 						        }
@@ -224,15 +229,22 @@
 						this.searchCurrentUnit = true
 					}
 				} else {
-					this.currentUnitSearchDatas = this.currentUnitDatas
-					this.searchCurrentUnit = true
+					if (this.currentUnitTag) {
+						this.currentUnitSearchDatas = []
+						this.searchCurrentUnit = false
+					} else {
+						this.currentUnitSearchDatas = this.currentUnitDatas
+						this.searchCurrentUnit = true
+					}
 				}
 			},
 			handleSearchFocusProduct() {
+				this.productListTag = false
 				this.productSearchDatas = this.productDatas
 				this.searchProduct = true
 			},
 			handleSearchClearProduct() {
+				this.productListTag = true
 				this.searchProduct = false
 				this.$refs.sp.cancel()
 			},
@@ -249,14 +261,20 @@
 					})
 					this.searchProduct = true
 				} else {
-					this.productSearchDatas = this.productDatas
-					this.searchProduct = true
+					if (this.productListTag) {
+						this.productSearchDatas = []
+						this.searchProduct = false
+					} else {
+						this.productSearchDatas = this.productDatas
+						this.searchProduct = true
+					}
 				}
 			},
 			handleSelectCurrentUnit(val) {
 				this.reqData.contactunitname = val.contactunitname
 				this.reqData.contactunitid = val.contactunitid
 				this.reqData.telephone = val.bseContactUnitContactModels[0].telephone
+				this.currentUnitTag = true
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
 				this.handleVerify('contactunitname')
@@ -285,6 +303,7 @@
 				if (!isExists) {
 					this.reqData.productList.push(cloneObj(this.curSelectPruduct))
 				}
+				this.productListTag = true
 				this.searchProduct = false
 				this.$refs.sp.cancel()
 				this.handleVerify('productList')

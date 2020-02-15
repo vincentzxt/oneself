@@ -38,7 +38,7 @@
 			},
 			clearButton: {
 				type: String,
-				default: "auto"
+				default: "none"
 			},
 			cancelButton: {
 				type: String,

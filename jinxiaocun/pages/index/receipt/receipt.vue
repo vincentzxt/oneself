@@ -20,19 +20,17 @@
 					<cu-panel>
 						<cu-cell v-if="!searchCurrentUnit"
 							title="收款帐号"
-							isLink
 							isIcon
 							:icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }"
 							:disVerMessage="verify.accountName.disVerMessage"
-							:verify="verify.accountName.message"
-							@clickFooter="handleOpenCashAccount">
-							<view class="h50 fc" slot="footer" style="width:100%;">
-								<picker @change="handleCashAccountChange" :value="reqData.accountid" :range="cashAccountDict" range-key='cashaccountname'>
-									<view class="main-picker">
-										<text v-if="!reqData.accountName" style="color:#c5c8ce">选择收款帐号</text>
-										<text v-else>{{reqData.accountName}}</text>
-									</view>
-								</picker>
+							:verify="verify.accountName.message">
+							<view class="cash-account-list fc" slot="footer">
+								<view :class="reqData.accountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
+											v-for="(item, index) in cashAccountDict"
+											:key="index"
+											:style="{'margin-top':index>1 ? '10px' : '0'}"
+											@tap="handleSelectCashAccount(item)">
+								{{item.cashaccountname}}</view>
 							</view>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="收款金额" isIcon :icon="{ type: 'c-amount', color: '#c4c6cb', 'size': 20 }" isLastCell :disVerMessage="verify.amount.disVerMessage" :verify="verify.amount.message">
@@ -41,7 +39,7 @@
 					</cu-panel>
 				</view>
 				<view v-if="!searchCurrentUnit" class="main-remarks">
-					<textarea style="height: 80px;margin-left:20px;" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+					<textarea style="height: 80px;margin-left:20px;" maxlength="-1" v-model="reqData.remark" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
 				</view>
 				<view v-if="searchCurrentUnit">
 					<uni-list>
@@ -78,22 +76,24 @@
 		data() {
 			return {
 				title: '收款单',
-				currentUnitDatas: null,
-				currentUnitSearchDatas: null,
+				currentUnitDatas: [],
+				currentUnitSearchDatas: [],
 				searchCurrentUnit: false,
 				reqData: {
 					contactunitid: '',
 					contactunitname: '',
 					accountid: '',
 					accountName: '',
-					amount: ''
+					amount: '',
+					remark: ''
 				},
 				cashAccountDict: [],
 				verify: {
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
 					accountName: { okVerify: false, disVerMessage: false, message: '收款帐号不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '收款金额不能为空，且不能为零' }
-				}
+				},
+				currentUnitTag: false
 			};
 		},
 		onLoad() {
@@ -115,12 +115,28 @@
 					delta: 1
 				})
 			},
+			initData() {
+				this.reqData = {
+					contactunitid: '',
+					contactunitname: '',
+					accountid: '',
+					accountName: '',
+					amount: '',
+					remark: ''
+				}
+				this.verify = {
+					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
+					accountName: { okVerify: false, disVerMessage: false, message: '收款帐号不能为空' },
+					amount: { okVerify: false, disVerMessage: false, message: '收款金额不能为空，且不能为零' }
+				}
+			},
 			getCashAccount() {
 				this.$refs.loading.open()
 				query(api.cashAccount).then(res => {
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.cashAccountDict = res.data.data.resultList
+						console.log(this.cashAccountDict)
 					} else {
 						uni.showToast({
 							icon: 'none',
@@ -135,26 +151,24 @@
 					})
 				})
 			},
-			handleOpenCashAccount() {
-				console.log("####")
-				console.log(this.$refs.picker)
-			},
 			handlePriceBlur() {
 				if (this.reqData.amount) {
 					this.reqData.amount = floatFormat(this.reqData.amount)
 				}
 				this.handleVerify('amount')
 			},
-			handleCashAccountChange(val) {
-				this.reqData.accountid = this.cashAccountDict[val.detail.value].cashaccountid
-				this.reqData.accountName = this.cashAccountDict[val.detail.value].cashaccountname
+			handleSelectCashAccount(val) {
+				this.reqData.accountid = val.cashaccountid
+				this.reqData.accountName = val.cashaccountname
 				this.handleVerify('accountName')
 			},
 			handleSearchFocusCurrentUnit() {
+				this.currentUnitTag = false
 				this.currentUnitSearchDatas = this.currentUnitDatas
 				this.searchCurrentUnit = true
 			},
 			handleSearchClearCurrentUnit() {
+				this.currentUnitTag = true
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
 			},
@@ -174,13 +188,19 @@
 					})
 					this.searchCurrentUnit = true
 				} else {
-					this.currentUnitSearchDatas = this.currentUnitDatas
-					this.searchCurrentUnit = false
+					if (this.currentUnitTag) {
+						this.currentUnitSearchDatas = []
+						this.searchCurrentUnit = false
+					} else {
+						this.currentUnitSearchDatas = this.currentUnitDatas
+						this.searchCurrentUnit = true
+					}
 				}
 			},
 			handleSelectCurrentUnit(val) {
 				this.reqData.contactunitid = val.contactunitid
 				this.reqData.contactunitname = val.contactunitname
+				this.currentUnitTag = true
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
 				this.handleVerify('contactunitname')
@@ -236,13 +256,7 @@
 								icon: 'success',
 								title: '提交成功'
 							})
-							this.reqData = {
-								contactunitid: '',
-								contactunitname: '',
-								accountid: '',
-								accountName: '',
-								amount: ''
-							}
+							this.initData()
 						} else {
 							uni.showToast({
 								icon: 'none',
@@ -293,6 +307,33 @@
 				background-color: #ffffff;
 				margin-top: 5px;
 				padding-top: 5px;
+			}
+			.cash-account-list {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				&-item-select {
+					width:40%;
+					padding:5px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: #fdeeeb;
+					color: #f4613d;
+					border-radius: 50px;
+					border: 0.5px solid #f4613d;
+				}
+				&-item-noselect {
+					width:40%;
+					padding:5px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: $uni-bg-color;
+					color: #808695;
+					border-radius: 50px;
+				}
 			}
 		}
 		.footer {

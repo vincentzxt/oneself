@@ -40,7 +40,7 @@
 					</cu-panel>
 				</view>
 				<view class="main-remarks">
-					<textarea style="height: 80px;margin-left:15px;" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+					<textarea style="height: 80px;margin-left:15px;" maxlength="-1" v-model="reqData.remark" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
 				</view>
 			</scroll-view>
 		</view>
@@ -86,7 +86,7 @@
 							email: ''
 						}
 					],
-					remarks: ''
+					remark: ''
 				},
 				verify: {
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
@@ -112,7 +112,7 @@
 			this.reqData.bseContactUnitContactModels[0].contactname = item.bseContactUnitContactModels[0].contactname
 			this.reqData.bseContactUnitContactModels[0].telephone = item.bseContactUnitContactModels[0].telephone
 			this.reqData.bseContactUnitContactModels[0].email = item.bseContactUnitContactModels[0].email
-			this.reqData.remarks = item.remarks
+			this.reqData.remark = item.remark
 			this.addressArray.push(this.reqData.province)
 			this.addressArray.push(this.reqData.city)
 			this.addressArray.push(this.reqData.district)

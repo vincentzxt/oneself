@@ -235,7 +235,7 @@ export default {
 								console.log("得到接口prepay_id", res.data.payment);
                                     let paymentData = res.data.payment;
                                     uni.requestPayment({
-										provider: 'wxpay',
+										// provider: 'wxpay',
                                         timeStamp: paymentData.timeStamp,
                                         nonceStr: paymentData.nonceStr,
                                         package: paymentData.package,
@@ -258,7 +258,7 @@ export default {
                                         }
                                     })
 							} else {
-								 this.$refs.loading.close();
+								this.$refs.loading.close();
 								this.$api.msg(res.data.returnMessage);
 							}
 						})
@@ -352,7 +352,7 @@ export default {
 		.content{
 			height: 100%;
 			.fill{
-				height: 88%;
+				height: 86%;
 			};
 			.fill2{
 				height: 100%;

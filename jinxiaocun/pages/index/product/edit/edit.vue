@@ -49,7 +49,7 @@
 					</cu-cell>
 				</cu-panel>
 				<view class="main-remarks">
-					<textarea style="height: 80px;margin-left:15px;" maxlength="-1" v-model="reqData.remarks" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
+					<textarea style="height: 80px;margin-left:15px;" maxlength="-1" v-model="reqData.remark" placeholder-style="color:#c5c8ce" placeholder="备注"></textarea>
 				</view>
 			</scroll-view>
 		</view>
@@ -88,7 +88,7 @@
 					subunit: '',
 					unitmultiple: 0,
 					warningstockqty: 0,
-					remarks: '',
+					remark: '',
 					status: 1
 				},
 				verify: {
@@ -110,7 +110,7 @@
 			this.reqData.subunit = item.subunit
 			this.reqData.unitmultiple = item.unitmultiple
 			this.reqData.warningstockqty = item.warningstockqty
-			this.reqData.remarks = item.remarks
+			this.reqData.remark = item.remark
 			this.reqData.status = item.status
 			this.reqData.isMultiUnit = item.isMultiUnit
 			

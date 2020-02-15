@@ -175,7 +175,8 @@
 				verify: {
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
 					productList: { okVerify: false, disVerMessage: false, message: '请选择一个订单' }
-				}
+				},
+				currentUnitTag: false
 			};
 		},
 		onShow() {
@@ -248,10 +249,12 @@
 				}
 			},
 			handleSearchFocusCurrentUnit() {
+				this.currentUnitTag = false
 				this.currentUnitSearchDatas = this.currentUnitDatas
 				this.searchCurrentUnit = true
 			},
 			handleSearchClearCurrentUnit() {
+				this.currentUnitTag = true
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
 			},
@@ -271,8 +274,13 @@
 					})
 					this.searchCurrentUnit = true
 				} else {
-					this.currentUnitSearchDatas = this.currentUnitDatas
-					this.searchCurrentUnit = false
+					if (this.currentUnitTag) {
+						this.currentUnitSearchDatas = []
+						this.searchCurrentUnit = false
+					} else {
+						this.currentUnitSearchDatas = this.currentUnitDatas
+						this.searchCurrentUnit = true
+					}
 				}
 			},
 			handleSelectCurrentUnit(val) {
@@ -283,6 +291,7 @@
 					this.salesReqData.contactunitname = val.contactunitname
 					this.salesReqData.contactunitid = val.contactunitid
 				}
+				this.currentUnitTag = true
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
 				this.handleVerify('contactunitname')

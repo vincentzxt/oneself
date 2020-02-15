@@ -8,20 +8,26 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell title="退款帐号" isLink>
-							<view class="h50 fc" slot="footer" style="width:100%;">
-								<picker v-if="businessType == 0" @change="handleCashAccountChange" :value="reqData.order.payaccountid" :range="cashAccountDict" range-key='cashaccountname'>
-									<view class="main-picker">
-										<text v-if="!reqData.order.payAccountName" style="color:#c5c8ce">选择退款帐号</text>
-										<text v-else>{{reqData.order.payAccountName}}</text>
-									</view>
-								</picker>
-								<picker v-if="businessType == 1" @change="handleCashAccountChange" :value="reqData.order.accountid" :range="cashAccountDict" range-key='cashaccountname'>
-									<view class="main-picker">
-										<text v-if="!reqData.order.accountName" style="color:#c5c8ce">选择退款帐号</text>
-										<text v-else>{{reqData.order.accountName}}</text>
-									</view>
-								</picker>
+						<cu-cell v-if="!searchCurrentUnit"
+							notNull
+							title="退款帐号"
+							:disVerMessage="verify.payaccountName.disVerMessage"
+							:verify="verify.payaccountName.message">
+							<view v-if="businessType == 0" class="cash-account-list fc" slot="footer">
+								<view :class="reqData.order.payaccountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
+											v-for="(item, index) in cashAccountDict"
+											:key="index"
+											:style="{'margin-top':index>1 ? '10px' : '0'}"
+											@tap="handleSelectCashAccount(item)">{{item.cashaccountname}}
+								</view>
+							</view>
+							<view v-else class="cash-account-list fc" slot="footer">
+								<view :class="reqData.order.accountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
+											v-for="(item, index) in cashAccountDict"
+											:key="index"
+											:style="{'margin-top':index>1 ? '10px' : '0'}"
+											@tap="handleSelectCashAccount(item)">{{item.cashaccountname}}
+								</view>
 							</view>
 						</cu-cell>
 						<cu-cell title="打印单据" isLastCell>
@@ -45,7 +51,7 @@
 					<text style="color:#ef5a62">￥{{reqData.order.amount}}</text>
 				</view>
 			</view>
-			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" :disabled="disableSubmit" @click="handleSubmit">提交</button>
+			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleSubmit">提交</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
@@ -76,7 +82,7 @@
 						accountName: '',
 						contactunitid: '',
 						payaccountid: '',
-						payAccountName: '',
+						payaccountName: '',
 						amount: 0.00,
 						totalCount: 0,
 						isprint: 0,
@@ -85,7 +91,9 @@
 					orderlist: []
 				},
 				cashAccountDict: [],
-				disableSubmit: true
+				verify: {
+					payaccountName: { okVerify: false, disVerMessage: false, message: '退款帐号不能为空' }
+				}
 			};
 		},
 		onLoad(options) {
@@ -100,17 +108,7 @@
 				this.reqData.order.totalCount = data.totalCount
 				this.reqData.orderlist = data.productList
 			}
-			this.$refs.loading.open()
-			query(api.cashAccount).then(res => {
-				this.$refs.loading.close()
-				if (res.status == 200 && res.data.returnCode == '0000') {
-					this.cashAccountDict = res.data.data.resultList
-					this.reqData.order.accountid = this.cashAccountDict[0].cashaccountid
-					this.reqData.order.accountName = this.cashAccountDict[0].cashaccountname
-				}
-			}).catch(error => {
-				this.$refs.loading.close()
-			})
+			this.getCashAccount()
 		},
 		computed: {
 			headerHeight() {
@@ -126,96 +124,141 @@
 					delta: 1
 				})
 			},
-			handleCashAccountChange(val) {
+			getCashAccount() {
+				this.$refs.loading.open()
+				query(api.cashAccount).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.cashAccountDict = res.data.data.resultList
+						console.log(this.cashAccountDict)
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.returnMessage
+						})
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+					uni.showToast({
+						icon: 'none',
+						title: error
+					})
+				})
+			},
+			handleSelectCashAccount(val) {
 				if (this.businessType == 0) {
-					this.reqData.order.payaccountid = this.cashAccountDict[val.detail.value].cashaccountid
-					this.reqData.order.payAccountName = this.cashAccountDict[val.detail.value].cashaccountname
+					this.reqData.order.payaccountid = val.cashaccountid
+					this.reqData.order.payAccountName = val.cashaccountname
 				} else {
-					this.reqData.order.accountid = this.cashAccountDict[val.detail.value].cashaccountid
-					this.reqData.order.accountName = this.cashAccountDict[val.detail.value].cashaccountname
+					this.reqData.order.accountid = val.cashaccountid
+					this.reqData.order.accountName = val.cashaccountname
 				}
+				this.handleVerify('payaccountName')
 			},
 			handlePrintChange(val) {
 				this.reqData.order.isprint = val.detail.value
 			},
-			handleSubmit() {
-				if (this.businessType == 0) {
-					this.$refs.loading.open()
-					create(api.purPurchaseOrder, this.reqData).then(res => {
-						this.$refs.loading.close()
-						if (res.status == 200 && res.data.returnCode == '0000') {
-							uni.showToast({
-								icon: 'success',
-								title: '提交成功'
-							})
-							setTimeout(()=>{
-								let pages =  getCurrentPages()
-								let prevPage = pages[pages.length - 2]
-								prevPage.setData({
-									commandType: 'success',
-								})
-								uni.navigateBack({
-									delta: 1
-								})
-							},500)
+			handleVerify(val) {
+				switch(val) {
+					case 'payaccountName':
+						if (this.businessType == 0) {
+							if (!this.reqData.order.payaccountName) {
+								this.verify.payaccountName.okVerify = false
+								this.verify.payaccountName.disVerMessage = true
+							} else {
+								this.verify.payaccountName.okVerify = true
+								this.verify.payaccountName.disVerMessage = false
+							}
 						} else {
-							uni.showToast({
-								icon: 'none',
-								title: res.data.returnMessage
-							})
+							if (!this.reqData.order.accountName) {
+								this.verify.payaccountName.okVerify = false
+								this.verify.payaccountName.disVerMessage = true
+							} else {
+								this.verify.payaccountName.okVerify = true
+								this.verify.payaccountName.disVerMessage = false
+							}
 						}
-					}).catch(error => {
-						this.$refs.loading.close()
-						uni.showToast({
-							icon: 'none',
-							title: error
-						})
-					})
-				} else {
-					this.$refs.loading.open()
-					create(api.salesOrder, this.reqData).then(res => {
-						this.$refs.loading.close()
-						if (res.status == 200 && res.data.returnCode == '0000') {
-							uni.showToast({
-								icon: 'success',
-								title: '提交成功'
-							})
-							setTimeout(()=>{
-								let pages =  getCurrentPages()
-								let prevPage = pages[pages.length - 2]
-								prevPage.setData({
-									commandType: 'success',
-								})
-								uni.navigateBack({
-									delta: 1
-								})
-							},500)
-						} else {
-							uni.showToast({
-								icon: 'none',
-								title: res.data.returnMessage
-							})
-						}
-					}).catch(error => {
-						this.$refs.loading.close()
-						uni.showToast({
-							icon: 'none',
-							title: error
-						})
-					})
+						break
 				}
-			}
-		},
-		watch:{
-			'reqData.order': {
-				handler(val) {
-					if (val.accountid || val.payaccountid) {
-						this.disableSubmit = false
-					} else {
-						this.disableSubmit = true
+			},
+			checkVerify() {
+				let result = true
+				for (let item in this.verify) {
+					if (!this.verify[item].okVerify) {
+						this.verify[item].disVerMessage = true
+						result = false
 					}
-				},
-				deep: true
+				}
+				return result
+			},
+			handleSubmit() {
+				if (this.checkVerify()) {
+					if (this.businessType == 0) {
+						this.$refs.loading.open()
+						create(api.purPurchaseOrder, this.reqData).then(res => {
+							this.$refs.loading.close()
+							if (res.status == 200 && res.data.returnCode == '0000') {
+								uni.showToast({
+									icon: 'success',
+									title: '提交成功'
+								})
+								setTimeout(()=>{
+									let pages =  getCurrentPages()
+									let prevPage = pages[pages.length - 2]
+									prevPage.setData({
+										commandType: 'success',
+									})
+									uni.navigateBack({
+										delta: 1
+									})
+								},500)
+							} else {
+								uni.showToast({
+									icon: 'none',
+									title: res.data.returnMessage
+								})
+							}
+						}).catch(error => {
+							this.$refs.loading.close()
+							uni.showToast({
+								icon: 'none',
+								title: error
+							})
+						})
+					} else {
+						this.$refs.loading.open()
+						create(api.salesOrder, this.reqData).then(res => {
+							this.$refs.loading.close()
+							if (res.status == 200 && res.data.returnCode == '0000') {
+								uni.showToast({
+									icon: 'success',
+									title: '提交成功'
+								})
+								setTimeout(()=>{
+									let pages =  getCurrentPages()
+									let prevPage = pages[pages.length - 2]
+									prevPage.setData({
+										commandType: 'success',
+									})
+									uni.navigateBack({
+										delta: 1
+									})
+								},500)
+							} else {
+								uni.showToast({
+									icon: 'none',
+									title: res.data.returnMessage
+								})
+							}
+						}).catch(error => {
+							this.$refs.loading.close()
+							uni.showToast({
+								icon: 'none',
+								title: error
+							})
+						})
+					}
+				}
 			}
 		}
 	}
@@ -236,10 +279,32 @@
 	.container {
 		.main {
 			margin-top: 5px;
-			.picker {
-				width: 100%;
+			.cash-account-list {
 				display: flex;
-				justify-content: flex-end;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				&-item-select {
+					width:40%;
+					padding:5px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: #fdeeeb;
+					color: #f4613d;
+					border-radius: 50px;
+					border: 0.5px solid #f4613d;
+				}
+				&-item-noselect {
+					width:40%;
+					padding:5px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: $uni-bg-color;
+					color: #808695;
+					border-radius: 50px;
+				}
 			}
 		}
 		.footer {

@@ -8,7 +8,7 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<uni-list>
-					<uni-list-item :title="item" v-for="(item, index) in searchDatas" :show-arrow="false" :key="index" @clickItem="handleClickItem(item)">
+					<uni-list-item :title="item.unit" v-for="(item, index) in searchDatas" :show-arrow="false" :key="index" @clickItem="handleClickItem(item.unit)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
@@ -63,9 +63,7 @@
 		},
 		onShow() {
 			console.log(uni.getStorageSync('productCategory').units)
-			for (let item of uni.getStorageSync('productCategory').units) {
-				this.datas.push(item.unit)
-			}
+			this.datas = uni.getStorageSync('productCategory').units
 			this.searchDatas = this.datas
 		},
 		computed: {
