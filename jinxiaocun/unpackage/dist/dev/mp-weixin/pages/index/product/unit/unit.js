@@ -197,7 +197,6 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     this.name = options.name;
   },
   onShow: function onShow() {
-    console.log(uni.getStorageSync('productCategory').units);
     this.datas = uni.getStorageSync('productCategory').units;
     this.searchDatas = this.datas;
   },

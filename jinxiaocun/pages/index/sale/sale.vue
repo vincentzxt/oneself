@@ -68,33 +68,42 @@
 			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleNext">收款</button>
 		</view>
 		<uni-popup ref="popup" type="bottom">
-			<cu-panel>
-				<cu-cell title="产品名称">
-					<view class="h50 fc" slot="footer">{{curSelectPruduct.productname}}</view>
-				</cu-cell>
-				<cu-cell title="单价">
-					<input class="h50" slot="footer" type="digit" v-model="curSelectPruduct.salesunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
-				</cu-cell>
-				<cu-cell title="数量">
-					<uni-number-box slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleSalesqtyChange"></uni-number-box>
-					<view slot="footer2">
-						<view class="popup-qty-items">
-							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
-						</view>
-					</view>
-				</cu-cell>
-				<cu-cell title="计量单位" isLastCell>
-					<radio-group v-if="curSelectPruduct.isMultiUnit" class="h50 fc" slot="footer" @change="handleUnitChange">
-						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
-						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
-					</radio-group>
-					<view v-else class="h50 fc" slot="footer">{{curSelectPruduct.mainUnit}}</view>
-				</cu-cell>
-			</cu-panel>
-			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
+			<view class="popup-wrap">
+				<view class="popup-wrap-header">
+				</view>
+				<view class="popup-wrap-content">
+					<cu-panel>
+						<cu-cell title="产品名称">
+							<view class="h50 fc" slot="footer">{{curSelectPruduct.productname}}</view>
+						</cu-cell>
+						<cu-cell title="单价">
+							<input class="h50" slot="footer" type="digit" v-model="curSelectPruduct.salesunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
+						</cu-cell>
+						<cu-cell title="数量">
+							<uni-number-box slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleSalesqtyChange"></uni-number-box>
+							<view slot="footer2">
+								<view class="popup-qty-items">
+									<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
+								</view>
+							</view>
+						</cu-cell>
+						<cu-cell title="计量单位" isLastCell>
+							<radio-group v-if="curSelectPruduct.isMultiUnit" class="h50 fc" slot="footer" @change="handleUnitChange">
+								<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
+								<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
+							</radio-group>
+							<view v-else class="h50 fc" slot="footer">{{curSelectPruduct.mainUnit}}</view>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="popup-wrap-footer">
+					<button class="popup-wrap-footer-cancel" type="primary" @tap="handleCancel">取消</button>
+					<button class="popup-wrap-footer-submit" type="primary" @tap="handleEdit">确定</button>
+				</view>
+			</view>
 		</uni-popup>
 	</view>
 </template>
@@ -331,6 +340,12 @@
 					this.$refs.popup.close()
 				})
 			},
+			handleCancel() {
+				this.curSelectPruduct = {}
+				this.$nextTick(function(){
+					this.$refs.popup.close()
+				})
+			},
 			handlePriceBlur() {
 				if (this.curSelectPruduct.salesunitprice) {
 					this.curSelectPruduct.salesunitprice = floatFormat(this.curSelectPruduct.salesunitprice)
@@ -494,6 +509,29 @@
 					align-items: center;
 					color: #ffffff;
 					box-shadow: 1px 1px 2px $uni-border-color;
+				}
+			}
+		}
+		.popup-wrap {
+			background-color: #ffffff;
+			&-content {
+				margin-bottom: 350upx;
+			}
+			&-footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				&-cancel {
+					width:49%;
+					background-color: $uni-bg-color;
+					border-width: 0px;
+					font-size: $uni-font-size-base;
+					color: #808695;
+				}
+				&-submit {
+					width:49%;
+					background-color: #2d8cf0;
+					font-size: $uni-font-size-base;
 				}
 			}
 		}
