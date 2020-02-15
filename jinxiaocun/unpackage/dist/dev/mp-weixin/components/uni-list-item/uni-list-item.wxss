@@ -37,9 +37,6 @@
           justify-content: space-between;
   padding-left: 30rpx;
 }
-.uni-list-item--disabled.data-v-0be73b92 {
-  opacity: 0.3;
-}
 .uni-list-item--hover.data-v-0be73b92 {
   background-color: #5cadff;
 }
@@ -94,8 +91,8 @@
   line-height: 34rpx;
 }
 .uni-list-item__content-content.data-v-0be73b92 {
-  color: #808695;
-  font-size: 28rpx;
+  color: #555555;
+  font-size: 34rpx;
 }
 .uni-list-item__content-note.data-v-0be73b92 {
   margin-top: 20rpx;

@@ -111,7 +111,7 @@
 }
 .container .main.data-v-3072f167 {
     font-size: 28rpx;
-    height: 80%;
+    height: 82%;
     padding: 15rpx;
 }
 .container .main .content.data-v-3072f167 {
@@ -119,6 +119,9 @@
 }
 .container .main .content .fill.data-v-3072f167 {
         height: 90%;
+}
+.container .main .content .fill2.data-v-3072f167 {
+        height: 100%;
 }
 .container .main .cu-form-group .title.data-v-3072f167 {
       min-width: calc(5em + 30px);

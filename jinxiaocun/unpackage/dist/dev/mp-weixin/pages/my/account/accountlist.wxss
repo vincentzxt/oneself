@@ -173,6 +173,15 @@
     -webkit-justify-content: flex-end;
             justify-content: flex-end;
 }
+.h50.data-v-03fd427e {
+  height: 72rpx;
+}
+.fc.data-v-03fd427e {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  justify-items: center;
+}
 .no_data.data-v-03fd427e {
   display: -webkit-box;
   display: -webkit-flex;
