@@ -93,36 +93,60 @@
 			<button class="footer-btn" style="background-color: #2d8cf0;" type="primary" @click="handleNext">{{submitText}}</button>
 		</view>
 		<uni-popup ref="purchasePopup" type="bottom">
-			<cu-panel>
-				<cu-cell title="数量" isLastCell>
-					<uni-number-box slot="footer" :min="1" :max="maxNum" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
-					<view slot="footer2">
-						<view class="popup-qty-items">
-							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
-						</view>
-					</view>
-				</cu-cell>
-			</cu-panel>
-			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
+			<view class="popup-wrap">
+				<view class="popup-wrap-header">
+				</view>
+				<view class="popup-wrap-content">
+					<cu-panel>
+						<cu-cell title="产品名称">
+							<view class="h50 fc" slot="footer">{{curSelectPruduct.productname}}</view>
+						</cu-cell>
+						<cu-cell title="数量" isLastCell>
+							<uni-number-box slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
+							<view slot="footer2">
+								<view class="popup-qty-items">
+									<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
+								</view>
+							</view>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="popup-wrap-footer">
+					<button class="popup-wrap-footer-cancel" type="primary" @tap="handleCancel">取消</button>
+					<button class="popup-wrap-footer-submit" type="primary" @tap="handleEdit">确定</button>
+				</view>
+			</view>
 		</uni-popup>
 		<uni-popup ref="salePopup" type="bottom">
-			<cu-panel>
-				<cu-cell title="数量" isLastCell>
-					<uni-number-box slot="footer" :min="1" :max="maxNum" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
-					<view slot="footer2">
-						<view class="popup-qty-items">
-							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
-							<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
-						</view>
-					</view>
-				</cu-cell>
-			</cu-panel>
-			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
+			<view class="popup-wrap">
+				<view class="popup-wrap-header">
+				</view>
+				<view class="popup-wrap-content">
+					<cu-panel>
+						<cu-cell title="产品名称">
+							<view class="h50 fc" slot="footer">{{curSelectPruduct.productname}}</view>
+						</cu-cell>
+						<cu-cell title="数量" isLastCell>
+							<uni-number-box slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleQtyChange"></uni-number-box>
+							<view slot="footer2">
+								<view class="popup-qty-items">
+									<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #92cbfb;" @tap="handleSelectQty(50)">50</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(100)">100</view>
+									<view class="popup-qty-items-item" style="margin-left: 15px;background-color: #fd7654;" @tap="handleSelectQty(300)">300</view>
+								</view>
+							</view>
+						</cu-cell>
+					</cu-panel>
+				</view>
+				<view class="popup-wrap-footer">
+					<button class="popup-wrap-footer-cancel" type="primary" @tap="handleCancel">取消</button>
+					<button class="popup-wrap-footer-submit" type="primary" @tap="handleEdit">确定</button>
+				</view>
+			</view>
 		</uni-popup>
 	</view>
 </template>
@@ -186,6 +210,7 @@
 			let curPage = pages[pages.length - 1]
 			if (curPage.data.commandType) {
 				if (curPage.data.commandType == 'success') {
+					this.businessType = 0
 					this.purchaseReqData = {
 						contactunitid: '',
 						contactunitname: '',
@@ -322,6 +347,17 @@
 						}
 					}
 				}
+				this.curSelectPruduct = {}
+				this.maxNum = 0
+				this.$nextTick(function(){
+					if (this.businessType == 0) {
+						this.$refs.purchasePopup.close()
+					} else {
+						this.$refs.salePopup.close()
+					}
+				})
+			},
+			handleCancel() {
 				this.curSelectPruduct = {}
 				this.maxNum = 0
 				this.$nextTick(function(){
@@ -520,6 +556,29 @@
 					justify-content: center;
 					align-items: center;
 					color: #ffffff;
+				}
+			}
+		}
+		.popup-wrap {
+			background-color: #ffffff;
+			&-content {
+				margin-bottom: 600upx;
+			}
+			&-footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				&-cancel {
+					width:49%;
+					background-color: $uni-bg-color;
+					border-width: 0px;
+					font-size: $uni-font-size-base;
+					color: #808695;
+				}
+				&-submit {
+					width:49%;
+					background-color: #2d8cf0;
+					font-size: $uni-font-size-base;
 				}
 			}
 		}

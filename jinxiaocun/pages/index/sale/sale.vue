@@ -15,7 +15,7 @@
 							<input class="form-input" slot="footer" type="text" v-model="reqData.contactunitname" focus/>
 						</cu-cell>
 						<cu-cell isLastCell v-if="!searchCurrentUnit && reqData.telephone" title="电话" isSub>
-							<input class="form-input" slot="footer" type="text" v-model="reqData.telephone"/>
+							<input class="form-input" slot="footer" type="number" v-model="reqData.telephone"/>
 						</cu-cell>
 					</cu-panel>
 				</view>
