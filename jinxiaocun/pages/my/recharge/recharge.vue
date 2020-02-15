@@ -223,7 +223,9 @@ export default {
                 this.$refs.loading.open();
                 uni.login({
                     success: (e) => {
+						console.log("1111");
                         console.log("login success", e);
+						console.log("22222");
 						let data = this.$refs.checkbox.get();
 						if(!data){
 							this.$api.msg("请选择要购买的产品!");

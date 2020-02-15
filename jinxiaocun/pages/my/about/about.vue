@@ -9,8 +9,8 @@
 				<view class="tou"><img src="@/static/image/logo.jpeg"/></img></view>
 				<uni-list>
 			<uni-list-item title="版本号" show-text="true" :show-arrow="false"  content="v1.1"></uni-list-item>
-			<uni-list-item title="微博账号" show-text="true" :show-arrow="false"  content="yigeyundan"></uni-list-item>
-			<uni-list-item title="微信公众号" show-text="true" :show-arrow="false"  content="yigeyundan"></uni-list-item>
+			<uni-list-item title="微博账号" show-text="true" :show-arrow="true"  content="一格云单" @tap="handleweibo"></uni-list-item>
+			<uni-list-item title="微信公众号" show-text="true" :show-arrow="true"  content="yigeyundan"></uni-list-item>
 		</uni-list>
 			</scroll-view>
 		</view>
@@ -43,7 +43,22 @@ import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			handleweibo(){
+				console.log("eee");
+				uni.navigateToMiniProgram({
+				  appId: 'wx9074de28009e1111',
+				  path:'',
+				  // path: 'pages/profile/profile?nickname=%E4%B8%80%E6%A0%BC%E4%BA%91%E5%8D%95&amp;objectUid=7392650964',
+				  extraData: {
+				  },
+				  success(res) {
+					  console.log("打开成功");
+				    // 打开成功
+				  }
+				})
 			}
+			
 		}
 	}
 </script>
