@@ -1,0 +1,73 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* padding尺寸 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.space.data-v-30ae63c7 {
+  height: 60rpx;
+}
+.login.data-v-30ae63c7 {
+  font-size: 28rpx;
+}
+.login .tou.data-v-30ae63c7 {
+    text-align: center;
+}
+.login .tou ._img.data-v-30ae63c7 {
+    width: 64px;
+    height: 64px;
+}
+.login .con.data-v-30ae63c7 {
+    padding: 24rpx 16rpx;
+}
+.login .con_02.data-v-30ae63c7 {
+    border-bottom: 2rpx solid #f7f7f7;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
+    margin-bottom: 10rpx;
+    padding: 16rpx 16rpx;
+    background-color: #ffffff;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+}
+.login .con_02_t.data-v-30ae63c7 {
+    color: #fff;
+    border-radius: 20rpx;
+}
+.login .con_02_r.data-v-30ae63c7 {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+            flex-grow: 1;
+    padding: 10rpx 24rpx;
+}
+.login .con_02_l.data-v-30ae63c7 {
+    width: 40rpx;
+    text-align: center;
+    padding-right: 12px;
+    vertical-align: center;
+    padding: 10rpx 0rpx;
+}
+.user_bottom.data-v-30ae63c7 {
+  margin-top: 60rpx;
+}
+.user_bottom .send_btn.data-v-30ae63c7 {
+    background-color: #2d8cf0;
+}
+

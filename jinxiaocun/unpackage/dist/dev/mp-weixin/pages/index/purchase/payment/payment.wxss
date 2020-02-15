@@ -1,0 +1,68 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* padding尺寸 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.fill.data-v-cd410a1a {
+  width: 100%;
+  height: 100%;
+}
+.h50.data-v-cd410a1a {
+  height: 50px;
+}
+.fc.data-v-cd410a1a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.container .main.data-v-cd410a1a {
+  margin-top: 5px;
+}
+.container .main-picker.data-v-cd410a1a {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+}
+.container .footer.data-v-cd410a1a {
+  height: 48px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  background-color: #e9eaec;
+}
+.container .footer-text.data-v-cd410a1a {
+    width: 60%;
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    margin-left: 30rpx;
+}
+.container .footer-btn.data-v-cd410a1a {
+    width: 40%;
+    height: 100%;
+}
+

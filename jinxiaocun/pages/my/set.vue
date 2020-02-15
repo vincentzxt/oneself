@@ -7,21 +7,21 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 						<cu-cell title="公司Logo">
-							<view>
-								<!-- <button @tap="upload">上传</button> -->
-								
-								<!-- <image :src="reqData.companylogourl || '/static/image/logo.png'" mode="aspectFit" style="width: 100%;" ></image> -->
-							</view>
-							<image slot="footer" class="portrait" :src="reqData.companylogourl || '/static/image/logo.png'" @tap="upload"></image>
+							<view class="h50 fc" slot="footer"><image class="portrait" :src="reqData.companylogourl || '/static/image/logo.png'" @tap="upload"></image></view>
+							
 						</cu-cell>
 						<cu-cell title="商户名称">
-							<input slot="footer" type="text" v-model="reqData.companyname" placeholder-style="color:#c5c8ce" placeholder="商户名称" />
+							<view class="h50 fc" slot="footer"><input type="text" v-model="reqData.companyname" placeholder-style="color:#c5c8ce" placeholder="商户名称" /></view>	
 						</cu-cell>
-						<cu-cell title="联系人"><input slot="footer" type="text" v-model="reqData.contact" placeholder-style="color:#c5c8ce" placeholder="请输入联系人" /></cu-cell>
+						<cu-cell title="联系人">
+							<view class="h50 fc" slot="footer"><input type="text" v-model="reqData.contact" placeholder-style="color:#c5c8ce" placeholder="请输入联系人" /></view>
+							</cu-cell>
 						<cu-cell title="联系电话">
-							<input slot="footer" type="number" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入联系人电话" />
+							<view class="h50 fc" slot="footer"><input type="number" v-model="reqData.telephone" placeholder-style="color:#c5c8ce" placeholder="请输入联系人电话" /></view>	
 						</cu-cell>
-						<cu-cell title="邮箱"><input slot="footer" type="text" v-model="reqData.cusemail" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></cu-cell>
+						<cu-cell title="邮箱">
+							<view class="h50 fc" slot="footer"><input type="text" v-model="reqData.cusemail" placeholder-style="color:#c5c8ce" placeholder="请输入电子邮箱" /></view>
+							</cu-cell>
 				<cu-cell title="地址"  isLastCell>
 					<textarea  style="height: 80px" slot="footer" maxlength="-1" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="地址"></textarea>
 						</cu-cell>
@@ -207,5 +207,12 @@ export default {
 	width: 84rpx;
 	height: 84rpx;
 	border-radius: 50%;
+}
+.h50{
+	height: 72upx;
+		}
+.fc {
+	display: flex;
+	align-items: center;
 }
 </style>

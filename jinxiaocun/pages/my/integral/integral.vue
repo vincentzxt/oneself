@@ -228,7 +228,7 @@ export default {
 		.content{
 			height: 100%;
 			.fill{
-				height: 90%;
+				height: 88%;
 			};
 			.fill2{
 				height: 100%;
