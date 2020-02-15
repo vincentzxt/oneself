@@ -203,14 +203,14 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
       datas: null,
       searchDatas: null,
       searchKey: '',
-      curSelectType: '所有分类',
+      curSelectType: '00000',
       typeMenu: false,
       productList: [] };
 
   },
   onLoad: function onLoad() {var _this = this;
     this.productCategory = uni.getStorageSync('productCategory').productCategories;
-    this.productCategory.unshift('所有分类');
+    this.productCategory.unshift({ productcategoryid: '00000', productcategoryname: '所有分类' });
     var reqData = {
       productid: 0,
       productcategory: '',
@@ -255,11 +255,11 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var uniSearchBar =
         delta: 1 });
 
     },
-    handleSelectType: function handleSelectType(type) {
-      this.curSelectType = type;
-      if (type !== '所有分类') {
+    handleSelectType: function handleSelectType(val) {
+      this.curSelectType = val.productcategoryid;
+      if (val.productcategoryid !== '00000') {
         this.searchDatas = this.datas.filter(function (item) {
-          return item.productcategory == type;
+          return item.productcategory == val.productcategoryname;
         });
       } else {
         this.searchDatas = this.datas;

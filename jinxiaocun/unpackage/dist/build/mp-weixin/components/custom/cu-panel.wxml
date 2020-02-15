@@ -1,1 +1,0 @@
-<view class="cu-panel data-v-7e923ff0"><block wx:if="{{title}}"><view class="{{['cu-panel-title data-v-7e923ff0',hideTop?'cu-panel-title-hide-top':'']}}">{{title}}</view></block><view class="{{['cu-panel-content data-v-7e923ff0',hideBorder?'cu-panel-without-border':'']}}"><slot></slot></view></view>

@@ -313,6 +313,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = function cuSearchBar() {return __webpack_require__.e(/*! import() | components/custom/cu-search-bar */ "components/custom/cu-search-bar").then(__webpack_require__.bind(null, /*! @/components/custom/cu-search-bar.vue */ 599));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 606));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 613));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 620));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 627));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 634));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-number-box/uni-number-box */ "components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-number-box/uni-number-box.vue */ 641));};var _default =
 {
   components: {
@@ -364,6 +388,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
     var curPage = pages[pages.length - 1];
     if (curPage.data.commandType) {
       if (curPage.data.commandType == 'success') {
+        this.businessType = 0;
         this.purchaseReqData = {
           contactunitid: '',
           contactunitname: '',
@@ -500,6 +525,17 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 58);var cuSearchBar = f
             }
           }} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}
       }
+      this.curSelectPruduct = {};
+      this.maxNum = 0;
+      this.$nextTick(function () {
+        if (this.businessType == 0) {
+          this.$refs.purchasePopup.close();
+        } else {
+          this.$refs.salePopup.close();
+        }
+      });
+    },
+    handleCancel: function handleCancel() {
       this.curSelectPruduct = {};
       this.maxNum = 0;
       this.$nextTick(function () {

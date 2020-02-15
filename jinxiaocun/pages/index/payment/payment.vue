@@ -32,7 +32,7 @@
 							</view>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit" title="付款金额" isIcon :icon="{ type: 'c-amount', color: '#c4c6cb', 'size': 20 }" isLastCell :disVerMessage="verify.amount.disVerMessage" :verify="verify.amount.message">
-							<input class="h50" slot="footer" type="text" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0.00" @blur="handlePriceBlur"/>
+							<input class="h50" slot="footer" type="digit" v-model="reqData.amount" placeholder-style="color:#c5c8ce" placeholder="0.00" @blur="handlePriceBlur"/>
 						</cu-cell>
 					</cu-panel>
 				</view>

@@ -25,7 +25,7 @@
 							<input class="h50" slot="footer" type="text" v-model="reqData.bseContactUnitContactModels[0].contactname" placeholder-style="color:#c5c8ce" placeholder="请输入联系人名称"/>
 						</cu-cell>
 						<cu-cell title="电话" :disVerMessage="verify.telephone.disVerMessage" :verify="verify.telephone.message">
-							<input class="h50" slot="footer" type="text" v-model="reqData.bseContactUnitContactModels[0].telephone" placeholder-style="color:#c5c8ce" placeholder="请输入电话" @blur="handleVerify('telephone')"/>
+							<input class="h50" slot="footer" type="number" v-model="reqData.bseContactUnitContactModels[0].telephone" placeholder-style="color:#c5c8ce" placeholder="请输入电话" @blur="handleVerify('telephone')"/>
 						</cu-cell>
 						<cu-cell title="位置" isLink @tap="handleOpenAddress">
 							<view class="h50 fc" v-if="reqData.province" slot="footer">{{reqData.province}}, {{reqData.city}}, {{reqData.district}}</view>
