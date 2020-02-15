@@ -9,18 +9,18 @@
 		<view class="con">
 			<view class="con_02">
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
-				<view class="con_02_r"><input v-model="oldpassword" password="true" class="uni-input" placeholder="请输入原密码" style="height: 35px;background-color: #fff;" /></view>
+				<view class="con_02_r"><input v-model="oldpassword" password="true" class="uni-input" placeholder="请输入原密码" /></view>
 			</view>
 			<view class="con_02">
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
 				<view class="con_02_r">
-					<input v-model="password" password="true" class="uni-input" placeholder="请输入新密码" style="height: 35px;background-color: #fff;" />
+					<input v-model="password" password="true" class="uni-input" placeholder="请输入新密码" />
 				</view>
 			</view>
 			<view class="con_02">
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#E5E5E5"></uni-icon></view>
 				<view class="con_02_r">
-					<input v-model="re_password" password="true" class="uni-input" placeholder="请再次输入新密码" style="height: 35px;background-color: #fff;" />
+					<input v-model="re_password" password="true" class="uni-input" placeholder="请再次输入新密码"  />
 				</view>
 			</view>
 			<!-- <view class="con_03" style="display: flex;justify-content: flex-end; margin-top: 10px;"><view @click="login_action()">返回登录？</view></view> -->
@@ -149,7 +149,7 @@ export default {
 		flex-direction: row;
 		justify-content: space-between;
 		margin-bottom: 10upx;
-		padding: 0upx 16upx;
+		padding: 16upx 16upx;
 		background-color: #ffffff;
 		align-items: center;
 	}
@@ -175,8 +175,6 @@ export default {
 		// padding-left:20rpx;padding-right:20rpx;
 		.send_btn{
 			background-color:#2d8cf0;
-			height: 76rpx;
-			line-height: 76rpx;
 		}
 }		
 </style>

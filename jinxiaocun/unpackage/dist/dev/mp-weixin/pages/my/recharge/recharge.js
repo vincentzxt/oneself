@@ -545,12 +545,13 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
             _this2.$api.msg("请选择要购买的产品!");
             return;
           }
-          var sendData = { productid: data.productid };
+          var sendData = { 'productid': data.productid, 'code': e.code };
           (0, _user.tokenpost)(_common.api.AddOrder, sendData).then(function (res) {
             if (res.status == 200 && res.data.returnCode == '0000') {
               console.log("得到接口prepay_id", res.data.payment);
               var paymentData = res.data.payment;
               uni.requestPayment({
+                // provider: 'wxpay',
                 timeStamp: paymentData.timeStamp,
                 nonceStr: paymentData.nonceStr,
                 package: paymentData.package,

@@ -229,12 +229,13 @@ export default {
 							this.$api.msg("请选择要购买的产品!");
 							return;
 						}
-						const sendData ={productid:data.productid};
+						const sendData ={'productid':data.productid,'code':e.code};
 						tokenpost(api.AddOrder,sendData).then(res => {
 							if (res.status == 200 && res.data.returnCode == '0000') {
 								console.log("得到接口prepay_id", res.data.payment);
                                     let paymentData = res.data.payment;
                                     uni.requestPayment({
+										// provider: 'wxpay',
                                         timeStamp: paymentData.timeStamp,
                                         nonceStr: paymentData.nonceStr,
                                         package: paymentData.package,
@@ -257,7 +258,7 @@ export default {
                                         }
                                     })
 							} else {
-								 this.$refs.loading.close();
+								this.$refs.loading.close();
 								this.$api.msg(res.data.returnMessage);
 							}
 						})
@@ -351,7 +352,7 @@ export default {
 		.content{
 			height: 100%;
 			.fill{
-				height: 90%;
+				height: 86%;
 			};
 			.fill2{
 				height: 100%;
