@@ -62,7 +62,6 @@
 			this.name = options.name
 		},
 		onShow() {
-			console.log(uni.getStorageSync('productCategory').units)
 			this.datas = uni.getStorageSync('productCategory').units
 			this.searchDatas = this.datas
 		},

@@ -14,10 +14,7 @@
 						</radio-group>
 					</cu-cell>
 					<cu-cell v-if="!searchCurrentUnit"
-						notNull
-						title="付款帐号"
-						:disVerMessage="verify.payaccountName.disVerMessage"
-						:verify="verify.payaccountName.message">
+						title="付款帐号">
 						<view class="cash-account-list fc" slot="footer">
 							<view :class="reqData.order.payaccountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
 										v-for="(item, index) in cashAccountDict"
@@ -88,10 +85,7 @@
 				tmpAmount: 0.00,
 				cashAccountDict: [],
 				discount: 0,
-				showDisCount: '',
-				verify: {
-					payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' }
-				}
+				showDisCount: ''
 			};
 		},
 		onLoad(options) {
@@ -131,6 +125,8 @@
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.cashAccountDict = res.data.data.resultList
+						this.reqData.order.payaccountid = this.cashAccountDict[0].cashaccountid
+						this.reqData.order.payaccountName = this.cashAccountDict[0].cashaccountname
 					} else {
 						uni.showToast({
 							icon: 'none',
@@ -151,7 +147,6 @@
 			handleSelectCashAccount(val) {
 				this.reqData.order.payaccountid = val.cashaccountid
 				this.reqData.order.payaccountName = val.cashaccountname
-				this.handleVerify('payaccountName')
 			},
 			handlePrintChange(val) {
 				this.reqData.order.isprint = val.detail.value
@@ -165,80 +160,55 @@
 					this.reqData.order.amount = this.tmpAmount
 				}
 			},
-			handleVerify(val) {
-				switch(val) {
-					case 'payaccountName':
-						if (!this.reqData.order.payaccountName) {
-							this.verify.payaccountName.okVerify = false
-							this.verify.payaccountName.disVerMessage = true
-						} else {
-							this.verify.payaccountName.okVerify = true
-							this.verify.payaccountName.disVerMessage = false
-						}
-						break
-				}
-			},
-			checkVerify() {
-				let result = true
-				for (let item in this.verify) {
-					if (!this.verify[item].okVerify) {
-						this.verify[item].disVerMessage = true
-						result = false
-					}
-				}
-				return result
-			},
 			handleSubmit() {
-				if (this.checkVerify()) {
-					this.$refs.loading.open()
-					create(api.purPurchaseOrder, this.reqData).then(res => {
-						this.$refs.loading.close()
-						if (res.status == 200 && res.data.returnCode == '0000') {
-							getGlobalData.getCurrentUnit().then(res => {
-								uni.showToast({
-									icon: 'success',
-									title: '提交成功'
-								})
-								setTimeout(()=>{
-									let pages =  getCurrentPages()
-									let prevPage = pages[pages.length - 2]
-									prevPage.setData({
-										commandType: 'success'
-									})
-									uni.navigateBack({
-										delta: 1
-									})
-								},500)
-							}).catch(err => {
-								uni.showToast({
-									icon: 'success',
-									title: '提交成功'
-								})
-								setTimeout(()=>{
-									let pages =  getCurrentPages()
-									let prevPage = pages[pages.length - 2]
-									prevPage.setData({
-										commandType: 'success'
-									})
-									uni.navigateBack({
-										delta: 1
-									})
-								},500)
-							})
-						} else {
+				this.$refs.loading.open()
+				create(api.purPurchaseOrder, this.reqData).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						getGlobalData.getCurrentUnit().then(res => {
 							uni.showToast({
-								icon: 'none',
-								title: res.data.returnMessage
+								icon: 'success',
+								title: '提交成功'
 							})
-						}
-					}).catch(error => {
-						this.$refs.loading.close()
+							setTimeout(()=>{
+								let pages =  getCurrentPages()
+								let prevPage = pages[pages.length - 2]
+								prevPage.setData({
+									commandType: 'success'
+								})
+								uni.navigateBack({
+									delta: 1
+								})
+							},500)
+						}).catch(err => {
+							uni.showToast({
+								icon: 'success',
+								title: '提交成功'
+							})
+							setTimeout(()=>{
+								let pages =  getCurrentPages()
+								let prevPage = pages[pages.length - 2]
+								prevPage.setData({
+									commandType: 'success'
+								})
+								uni.navigateBack({
+									delta: 1
+								})
+							},500)
+						})
+					} else {
 						uni.showToast({
 							icon: 'none',
-							title: error
+							title: res.data.returnMessage
 						})
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+					uni.showToast({
+						icon: 'none',
+						title: error
 					})
-				}
+				})
 			}
 		},
 		watch: {

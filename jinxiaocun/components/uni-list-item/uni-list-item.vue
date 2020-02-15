@@ -2,7 +2,7 @@
 	<!-- #ifdef APP-NVUE -->
 	<cell>
 	<!-- #endif -->
-	<view :class="disabled ? 'uni-list-item--disabled' : ''" :hover-class="disabled || showSwitch ? '' : 'uni-list-item--hover'"
+	<view :style="{opacity: disabled ? '0.5' : '1'}" :hover-class="disabled || showSwitch ? '' : 'uni-list-item--hover'"
 	 class="uni-list-item" @click="handleClickItem">
 		<view class="uni-list-item__container" :class="{'uni-list-item--first':isFirstChild}">
 			<view v-if="thumb" class="uni-list-item__icon">
@@ -23,7 +23,7 @@
 			<view v-if="showBadge || showArrow || showSwitch ||showText || showIcon" class="uni-list-item__extra" @tap="handleClickFt">
 				<uni-badge v-if="showBadge" :type="badgeType" :text="badgeText"  style="padding-bottom: 5px;"/>
 				<text v-if="showText" class="uni-list-item__content-content">{{content}}</text>
-				<switch v-if="showSwitch" :disabled="disabled" :checked="switchChecked" @change.stop="onSwitchChange" />
+				<switch v-if="showSwitch" :checked="switchChecked" @change.stop="onSwitchChange" />
 				<uni-icons v-if="showArrow" :size="20" class="uni-icon-wrapper" color="#c5c8ce" type="arrow" />
 				<uni-icons v-if="showIcon" :size="icon.size" class="uni-icon-wrapper" :color="icon.color" :type="icon.type" />
 			</view>
@@ -176,7 +176,11 @@
 	}
 
 	.uni-list-item--disabled {
-		// opacity: 0.3;
+		opacity: 0.5;
+	}
+	
+	.uni-list-item--enabled {
+		opacity: 1;
 	}
 
 	.uni-list-item--hover{

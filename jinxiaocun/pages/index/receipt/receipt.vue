@@ -21,9 +21,7 @@
 						<cu-cell v-if="!searchCurrentUnit"
 							title="收款帐号"
 							isIcon
-							:icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }"
-							:disVerMessage="verify.accountName.disVerMessage"
-							:verify="verify.accountName.message">
+							:icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }">
 							<view class="cash-account-list fc" slot="footer">
 								<view :class="reqData.accountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
 											v-for="(item, index) in cashAccountDict"
@@ -90,7 +88,6 @@
 				cashAccountDict: [],
 				verify: {
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
-					accountName: { okVerify: false, disVerMessage: false, message: '收款帐号不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '收款金额不能为空，且不能为零' }
 				},
 				currentUnitTag: false
@@ -126,7 +123,6 @@
 				}
 				this.verify = {
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
-					accountName: { okVerify: false, disVerMessage: false, message: '收款帐号不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '收款金额不能为空，且不能为零' }
 				}
 			},
@@ -136,7 +132,8 @@
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.cashAccountDict = res.data.data.resultList
-						console.log(this.cashAccountDict)
+						this.reqData.accountid = this.cashAccountDict[0].cashaccountid
+						this.reqData.accountName = this.cashAccountDict[0].cashaccountname
 					} else {
 						uni.showToast({
 							icon: 'none',
@@ -160,7 +157,6 @@
 			handleSelectCashAccount(val) {
 				this.reqData.accountid = val.cashaccountid
 				this.reqData.accountName = val.cashaccountname
-				this.handleVerify('accountName')
 			},
 			handleSearchFocusCurrentUnit() {
 				this.currentUnitTag = false
@@ -214,15 +210,6 @@
 						} else {
 							this.verify.contactunitname.okVerify = true
 							this.verify.contactunitname.disVerMessage = false
-						}
-						break
-					case 'accountName':
-						if (!this.reqData.accountName) {
-							this.verify.accountName.okVerify = false
-							this.verify.accountName.disVerMessage = true
-						} else {
-							this.verify.accountName.okVerify = true
-							this.verify.accountName.disVerMessage = false
 						}
 						break
 					case 'amount':

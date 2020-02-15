@@ -52,6 +52,9 @@
 			"path": "pages/index/cost/cost"
 		},
 		{
+		    "path" : "pages/index/cost/type/type"
+		},
+		{
 			"path": "pages/index/return-order/return-order"
 		},
 		{

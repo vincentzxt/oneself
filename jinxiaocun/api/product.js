@@ -16,6 +16,20 @@ export const createProductCategory = (url, data = {}) => {
   })
 }
 
+export const enableProductCategory = (url, id) => {
+  return http.request({
+    url: url + '/EnableProductCategory/' + id,
+		method: 'post'
+  })
+}
+
+export const disableProductCategory = (url, id) => {
+  return http.request({
+    url: url + '/DisableProductCategory/' + id,
+		method: 'post'
+  })
+}
+
 export const createProductUnit = (url, data = {}) => {
   return http.request({
     url: url + '/CreateProductUnit',

@@ -8,15 +8,8 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell title="费用类型" isLink isIcon :icon="{ type: 'c-type', color: '#c4c6cb', 'size': 20 }" isLastCell :disVerMessage="verify.feetype.disVerMessage" :verify="verify.feetype.message">
-							<view class="h50 fc" slot="footer" style="width:100%;">
-								<picker @change="handleFeeTypeChange" :value="reqData.feetype" :range="feetypeDict">
-									<view class="main-picker">
-										<text v-if="!reqData.feetype" style="color:#c5c8ce">选择费用类型</text>
-										<text v-else>{{reqData.feetype}}</text>
-									</view>
-								</picker>
-							</view>
+						<cu-cell title="费用类型" isLink url="./type/type" params="name=type" isIcon :icon="{ type: 'c-type', color: '#c4c6cb', 'size': 20 }">
+							<view class="h50 fc" slot="footer">{{reqData.feetype}}</view>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -35,9 +28,7 @@
 						<cu-cell v-if="!searchCurrentUnit"
 							title="付款帐号"
 							isIcon
-							:icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }"
-							:disVerMessage="verify.payaccountName.disVerMessage"
-							:verify="verify.payaccountName.message">
+							:icon="{ type: 'c-contacts', color: '#c4c6cb', 'size': 20 }">
 							<view class="cash-account-list fc" slot="footer">
 								<view :class="reqData.payaccountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
 											v-for="(item, index) in cashAccountDict"
@@ -78,7 +69,6 @@
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import { api } from '@/config/common.js'
 	import { query, create } from '@/api/common.js'
-	import { queryFeeCagetory } from '@/api/capfee.js'
 	import { floatFormat } from '@/utils/tools.js'
 	export default {
 		components: {
@@ -103,22 +93,24 @@
 					amount: '',
 					remark: ''
 				},
-				feetypeDict: [],
 				cashAccountDict: [],
 				verify: {
 					feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
-					payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' }
 				},
 				currentUnitTag: false
 			};
 		},
-		onLoad() {
+		onShow() {
 			this.currentUnitDatas = uni.getStorageSync('currentUnitList')
 			this.currentUnitSearchDatas = this.currentUnitDatas
-			this.getFeeCagetory()
 			this.getCashAccount()
+			let pages =  getCurrentPages()
+			let curPage = pages[pages.length - 1]
+			if (curPage.data.rData) {
+				this.reqData.feetype = curPage.data.rData
+			}
 		},
 		computed: {
 			headerHeight() {
@@ -147,30 +139,8 @@
 				this.verify = {
 					feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
-					payaccountName: { okVerify: false, disVerMessage: false, message: '付款帐号不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' }
 				}
-			},
-			getFeeCagetory() {
-				this.$refs.loading.open()
-				queryFeeCagetory(api.capFee).then(res => {
-					this.$refs.loading.close()
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						//this.feetypeDict = res.data.data.resultList
-						this.feetypeDict = ['测试类型']
-					} else {
-						uni.showToast({
-							icon: 'none',
-							title: res.data.returnMessage
-						})
-					}
-				}).catch(error => {
-					this.$refs.loading.close()
-					uni.showToast({
-						icon: 'none',
-						title: error
-					})
-				})
 			},
 			getCashAccount() {
 				this.$refs.loading.open()
@@ -178,6 +148,8 @@
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.cashAccountDict = res.data.data.resultList
+						this.reqData.payaccountid = this.cashAccountDict[0].cashaccountid
+						this.reqData.payaccountName = this.cashAccountDict[0].cashaccountname
 					} else {
 						uni.showToast({
 							icon: 'none',
@@ -198,14 +170,14 @@
 				}
 				this.handleVerify('amount')
 			},
-			handleFeeTypeChange(val) {
-				this.reqData.feetype = this.feetypeDict[val.detail.value]
+			handleSelectType() {
+				console.log("###")
+				this.$refs.picker.open()
 				this.handleVerify('feetype')
 			},
 			handleSelectCashAccount(val) {
 				this.reqData.payaccountid = val.cashaccountid
 				this.reqData.payaccountName = val.cashaccountname
-				this.handleVerify('payaccountName')
 			},
 			handleSearchFocusCurrentUnit() {
 				this.currentUnitTag = false
@@ -268,15 +240,6 @@
 						} else {
 							this.verify.contactunitname.okVerify = true
 							this.verify.contactunitname.disVerMessage = false
-						}
-						break
-					case 'payaccountName':
-						if (!this.reqData.payaccountName) {
-							this.verify.payaccountName.okVerify = false
-							this.verify.payaccountName.disVerMessage = true
-						} else {
-							this.verify.payaccountName.okVerify = true
-							this.verify.payaccountName.disVerMessage = false
 						}
 						break
 					case 'amount':
