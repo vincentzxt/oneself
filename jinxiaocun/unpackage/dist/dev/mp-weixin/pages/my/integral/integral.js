@@ -479,7 +479,8 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       var senddata = {
         pageIndex: 1,
         pageRows: -1,
-        ordertype: this.ordertype };
+        ordertype: this.ordertype,
+        exchangeintegralbegin: 1 };
 
       (0, _user.tokenpost)(_common.api.GetProductList, senddata).then(function (res) {
         _this2.$refs.loading.close();

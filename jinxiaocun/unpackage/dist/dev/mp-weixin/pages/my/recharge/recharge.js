@@ -464,72 +464,152 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
           break;}
 
     },
-    handleSubmit: function handleSubmit() {var _this = this;
-      var data = this.$refs.checkbox.get();
-      if (!data) {
-        this.$api.msg("请选择要购买的产品!");
-        return;
-      }
-      var sendData = { productid: data.productid };
-      (0, _user.tokenpost)(_common.api.AddOrder, sendData).then(function (res) {
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          _this.$api.msg("购买成功！");
-          _this.pageIndex = 0;
-          _this.loadData();
-          _this.TabCur = 1;
-          uni.$emit('changecompany', { 'msg': 'company变化了' });
-        } else {
-          _this.$api.msg(res.data.returnMessage);
-        }
-      }).
-      catch(function (error) {
-        _this.$api.msg('请求失败fail');
-      });
+    weixinPay: function weixinPay() {var _this = this;
+      console.log("发起支付");
+      this.$refs.loading.open();
+      uni.login({
+        success: function success(e) {
+          console.log("login success", e);
+          uni.request({
+            url: "https://unidemo.dcloud.net.cn/payment/wx/mp?code=".concat(e.code, "&amount=").concat(_this.price),
+            success: function success(res) {
+              console.log("pay request success", res);
+              if (res.statusCode !== 200) {
+                uni.showModal({
+                  content: "支付失败，请重试！",
+                  showCancel: false });
+
+                return;
+              }
+              if (res.data.ret === 0) {
+                console.log("得到接口prepay_id", res.data.payment);
+                var paymentData = res.data.payment;
+                uni.requestPayment({
+                  timeStamp: paymentData.timeStamp,
+                  nonceStr: paymentData.nonceStr,
+                  package: paymentData.package,
+                  signType: 'MD5',
+                  paySign: paymentData.paySign,
+                  success: function success(res) {
+                    uni.showToast({
+                      title: "感谢您的赞助!" });
+
+                  },
+                  fail: function fail(res) {
+                    uni.showModal({
+                      content: "支付失败,原因为: " + res.
+                      errMsg,
+                      showCancel: false });
+
+                  },
+                  complete: function complete() {
+                    _this.loading = false;
+                  } });
+
+              } else {
+                uni.showModal({
+                  content: res.data.desc,
+                  showCancel: false });
+
+              }
+            },
+            fail: function fail(e) {
+              console.log("fail", e);
+              _this.loading = false;
+              uni.showModal({
+                content: "支付失败,原因为: " + e.errMsg,
+                showCancel: false });
+
+            } });
+
+        },
+        fail: function fail(e) {
+          console.log("fail", e);
+          _this.loading = false;
+          uni.showModal({
+            content: "支付失败,原因为: " + e.errMsg,
+            showCancel: false });
+
+        } });
 
     },
-    loadProduct: function loadProduct() {var _this2 = this;
+
+    handleSubmit: function handleSubmit() {var _this2 = this;
+      console.log("发起支付");
+      this.$refs.loading.open();
+      uni.login({
+        success: function success(e) {
+          console.log("login success", e);
+          var data = _this2.$refs.checkbox.get();
+          if (!data) {
+            _this2.$api.msg("请选择要购买的产品!");
+            return;
+          }
+          var sendData = { productid: data.productid };
+          (0, _user.tokenpost)(_common.api.AddOrder, sendData).then(function (res) {
+            if (res.status == 200 && res.data.returnCode == '0000') {
+              console.log("得到接口prepay_id", res.data.payment);
+              var paymentData = res.data.payment;
+              uni.requestPayment({
+                timeStamp: paymentData.timeStamp,
+                nonceStr: paymentData.nonceStr,
+                package: paymentData.package,
+                signType: 'MD5',
+                paySign: paymentData.paySign,
+                success: function success(res) {
+                  uni.showToast({
+                    title: "支付成功!" });
+
+                },
+                fail: function fail(res) {
+                  uni.showModal({
+                    content: "支付失败,原因为: " + res.
+                    errMsg,
+                    showCancel: false });
+
+                },
+                complete: function complete() {
+                  _this2.$refs.loading.close();
+                } });
+
+            } else {
+              _this2.$refs.loading.close();
+              _this2.$api.msg(res.data.returnMessage);
+            }
+          }).
+          catch(function (error) {
+            _this2.$refs.loading.close();
+            _this2.$api.msg('请求失败fail');
+            return;
+          });
+
+        },
+        fail: function fail(e) {
+          console.log("fail", e);
+          _this2.loading = false;
+          uni.showModal({
+            content: "支付失败,原因为: " + e.errMsg,
+            showCancel: false });
+
+        } });
+
+
+    },
+    loadProduct: function loadProduct() {var _this3 = this;
       this.$refs.loading.open();
       var senddata = {
         pageIndex: 1,
         pageRows: -1,
-        ordertype: this.ordertype };
+        ordertype: this.ordertype,
+        exchangeintegralbegin: 1 };
+
 
       (0, _user.tokenpost)(_common.api.GetProductList, senddata).then(function (res) {
-        _this2.$refs.loading.close();
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          _this2.productList = res.data.data.resultList;
-          console.log(_this2.productList);
-        } else {
-          _this2.$api.msg(res.data.returnMessage);
-        }
-      }).
-      catch(function (error) {
-        _this2.loadmore = 'more',
-        _this2.$refs.loading.close();
-        _this2.$api.msg('请求失败fail');
-      });
-    },
-    loadData: function loadData() {var _this3 = this;
-      this.loadmore = 'loading';
-      this.$refs.loading.open();
-      var senddata = {
-        pageIndex: this.pageIndex + 1,
-        pageRows: this.pageRows };
-
-      (0, _user.tokenpost)(_common.api.GetOrderList, senddata).then(function (res) {
         _this3.$refs.loading.close();
         if (res.status == 200 && res.data.returnCode == '0000') {
-          if (res.data.data.resultList.length === 0) {
-            _this3.loadmore = "noMore";
-            return;
-          } else {
-            _this3.dataList = _this3.dataList.concat(res.data.data.resultList);
-            _this3.pageIndex = _this3.pageIndex + 1;
-            _this3.loadmore = "more";
-          }
-
+          _this3.productList = res.data.data.resultList;
+          console.log(_this3.productList);
         } else {
-          _this3.loadmore = 'more',
           _this3.$api.msg(res.data.returnMessage);
         }
       }).
@@ -537,6 +617,36 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         _this3.loadmore = 'more',
         _this3.$refs.loading.close();
         _this3.$api.msg('请求失败fail');
+      });
+    },
+    loadData: function loadData() {var _this4 = this;
+      this.loadmore = 'loading';
+      this.$refs.loading.open();
+      var senddata = {
+        pageIndex: this.pageIndex + 1,
+        pageRows: this.pageRows };
+
+      (0, _user.tokenpost)(_common.api.GetOrderList, senddata).then(function (res) {
+        _this4.$refs.loading.close();
+        if (res.status == 200 && res.data.returnCode == '0000') {
+          if (res.data.data.resultList.length === 0) {
+            _this4.loadmore = "noMore";
+            return;
+          } else {
+            _this4.dataList = _this4.dataList.concat(res.data.data.resultList);
+            _this4.pageIndex = _this4.pageIndex + 1;
+            _this4.loadmore = "more";
+          }
+
+        } else {
+          _this4.loadmore = 'more',
+          _this4.$api.msg(res.data.returnMessage);
+        }
+      }).
+      catch(function (error) {
+        _this4.loadmore = 'more',
+        _this4.$refs.loading.close();
+        _this4.$api.msg('请求失败fail');
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

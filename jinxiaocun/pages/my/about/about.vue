@@ -6,21 +6,12 @@
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<cu-panel>
-						<cu-cell title="公司Logo">
-							<text slot="footer"></text>
-						</cu-cell>
-						<cu-cell title="版本号">
-							<text slot="footer">v1.1</text>
-						</cu-cell>
-						<cu-cell title="微博账号">
-							<text slot="footer">wbb2909</text>
-						</cu-cell>
-						<cu-cell title="微信公众号">
-							<text slot="footer">yigeyundan</text>
-						</cu-cell>
-				</cu-panel>
-				
+				<view class="tou"><img src="@/static/image/logo.jpeg"/></img></view>
+				<uni-list>
+			<uni-list-item title="版本号" show-text="true" :show-arrow="false"  content="v1.1"></uni-list-item>
+			<uni-list-item title="微博账号" show-text="true" :show-arrow="false"  content="yigeyundan"></uni-list-item>
+			<uni-list-item title="微信公众号" show-text="true" :show-arrow="false"  content="yigeyundan"></uni-list-item>
+		</uni-list>
 			</scroll-view>
 		</view>
 		<view class="footer">
@@ -30,15 +21,13 @@
 </template>
 
 <script>
-	import cuPanel from '@/components/custom/cu-panel.vue'
-	import cuCell from '@/components/custom/cu-cell.vue'
-	import cuCellGroup from '@/components/custom/cu-cell-group.vue'
+import uniList from '@/components/uni-list/uni-list.vue';
+import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 	import { api } from '@/config/common.js';
 	export default {
 		components: {
-			cuPanel,
-			cuCell,
-			cuCellGroup
+			uniList,
+		    uniListItem
 		},
 		data() {
 			return {
@@ -62,7 +51,9 @@
 <style lang="scss" scoped>
 	.fill {
 		width: 100%;
-		height: 100%;
+		height: 90%;
+		.tou{text-align: center; margin: 80upx 0 60upx;}
+	    .tou img{width: 64px;height: 64px;}
 	}
 	.container {
 		font-size: $uni-font-size-base;

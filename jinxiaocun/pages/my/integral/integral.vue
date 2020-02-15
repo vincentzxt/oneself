@@ -163,7 +163,8 @@ export default {
 			const senddata = {
 				pageIndex: 1,
 				pageRows: -1,
-				ordertype:this.ordertype
+				ordertype:this.ordertype,
+				exchangeintegralbegin:1
 			};
 			tokenpost(api.GetProductList,senddata).then(res => {
 				this.$refs.loading.close();

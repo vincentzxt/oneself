@@ -148,27 +148,135 @@ export default {
 				break;
 			}
 		},
+		    weixinPay() {
+                console.log("发起支付");
+                this.$refs.loading.open();
+                uni.login({
+                    success: (e) => {
+                        console.log("login success", e);
+                        uni.request({
+                            url: `https://unidemo.dcloud.net.cn/payment/wx/mp?code=${e.code}&amount=${this.price}`,
+                            success: (res) => {
+                                console.log("pay request success", res);
+                                if (res.statusCode !== 200) {
+                                    uni.showModal({
+                                        content: "支付失败，请重试！",
+                                        showCancel: false
+                                    });
+                                    return;
+                                }
+                                if (res.data.ret === 0) {
+                                    console.log("得到接口prepay_id", res.data.payment);
+                                    let paymentData = res.data.payment;
+                                    uni.requestPayment({
+                                        timeStamp: paymentData.timeStamp,
+                                        nonceStr: paymentData.nonceStr,
+                                        package: paymentData.package,
+                                        signType: 'MD5',
+                                        paySign: paymentData.paySign,
+                                        success: (res) => {
+                                            uni.showToast({
+                                                title: "感谢您的赞助!"
+                                            })
+                                        },
+                                        fail: (res) => {
+                                            uni.showModal({
+                                                content: "支付失败,原因为: " + res
+                                                    .errMsg,
+                                                showCancel: false
+                                            })
+                                        },
+                                        complete: () => {
+                                            this.loading = false;
+                                        }
+                                    })
+                                } else {
+                                    uni.showModal({
+                                        content: res.data.desc,
+                                        showCancel: false
+                                    })
+                                }
+                            },
+                            fail: (e) => {
+                                console.log("fail", e);
+                                this.loading = false;
+                                uni.showModal({
+                                    content: "支付失败,原因为: " + e.errMsg,
+                                    showCancel: false
+                                })
+                            }
+                        })
+                    },
+                    fail: (e) => {
+                        console.log("fail", e);
+                        this.loading = false;
+                        uni.showModal({
+                            content: "支付失败,原因为: " + e.errMsg,
+                            showCancel: false
+                        })
+                    }
+                })
+            },
+		
 		handleSubmit(){
-			let data = this.$refs.checkbox.get();
-			if(!data){
-				this.$api.msg("请选择要购买的产品!");
-				return;
-			}
-			const sendData ={productid:data.productid};
-			tokenpost(api.AddOrder,sendData).then(res => {
-				if (res.status == 200 && res.data.returnCode == '0000') {
-					this.$api.msg("购买成功！");
-					this.pageIndex = 0;
-					this.loadData();
-					this.TabCur=1;
-					uni.$emit('changecompany',{'msg':'company变化了'});
-				} else {
-					this.$api.msg(res.data.returnMessage);
-				}
-			})
-			.catch(error => {
-				this.$api.msg('请求失败fail');
-			});
+			 console.log("发起支付");
+                this.$refs.loading.open();
+                uni.login({
+                    success: (e) => {
+                        console.log("login success", e);
+						let data = this.$refs.checkbox.get();
+						if(!data){
+							this.$api.msg("请选择要购买的产品!");
+							return;
+						}
+						const sendData ={productid:data.productid};
+						tokenpost(api.AddOrder,sendData).then(res => {
+							if (res.status == 200 && res.data.returnCode == '0000') {
+								console.log("得到接口prepay_id", res.data.payment);
+                                    let paymentData = res.data.payment;
+                                    uni.requestPayment({
+                                        timeStamp: paymentData.timeStamp,
+                                        nonceStr: paymentData.nonceStr,
+                                        package: paymentData.package,
+                                        signType: 'MD5',
+                                        paySign: paymentData.paySign,
+                                        success: (res) => {
+                                            uni.showToast({
+                                                title: "支付成功!"
+                                            })
+                                        },
+                                        fail: (res) => {
+                                            uni.showModal({
+                                                content: "支付失败,原因为: " + res
+                                                    .errMsg,
+                                                showCancel: false
+                                            })
+                                        },
+                                        complete: () => {
+                                           this.$refs.loading.close();
+                                        }
+                                    })
+							} else {
+								 this.$refs.loading.close();
+								this.$api.msg(res.data.returnMessage);
+							}
+						})
+						.catch(error => {
+							this.$refs.loading.close();
+							this.$api.msg('请求失败fail');
+                            return;
+						});
+				
+						},
+                    fail: (e) => {
+                        console.log("fail", e);
+                        this.loading = false;
+                        uni.showModal({
+                            content: "支付失败,原因为: " + e.errMsg,
+                            showCancel: false
+                        })
+                    }
+				});		
 			
 		},
 		loadProduct(){
@@ -176,7 +284,9 @@ export default {
 			const senddata = {
 				pageIndex: 1,
 				pageRows: -1,
-				ordertype:this.ordertype
+				ordertype:this.ordertype,
+				exchangeintegralbegin:1
+				
 			};
 			tokenpost(api.GetProductList,senddata).then(res => {
 				this.$refs.loading.close();

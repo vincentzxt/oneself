@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<uni-navbar :title="title"  background-color="#2d8cf0" color="#fff" status-bar fixed>
+			<uni-navbar :title="title" leftText="一格云单"  background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
 		<view class="main">
