@@ -207,7 +207,7 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
         contactunitname: '',
         contactunittype: 3,
         querycode: '',
-        province: 0,
+        province: '',
         city: '',
         district: '',
         address: '',

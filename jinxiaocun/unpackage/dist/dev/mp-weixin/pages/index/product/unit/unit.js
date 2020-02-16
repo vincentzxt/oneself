@@ -170,6 +170,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _product = __webpack_require__(/*! @/api/product.js */ 57);
 var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSearchBar = function uniSearchBar() {return __webpack_require__.e(/*! import() | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then(__webpack_require__.bind(null, /*! @/components/uni-search-bar/uni-search-bar.vue */ 653));};var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 613));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 620));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 627));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 634));};var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 606));};var _default =
@@ -215,13 +223,13 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       if (this.name == 'unit') {
         prevPage.setData(
         {
-          rData: { key: 'unit', value: val } });
+          rData: { key: 'unit', value: val.unit } });
 
 
       } else {
         prevPage.setData(
         {
-          rData: { key: 'subUnit', value: val } });
+          rData: { key: 'subUnit', value: val.unit } });
 
 
       }
@@ -238,10 +246,10 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
     handleSearch: function handleSearch(val) {
       if (val.value) {
         this.searchDatas = this.datas.filter(function (item) {
-          if (!item) {
-            item = '';
+          if (!item.unit) {
+            item.unit = '';
           }
-          return item.indexOf(val.value) !== -1;
+          return item.unit.indexOf(val.value) !== -1;
         });
       } else {
         this.searchDatas = this.datas;
@@ -258,28 +266,35 @@ var _business = _interopRequireDefault(__webpack_require__(/*! @/utils/business.
       this.reqData.status = val.detail.value;
     },
     handleAdd: function handleAdd() {var _this = this;
-      (0, _product.createProductUnit)(_common.api.baseProduct, this.reqData).then(function (res) {
-        _this.$refs.popup.close();
-        if (res.status == 200 && res.data.returnCode == '0000') {
-          _business.default.getProductCategory().then(function (res) {
-            _this.datas = [];var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
-              for (var _iterator = uni.getStorageSync('productCategory').units[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
-                _this.datas.push(item.unit);
-              }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
-            _this.searchDatas = _this.datas;
-          });
-        } else {
+      if (this.reqData.unit) {
+        (0, _product.createProductUnit)(_common.api.baseProduct, this.reqData).then(function (res) {
+          _this.$refs.popup.close();
+          if (res.status == 200 && res.data.returnCode == '0000') {
+            _business.default.getProductCategory().then(function (res) {
+              _this.datas = uni.getStorageSync('productCategory').units;
+              _this.searchDatas = _this.datas;
+            });
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.returnMessage });
+
+          }
+        }).catch(function (error) {
           uni.showToast({
             icon: 'none',
-            title: res.data.returnMessage });
+            title: error });
 
-        }
-      }).catch(function (error) {
+        });
+      } else {
         uni.showToast({
           icon: 'none',
-          title: error });
+          title: '请输入计量单位名称' });
 
-      });
+      }
+    },
+    handleCancel: function handleCancel() {
+      this.$refs.popup.close();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

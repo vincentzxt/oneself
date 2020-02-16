@@ -8,7 +8,7 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<uni-list>
-					<uni-list-item :title="item.unit" v-for="(item, index) in searchDatas" :show-arrow="false" :key="index" @clickItem="handleClickItem(item.unit)">
+					<uni-list-item :title="item.unit" v-for="(item, index) in searchDatas" :show-arrow="false" :key="index" @clickItem="handleClickItem(item)">
 					</uni-list-item>
 				</uni-list>
 			</scroll-view>
@@ -16,13 +16,21 @@
 		<view class="footer">
 			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleShowPopup">添加</button>
 		</view>
-		<uni-popup ref="popup" type="bottom">
-			<cu-panel>
-				<cu-cell title="计量单位名称">
-					<input class="h50" slot="footer" type="text" v-model="reqData.unit" placeholder="计量单位名称"/>
-				</cu-cell>
-			</cu-panel>
-			<button style="background-color: #2d8cf0;" type="primary" @tap="handleAdd">添加</button>
+		<uni-popup ref="popup" type="center">
+			<view class="popup-wrap">
+				<view class="popup-wrap-header">
+					<text style="margin-left:5px;">计量单位名称</text>
+				</view>
+				<view class="popup-wrap-content">
+					<cu-cell title="分类名称" isLastCell>
+						<input class="h50" slot="footer" type="text" v-model="reqData.unit" placeholder="计量单位名称"/>
+					</cu-cell>
+				</view>
+				<view class="popup-wrap-footer">
+					<button class="popup-wrap-footer-cancel" type="primary" @tap="handleCancel">取消</button>
+					<button class="popup-wrap-footer-add" type="primary" @tap="handleAdd">添加</button>
+				</view>
+			</view>
 		</uni-popup>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
@@ -80,13 +88,13 @@
 				if (this.name == 'unit') {
 					prevPage.setData(
 						{ 
-							rData: { key: 'unit', value: val}
+							rData: { key: 'unit', value: val.unit}
 						}
 					)
 				} else {
 					prevPage.setData(
 						{ 
-							rData: { key: 'subUnit', value: val}
+							rData: { key: 'subUnit', value: val.unit}
 						}
 					)
 				}
@@ -103,10 +111,10 @@
 			handleSearch(val) {
 				if (val.value) {
 					this.searchDatas = this.datas.filter((item) => {
-						if (!item) {
-							item = ''
+						if (!item.unit) {
+							item.unit = ''
 						}
-						return item.indexOf(val.value) !== -1
+						return item.unit.indexOf(val.value) !== -1
 					})
 				} else {
 					this.searchDatas = this.datas
@@ -123,28 +131,35 @@
 				this.reqData.status = val.detail.value
 			},
 			handleAdd() {
-				createProductUnit(api.baseProduct, this.reqData).then(res => {
-					this.$refs.popup.close()
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						getGlobalData.getProductCategory().then(res => {
-							this.datas = []
-							for (let item of uni.getStorageSync('productCategory').units) {
-								this.datas.push(item.unit)
-							}
-							this.searchDatas = this.datas
-						})
-					} else {
+				if (this.reqData.unit) {
+					createProductUnit(api.baseProduct, this.reqData).then(res => {
+						this.$refs.popup.close()
+						if (res.status == 200 && res.data.returnCode == '0000') {
+							getGlobalData.getProductCategory().then(res => {
+								this.datas = uni.getStorageSync('productCategory').units
+								this.searchDatas = this.datas
+							})
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: res.data.returnMessage
+							})
+						}
+					}).catch(error => {
 						uni.showToast({
 							icon: 'none',
-							title: res.data.returnMessage
+							title: error
 						})
-					}
-				}).catch(error => {
+					})
+				} else {
 					uni.showToast({
 						icon: 'none',
-						title: error
+						title: '请输入计量单位名称'
 					})
-				})
+				}
+			},
+			handleCancel() {
+				this.$refs.popup.close()
 			}
 		}
 	}
@@ -163,6 +178,40 @@
 		}
 		.footer {
 			height: 48px;
+		}
+		.popup-wrap {
+			background-color: #FFFFFF;
+			display: flex;
+			flex-direction: column;
+			border-radius: 5px;
+			&-header {
+				padding: 15px 10px;
+				display: flex;
+				align-items: center;
+				color: #ffffff;
+				background-color: #2d8cf0;
+			}
+			&-content {
+				display: flex;
+				padding: 10px 0px;
+			}
+			&-footer {
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				padding: 10px;
+				border-top: 0.5px solid $uni-border-color;
+				&-add {
+					background-color: #2d8cf0;
+					font-size: $uni-font-size-base;
+				}
+				&-cancel {
+					background-color: #ffffff;
+					border-width: 0px;
+					font-size: $uni-font-size-base;
+					color: #808695;
+				}
+			}
 		}
 	}
 	
