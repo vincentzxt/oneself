@@ -7,7 +7,7 @@
 		<view class="main">
 			<scroll-view :scroll-y="true">
 				<view>
-					<cu-panel title="销售/采购/退货单据">
+					<cu-panel>
 						<cu-cell title="销售单据" isLink url="./sell-list/sell-list">
 							 <view class="h50 fc" slot="footer"></view>
 						</cu-cell>
@@ -22,8 +22,9 @@
 						</cu-cell>
 					</cu-panel>
 				</view>
+				<view class="space"></view>
 				<view>
-					<cu-panel title="收/付款单据">
+					<cu-panel>
 						<cu-cell title="收款单" isLink url="./receipt-list/receipt-list">
 						 <view class="h50 fc" slot="footer"></view>
 						</cu-cell>
@@ -32,8 +33,9 @@
 						</cu-cell>
 					</cu-panel>
 				</view>
+				<view class="space"></view>
 				<view>
-					<cu-panel title="库存">
+					<cu-panel>
 						<cu-cell title="库存列表" isLink url="./stock-list/stock-list">
 						 <view class="h50 fc" slot="footer"></view>
 						</cu-cell>
@@ -48,8 +50,9 @@
 						</cu-cell>
 					</cu-panel>
 				</view>
+				<view class="space"></view>
 				<view>
-					<cu-panel title="费用单据">
+					<cu-panel>
 						<cu-cell title="费用单据" isLink url="./fee-list/fee-list" isLastCell>
 						 <view class="h50 fc" slot="footer"></view>
 						</cu-cell>
@@ -85,6 +88,9 @@
 	.container {
 		.header {
 			
+		}
+		.space{
+			height: 30upx;
 		}
 		.main {
 			margin-top: $uni-spacing-col-base;
