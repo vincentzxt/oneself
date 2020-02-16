@@ -1,0 +1,70 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* padding尺寸 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.fill.data-v-595bdc6b {
+  width: 100%;
+  height: 100%;
+}
+.h50.data-v-595bdc6b {
+  height: 50px;
+}
+.fc.data-v-595bdc6b {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.cu-form-group .title.data-v-595bdc6b {
+  min-width: calc(4em + 15px);
+}
+.container .main.data-v-595bdc6b {
+  margin-top: 5px;
+}
+.container .main .cu-form-group .title.data-v-595bdc6b {
+    min-width: calc(6em + 30px);
+}
+.container .main-remarks.data-v-595bdc6b {
+    background-color: #ffffff;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+.container .main .unitmultiple-wrap.data-v-595bdc6b {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+}
+.container .main .unitmultiple-wrap-content2.data-v-595bdc6b {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      margin-left: 5px;
+}
+.container .main .unitmultiple-wrap-content2-input.data-v-595bdc6b {
+        width: 190rpx;
+        border: 0.5px solid #dddee1;
+        text-align: center;
+        margin-right: 5px;
+}
+.container .footer.data-v-595bdc6b {
+  height: 48px;
+}
+

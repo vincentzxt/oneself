@@ -13,7 +13,7 @@
 							<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 						</radio-group>
 					</cu-cell>
-					<cu-cell v-if="!searchCurrentUnit"
+					<cu-cell v-if="reqData.order.isOnCredit == 0"
 						title="收款帐号">
 						<view class="cash-account-list fc" slot="footer">
 							<view :class="reqData.order.accountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
@@ -140,6 +140,7 @@
 				})
 			},
 			handleCreditChange(val) {
+				console.log(val)
 				this.reqData.order.isOnCredit = val.detail.value
 			},
 			handleSelectCashAccount(val) {
