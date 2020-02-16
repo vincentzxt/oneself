@@ -72,7 +72,7 @@
 					contactunitname: '',
 					contactunittype: 3,
 					querycode: '',
-					province: 0,
+					province: '',
 					city: '',
 					district: '',
 					address: '',
