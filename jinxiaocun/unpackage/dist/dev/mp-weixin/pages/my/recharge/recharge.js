@@ -539,7 +539,9 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
       this.$refs.loading.open();
       uni.login({
         success: function success(e) {
+          console.log("1111");
           console.log("login success", e);
+          console.log("22222");
           var data = _this2.$refs.checkbox.get();
           if (!data) {
             _this2.$api.msg("请选择要购买的产品!");
