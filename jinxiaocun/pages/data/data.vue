@@ -35,7 +35,8 @@
 						<text style="margin-left: 10px">销售情况</text>
 					</view>
 					<view class="main-sale-content">
-						<view class="main-sale-content-block" @tap="handleNavTo('./sale/sale', 'date='+date+'&startDate='+startDate+'&endDate='+endDate)">
+					<!--	<view class="main-sale-content-block" @tap="handleNavTo('./sale/sale', 'date='+date+'&startDate='+startDate+'&endDate='+endDate)">-->
+						<view class="main-sale-content-block">
 							<text class="main-sale-content-block-title">{{numberFilter(datas.salesAmount)}}</text>
 							<text class="main-sale-content-block-des">销货(元)</text>
 						</view>
