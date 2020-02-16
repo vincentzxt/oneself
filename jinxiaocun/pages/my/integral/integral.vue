@@ -72,6 +72,7 @@ export default {
 	data() {
 		return {
 			loadmore:'more',
+			loading:false,
 			pageIndex: 0,
 			pageRows: 15,
 			title: '积分兑换',
@@ -99,7 +100,6 @@ export default {
 		// 	list:this.list	// 列表数据
 		// });
 		this.pickerIndex = 3;
-		this.loadData();
 		this.loadProduct();
 	},
 	onShow(){
@@ -120,15 +120,19 @@ export default {
 			switch (val){
 				case 0:
 					this.content_show_id = 0
-					this.$refs.checkbox.set({
-						type:'radio',		// 类型：复选框
-						column:2,				// 分列：3
-						list:this.list	// 列表数据
-					});
+					// this.$refs.checkbox.set({
+					// 	type:'radio',		// 类型：复选框
+					// 	column:2,				// 分列：3
+					// 	list:this.list	// 列表数据
+					// });
 					this.pickerIndex = 3;
 					break;
 				case 1:
 					this.content_show_id =1
+					this.pageIndex = 0;
+					this.TabCur=1;
+					this.dataList= [];
+					this.loadData();
 					break;
 				default:
 					this.content_show_id =0
@@ -141,19 +145,23 @@ export default {
 				this.$api.msg("请选择要兑换的产品!");
 				return;
 			}
+			this.$refs.loading.open();
+			this.loading = true;
 			const sendData ={productid:data.productid};
 			tokenpost(api.IntegralExchange,sendData).then(res => {
+				this.loading = false;
+				this.$refs.loading.close();
 				if (res.status == 200 && res.data.returnCode == '0000') {
 					this.$api.msg("兑换成功！");
-					this.pageIndex = 0;
-					this.loadData();
-					this.TabCur=1;
+					this.tabChange(1);
 					uni.$emit('changecompany',{'msg':'company变化了'});
 				} else {
 					this.$api.msg(res.data.returnMessage);
 				}
 			})
 			.catch(error => {
+				this.loading = false;
+				this.$refs.loading.close();
 				this.$api.msg('请求失败fail');
 			});
 			
@@ -163,7 +171,6 @@ export default {
 			const senddata = {
 				pageIndex: 1,
 				pageRows: -1,
-				ordertype:this.ordertype,
 				exchangeintegralbegin:1
 			};
 			tokenpost(api.GetProductList,senddata).then(res => {
@@ -186,7 +193,8 @@ export default {
 			this.$refs.loading.open();
 			const senddata = {
 				pageIndex: this.pageIndex+1,
-				pageRows: this.pageRows
+				pageRows: this.pageRows,
+				ordertype:this.ordertype
 			};
 			tokenpost(api.GetOrderList,senddata).then(res => {
 				this.$refs.loading.close();

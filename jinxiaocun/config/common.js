@@ -41,6 +41,7 @@ export const api = {
 	GetCurrentActivity:'/api/SysActivity/GetCurrentActivity',
 	GetMyPromotIntegralList :'/api/BseUser/GetMyPromotIntegralList',
 	GetSmsCode:'/api/SysMessage/SendVerificationCode',
-	GetProductList:'/api/SysProduct/GetProductList'
+	GetProductList:'/api/SysProduct/GetProductList',
+	Orderypay:'/api/WeChartPay/OrderPay'
 	
 }

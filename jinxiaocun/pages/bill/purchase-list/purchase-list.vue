@@ -10,7 +10,7 @@
 				<text>总订单</text>
 			</view>
 			<view class="total-item">
-				<text>{{ totalAmount }}</text>
+				<text>{{ numberFilter(totalAmount)}}</text>
 				<text>总金额</text>
 			</view>
 		</view>
@@ -30,7 +30,7 @@
 							<text>下单日期：{{ item.createtime }}</text>
 						</view>
 						<view class="item-content2">
-							<text>总金额：¥{{ item.amount }}</text>
+							<text>总金额：¥{{ numberFilter(item.amount) }}</text>
 						</view>
 					</view>
 				</view>
@@ -52,6 +52,7 @@ import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 import xwDate from '@/components/xw-date/xw-date.vue';
+import { dateFormat, numberFormat } from '@/utils/tools.js'
 
 export default {
 	components: {
@@ -103,6 +104,9 @@ export default {
 		}, 1000);
 	},
 	methods: {
+		numberFilter(number) {
+			return numberFormat(number)
+		},
 		handle_data_sub(val) {
 			this.search_startDate = val.search_startDate;
 			this.search_endDate = val.search_endDate;

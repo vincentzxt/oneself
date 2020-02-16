@@ -8,8 +8,8 @@
 				<uni-list>
 					<uni-list-item title="客户名称" :show-arrow="false" show-text="true" :content="dataList.contactunitname"></uni-list-item>
 					<uni-list-item title="下单时间" :show-arrow="false" show-text="true" :content="dataList.createtime"></uni-list-item>
-					<uni-list-item title="总金额" :show-arrow="false" show-text="true" :content="dataList.amount"></uni-list-item>
-					<uni-list-item title="优惠金额" :show-arrow="false" show-text="true" :content="dataList.discountamount"></uni-list-item>
+					<uni-list-item title="总金额" :show-arrow="false" show-text="true" :content="numberFilter(dataList.amount)"></uni-list-item>
+					<uni-list-item title="优惠金额" :show-arrow="false" show-text="true" :content="numberFilter(dataList.discountamount)"></uni-list-item>
 				</uni-list>
 				<view v-for="(item, index) in dataList.detailModels" :key="index" class="detail-item">
 					<view class="list-between">
@@ -22,7 +22,7 @@
 							<text>总数量：{{ item.qty }}{{item.unit}}</text>
 						</view>
 						<view class="item-content3">
-							<text>总金额：¥{{ item.purchaseamount }}</text>
+							<text>总金额：¥{{ numberFilter(item.purchaseamount) }}</text>
 						</view>
 					</view>
 				</view>
@@ -38,6 +38,7 @@ import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { get } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
+import { dateFormat, numberFormat } from '@/utils/tools.js'
 export default {
 	components: {
 		uniList,
@@ -59,6 +60,9 @@ export default {
 		
 	},
 	methods: {
+		numberFilter(number) {
+			return numberFormat(number)
+		},
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},

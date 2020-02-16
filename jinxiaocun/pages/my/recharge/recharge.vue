@@ -24,20 +24,20 @@
 						<view class="list-between">
 							<view>
 								商品名称：
-								<text>{{ item.ordertitle }}</text>
+								<text>{{ item.productname  }}</text>
 							</view>
 						</view>
 						<view class="list-between">
 							<view>
 								订单金额：
-								<text>¥{{ item.orderamount }}</text>
+								<text>¥{{ numberFilter(item.orderamount) }}</text>
 							</view>
-							<text class="payment" v-bind:class="item.orderstatus == 0 ? 'payment-blue' : 'payment-green'">{{ OrderStatusList[item.orderstatus] }}</text>
+							<text class="payment" v-bind:class="item.orderStatusName == '未支付' ? 'payment-blue' : 'payment-green'">{{ item.orderStatusName}}</text>
 						</view>
 						<view class="list-between">
 							<view>
 								付款类型：
-								<text>{{ PayTypeList[item.paytype] }}</text>
+								<text>{{ item.payTypeName }}</text>
 							</view>
 							<view>
 								购买时长：
@@ -49,9 +49,9 @@
 								<text>下单时间：{{ item.createtime }}</text>
 							</view>
 						</view>
-						<view class="list-between">
+						<view class="list-between" v-if="item.orderStatusName=='已支付'">
 							<view class="list_bottom_box_item">
-								<text>付款时间：{{ item.paysuccesstime || '' }}</text>
+								<text >付款时间：{{ item.paysuccesstime || '' }}</text>
 							</view>
 						</view>
 					</view>	
@@ -74,6 +74,7 @@ import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 import WucTab from '@/components/wuc-tab/wuc-tab.vue';
 import helangCheckbox from "@/components/helang-checkbox/helang-checkbox.vue"
+import { dateFormat, numberFormat } from '@/utils/tools.js'
 export default {
 	components: {
 		uniLoadMore,
@@ -85,6 +86,7 @@ export default {
 	data() {
 		return {
 			loadmore:'more',
+			loading:false,
 			pageIndex: 0,
 			pageRows: 15,
 			title: '续费/订单',
@@ -94,14 +96,6 @@ export default {
 			dataList: [],
 			ordertype:'1,2',
 			tabList: [{ name: '续费' }, { name: '我的订单' }],
-			OrderStatusList:['待支付','已支付'],
-			PayTypeList:{
-				'0': '',
-				'1': '银行账号',
-				'2': '微信',
-				'3': '支付宝',
-				'4': '现金'
-			},
 			productList: []
 		};
 	},
@@ -112,7 +106,7 @@ export default {
 		// 	list:this.list	// 列表数据
 		// });
 		this.pickerIndex = 3;
-		this.loadData();
+		//this.loadData();
 		this.loadProduct();
 	},
 	onShow(){
@@ -120,6 +114,9 @@ export default {
 	mounted(){
 	},
 	methods: {
+		numberFilter(number) {
+			return numberFormat(number)
+		},
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},
@@ -133,109 +130,43 @@ export default {
 			switch (val){
 				case 0:
 					this.content_show_id = 0
-					this.$refs.checkbox.set({
-						type:'radio',		// 类型：复选框
-						column:2,				// 分列：3
-						list:this.list	// 列表数据
-					});
+					// this.$refs.checkbox.set({
+					// 	type:'radio',		// 类型：复选框
+					// 	column:2,				// 分列：3
+					// 	list:this.list	// 列表数据
+					// });
 					this.pickerIndex = 3;
 					break;
 				case 1:
 					this.content_show_id =1
+					this.pageIndex = 0;
+					this.TabCur=1;
+					this.dataList= [];
+					this.loadData();
 					break;
 				default:
 					this.content_show_id =0
 				break;
 			}
 		},
-		    weixinPay() {
-                console.log("发起支付");
-                this.$refs.loading.open();
-                uni.login({
-                    success: (e) => {
-                        console.log("login success", e);
-                        uni.request({
-                            url: `https://unidemo.dcloud.net.cn/payment/wx/mp?code=${e.code}&amount=${this.price}`,
-                            success: (res) => {
-                                console.log("pay request success", res);
-                                if (res.statusCode !== 200) {
-                                    uni.showModal({
-                                        content: "支付失败，请重试！",
-                                        showCancel: false
-                                    });
-                                    return;
-                                }
-                                if (res.data.ret === 0) {
-                                    console.log("得到接口prepay_id", res.data.payment);
-                                    let paymentData = res.data.payment;
-                                    uni.requestPayment({
-                                        timeStamp: paymentData.timeStamp,
-                                        nonceStr: paymentData.nonceStr,
-                                        package: paymentData.package,
-                                        signType: 'MD5',
-                                        paySign: paymentData.paySign,
-                                        success: (res) => {
-                                            uni.showToast({
-                                                title: "感谢您的赞助!"
-                                            })
-                                        },
-                                        fail: (res) => {
-                                            uni.showModal({
-                                                content: "支付失败,原因为: " + res
-                                                    .errMsg,
-                                                showCancel: false
-                                            })
-                                        },
-                                        complete: () => {
-                                            this.loading = false;
-                                        }
-                                    })
-                                } else {
-                                    uni.showModal({
-                                        content: res.data.desc,
-                                        showCancel: false
-                                    })
-                                }
-                            },
-                            fail: (e) => {
-                                console.log("fail", e);
-                                this.loading = false;
-                                uni.showModal({
-                                    content: "支付失败,原因为: " + e.errMsg,
-                                    showCancel: false
-                                })
-                            }
-                        })
-                    },
-                    fail: (e) => {
-                        console.log("fail", e);
-                        this.loading = false;
-                        uni.showModal({
-                            content: "支付失败,原因为: " + e.errMsg,
-                            showCancel: false
-                        })
-                    }
-                })
-            },
 		
 		handleSubmit(){
 			 console.log("发起支付");
-                this.$refs.loading.open();
                 uni.login({
                     success: (e) => {
-						console.log("1111");
-                        console.log("login success", e);
-						console.log("22222");
 						let data = this.$refs.checkbox.get();
 						if(!data){
 							this.$api.msg("请选择要购买的产品!");
 							return;
 						}
+						 this.$refs.loading.open();
+						 this.loading = true;
 						const sendData ={'productid':data.productid,'code':e.code};
-						tokenpost(api.AddOrder,sendData).then(res => {
+						tokenpost(api.Orderypay,sendData).then(res => {
+							this.loading = false;
 							if (res.status == 200 && res.data.returnCode == '0000') {
-								console.log("得到接口prepay_id", res.data.payment);
-                                    let paymentData = res.data.payment;
+								console.log("得到接口prepay_id", res.data.data);
+                                    let paymentData = res.data.data;
                                     uni.requestPayment({
 										// provider: 'wxpay',
                                         timeStamp: paymentData.timeStamp,
@@ -246,7 +177,11 @@ export default {
                                         success: (res) => {
                                             uni.showToast({
                                                 title: "支付成功!"
-                                            })
+                                            });
+											this.tabChange(1);
+											this.loadData();
+											uni.$emit('changecompany',{'msg':'company变化了'});
+											
                                         },
                                         fail: (res) => {
                                             uni.showModal({
@@ -265,6 +200,7 @@ export default {
 							}
 						})
 						.catch(error => {
+							this.loading =false;
 							this.$refs.loading.close();
 							this.$api.msg('请求失败fail');
                             return;
@@ -272,6 +208,7 @@ export default {
 				
 						},
                     fail: (e) => {
+						this.$refs.loading.close();
                         console.log("fail", e);
                         this.loading = false;
                         uni.showModal({
@@ -287,7 +224,6 @@ export default {
 			const senddata = {
 				pageIndex: 1,
 				pageRows: -1,
-				ordertype:this.ordertype,
 				exchangeintegralbegin:1
 				
 			};
@@ -311,7 +247,8 @@ export default {
 			this.$refs.loading.open();
 			const senddata = {
 				pageIndex: this.pageIndex+1,
-				pageRows: this.pageRows
+				pageRows: this.pageRows,
+				ordertype:this.ordertype
 			};
 			tokenpost(api.GetOrderList,senddata).then(res => {
 				this.$refs.loading.close();

@@ -22,7 +22,7 @@
 							<text>商品名称：{{ item.productname }}</text>
 						</view>
 						<view class="item-content2">
-							<text>总金额：¥{{ item.totalamount }}</text>
+							<text>总金额：¥{{ numberFilter(item.totalamount) }}</text>
 						</view>
 					</view>
 					<view class="list-between">
@@ -52,7 +52,7 @@ import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 import xwDate from '@/components/xw-date/xw-date.vue';
-
+import { dateFormat, numberFormat } from '@/utils/tools.js'
 export default {
 	components: {
 		uniLoadMore,
@@ -103,6 +103,9 @@ export default {
 		}, 1000);
 	},
 	methods: {
+		numberFilter(number) {
+			return numberFormat(number)
+		},
 		handle_data_sub(val) {
 			console.log(val);
 			this.search_startDate = val.search_startDate;

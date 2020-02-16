@@ -34,6 +34,7 @@ import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { getinventory } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
+import { dateFormat, numberFormat } from '@/utils/tools.js'
 export default {
 	components: {
 		uniList,
@@ -55,6 +56,9 @@ export default {
 		
 	},
 	methods: {
+		numberFilter(number) {
+			return numberFormat(number)
+		},
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},
