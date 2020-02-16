@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell title="费用类型" isLink url="./type/type" params="name=type" isIcon :icon="{ type: 'c-type', color: '#c4c6cb', 'size': 20 }">
+						<cu-cell title="费用类型" isLink url="./type/type" params="name=type" isIcon :icon="{ type: 'c-type', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.feetype.disVerMessage" :verify="verify.feetype.message">
 							<view class="h50 fc" slot="footer">{{reqData.feetype}}</view>
 						</cu-cell>
 					</cu-panel>
@@ -110,6 +110,7 @@
 			let curPage = pages[pages.length - 1]
 			if (curPage.data.rData) {
 				this.reqData.feetype = curPage.data.rData
+				this.handleVerify('feetype')
 			}
 		},
 		computed: {
@@ -169,11 +170,6 @@
 					this.reqData.amount = floatFormat(this.reqData.amount)
 				}
 				this.handleVerify('amount')
-			},
-			handleSelectType() {
-				console.log("###")
-				this.$refs.picker.open()
-				this.handleVerify('feetype')
 			},
 			handleSelectCashAccount(val) {
 				this.reqData.payaccountid = val.cashaccountid
