@@ -194,6 +194,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
 var _common = __webpack_require__(/*! @/config/common.js */ 56);
 var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = function cuPanel() {return __webpack_require__.e(/*! import() | components/custom/cu-panel */ "components/custom/cu-panel").then(__webpack_require__.bind(null, /*! @/components/custom/cu-panel.vue */ 613));};var cuCell = function cuCell() {return __webpack_require__.e(/*! import() | components/custom/cu-cell */ "components/custom/cu-cell").then(__webpack_require__.bind(null, /*! @/components/custom/cu-cell.vue */ 620));};var uniList = function uniList() {return __webpack_require__.e(/*! import() | components/uni-list/uni-list */ "components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/components/uni-list/uni-list.vue */ 627));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-list-item/uni-list-item */ "components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-list-item/uni-list-item.vue */ 634));};var _default =
 {
@@ -210,6 +216,7 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
       reqData: {
         order: {
           billtype: 2,
+          isOnCredit: 0,
           accountid: '',
           accountName: '',
           contactunitid: '',
@@ -279,6 +286,10 @@ var _common2 = __webpack_require__(/*! @/api/common.js */ 22);var cuPanel = func
           title: error });
 
       });
+    },
+    handleCreditChange: function handleCreditChange(val) {
+      console.log(val);
+      this.reqData.order.isOnCredit = val.detail.value;
     },
     handleSelectCashAccount: function handleSelectCashAccount(val) {
       if (this.businessType == 0) {
