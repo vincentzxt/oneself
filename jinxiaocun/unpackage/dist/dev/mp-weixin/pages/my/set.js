@@ -428,7 +428,8 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         success: function success(uploadFileRes) {
           var res = JSON.parse(uploadFileRes.data);
           if (uploadFileRes.statusCode == 200 && res.returnCode == '0000') {
-            _this2.reqData.companylogourl = _common.api.baseUrl + res.data.linkUrl;
+            _this2.reqData.companylogourl_http = _common.api.baseUrl + res.data.linkUrl;
+            _this2.reqData.companylogourl = res.data.linkUrl;
           } else {
             _this2.$api.msg(res.returnMessage);
           }
@@ -447,6 +448,9 @@ var _cuLoading = _interopRequireDefault(__webpack_require__(/*! @/components/cus
         if (res.status == 200 && res.data.returnCode == '0000') {
           console.log(res.data.data);
           _this3.reqData = res.data.data;
+          if (res.data.data.companylogourl != '') {
+            _this3.reqData.companylogourl_http = _common.api.baseUrl + res.data.data.companylogourl;
+          }
         } else {
           _this3.$api.msg(res.data.returnMessage);
         }

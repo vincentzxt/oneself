@@ -244,7 +244,7 @@ var _tools = __webpack_require__(/*! @/utils/tools.js */ 66);function _interopRe
       order_name: 'qty',
       order_type: 1,
       search_value: '',
-      orderList: [{ name: '数量', value: 'qty' }, { name: '库龄', value: 'maxage' }] };
+      orderList: [{ name: '数量', value: 'qty' }] };
 
   },
   onLoad: function onLoad() {this.loadData();},
