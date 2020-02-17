@@ -142,6 +142,7 @@ export default {
 					this.pageIndex = 0;
 					this.TabCur=1;
 					this.dataList= [];
+					console.log("点击了");
 					this.loadData();
 					break;
 				default:
@@ -179,7 +180,6 @@ export default {
                                                 title: "支付成功!"
                                             });
 											this.tabChange(1);
-											this.loadData();
 											uni.$emit('changecompany',{'msg':'company变化了'});
 											
                                         },

@@ -75,10 +75,11 @@ export default {
 	},
 	onLoad() {
 		uni.$on('changecompany', this.loadInit)
-		this.loadInit();
+		
 	},
 	onShow() {
-		//this.login_status = this.$api.login_status();
+		this.loadInit();
+		this.login_status = this.$api.login_status();
 		//this.loadData();
 	},
 	onUnload(){

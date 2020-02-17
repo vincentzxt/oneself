@@ -119,7 +119,7 @@
 .login{
 	// padding-top:100px;
 	// .head{font-size: 22px;padding: 20px;}
-	font-size: 28upx;
+	font-size: 36upx;
 	.tou{text-align: center;}
 	.tou img{width: 64px;height: 64px;}
 	.con{padding: 24upx 16upx;}

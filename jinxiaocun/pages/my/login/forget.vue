@@ -179,7 +179,7 @@ export default {
 .login {
 	// padding-top:100px;
 	// .head{font-size: 22px;padding: 20px;}
-	font-size: $uni-font-size-min;
+	font-size: 36upx;
 	.tou {
 		text-align: center;
 	}
