@@ -17,6 +17,7 @@ export const api = {
 	QueryInit:'/api/StkStock/QueryInit',
 	QueryInventory:'/api/StkStock/QueryInventory',
 	token: '/api/Token',
+	tokenRefresh:'/api/BseUser/RefreshToken',
 	login: '/api/BseUser/Login',
 	ChangePassword:'/api/BseUser/ChangePassword',
 	ResetPassword:'/api/BseUser/ResetPassword',
@@ -41,6 +42,7 @@ export const api = {
 	GetCurrentActivity:'/api/SysActivity/GetCurrentActivity',
 	GetMyPromotIntegralList :'/api/BseUser/GetMyPromotIntegralList',
 	GetSmsCode:'/api/SysMessage/SendVerificationCode',
-	GetProductList:'/api/SysProduct/GetProductList'
+	GetProductList:'/api/SysProduct/GetProductList',
+	Orderypay:'/api/WeChartPay/OrderPay'
 	
 }

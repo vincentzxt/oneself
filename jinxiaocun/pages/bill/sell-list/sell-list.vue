@@ -11,11 +11,11 @@
 				
 			</view>
 			<view class="total-item">
-				<text>{{ totalAmount }}</text>
+				<text>{{ numberFilter(totalAmount) }}</text>
 				<text>总金额</text>
 			</view>
 			<view class="total-item">
-				<text>{{ totalGrossProfit }}</text>
+				<text>{{ numberFilter(totalGrossProfit) }}</text>
 				<text>毛利</text>
 			</view>
 		</view>
@@ -36,7 +36,7 @@
 							<text>下单日期：{{ item.createtime }}</text>
 						</view>
 						<view class="item-content2">
-							<text>总金额：¥{{ item.amount }}</text>
+							<text>总金额：¥{{ numberFilter(item.amount) }}</text>
 						</view>
 					</view>
 				</view>
@@ -58,6 +58,7 @@ import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 import xwDate from '@/components/xw-date/xw-date.vue';
+import { dateFormat, numberFormat } from '@/utils/tools.js'
 
 export default {
 	components: {
@@ -88,7 +89,7 @@ export default {
 			dataList: [],
 			search_startDate: nowDate,
 			search_endDate: nowDate,
-			order_name: '',
+			order_name: 'createtime',
 			order_type: 1,
 			search_value: '',
 			orderList: [{ name: '销售日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
@@ -110,6 +111,9 @@ export default {
 		}, 1000);
 	},
 	methods: {
+		numberFilter(number) {
+			return numberFormat(number)
+		},
 		handle_data_sub(val) {
 			console.log(val);
 			this.search_startDate = val.search_startDate;
@@ -164,11 +168,13 @@ export default {
 							this.loadmore = 'more';
 						}
 					} else {
-						(this.loadmore = 'more'), this.$api.msg(res.data.returnMessage);
+						this.loadmore = 'more';
+						 this.$api.msg(res.data.returnMessage);
 					}
 				})
 				.catch(error => {
-					(this.loadmore = 'more'), this.$refs.loading.close();
+					this.loadmore = 'more';
+					this.$refs.loading.close();
 					this.$api.msg('请求失败fail');
 				});
 		}

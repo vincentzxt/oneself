@@ -8,7 +8,7 @@
 				<uni-list>
 					<uni-list-item title="订单编号" :show-arrow="false" show-text="true" :content="dataList.initorderid"></uni-list-item>
 					<uni-list-item title="下单时间" :show-arrow="false" show-text="true" :content="dataList.createtime"></uni-list-item>
-					<uni-list-item title="总金额" :show-arrow="false" show-text="true" :content="dataList.totalAmount"></uni-list-item>				</uni-list>
+					<uni-list-item title="总金额" :show-arrow="false" show-text="true" :content="numberFilter(dataList.totalAmount)"></uni-list-item>				</uni-list>
 				<view v-for="(item, index) in dataList.detailModels" :key="index" class="detail-item">
 					<view class="list-between">
 						<view class="item-content">
@@ -20,7 +20,7 @@
 							<text>数量：{{ item.qty }}{{ item.unit }}</text>
 						</view>
 						<view class="item-content3">
-							<text>金额：¥{{ item.amount }}</text>
+							<text>金额：¥{{ numberFilter(item.amount) }}</text>
 						</view>
 					</view>
 				</view>
@@ -35,6 +35,7 @@ import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { getinit } from '@/api/bills.js';
 import { api } from '@/config/common.js';
+import { dateFormat, numberFormat } from '@/utils/tools.js'
 import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
 	components: {
@@ -57,6 +58,9 @@ export default {
 		
 	},
 	methods: {
+		numberFilter(number) {
+			return numberFormat(number)
+		},
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},

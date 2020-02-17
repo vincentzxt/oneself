@@ -10,7 +10,7 @@
 				<text>总数量</text>
 			</view>
 			<view class="total-item">
-				<text¥{{ totalAmount }}</text>
+				<text>¥{{ numberFilter(totalamount) }}</text>
 				<text>总金额</text>
 			</view>
 		</view>
@@ -22,15 +22,20 @@
 							<text>{{ item.productname }}</text>
 						</view>
 						<view class="item-content2">
-							<text>库龄：{{ item.totalamount }}</text>
+							<text>库龄：{{ item.maxage }}天</text>
 						</view>
 					</view>
 					<view class="list-between">
 						<view class="item-content">
 							<text>主计量：{{ item.qty }}{{item.unit}}</text>
 						</view>
-						<view class="item-content2">
+						<view class="item-content2" v-if="item.displayqty!=''">
 							<text>辅助计量：{{ item.displayqty}}</text>
+						</view>
+					</view>
+					<view class="list-between">
+						<view class="item-content">
+							<text>金额：¥{{ numberFilter(item.totalamount) }}</text>
 						</view>
 					</view>
 				</view>
@@ -52,6 +57,7 @@ import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
 import xwDate from "@/components/xw-date/xw-date.vue";
+import { dateFormat, numberFormat } from '@/utils/tools.js';
 
 export default {
 	components: {
@@ -76,15 +82,15 @@ export default {
 			title: '库存列表',
 			searchName:'商品名称',
 			billtype:1,
-			totalAmount:'0.00',
+			totalamount:'0.00',
 			totalRecords:'0',
 			dataList: [],
 			search_startDate:nowDate,
 			search_endDate:nowDate,
-			order_name:'',
+			order_name:'qty',
 			order_type:1,
 			search_value:'',
-			orderList:[{name:'总金额',value:'totalamount'},{name:'库龄',value:'amount'},{name:'金数量',value:'amount'}]
+			orderList:[{name:'数量',value:'qty'},{name:'库龄',value:'maxage'}]
 		};
 	},
 	onLoad() {this.loadData();},
@@ -99,6 +105,9 @@ export default {
 	        }, 1000);
 	    },
 	methods: {
+		numberFilter(number) {
+			return numberFormat(number)
+		},
 		handle_data_sub(val){
 			console.log(val);
 			this.search_startDate = val.search_startDate;
@@ -147,7 +156,7 @@ export default {
 							return;
 						}else{
 							this.dataList =this.dataList.concat(res.data.data.resultList);
-							this.totalAmount = res.data.data.totalAmount;
+							this.totalamount = res.data.data.totalamount;
 							this.totalRecords = res.data.data.pageInfo.totalRecords;
 							this.pageIndex = this.pageIndex+1 ;
 							this.loadmore = "more"

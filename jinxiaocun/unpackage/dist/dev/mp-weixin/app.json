@@ -26,23 +26,18 @@
     "pages/bill/bill",
     "pages/bill/stock-list/stock-list",
     "pages/data/data",
-    "pages/data/sale/sale",
     "pages/data/return/return",
     "pages/my/my",
     "pages/my/login/login",
     "pages/my/set",
     "pages/my/login/reg",
     "pages/my/login/forget",
-    "pages/my/account/accountadd",
     "pages/my/user/user",
     "pages/my/user/useradd",
     "pages/my/user/useredit",
     "pages/my/account/accountlist",
     "pages/my/login/editPassword",
-    "pages/my/givetime",
     "pages/my/share/share",
-    "pages/my/account/accountedit",
-    "pages/my/account/accountdetail",
     "pages/bill/sell-list/sell-list",
     "pages/bill/sell-list/sell-detail",
     "pages/bill/purchase-list/purchase-list",
@@ -98,10 +93,12 @@
       }
     ]
   },
+  "navigateToMiniProgramAppIdList": [
+    "wx9074de28009e1111"
+  ],
   "usingComponents": {
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  },
-  "sitemapLocation": "sitemap65.json"
+  }
 }

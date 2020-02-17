@@ -193,8 +193,8 @@ var _common = __webpack_require__(/*! @/config/common.js */ 56);var uniList = fu
       console.log("eee");
       uni.navigateToMiniProgram({
         appId: 'wx9074de28009e1111',
-        path: '',
-        // path: 'pages/profile/profile?nickname=%E4%B8%80%E6%A0%BC%E4%BA%91%E5%8D%95&amp;objectUid=7392650964',
+        // path:'',
+        path: 'pages/profile/profile?nickname=%E4%B8%80%E6%A0%BC%E4%BA%91%E5%8D%95&amp;objectUid=7392650964',
         extraData: {},
 
         success: function success(res) {

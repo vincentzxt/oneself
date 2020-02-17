@@ -5,7 +5,7 @@
 		</view>
 		<view class="main">
 			<!-- <view class="uni-title">分享内容</view> -->
-			<view class="uni-textarea"><textarea class="textarea" v-model="shareText" disabled="true" /></view>
+			<view class="uni-textarea"><textarea v-model="shareText" auto-height="true" disabled="true" /></view>
 			<!-- <view class="uni-title">分享图片：</view> -->
 			<view class="uni-uploader" style="padding:15upx; background:#FFF;"><image class="uni-uploader__img" v-if="image" :src="image"></image></view>
 			<!-- #ifdef MP -->

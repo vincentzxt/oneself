@@ -1,5 +1,6 @@
 import axios from '@/js-sdk/uni-axios'
 import { api } from '@/config/common.js'
+import {uniPopup} from '@/components/uni-popup/uni-popup.vue';
 
 // 创建自定义接口服务实例
 const http = axios.create({
@@ -42,6 +43,7 @@ http.interceptors.response.use(response => {
     // }
 	// 
 	const url =response.config.url;
+	
 	if(url.includes("GetUserInfo")== false){
 		if (response.status == 200){
 			if(response.data.returnCode == '401'){		
@@ -52,6 +54,31 @@ http.interceptors.response.use(response => {
 			if(response.data.returnCode == '402'){
 				uni.reLaunch({
 					url: '/pages/my/login/login'
+				});
+			}
+			
+			if(response.data.returnCode == '403'){
+				// console.log("检测"); 
+				// uni.reLaunch({
+				// 	url: '/pages/my/recharge/recharge'
+				// });
+				// this.$refs.popup.open();
+				uni.showModal({
+					title: '续费提醒',
+					content:'您的服务已到期，购买继续使用!',
+					confirmText:'续费',
+					showCancel:false,
+					success: e => {
+						if (e.confirm) {
+							try {
+								setTimeout(() => {
+								uni.reLaunch({
+									url: '/pages/my/recharge/recharge'
+								});
+								}, 300);
+							} catch (e) {}
+						}
+					}
 				});
 			}
 		}

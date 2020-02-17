@@ -23,8 +23,6 @@
 		</view>
 		<uni-list v-if="dataList.ismain===1">
 			<uni-list-item title="员工管理" thumb="../../static/my/icon/list.png" @tap="handleUserManage()" :show-arrow="true"></uni-list-item>
-			<!-- 			<uni-list-item title="员工列表"  thumb="../../static/my/icon/list.png"></uni-list-item>
- -->
 			<uni-list-item title="收款账号" thumb="../../static/my/icon/bankcard.png" @tap="handleBankSet()"></uni-list-item>
 			<uni-list-item title="购买/续费" thumb="../../static/my/icon/recharge.png" @tap="handleRecharge()"></uni-list-item>
 		</uni-list>
@@ -76,8 +74,8 @@ export default {
 		};
 	},
 	onLoad() {
-		uni.$on('changecompany', this.loadData)
-		this.loadData();
+		uni.$on('changecompany', this.loadInit)
+		this.loadInit();
 	},
 	onShow() {
 		//this.login_status = this.$api.login_status();
@@ -87,6 +85,10 @@ export default {
 		uni.$off('changecompany')
 	},
 	methods: {
+		loadInit(){
+			this.tokenRefresh();
+			this.loadData();
+		},
 		handleRefreshPage() {
 			console.log('refreshpage');
 		},
@@ -212,6 +214,30 @@ export default {
 			uni.navigateTo({
 				url: '../my/set'
 			});
+		},
+		tokenRefresh() {
+			const userInfo = uni.getStorageSync('userInfo');
+			tokenpost(api.tokenRefresh)
+				.then(res => {
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						console.log(userInfo.token);
+						let refresh_userInfo = {
+							token: res.data.data.token,
+							exp: res.data.data.exp,
+							userId: res.data.data.userId
+						};
+						uni.setStorage({
+							key: 'userInfo',
+							data: refresh_userInfo,
+							success: function() {}
+						});
+					} else {
+						//this.$api.msg('token刷新失败');
+					}
+				})
+				.catch(error => {
+					//this.$api.msg('token刷新失败');
+				});
 		},
 		loadData() {
 			this.$refs.loading.open()
