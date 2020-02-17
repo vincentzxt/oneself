@@ -90,7 +90,7 @@ export default {
 			order_name:'qty',
 			order_type:1,
 			search_value:'',
-			orderList:[{name:'数量',value:'qty'},{name:'库龄',value:'maxage'}]
+			orderList:[{name:'数量',value:'qty'}]
 		};
 	},
 	onLoad() {this.loadData();},

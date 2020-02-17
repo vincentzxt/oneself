@@ -7,7 +7,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 						<cu-cell title="公司Logo">
-							<view class="h50 fc" slot="footer"><image class="portrait" :src="reqData.companylogourl || '/static/image/logo.png'" @tap="upload"></image></view>
+							<view class="h50 fc" slot="footer"><image class="portrait" :src="reqData.companylogourl_http || '/static/image/logo.png'" @tap="upload"></image></view>
 							
 						</cu-cell>
 						<cu-cell title="商户名称">
@@ -112,7 +112,8 @@ export default {
 				success: uploadFileRes => {
 					var res = JSON.parse(uploadFileRes.data);
 					if (uploadFileRes.statusCode == 200 && res.returnCode == '0000') {
-					  this.reqData.companylogourl= api.baseUrl+res.data.linkUrl;
+					  this.reqData.companylogourl_http= api.baseUrl+res.data.linkUrl;
+					  this.reqData.companylogourl= res.data.linkUrl;
 					} else {
 						this.$api.msg(res.returnMessage);
 					}
@@ -131,6 +132,9 @@ export default {
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						console.log(res.data.data);
 						this.reqData = res.data.data;
+						if(res.data.data.companylogourl!=''){
+							this.reqData.companylogourl_http = api.baseUrl+res.data.data.companylogourl;
+						}
 					} else {
 						this.$api.msg(res.data.returnMessage);
 					}
