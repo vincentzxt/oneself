@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "wuc-tab": "/components/wuc-tab/wuc-tab",
+    "uni-icon": "/components/uni-icon/uni-icon"
+  }
+}

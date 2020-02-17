@@ -230,8 +230,9 @@
 											this.reqData.contactunitname = val.value
 											this.reqData.telephone = ' '
 											this.currentUnitTag = true
-											this.$refs.sc.cancel()
+											this.handleVerify('contactunitname')
 											this.searchCurrentUnit = false
+											this.$refs.sc.cancel()
 						        } else if (res.cancel) {
 											this.searchCurrentUnit = false
 						        }
