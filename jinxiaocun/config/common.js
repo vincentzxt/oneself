@@ -1,6 +1,8 @@
 export const api = {
 	// baseUrl: 'https://test.saas.yunmengzhu.com',
 	baseUrl:'https://saas.yunmengzhu.com',
+	//正式 wxa9c130058c8210a1 测试:
+	
 	contactUnit: '/api/ContactUnit',
 	baseArea: '/api/BseArea',
 	baseProduct: '/api/BseProduct',
