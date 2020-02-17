@@ -8,6 +8,12 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
+						<cu-cell title="是否赊账">
+							<radio-group class="h50 fc" slot="footer" @change="handleCreditChange">
+								<radio color="#2db7f5" value=0 :checked="reqData.order.isOnCredit == 0">否</radio>
+								<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
+							</radio-group>
+						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit"
 							title="退款帐号">
 							<view v-if="businessType == 0" class="cash-account-list fc" slot="footer">
@@ -75,6 +81,7 @@
 				reqData: {
 					order: {
 						billtype: 2,
+						isOnCredit: 0,
 						accountid: '',
 						accountName: '',
 						contactunitid: '',
@@ -144,6 +151,10 @@
 						title: error
 					})
 				})
+			},
+			handleCreditChange(val) {
+				console.log(val)
+				this.reqData.order.isOnCredit = val.detail.value
 			},
 			handleSelectCashAccount(val) {
 				if (this.businessType == 0) {
