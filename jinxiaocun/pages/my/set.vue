@@ -7,7 +7,10 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
 						<cu-cell title="公司Logo">
-							<view class="h50 fc" slot="footer"><image class="portrait" :src="reqData.companylogourl_http || '/static/image/logo.png'" @tap="upload"></image></view>
+							<view class="h80 fc" slot="footer">
+								 <image class="portrait" :src="reqData.companylogourl_http || '/static/image/logo.png'" @tap="chooseImage()"></image>
+								<!-- <image class="portrait" :src="reqData.companylogourl_http || '/static/image/logo.png'" @tap="upload"></image> -->
+								</view>
 							
 						</cu-cell>
 						<cu-cell title="商户名称">
@@ -28,7 +31,9 @@
 						</cu-panel>
 			</scroll-view>
 		</view>
-		 <image-cropper :src="tempFilePath" @confirm="confirm"  @cancel="cancel"></image-cropper>
+		        <kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="true" :width="200" :height="200"></kps-image-cutter>
+
+		 <!-- <image-cropper :src="tempFilePath" @confirm="confirm"  @cancel="cancel"></image-cropper> -->
 
 		<cu-loading ref="loading"></cu-loading>
 		<view class="footer"><button class="footer-btn" style="background-color: #2d8cf0;"  :loading="loading"  type="primary" @click="handleSubmit">提交</button></view>
@@ -43,7 +48,8 @@ import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { post, tokenpost } from '@/api/user.js';
 import { api } from '@/config/common.js';
-import ImageCropper from '@/components/invinbg-image-cropper/invinbg-image-cropper.vue';
+// import ImageCropper from '@/components/invinbg-image-cropper/invinbg-image-cropper.vue';
+import kpsImageCutter from "@/components/ksp-image-cutter/ksp-image-cutter.vue";
 import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
 	components: {
@@ -52,13 +58,16 @@ export default {
 		cuCellGroup,
 		uniList,
 		uniListItem,
-		ImageCropper
+		// ImageCropper,
+		kpsImageCutter
 	},
 	data() {
 		return {
 			tempFilePath: '',
 			cropFilePath: '',
 			loading:false,
+			 url: "",
+                path: "",
 			reqData: {
 				companylogourl: '',
 				companyname: '',
@@ -78,6 +87,48 @@ export default {
 		this.loadData();
 	},
 	methods: {
+		
+		chooseImage() {
+                uni.chooseImage({
+                    success: (res) => {
+                        // 设置url的值，显示控件
+                        this.tempFilePath = res.tempFilePaths[0];
+						this.url = res.tempFilePaths[0];
+                    }
+                });
+            },
+            onok(ev) {
+                this.tempFilePath = ev.path;
+				const token = uni.getStorageSync('userInfo').token;
+			const header = {
+				'content-type': 'multipart/form-data',
+				Authorization: 'Bearer ' + token
+			};
+			uni.uploadFile({
+				url: api.baseUrl + api.UploadImg, //仅为示例，非真实的接口地址
+				filePath: this.tempFilePath,
+				name: 'file',
+				header: header,
+				formData: {},  
+				success: uploadFileRes => {
+					var res = JSON.parse(uploadFileRes.data);
+					if (uploadFileRes.statusCode == 200 && res.returnCode == '0000') {
+					  this.reqData.companylogourl_http= api.baseUrl+res.data.linkUrl;
+					  this.reqData.companylogourl= res.data.linkUrl;  
+					} else {
+						this.$api.msg(res.returnMessage);
+					}
+					
+				}
+			});
+             this.url = "";   
+            },
+            oncancle() {
+                // url设置为空，隐藏控件
+                this.tempFilePath = "";
+				 this.url = "";
+            },
+			
 		handleNavbarClickLeft() {
 			uni.navigateBack({
 				delta: 1
@@ -215,6 +266,9 @@ export default {
 .h50{
 	height: 72upx;
 		}
+.h80{
+	height: 100upx;
+		}		
 .fc {
 	display: flex;
 	align-items: center;
