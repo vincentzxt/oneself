@@ -27,11 +27,11 @@
 							:showArrow="false"
 							showIcon
 							:icon="{type: 'delete', color:'#f4613d', size: '25'}"
-							:note="['数量：'+item.qty, '计量单位：'+item.unit, '成本价：'+item.purchaseunitprice]"
+							:note="item.ismainunit ? ['数量：'+item.qty, '计量单位：'+item.unit, '成本价：'+item.purchaseunitprice] : ['数量：'+item.assistunitqty, '计量单位：'+item.unit, '成本价：'+item.assispurchaseunitprice]"
 							v-for="(item, index) in reqData.orderlist"
 							:key="index"
-							@clickContent="handleShowPopup(item)"
-							@clickFt="handleDelete(item)">
+							@clickContent="handleShowPopup(index, item)"
+							@clickFt="handleDelete(index, item)">
 						</uni-list-item>
 					</uni-list>
 				</view>
@@ -42,8 +42,16 @@
 		</view>
 		<uni-popup ref="popup" type="bottom">
 			<cu-panel>
-				<cu-cell title="数量" isLastCell>
-					<uni-number-box slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleqtyChange"></uni-number-box>
+				<cu-cell title="计量单位">
+					<radio-group v-if="curSelectPruduct.isMultiUnit" class="h50 fc" slot="footer" @change="handleUnitChange">
+						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
+						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
+					</radio-group>
+					<view v-else class="h50 fc" slot="footer">{{curSelectPruduct.mainUnit}}</view>
+				</cu-cell>
+				<cu-cell title="数量">
+					<uni-number-box v-if="curSelectPruduct.ismainunit" slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.qty" @change="handleQtyChange"></uni-number-box>
+					<uni-number-box v-else slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.assistunitqty" @change="handleQtyChange"></uni-number-box>
 					<view slot="footer2">
 						<view class="popup-qty-items">
 							<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
@@ -53,15 +61,9 @@
 						</view>
 					</view>
 				</cu-cell>
-				<cu-cell title="计量单位">
-					<radio-group v-if="curSelectPruduct.isMultiUnit" class="h50 fc" slot="footer" @change="handleUnitChange">
-						<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
-						<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
-					</radio-group>
-					<view v-else class="h50 fc" slot="footer">{{curSelectPruduct.mainUnit}}</view>
-				</cu-cell>
-				<cu-cell isLastCell title="成本价">
-					<input class="h50" slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
+				<cu-cell isLastCell title="成本价" isLastCell>
+					<input v-if="curSelectPruduct.ismainunit" class="h50" slot="footer" type="digit" v-model="curSelectPruduct.purchaseunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
+					<input v-else class="h50" slot="footer" type="digit" v-model="curSelectPruduct.assispurchaseunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
 				</cu-cell>
 			</cu-panel>
 			<button style="background-color: #2d8cf0;" type="primary" @tap="handleEdit">确定</button>
@@ -106,6 +108,7 @@
 				showModal: false,
 				title: '期初',
 				curSelectPruduct: {},
+				curSelectPruductIndex: -1,
 				checkedUnit: 0,
 				verify: {
 					orderList: { okVerify: false, disVerMessage: false, message: '至少选择一个产品' }
@@ -132,8 +135,11 @@
 				})
 			},
 			handlePriceBlur() {
-				if (this.curSelectPruduct.salesunitprice) {
-					this.curSelectPruduct.salesunitprice = floatFormat(this.curSelectPruduct.salesunitprice)
+				if (this.curSelectPruduct.purchaseunitprice) {
+					this.curSelectPruduct.purchaseunitprice = floatFormat(this.curSelectPruduct.purchaseunitprice)
+				}
+				if (this.curSelectPruduct.assispurchaseunitprice) {
+					this.curSelectPruduct.assispurchaseunitprice = floatFormat(this.curSelectPruduct.assispurchaseunitprice)
 				}
 			},
 			handleSearchFocusProduct() {
@@ -176,56 +182,61 @@
 				this.$set(this.curSelectPruduct, 'subUnit', val.subunit)
 				this.$set(this.curSelectPruduct, 'purchaseunitprice', val.price)
 				this.$set(this.curSelectPruduct, 'qty', 1)
+				this.$set(this.curSelectPruduct, 'assispurchaseunitprice', '')
+				this.$set(this.curSelectPruduct, 'assistunitqty', 1)
 				this.$set(this.curSelectPruduct, 'ismainunit', 1)
 				this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple)
 				this.$set(this.curSelectPruduct, 'isMultiUnit', val.isMultiUnit)
-				let isExists = false
-				for (let item of this.reqData.orderlist) {
-					if (item.productid == this.curSelectPruduct.productid) {
-						item.qty ++
-						this.curSelectPruduct.qty = item.qty
-						isExists = true
-					}
-				}
-				if (!isExists) {
-					this.reqData.orderlist.push(cloneObj(this.curSelectPruduct))
-				}
+				this.reqData.orderlist.push(cloneObj(this.curSelectPruduct))
+				
 				this.productListTag = true
 				this.searchProduct = false
 				this.$refs.sp.cancel()
 				this.handleVerify('orderList')
 				this.$nextTick(function(){
-					this.$refs.popup.open()
+					this.handleShowPopup(this.reqData.orderlist.length - 1, this.curSelectPruduct)
 				})
 			},
-			handleShowPopup(val) {
-				this.curSelectPruduct = cloneObj(val)
+			handleShowPopup(index, item) {
+				this.curSelectPruductIndex = index
+				this.curSelectPruduct = cloneObj(item)
 				this.$nextTick(function(){
 					this.$refs.popup.open()
 				})
 			},
 			handleEdit() {
-				for (let item of this.reqData.orderlist) {
-					if (item.productid == this.curSelectPruduct.productid) {
-						item.qty = this.curSelectPruduct.qty
-						item.unit = this.curSelectPruduct.unit
-						item.ismainunit = this.curSelectPruduct.ismainunit
-						item.purchaseunitprice = this.curSelectPruduct.purchaseunitprice
-					}
+				let item = this.reqData.orderlist[this.curSelectPruductIndex]
+				item.ismainunit = this.curSelectPruduct.ismainunit
+				item.unit = this.curSelectPruduct.unit
+				if (this.curSelectPruduct.ismainunit) {
+					item.qty = this.curSelectPruduct.qty
+					item.purchaseunitprice = this.curSelectPruduct.purchaseunitprice
+				} else {
+					item.assistunitqty = this.curSelectPruduct.assistunitqty
+					item.assispurchaseunitprice = this.curSelectPruduct.assispurchaseunitprice
 				}
+				this.curSelectPruductIndex = -1
 				this.curSelectPruduct = {}
 				this.$nextTick(function(){
 					this.$refs.popup.close()
 				})
 			},
-			handleqtyChange(val) {
+			handleQtyChange(val) {
 				if (this.curSelectPruduct) {
-					this.curSelectPruduct.qty = val
+					if (this.curSelectPruduct.ismainunit) {
+						this.curSelectPruduct.qty = val
+					} else {
+						this.curSelectPruduct.assistunitqty = val
+					}
 				}
 			},
 			handleSelectQty(val) {
 				if (this.curSelectPruduct) {
-					this.curSelectPruduct.qty = val
+					if (this.curSelectPruduct.ismainunit) {
+						this.curSelectPruduct.qty = val
+					} else {
+						this.curSelectPruduct.assistunitqty = val
+					}
 				}
 			},
 			handleUnitChange(val) {
@@ -237,10 +248,8 @@
 					this.curSelectPruduct.ismainunit = 0
 				}
 			},
-			handleDelete(val) {
-				this.reqData.orderlist = this.reqData.orderlist.filter((item) => {
-					return item.productid !== val.productid
-				})
+			handleDelete(index, item) {
+				this.reqData.orderlist.splice(index, 1)
 				this.handleVerify('orderList')
 			},
 			handleVerify(val) {
@@ -268,6 +277,15 @@
 			},
 			handleSubmit() {
 				if (this.checkVerify()) {
+					this.reqData.orderlist = this.reqData.orderlist.map((item)=>{
+						if (!item.purchaseunitprice) {
+							item.purchaseunitprice = '0.00'
+						}
+						if (!item.assispurchaseunitprice) {
+							item.assispurchaseunitprice = '0.00'
+						}
+						return item
+					})
 					this.$refs.loading.open()
 					create(api.stkStock, this.reqData).then(res => {
 						this.$refs.loading.close()
@@ -297,18 +315,6 @@
 						})
 					})
 				}
-			}
-		},
-		watch: {
-			reqData: {
-				handler(val) {
-					if (val.orderlist.length > 0) {
-						this.disableSubmit = false
-					} else {
-						this.disableSubmit = true
-					}
-				},
-				deep: true
 			}
 		}
 	}

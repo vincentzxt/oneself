@@ -15,7 +15,7 @@
 				</view>
 				<view style="margin-top:5px">
 					<cu-panel>
-						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.contactunitname.disVerMessage" :verify="verify.contactunitname.message">
+						<cu-cell :isLastCell="!reqData.contactunitname" title="搜索单位" isIcon :icon="{ type: 'c-search', color: '#c4c6cb', 'size': 20 }">
 							<cu-search-bar style="width:100%;" slot="footer" ref="sc" @input="handleSearchCurrentUnit" placeholder="速查码/名称/电话" cancelButton="none" @focus="handleSearchFocusCurrentUnit" @clear="handleSearchClearCurrentUnit"></cu-search-bar>
 						</cu-cell>
 						<cu-cell v-if="!searchCurrentUnit && reqData.contactunitname" title="单位名称" isSub isLastCell>
@@ -96,7 +96,6 @@
 				cashAccountDict: [],
 				verify: {
 					feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
-					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' }
 				},
 				currentUnitTag: false
@@ -216,7 +215,6 @@
 				this.currentUnitTag = true
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
-				this.handleVerify('contactunitname')
 			},
 			handleVerify(val) {
 				switch(val) {
@@ -227,15 +225,6 @@
 						} else {
 							this.verify.feetype.okVerify = true
 							this.verify.feetype.disVerMessage = false
-						}
-						break
-					case 'contactunitname':
-						if (!this.reqData.contactunitname) {
-							this.verify.contactunitname.okVerify = false
-							this.verify.contactunitname.disVerMessage = true
-						} else {
-							this.verify.contactunitname.okVerify = true
-							this.verify.contactunitname.disVerMessage = false
 						}
 						break
 					case 'amount':
