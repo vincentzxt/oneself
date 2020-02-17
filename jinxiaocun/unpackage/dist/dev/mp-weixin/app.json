@@ -10,7 +10,8 @@
     "pages/index/current-unit/edit/edit",
     "pages/index/product/product",
     "pages/index/product/add/add",
-    "pages/index/product/edit/edit",
+    "pages/index/product/edit/edit0",
+    "pages/index/product/edit/edit1",
     "pages/index/product/type/type",
     "pages/index/product/unit/unit",
     "pages/index/receipt/receipt",
@@ -100,5 +101,6 @@
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  }
+  },
+  "sitemapLocation": "sitemap29.json"
 }

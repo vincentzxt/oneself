@@ -34,7 +34,10 @@
 			"path": "pages/index/product/add/add"
 		},
 		{
-			"path": "pages/index/product/edit/edit"
+			"path": "pages/index/product/edit/edit0"
+		},
+		{
+			"path": "pages/index/product/edit/edit1"
 		},
 		{
 			"path": "pages/index/product/type/type"

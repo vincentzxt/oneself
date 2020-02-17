@@ -26,9 +26,6 @@
   position: relative;
   padding: 10px 0px;
 }
-.cu-cell-disabled.data-v-5f2c1378 {
-    color: #808695;
-}
 .cu-cell.data-v-5f2c1378::after {
     content: '';
     position: absolute;
@@ -49,6 +46,9 @@
 }
 .cu-cell-last.data-v-5f2c1378::after {
     display: none;
+}
+.cu-cell-disabled.data-v-5f2c1378 {
+    color: #808695;
 }
 .cu-cell-wrap.data-v-5f2c1378 {
     display: -webkit-box;
