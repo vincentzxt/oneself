@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view> 
 		<view :class="[title!='null' ? 'filter':'filter-date-null']">
 			<view class="filter-left" @tap="date_open" v-if="title!='null'">
 				<!-- <view style="padding-right: 24upx;"><uni-icon type="arrowup" size="15"></uni-icon></view> -->

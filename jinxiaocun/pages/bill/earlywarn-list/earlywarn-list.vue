@@ -81,7 +81,7 @@ export default {
 			dataList: [],
 			search_startDate: nowDate,
 			search_endDate: nowDate,
-			order_name: '',
+			order_name: 'createtime',
 			order_type: 1,
 			search_value: '',
 			orderList: [{ name: '销售日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
@@ -159,11 +159,13 @@ export default {
 							this.loadmore = 'more';
 						}
 					} else {
-						(this.loadmore = 'more'), this.$api.msg(res.data.returnMessage);
+						this.loadmore = 'more';
+						this.$api.msg(res.data.returnMessage);
 					}
 				})
 				.catch(error => {
-					(this.loadmore = 'more'), this.$refs.loading.close();
+					this.loadmore = 'more';
+					this.$refs.loading.close();
 					this.$api.msg('请求失败fail');
 				});
 		}

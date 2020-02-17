@@ -121,8 +121,8 @@ export default {
 			console.log('refreshpage');
 		},
 		handleNavbarClickLeft() {
-			uni.navigateBack({
-				delta: 1
+			uni.switchTab({
+				url:'/pages/my/my'
 			})
 		},
 		tabChange(val) {

@@ -64,9 +64,7 @@
             "minified" : true
         },
         "usingComponents" : true,
-		"navigateToMiniProgramAppIdList":[
-			"wx9074de28009e1111"
-		]
+        "navigateToMiniProgramAppIdList" : [ "wx9074de28009e1111" ]
     },
     "mp-alipay" : {
         "usingComponents" : true

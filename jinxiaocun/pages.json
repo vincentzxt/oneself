@@ -82,9 +82,6 @@
 			"path": "pages/data/data"
 		},
 		{
-		    "path" : "pages/data/sale/sale"
-		},
-		{
 		    "path" : "pages/data/return/return"
 		},
 		{
@@ -103,9 +100,6 @@
 			"path": "pages/my/login/forget"
 		},
 		{
-			"path": "pages/my/account/accountadd"
-		},
-		{
 			"path": "pages/my/user/user"
 		},
 		{
@@ -121,16 +115,7 @@
 			"path": "pages/my/login/editPassword"
 		},
 		{
-			"path": "pages/my/givetime"
-		},
-		{
 			"path": "pages/my/share/share"
-		},
-		{
-			"path": "pages/my/account/accountedit"
-		},
-		{
-			"path": "pages/my/account/accountdetail"
 		},
 		{
 			"path": "pages/bill/sell-list/sell-list"

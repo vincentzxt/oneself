@@ -17,6 +17,7 @@ export const api = {
 	QueryInit:'/api/StkStock/QueryInit',
 	QueryInventory:'/api/StkStock/QueryInventory',
 	token: '/api/Token',
+	tokenRefresh:'/api/BseUser/RefreshToken',
 	login: '/api/BseUser/Login',
 	ChangePassword:'/api/BseUser/ChangePassword',
 	ResetPassword:'/api/BseUser/ResetPassword',

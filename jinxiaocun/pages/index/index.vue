@@ -4,9 +4,7 @@
 		<uni-grid :column="2" :square="false">
 			<uni-grid-item v-for="(item, index) in lists" :key="index" @tap="handleGridChange(item)" :index="index">
 				<view class="item-content">
-					<view class="item-content-icon">
-						<uni-icons :type="item.icon" :color="item.color" :size="item.size"></uni-icons>
-					</view>
+					<view class="item-content-icon"><uni-icons :type="item.icon" :color="item.color" :size="item.size"></uni-icons></view>
 					<text class="item-content-text">{{ item.name }}</text>
 				</view>
 			</uni-grid-item>
@@ -20,7 +18,9 @@ import uniGrid from '@/components/uni-grid/uni-grid.vue';
 import uniGridItem from '@/components/uni-grid-item/uni-grid-item.vue';
 import cuLoading from '@/components/custom/cu-loading.vue';
 import getGlobalData from '@/utils/business.js';
-import { dateFormat, numberFormat } from '@/utils/tools.js'
+import { post, tokenpost } from '@/api/user.js';
+import { dateFormat, numberFormat } from '@/utils/tools.js';
+import { api } from '@/config/common.js';
 export default {
 	components: {
 		uniGrid,
@@ -51,6 +51,7 @@ export default {
 		if (option.promoterid) {
 			this.promoterid = option.promoterid;
 		}
+		this.tokenRefresh();
 	},
 	onShow() {
 		uni.setStorage({
@@ -61,14 +62,38 @@ export default {
 			}
 		});
 	},
-	onUnload(){
+	onUnload() {
 		// uni.$off('tokenchange')
 	},
 	methods: {
-		load(){
+		load() {
 			getGlobalData.getCurrentUnit();
 			getGlobalData.getBaseProduct();
 			getGlobalData.getProductCategory();
+		},
+		tokenRefresh() {
+			const userInfo = uni.getStorageSync('userInfo');
+			tokenpost(api.tokenRefresh)
+				.then(res => {
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						console.log(userInfo.token);
+						let refresh_userInfo = {
+							token: res.data.data.token,
+							exp: res.data.data.exp,
+							userId: res.data.data.userId
+						};
+						uni.setStorage({
+							key: 'userInfo',
+							data: refresh_userInfo,
+							success: function() {}
+						});
+					} else {
+						//this.$api.msg('token刷新失败');
+					}
+				})
+				.catch(error => {
+					//this.$api.msg('token刷新失败');
+				});
 		},
 		handleRefreshPage() {
 			console.log('refreshpage');
