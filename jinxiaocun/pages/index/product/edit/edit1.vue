@@ -7,41 +7,41 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-					<cu-cell title="产品名称" notNull disabled>
-						<view class="h50 fc" slot="footer">{{reqData.productname}}</view>
+					<cu-cell title="产品名称" :disVerMessage="verify.productname.disVerMessage" :verify="verify.productname.message" notNull >
+						<input class="h50" slot="footer" type="text" v-model="reqData.productname" placeholder-style="color:#c5c8ce" placeholder="请输入产品名称" focus @blur="handleVerify('productname')"/>
 					</cu-cell>
 					<cu-cell title="速查码">
-						<input class="h50" slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="用于开单快速搜索" focus/>
+						<input class="h50" slot="footer" type="text" v-model="reqData.querycode" placeholder-style="color:#c5c8ce" placeholder="用于开单快速搜索"/>
 					</cu-cell>
 					<cu-cell title="零售价">
 						<input class="h50" slot="footer" type="digit" v-model="reqData.price" placeholder-style="color:#c5c8ce" placeholder="0.00" @blur="handlePriceBlur"/>
 					</cu-cell>
-					<cu-cell title="分类" disabled>
+					<cu-cell title="分类" isLink url="../type/type" params="name=type">
 						<view class="h50 fc" slot="footer">{{reqData.productcategory}}</view>
 					</cu-cell>
-					<cu-cell title="主计量单位" notNull disabled>
+					<cu-cell title="主计量单位" isLink url="../unit/unit" params="name=unit" :disVerMessage="verify.unit.disVerMessage" :verify="verify.unit.message" notNull>
 						<view class="h50 fc" slot="footer">{{reqData.unit}}</view>
 					</cu-cell>
-					<cu-cell v-if="reqData.isMultiUnit" title="多计量" disabled>
-						<switch class="h50 fc" slot="footer" color="#2db7f5" @change="handleMultiUnitSwitch" disabled/>
+					<cu-cell v-if="reqData.unit" title="多计量">
+						<switch class="h50 fc" slot="footer" color="#2db7f5" @change="handleMultiUnitSwitch" :checked="reqData.isMultiUnit == 1 ? true : false"/>
 					</cu-cell>
-					<cu-cell v-if="reqData.isMultiUnit" title="辅计量单位" notNull disabled>
+					<cu-cell v-if="reqData.isMultiUnit" title="辅计量单位" isLink url="../unit/unit" params="name=subunit" :disVerMessage="verify.subUnit.disVerMessage" :verify="verify.subUnit.message" notNull>
 						<view class="h50 fc" slot="footer">{{reqData.subunit}}</view>
 					</cu-cell>
-					<cu-cell v-if="reqData.isMultiUnit && reqData.subunit" title="转换率" notNull disabled isExtendIcon :extendIcon="{ type: 'lr-change', color: '#808695', size: 20 }">
+					<cu-cell v-if="reqData.isMultiUnit && reqData.subunit" title="转换率" isExtendIcon :extendIcon="{ type: 'lr-change', color: '#2db7f5', size: 20 }" @clickExtend="handleUnitChange" :disVerMessage="verify.unitmultiple.disVerMessage" :verify="verify.unitmultiple.message" notNull>
 						<view slot="footer" class="unitmultiple-wrap">
 							<view class="unitmultiple-wrap-content1">
 								<text>1{{reqData.subunit}} = </text>
 							</view>
 							<view class="unitmultiple-wrap-content2">
-								<view class="unitmultiple-wrap-content2-input h50 fcc">{{reqData.unitmultiple}}</view>
+								<input class="unitmultiple-wrap-content2-input h50" type="number" v-model="reqData.unitmultiple" placeholder-style="color:#c5c8ce" placeholder="0" @blur="handleVerify('unitmultiple')"/>
 								<text>{{reqData.unit}}</text>
 							</view>
 						</view>
 					</cu-cell>
 					<cu-cell title="库存预警" isExtendText :extendText="reqData.unit">
 						<view class="fc" slot="footer">
-							<input class="h50 fc" slot="footer" type="number" v-model="reqData.warningstockqty" placeholder-style="color:#c5c8ce" placeholder="0"/>
+							<input class="h50" slot="footer" type="number" v-model="reqData.warningstockqty" placeholder-style="color:#c5c8ce" placeholder="0"/>
 						</view>
 					</cu-cell>
 					<cu-cell title="停用/启用" isLastCell>
@@ -78,16 +78,15 @@
 			return {
 				title: '修改产品',
 				reqData: {
-					productid: 0,
 					productname: '',
 					querycode: '',
-					price: 0,
+					price: '',
 					productcategory: '',
 					isMultiUnit: 0,
 					unit: '',
 					subunit: '',
-					unitmultiple: 0,
-					warningstockqty: 0,
+					unitmultiple: '',
+					warningstockqty: '',
 					remark: '',
 					status: 1
 				},
@@ -96,7 +95,7 @@
 					unit: { okVerify: false, disVerMessage: false, message: '主计量单位不能为空' },
 					subUnit: { okVerify: false, disVerMessage: false, message: '多计量模式下，辅计量单位不能为空' },
 					unitmultiple: { okVerify: false, disVerMessage: false, message: '多计量模式下，转换率不能为空，且必须大于1' }
-				}
+				},
 			}
 		},
 		onLoad(options) {
@@ -113,6 +112,7 @@
 			this.reqData.remark = item.remark
 			this.reqData.status = item.status
 			this.reqData.isMultiUnit = item.isMultiUnit
+			this.reqData.iseditable = item.iseditable
 			
 			this.verify.productname.okVerify = true
 			this.verify.unit.okVerify = true
@@ -127,8 +127,10 @@
 					this.reqData.productcategory = curPage.data.rData.value
 				} else if(curPage.data.rData.key == 'unit') {
 					this.reqData.unit = curPage.data.rData.value
+					this.handleVerify('unit')
 				} else if (curPage.data.rData.key == 'subUnit') {
 					this.reqData.subunit = curPage.data.rData.value
+					this.handleVerify('subUnit')
 				}
 			}
 		},
@@ -282,18 +284,6 @@
 					})
 				}
 			}
-		},
-		watch:{
-			reqData: {
-				handler(val) {
-					if (val.productname) {
-						this.disableSubmit = false
-					} else {
-						this.disableSubmit = true
-					}
-				},
-				deep: true
-			}
 		}
 	}
 </script>
@@ -308,11 +298,6 @@
 	}
 	.fc {
 		display: flex;
-		align-items: center;
-	}
-	.fcc {
-		display: flex;
-		justify-content: center;
 		align-items: center;
 	}
 	.cu-form-group .title {

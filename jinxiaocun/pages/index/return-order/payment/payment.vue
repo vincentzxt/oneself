@@ -8,13 +8,13 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell title="是否赊账">
+						<cu-cell :title="creditText">
 							<radio-group class="h50 fc" slot="footer" @change="handleCreditChange">
 								<radio color="#2db7f5" value=0 :checked="reqData.order.isOnCredit == 0">否</radio>
 								<radio color="#2db7f5" value=1 :checked="reqData.order.isOnCredit == 1" style="margin-left: 10px;">是</radio>
 							</radio-group>
 						</cu-cell>
-						<cu-cell v-if="!searchCurrentUnit"
+						<cu-cell v-if="reqData.order.isOnCredit == 0"
 							title="退款帐号">
 							<view v-if="businessType == 0" class="cash-account-list fc" slot="footer">
 								<view :class="reqData.order.payaccountid == item.cashaccountid ? 'cash-account-list-item-select' : 'cash-account-list-item-noselect'"
@@ -77,6 +77,7 @@
 		data() {
 			return {
 				title: '采购退款',
+				creditText: '抵赊销款',
 				businessType: 0,
 				reqData: {
 					order: {
@@ -102,6 +103,7 @@
 				this.businessType = options.businessType
 				if (this.businessType == 1) {
 					this.title = '销售退款'
+					this.creditText = '抵欠款'
 				}
 				let data = JSON.parse(options.reqData)
 				this.reqData.order.contactunitid = data.contactunitid

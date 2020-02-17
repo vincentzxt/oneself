@@ -169,9 +169,6 @@
 		justify-content: center;
 		position: relative;
 		padding: 10px 0px;
-		&-disabled{
-			color: $uni-text-color-grey;
-		}
 		&::after{
 			content: '';
 			position: absolute;
@@ -189,7 +186,10 @@
 			right: 0;
 		}
 		&-last::after{
-		    display: none;
+			display: none;
+		}
+		&-disabled{
+			color: $uni-text-color-grey;
 		}
 		&-wrap {
 			display: flex;

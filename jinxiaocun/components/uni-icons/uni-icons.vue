@@ -44,12 +44,12 @@
 	/* #ifndef APP-NVUE */
 	@font-face {
 		font-family: uniicons;
-		src: url('//at.alicdn.com/t/font_1563314_15lj6v870iu.eot');
-		src: url('//at.alicdn.com/t/font_1563314_15lj6v870iu.eot?#iefix') format('embedded-opentype'),
-		url('//at.alicdn.com/t/font_1563314_15lj6v870iu.woff2') format('woff2'),
-		url('//at.alicdn.com/t/font_1563314_15lj6v870iu.woff') format('woff'),
-		url('//at.alicdn.com/t/font_1563314_15lj6v870iu.ttf') format('truetype'),
-		url('//at.alicdn.com/t/font_1563314_15lj6v870iu.svg#iconfont') format('svg');
+		src: url('//at.alicdn.com/t/font_1563314_auf1c1l1ere.eot');
+		src: url('//at.alicdn.com/t/font_1563314_auf1c1l1ere.eot?#iefix') format('embedded-opentype'),
+		url('//at.alicdn.com/t/font_1563314_auf1c1l1ere.woff2') format('woff2'),
+		url('//at.alicdn.com/t/font_1563314_auf1c1l1ere.woff') format('woff'),
+		url('//at.alicdn.com/t/font_1563314_auf1c1l1ere.ttf') format('truetype'),
+		url('//at.alicdn.com/t/font_1563314_auf1c1l1ere.svg#iconfont') format('svg');
 	}
 
 	/* #endif */

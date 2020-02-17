@@ -83,9 +83,15 @@
 				})
 			},
 			handleEdit(val) {
-				uni.navigateTo({
-					url: './edit/edit?item=' + JSON.stringify(val)
-				})
+				if (val.iseditable == 0) {
+					uni.navigateTo({
+						url: './edit/edit0?item=' + JSON.stringify(val)
+					})
+				} else {
+					uni.navigateTo({
+						url: './edit/edit1?item=' + JSON.stringify(val)
+					})
+				}
 			},
 			handleSelectType(val) {
 				this.curSelectType = val.productcategoryid

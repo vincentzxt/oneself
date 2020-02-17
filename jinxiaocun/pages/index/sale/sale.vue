@@ -44,11 +44,11 @@
 							:showArrow="false"
 							showIcon
 							:icon="{type: 'delete', color:'#f4613d', size: '25'}"
-							:note="['销售数量：'+item.salesqty, '销售单价：'+item.salesunitprice, '计量单位：'+item.unit]"
+							:note="item.ismainunit ? ['销售数量：'+item.salesqty, '销售单价：'+item.salesunitprice, '计量单位：'+item.unit] : ['销售数量：'+item.assistunitqty, '销售单价：'+item.assissalesunitprice, '计量单位：'+item.unit]"
 							v-for="(item, index) in reqData.productList"
 							:key="index"
-							@clickContent="handleShowPopup(item)"
-							@clickFt="handleDelete(item)">
+							@clickContent="handleShowPopup(index, item)"
+							@clickFt="handleDelete(index, item)">
 						</uni-list-item>
 					</uni-list>
 				</view>
@@ -76,11 +76,16 @@
 						<cu-cell title="产品名称">
 							<view class="h50 fc" slot="footer">{{curSelectPruduct.productname}}</view>
 						</cu-cell>
-						<cu-cell title="单价">
-							<input class="h50" slot="footer" type="digit" v-model="curSelectPruduct.salesunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
+						<cu-cell title="计量单位">
+							<radio-group v-if="curSelectPruduct.isMultiUnit" class="h50 fc" slot="footer" @change="handleUnitChange">
+								<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
+								<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
+							</radio-group>
+							<view v-else class="h50 fc" slot="footer">{{curSelectPruduct.mainUnit}}</view>
 						</cu-cell>
 						<cu-cell title="数量">
-							<uni-number-box slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleSalesqtyChange"></uni-number-box>
+							<uni-number-box v-if="curSelectPruduct.ismainunit" slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.salesqty" @change="handleSalesqtyChange"></uni-number-box>
+							<uni-number-box v-else slot="footer" :min="1" :max="999999" valWidth=100 btWidth=50 width=200 :value="curSelectPruduct.assistunitqty" @change="handleSalesqtyChange"></uni-number-box>
 							<view slot="footer2">
 								<view class="popup-qty-items">
 									<view class="popup-qty-items-item" style="background-color: #92cbfb;" @tap="handleSelectQty(10)">10</view>
@@ -90,12 +95,9 @@
 								</view>
 							</view>
 						</cu-cell>
-						<cu-cell title="计量单位" isLastCell>
-							<radio-group v-if="curSelectPruduct.isMultiUnit" class="h50 fc" slot="footer" @change="handleUnitChange">
-								<radio color="#2db7f5" value=1 :checked="curSelectPruduct.ismainunit == 1">{{curSelectPruduct.mainUnit}}</radio>
-								<radio color="#2db7f5" value=0 :checked="curSelectPruduct.ismainunit == 0" style="margin-left: 10px;">{{curSelectPruduct.subUnit}}</radio>
-							</radio-group>
-							<view v-else class="h50 fc" slot="footer">{{curSelectPruduct.mainUnit}}</view>
+						<cu-cell title="单价" isLastCell>
+							<input v-if="curSelectPruduct.ismainunit" class="h50" slot="footer" type="digit" v-model="curSelectPruduct.salesunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
+							<input v-else class="h50" slot="footer" type="digit" v-model="curSelectPruduct.assissalesunitprice" placeholder="0.00" @blur="handlePriceBlur"/>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -146,6 +148,7 @@
 				showModal: false,
 				title: '销售',
 				curSelectPruduct: {},
+				curSelectPruductIndex: -1,
 				checkedUnit: 0,
 				verify: {
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
@@ -297,50 +300,47 @@
 				this.$set(this.curSelectPruduct, 'price', val.price)
 				this.$set(this.curSelectPruduct, 'salesunitprice', '')
 				this.$set(this.curSelectPruduct, 'salesqty', 1)
+				this.$set(this.curSelectPruduct, 'assissalesunitprice', '')
+				this.$set(this.curSelectPruduct, 'assistunitqty', 1)
 				this.$set(this.curSelectPruduct, 'ismainunit', 1)
 				this.$set(this.curSelectPruduct, 'unitmultiple', val.unitmultiple)
 				this.$set(this.curSelectPruduct, 'totalqty', val.totalqty)
 				this.$set(this.curSelectPruduct, 'isMultiUnit', val.isMultiUnit)
-				let isExists = false
-				for (let item of this.reqData.productList) {
-					if (item.productid == this.curSelectPruduct.productid) {
-						item.salesqty ++
-						this.curSelectPruduct.salesqty = item.salesqty
-						isExists = true
-					}
-				}
-				if (!isExists) {
-					this.reqData.productList.push(cloneObj(this.curSelectPruduct))
-				}
+				this.reqData.productList.push(cloneObj(this.curSelectPruduct))
 				this.productListTag = true
 				this.searchProduct = false
 				this.$refs.sp.cancel()
 				this.handleVerify('productList')
 				this.$nextTick(function(){
-					this.$refs.popup.open()
+					this.handleShowPopup(this.reqData.productList.length - 1, this.curSelectPruduct)
 				})
 			},
-			handleShowPopup(val) {
-				this.curSelectPruduct = cloneObj(val)
+			handleShowPopup(index, item) {
+				this.curSelectPruductIndex = index
+				this.curSelectPruduct = cloneObj(item)
 				this.$nextTick(function(){
 					this.$refs.popup.open()
 				})
 			},
 			handleEdit() {
-				for (let item of this.reqData.productList) {
-					if (item.productid == this.curSelectPruduct.productid) {
-						item.salesqty = this.curSelectPruduct.salesqty
-						item.unit = this.curSelectPruduct.unit
-						item.ismainunit = this.curSelectPruduct.ismainunit
-						item.salesunitprice = this.curSelectPruduct.salesunitprice
-					}
+				let item = this.reqData.productList[this.curSelectPruductIndex]
+				item.ismainunit = this.curSelectPruduct.ismainunit
+				item.unit = this.curSelectPruduct.unit
+				if (this.curSelectPruduct.ismainunit) {
+					item.salesqty = this.curSelectPruduct.salesqty
+					item.salesunitprice = this.curSelectPruduct.salesunitprice
+				} else {
+					item.assistunitqty = this.curSelectPruduct.assistunitqty
+					item.assissalesunitprice = this.curSelectPruduct.assissalesunitprice
 				}
+				this.curSelectPruductIndex = -1
 				this.curSelectPruduct = {}
 				this.$nextTick(function(){
 					this.$refs.popup.close()
 				})
 			},
 			handleCancel() {
+				this.curSelectPruductIndex = -1
 				this.curSelectPruduct = {}
 				this.$nextTick(function(){
 					this.$refs.popup.close()
@@ -350,15 +350,26 @@
 				if (this.curSelectPruduct.salesunitprice) {
 					this.curSelectPruduct.salesunitprice = floatFormat(this.curSelectPruduct.salesunitprice)
 				}
+				if (this.curSelectPruduct.assissalesunitprice) {
+					this.curSelectPruduct.assissalesunitprice = floatFormat(this.curSelectPruduct.assissalesunitprice)
+				}
 			},
 			handleSalesqtyChange(val) {
 				if (this.curSelectPruduct) {
-					this.curSelectPruduct.salesqty = val
+					if (this.curSelectPruduct.ismainunit) {
+						this.curSelectPruduct.salesqty = val
+					} else {
+						this.curSelectPruduct.assistunitqty = val
+					}
 				}
 			},
 			handleSelectQty(val) {
 				if (this.curSelectPruduct) {
-					this.curSelectPruduct.salesqty = val
+					if (this.curSelectPruduct.ismainunit) {
+						this.curSelectPruduct.salesqty = val
+					} else {
+						this.curSelectPruduct.assistunitqty = val
+					}
 				}
 			},
 			handleUnitChange(val) {
@@ -370,11 +381,13 @@
 					this.curSelectPruduct.ismainunit = 0
 				}
 			},
-			handleDelete(val) {
-				this.reqData.totalPrice = parseFloat(this.reqData.totalPrice - val.salesqty * parseFloat(val.salesunitprice)).toFixed(2)
-				this.reqData.productList = this.reqData.productList.filter((item) => {
-					return item.productid !== val.productid
-				})
+			handleDelete(index, item) {
+				if (item.ismainunit) {
+					this.reqData.totalPrice = parseFloat(this.reqData.totalPrice - item.salesqty * parseFloat(item.salesunitprice)).toFixed(2)
+				} else {
+					this.reqData.totalPrice = parseFloat(this.reqData.totalPrice - item.assistunitqty * parseFloat(item.assissalesunitprice)).toFixed(2)
+				}
+				this.reqData.productList.splice(index, 1)
 				this.handleVerify('productList')
 			},
 			handleVerify(val) {
@@ -417,6 +430,9 @@
 					if (!item.salesunitprice) {
 						item.salesunitprice = '0.00'
 					}
+					if (!item.assissalesunitprice) {
+						item.assissalesunitprice = '0.00'
+					}
 					return item
 				})
 				if (this.checkVerify()) {
@@ -433,12 +449,21 @@
 					this.reqData.totalCount = 0
 					if (val && val.length > 0) {
 						for (let item of val) {
-							if (item.salesunitprice) {
-								this.reqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice)
+							if (item.ismainunit) {
+								if (item.salesunitprice) {
+									this.reqData.totalPrice += item.salesqty * parseFloat(item.salesunitprice)
+								} else {
+									this.reqData.totalPrice += item.salesqty * 0
+								}
+								this.reqData.totalCount += parseInt(item.salesqty)
 							} else {
-								this.reqData.totalPrice += item.salesqty * 0
+								if (item.assissalesunitprice) {
+									this.reqData.totalPrice += item.assistunitqty * parseFloat(item.assissalesunitprice)
+								} else {
+									this.reqData.totalPrice += item.assistunitqty * 0
+								}
+								this.reqData.totalCount += parseInt(item.assistunitqty)
 							}
-							this.reqData.totalCount += parseInt(item.salesqty)
 						}
 						this.reqData.totalPrice = parseFloat(this.reqData.totalPrice).toFixed(2)
 					}
