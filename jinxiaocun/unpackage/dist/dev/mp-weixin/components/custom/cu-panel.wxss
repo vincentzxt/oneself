@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* 颜色变量 */
+/* 基本颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* padding尺寸 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+.cu-panel.data-v-7931f90a {
+  position: relative;
+  overflow: hidden;
+}
+.cu-panel-title.data-v-7931f90a {
+    font-size: 34rpx;
+    line-height: 1;
+    color: #1c2438;
+    padding: 20px 16px 10px;
+}
+.cu-panel-title-hide-top.data-v-7931f90a {
+      padding-top: 0;
+}
+.cu-panel-content.data-v-7931f90a {
+    position: relative;
+    background: #fff;
+    overflow: hidden;
+}
+.cu-panel-content.data-v-7931f90a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      -webkit-transform: scale(0.5);
+              transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+              transform-origin: 0 0;
+      pointer-events: none;
+      box-sizing: border-box;
+      border: 0 solid #dddee1;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+}
+.cu-panel-without-border.data-v-7931f90a {
+    border: 0 none;
+}
+
