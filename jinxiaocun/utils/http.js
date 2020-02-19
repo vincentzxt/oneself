@@ -44,7 +44,7 @@ http.interceptors.response.use(response => {
 	// 
 	const url =response.config.url;
 	
-	if(url.includes("GetUserInfo")== false){
+	if(url.includes("GetUserInfo")== false && url.includes("RefreshToken")== false){
 		if (response.status == 200){
 			if(response.data.returnCode == '401'){		
 				uni.reLaunch({

@@ -184,6 +184,10 @@
             "path" : "pages/my/about/about",
             "style" : {}
         }
+        ,{
+            "path" : "pages/my/login/wx_login",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

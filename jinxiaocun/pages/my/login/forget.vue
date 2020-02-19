@@ -64,6 +64,11 @@ export default {
 	onLoad() {
 	},
 	methods: {
+		handleNavbarClickLeft() {
+			uni.switchTab({
+				url: '/pages/my/my'
+			});
+		},
 		login_action() {
 			uni.reLaunch({
 				url: '/pages/my/login/login'

@@ -7,7 +7,8 @@
 			<!-- <view class="user_title color_fff size_16">我的</view> -->
 			<!-- 		<view class="user_blank"></view> -->
 			<view class="flex_col color_fff">
-				<image src="../../static/image/mine_def_touxiang_3x.png" mode="aspectFill" class="pic"></image>
+				<image v-if="!login_status" :src="'../../static/image/mine_def_touxiang_3x.png'" mode="aspectFill" class="pic"></image>
+				<image v-if="login_status" :src="ava_url || '../../static/image/mine_def_touxiang_3x.png'" mode="aspectFill" class="pic"></image>
 				<view class="flex_grow" v-if="login_status">
 					<view class="size_16">{{ dataList.loginname }}({{ dataList.telephone }})</view>
 					<view class="size_16">{{ dataList.companyname }}</view>
@@ -18,15 +19,15 @@
 					<view class="size_16">游客</view>
 					<view class="size_16" @click="this.$api.login">点击登录</view>
 				</view>
-				<view class="edit size_16" @click="handleSet()" v-if="dataList.ismain===1">设置</view>
+				<view class="edit size_16" @click="handleSet()" v-if="dataList.ismain === 1">设置</view>
 			</view>
 		</view>
-		<uni-list v-if="dataList.ismain===1">
+		<uni-list v-if="dataList.ismain === 1">
 			<uni-list-item title="员工管理" thumb="../../static/my/icon/list.png" @tap="handleUserManage()" :show-arrow="true"></uni-list-item>
 			<uni-list-item title="收款账号" thumb="../../static/my/icon/bankcard.png" @tap="handleBankSet()"></uni-list-item>
 			<uni-list-item title="购买/续费" thumb="../../static/my/icon/recharge.png" @tap="handleRecharge()"></uni-list-item>
 		</uni-list>
-		<view class="space" v-if="dataList.ismain===1"></view>
+		<view class="space" v-if="dataList.ismain === 1"></view>
 		<uni-list>
 			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @tap="handlePassword()"></uni-list-item>
 			<uni-list-item title="积分兑换" thumb="../../static/my/icon/order.png" @tap="handleIntegral()"></uni-list-item>
@@ -58,37 +59,53 @@ export default {
 	data() {
 		return {
 			title: '我的',
-			changestatus:0,
+			changestatus: 0,
 			login_status: false,
+			ava_url: '',
 			dataList: {
 				loginname: '',
 				realname: '',
 				telephone: '',
-				integral:0,
+				integral: 0,
 				companyname: '',
 				expiredate: '',
 				daycount: 0,
 				ordercount: '0',
-				ismain:0
+				ismain: 0
 			}
 		};
 	},
 	onLoad() {
-		uni.$on('changecompany', this.loadInit)
-		
+		uni.$on('changecompany', this.loadInit);
+		// this.getwxInfo();
 	},
 	onShow() {
 		this.loadInit();
 		this.login_status = this.$api.login_status();
+
 		//this.loadData();
 	},
-	onUnload(){
-		uni.$off('changecompany')
+	onUnload() {
+		uni.$off('changecompany');
 	},
 	methods: {
-		loadInit(){
+		loadInit() {
 			this.tokenRefresh();
 			this.loadData();
+		},
+		getwxInfo() {
+			var that = this;
+			uni.login({
+				provider: 'weixin',
+				success: function(loginRes) {
+					uni.getUserInfo({
+						provider: 'weixin',
+						success: function(infoRes) {
+							that.ava_url = infoRes.userInfo.avatarUrl;
+						}
+					});
+				}
+			});
 		},
 		handleRefreshPage() {
 			console.log('refreshpage');
@@ -165,25 +182,6 @@ export default {
 				url: '/pages/my/share/share'
 			});
 		},
-		handlewx() {
-			if (!this.login_status) {
-				this.$api.login();
-				return;
-			}
-			uni.login({
-				provider: 'weixin',
-				success: function(loginRes) {
-					console.log(loginRes);
-					// 获取用户信息
-					uni.getUserInfo({
-						provider: 'weixin',
-						success: function(infoRes) {
-							console.log(infoRes);
-						}
-					});
-				}
-			});
-		},
 		//退出登录
 		handleLogout() {
 			uni.showModal({
@@ -241,15 +239,15 @@ export default {
 				});
 		},
 		loadData() {
-			this.$refs.loading.open()
+			this.$refs.loading.open();
 			tokenpost(api.GetUserInfo)
 				.then(res => {
 					if (res.status == 200) {
-						this.$refs.loading.close()
+						this.$refs.loading.close();
 						if (res.data.returnCode == '0000') {
 							this.dataList = res.data.data;
 							this.login_status = true;
-							if(this.dataList.companyname ==""){
+							if (this.dataList.companyname == '') {
 								uni.navigateTo({
 									url: '../my/set'
 								});
@@ -264,7 +262,7 @@ export default {
 					}
 				})
 				.catch(error => {
-					this.$refs.loading.close()
+					this.$refs.loading.close();
 					this.$api.msg('请求失败fail');
 				});
 		}
@@ -298,7 +296,7 @@ export default {
 	.pic {
 		width: 120rpx;
 		height: 120rpx;
-		//border-radius: 50%;
+		border-radius: 50%;
 		//border: rgba(255, 255, 255, 0.5) solid 5rpx;
 		margin-right: 20rpx;
 	}
