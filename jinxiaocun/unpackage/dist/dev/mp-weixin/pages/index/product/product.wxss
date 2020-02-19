@@ -12,11 +12,11 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-01bed90a {
+.fill.data-v-707ed527 {
   width: 100%;
   height: 100%;
 }
-.container .header.data-v-01bed90a {
+.container .header.data-v-707ed527 {
   background-color: #FFFFFF;
   display: -webkit-box;
   display: -webkit-flex;
@@ -25,7 +25,7 @@
   -webkit-align-items: center;
           align-items: center;
 }
-.container .header-type.data-v-01bed90a {
+.container .header-type.data-v-707ed527 {
     margin-left: 10px;
     margin-right: 10px;
     display: -webkit-box;
@@ -38,7 +38,7 @@
     -webkit-align-items: center;
             align-items: center;
 }
-.container .main.data-v-01bed90a {
+.container .main.data-v-707ed527 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -47,11 +47,11 @@
           justify-content: space-between;
   margin-top: 5px;
 }
-.container .main .typeMenu .menuSelect.data-v-01bed90a {
+.container .main .typeMenu .menuSelect.data-v-707ed527 {
     background-color: #5cadff;
     color: #fff;
 }
-.container .footer.data-v-01bed90a {
+.container .footer.data-v-707ed527 {
   height: 48px;
 }
 
