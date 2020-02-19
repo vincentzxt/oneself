@@ -21,6 +21,7 @@ export const api = {
 	token: '/api/Token',
 	tokenRefresh:'/api/BseUser/RefreshToken',
 	login: '/api/BseUser/Login',
+	wxLogin: '/api/BseUser/WxLogin',
 	ChangePassword:'/api/BseUser/ChangePassword',
 	ResetPassword:'/api/BseUser/ResetPassword',
 	Regist:'/api/BseUser/Regist',
@@ -45,6 +46,7 @@ export const api = {
 	GetMyPromotIntegralList :'/api/BseUser/GetMyPromotIntegralList',
 	GetSmsCode:'/api/SysMessage/SendVerificationCode',
 	GetProductList:'/api/SysProduct/GetProductList',
-	Orderypay:'/api/WeChartPay/OrderPay'
+	Orderypay:'/api/WeChartPay/OrderPay',
+	GetSharePic:'/api/BseUser/GetSharePic/'
 	
 }

@@ -9,26 +9,31 @@
 			<!-- <view class="uni-title">分享图片：</view> -->
 			<view class="uni-uploader" style="padding:15upx; background:#FFF;"><image class="uni-uploader__img" v-if="image" :src="image"></image></view>
 			<!-- #ifdef MP -->
-			<view class="uni-btn-v uni-common-mt"><button type="primary" style="background-color: #2d8cf0;" open-type="share" >分享</button></view>
-			<view class="uni-btn-v uni-common-mt" style="padding-top: 36upx;"><button type="primary" style="background-color: #2d8cf0;" @tap="handleMyshare" >我的分享</button></view>
+			<view class="uni-btn-v uni-common-mt"><button type="primary" style="background-color: #2d8cf0;" open-type="share">分享</button></view>
+			<view class="uni-btn-v uni-common-mt" style="padding-top: 36upx;">
+				<button type="primary" style="background-color: #2d8cf0;" @tap="handleMyshare">我的分享</button>
+			</view>
 			<!-- #endif -->
+			<view class="share-pic"><image :src="SharePic" mode="aspectFit" class="pic"></image></view>
+			
 		</view>
 	</view>
 </template>
 <script>
-	import { post,tokenpost} from '@/api/user.js';
-	import { api } from '@/config/common.js';
+import { post, get, tokenpost } from '@/api/user.js';
+import { api } from '@/config/common.js';
 export default {
-		data() {
+	data() {
 		return {
 			title: '分享',
-			userId:0,
+			userId: 0,
 			shareText: '',
 			href: '',
 			image: '',
 			shareType: 1,
 			providerList: [],
-			dataList:{}
+			dataList: {},
+			SharePic: ''
 		};
 	},
 	computed: {
@@ -47,16 +52,16 @@ export default {
 	onShareAppMessage() {
 		return {
 			title: this.shareText,
-			path: '/pages/index/index?promoterid='+uni.getStorageSync('userInfo').userId,
+			path: '/pages/index/index?promoterid=' + uni.getStorageSync('userInfo').userId,
 			imageUrl: this.image,
-			complete:this.shareSuccess
+			complete: this.shareSuccess
 		};
 	},
-	onUnload: function() {
-	},
+	onUnload: function() {},
 	onLoad: function() {
+		this.userId = uni.getStorageSync('userInfo').userId;
 		this.loadData();
-		this.userId= uni.getStorageSync('userInfo').userId;
+		this.loadWXImg();
 		console.log(this.userId);
 		uni.getProvider({
 			service: 'share',
@@ -118,31 +123,33 @@ export default {
 				delta: 1
 			});
 		},
-		handleMyshare(){
+		handleMyshare() {
 			uni.navigateTo({
-				url:'./myshare'
-			})
+				url: './myshare'
+			});
 		},
-		loadData(){
-			tokenpost(api.GetCurrentActivity).then(res => {
-				console.log(res);
-				if (res.status == 200 && res.data.returnCode == '0000') {
-				  this.shareText = res.data.data.activityexplain;
-				  if(res.data.data.imgurl!=''){
-					  this.image = api.baseUrl+res.data.data.imgurl;
-				  }
-				  
-				} else {
-					this.$api.msg(res.data.returnMessage) 
-				}
-				this.loading =false;
-			}).catch(error => {
-				this.loading =false;
-				this.$api.msg('请求失败fai') 
-			})
+		loadData() {
+			tokenpost(api.GetCurrentActivity)
+				.then(res => {
+					console.log(res);
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.shareText = res.data.data.activityexplain;
+						if (res.data.data.imgurl != '') {
+							this.image = api.baseUrl + res.data.data.imgurl;
+						}
+					} else {
+						this.$api.msg(res.data.returnMessage);
+					}
+					this.loading = false;
+				})
+				.catch(error => {
+					this.loading = false;
+					this.$api.msg('请求失败fai');
+				});
 		},
-		shareSuccess(){
-			console.log('成功2222222');
+		loadWXImg() {
+			const userId = uni.getStorageSync('userInfo').userId;
+			this.SharePic = api.baseUrl + '/api/BseUser/GetSharePic/' + userId;
 		}
 	}
 };
@@ -164,12 +171,12 @@ export default {
 		height: 90%;
 		padding: 0 15upx;
 		background-color: #ffffff;
-		.uni-title{
+		.uni-title {
 			padding: 16upx 16upx;
 		}
-		.uni-textarea{
+		.uni-textarea {
 			padding: 16upx 10upx 10upx;
-			.textarea{
+			.textarea {
 				width: 100%;
 			}
 			// background-color: #f2f2f2;
@@ -182,6 +189,9 @@ export default {
 		.uni-uploader__img {
 			width: 100%;
 		}
+		.share-pic{text-align: center; padding: 30upx;}
+		.share-pic image{width: 160upxpx;height:160px;}
+		
 	}
 	.footer {
 		height: 7%;

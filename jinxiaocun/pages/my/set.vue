@@ -6,9 +6,9 @@
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
 				<cu-panel>
-						<cu-cell title="公司Logo">
+						<cu-cell title="公司logo">
 							<view class="h80 fc" slot="footer">
-								 <image class="portrait" :src="reqData.companylogourl_http || '/static/image/logo.png'" @tap="chooseImage()"></image>
+								 <image class="portrait" :src="reqData.companylogourl_http || '/static/image/companylogo.png'" @tap="chooseImage()"></image>
 								<!-- <image class="portrait" :src="reqData.companylogourl_http || '/static/image/logo.png'" @tap="upload"></image> -->
 								</view>
 							
@@ -67,7 +67,7 @@ export default {
 			cropFilePath: '',
 			loading:false,
 			 url: "",
-                path: "",
+             path: "",
 			reqData: {
 				companylogourl: '',
 				companyname: '',

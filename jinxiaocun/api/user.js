@@ -20,3 +20,10 @@
   		method: 'post'
     });
 }
+ export const get = (url, id=0, data = {}) => {
+    return http.request({
+      url: url+id,
+  		data: data,
+  		method: 'get'
+    })
+}
