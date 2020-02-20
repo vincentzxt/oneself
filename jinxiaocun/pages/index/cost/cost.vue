@@ -8,8 +8,8 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view>
 					<cu-panel>
-						<cu-cell title="费用类型" isLink url="./type/type" params="name=type" isIcon :icon="{ type: 'c-type', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.feetype.disVerMessage" :verify="verify.feetype.message">
-							<view class="h50 fc" slot="footer">{{reqData.feetype}}</view>
+						<cu-cell title="费用类型" isLink url="./type/type" params="name=type" isIcon :icon="{ type: 'c-type', color: '#c4c6cb', 'size': 20 }" :disVerMessage="verify.feecategory.disVerMessage" :verify="verify.feecategory.message">
+							<view class="h50 fc" slot="footer">{{reqData.feecategory}}</view>
 						</cu-cell>
 					</cu-panel>
 				</view>
@@ -85,7 +85,7 @@
 				currentUnitSearchDatas: null,
 				searchCurrentUnit: false,
 				reqData: {
-					feetype: '',
+					feecategory: '',
 					contactunitid: '',
 					contactunitname: '',
 					payaccountid: '',
@@ -95,7 +95,7 @@
 				},
 				cashAccountDict: [],
 				verify: {
-					feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
+					feecategory: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' }
 				},
 				currentUnitTag: false
@@ -108,8 +108,8 @@
 			let pages =  getCurrentPages()
 			let curPage = pages[pages.length - 1]
 			if (curPage.data.rData) {
-				this.reqData.feetype = curPage.data.rData
-				this.handleVerify('feetype')
+				this.reqData.feecategory = curPage.data.rData
+				this.handleVerify('feecategory')
 			}
 		},
 		computed: {
@@ -128,7 +128,7 @@
 			},
 			initData() {
 				this.reqData = {
-					feetype: '',
+					feecategory: '',
 					contactunitid: '',
 					contactunitname: '',
 					payaccountid: '',
@@ -137,7 +137,7 @@
 					remark: ''
 				}
 				this.verify = {
-					feetype: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
+					feecategory: { okVerify: false, disVerMessage: false, message: '费用类型不能为空' },
 					contactunitname: { okVerify: false, disVerMessage: false, message: '往来单位名称不能为空' },
 					amount: { okVerify: false, disVerMessage: false, message: '费用金额不能为空，且不能为零' }
 				}
@@ -218,13 +218,13 @@
 			},
 			handleVerify(val) {
 				switch(val) {
-					case 'feetype':
-						if (!this.reqData.feetype) {
-							this.verify.feetype.okVerify = false
-							this.verify.feetype.disVerMessage = true
+					case 'feecategory':
+						if (!this.reqData.feecategory) {
+							this.verify.feecategory.okVerify = false
+							this.verify.feecategory.disVerMessage = true
 						} else {
-							this.verify.feetype.okVerify = true
-							this.verify.feetype.disVerMessage = false
+							this.verify.feecategory.okVerify = true
+							this.verify.feecategory.disVerMessage = false
 						}
 						break
 					case 'amount':
@@ -278,7 +278,7 @@
 		watch:{
 			reqData: {
 				handler(val) {
-					if (val.feetype && val.payaccountid && val.amount) {
+					if (val.feecategory && val.payaccountid && val.amount) {
 						this.disableSubmit = false
 					} else {
 						this.disableSubmit = true
