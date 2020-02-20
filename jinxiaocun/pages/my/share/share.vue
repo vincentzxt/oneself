@@ -52,7 +52,7 @@ export default {
 	onShareAppMessage() {
 		return {
 			title: this.shareText,
-			path: '/pages/index/index?promoterid=' + uni.getStorageSync('userInfo').userId,
+			path: '/pages/index/index?scene=' + uni.getStorageSync('userInfo').userId,
 			imageUrl: this.image,
 			complete: this.shareSuccess
 		};

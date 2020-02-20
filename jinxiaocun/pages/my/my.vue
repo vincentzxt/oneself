@@ -182,6 +182,11 @@ export default {
 				url: '/pages/my/share/share'
 			});
 		},
+		handlewx(){
+			uni.navigateTo({
+				url: '/pages/my/wcSet/wcSet'
+			});
+		},
 		//退出登录
 		handleLogout() {
 			uni.showModal({
@@ -219,7 +224,6 @@ export default {
 			tokenpost(api.tokenRefresh)
 				.then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						console.log(userInfo.token);
 						let refresh_userInfo = {
 							token: res.data.data.token,
 							exp: res.data.data.exp,

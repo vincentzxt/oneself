@@ -185,7 +185,7 @@
             "style" : {}
         }
         ,{
-            "path" : "pages/my/login/wx_login",
+            "path" : "pages/my/wcSet/wcSet",
             "style" : {}
         }
     ],

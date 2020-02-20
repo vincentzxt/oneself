@@ -65,7 +65,7 @@ export default {
 	onLoad() {
 		if (uni.getStorageSync('promoterid')) {
 			this.promoterid = uni.getStorageSync('promoterid');
-			console.log(this.promoterid);
+			console.log("推荐人"+this.promoterid);
 		} else {
 			console.log('没有推荐人');
 		}
