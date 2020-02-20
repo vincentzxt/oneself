@@ -31,7 +31,7 @@
 						</cu-panel>
 			</scroll-view>
 		</view>
-		        <kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="true" :width="200" :height="200"></kps-image-cutter>
+		        <kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="false" :width="200" :height="200"></kps-image-cutter>
 
 		 <!-- <image-cropper :src="tempFilePath" @confirm="confirm"  @cancel="cancel"></image-cropper> -->
 
@@ -44,8 +44,6 @@
 import cuPanel from '@/components/custom/cu-panel.vue';
 import cuCell from '@/components/custom/cu-cell.vue';
 import cuCellGroup from '@/components/custom/cu-cell-group.vue';
-import uniList from '@/components/uni-list/uni-list.vue';
-import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { post, tokenpost } from '@/api/user.js';
 import { api } from '@/config/common.js';
 // import ImageCropper from '@/components/invinbg-image-cropper/invinbg-image-cropper.vue';
@@ -56,9 +54,6 @@ export default {
 		cuPanel,
 		cuCell,
 		cuCellGroup,
-		uniList,
-		uniListItem,
-		// ImageCropper,
 		kpsImageCutter
 	},
 	data() {

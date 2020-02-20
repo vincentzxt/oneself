@@ -1,1 +1,0 @@
-<block wx:if="{{show}}"><view data-event-opts="{{[['tap',[['Mclose',['$event']]]],['touchmove',[['preventTouchMove',['$event']]]]]}}" class="{{['mask data-v-d4aef6d4',mask=='true'||mask==true?'mask-show':'']}}" bindtap="__e" catchtouchmove="__e"><view class="loader loading data-v-d4aef6d4"></view><view class="title data-v-d4aef6d4">{{text}}</view></view></block>

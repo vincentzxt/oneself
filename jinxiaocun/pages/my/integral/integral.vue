@@ -53,8 +53,6 @@
 </template>
 
 <script>
-import uniList from '@/components/uni-list/uni-list.vue';
-import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue"
 import { post,tokenpost} from '@/api/user.js';
 import { api } from '@/config/common.js';
@@ -64,8 +62,6 @@ import helangCheckbox from "@/components/helang-checkbox/helang-checkbox-jf.vue"
 export default {
 	components: {
 		uniLoadMore,
-		uniList,
-		uniListItem,
 		WucTab,
 		"helang-checkbox":helangCheckbox
 	},

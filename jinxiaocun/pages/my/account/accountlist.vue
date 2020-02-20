@@ -31,15 +31,7 @@ export default {
 		return {
 			title: '收款账号 ',
 			dataList: [],
-			isdeleteDict: ['正常','禁用'],
-			accounTypeList2:["","银行账号","微信","支付宝","现金"],
-			accounTypeList:{
-				'0':"",
-				'1':"银行账号",
-				'2':"微信",
-				'3':"支付宝",
-				'4':"现金"
-			}
+			isdeleteDict: ['正常','禁用']
 		};
 	},
 	onLoad(){},
@@ -58,25 +50,6 @@ export default {
 		handleNavbarClickLeft() {
 			uni.navigateBack({
 				delta: 1
-			})
-		},
-		handleAdd() {
-			console.log('-----');
-			uni.navigateTo({
-				url:'/pages/my/account/accountadd'
-			})
-			console.log('-----');
-		},
-		handleDetail(id) {
-			console.log('---222--');
-			uni.navigateTo({
-				url:'/pages/my/account/accountdetail?id='+id
-			})
-		},		
-		handleEdit(id) {
-			console.log('-----');
-			uni.navigateTo({
-				url:'/pages/my/account/accountedit?id='+id
 			})
 		},
 		loadData(){

@@ -5,14 +5,16 @@
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-			<view class="tou" v-if="ava_url == ''"><img src="@/static/image/mine_def_touxiang_3x.png" mode="aspectFill" class="pic"/></img><text style="padding-top: 16upx;">薛伟</text></view>
-			<view class="tou" v-if="ava_url != ''"><img :src="ava_url || '@/static/image/mine_def_touxiang_3x.png'" mode="aspectFill" class="pic"/></img><text style="padding-top: 16upx;">薛伟</text></view>			
+			<view class="tou">
+				<img v-if="!hasRight" src="@/static/image/mine_def_touxiang_3x.png" mode="aspectFill" class="pic"/>
+				<img v-if="hasRight" :src="ava_url || '@/static/image/mine_def_touxiang_3x.png'" mode="aspectFill" class="pic"/></img><text style="padding-top: 16upx;">{{nick_name}}</text></view>			
 			<view class="space"></view>
 			<view class="wx-info">
-				<view>xuewei</view><view><uni-icon type="arrowthinright" size="25" color="#cccccc"></uni-icon></view><view>薛伟</view>
+				<view>xuewei</view><view><uni-icon type="arrowthinright" size="25" color="#cccccc"></uni-icon></view><view>{{nick_name || '未登录'}}</view>
 			</view>
 			<view class="space"></view>
-			<view class="wx-action"><button type="primary" class="wx_class" @tap="reg_action()" style="margin-top: 10px;">绑定微信</button></view>
+			<view class="wx-action"><button type="primary"  v-if="!hasRight" :loading="loading2" open-type="getUserInfo" @getuserinfo="handleWxLogin" style="margin-top: 10px;">获取个人信息</button>
+<button type="primary" v-if="hasRight" class="wx_class" @tap="reg_action()" :loading="loading" style="margin-top: 10px;">绑定微信</button></view>
 			</scroll-view>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
@@ -31,7 +33,10 @@ export default {
 	data() {
 		return {
 			loading:false,
+			loading2:false,
+			hasRight:false,
 			ava_url:'',
+			nick_name:'',
 			reqData: {
 				companylogourl: '',
 				companyname: '',
@@ -48,6 +53,7 @@ export default {
 		
 	},
 	onLoad(){
+		this.getwxInfo();
 		this.loadData();
 	},
 	methods: {
@@ -55,6 +61,29 @@ export default {
 			uni.navigateBack({
 				delta: 1
 			});
+		},
+		getwxInfo() {
+			var that = this;
+			uni.login({
+				provider: 'weixin',
+				success: function(loginRes) {
+					uni.getUserInfo({
+						provider: 'weixin',
+						success: function(infoRes) {
+							console.log(infoRes);
+							that.ava_url = infoRes.userInfo.avatarUrl;
+							that.nick_name = infoRes.userInfo.nickName;
+							that.hasRight = true;
+						}
+					});
+				}
+			});
+		},
+		handleWxLogin(result) {
+			const that = this 
+			this.ava_url = result.detail.userInfo.avatarUrl;
+			this.nick_name = result.detail.userInfo.nickName;
+			that.hasRight = true;
 		},
 		loadData() {
 			console.log("kkk");
@@ -136,6 +165,7 @@ export default {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			padding-top: 60upx;
 		}
 		.tou img {
 				width: 160rpx;
