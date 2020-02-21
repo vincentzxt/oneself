@@ -231,8 +231,9 @@ export default {
 							data: refresh_userInfo,
 							success: function() {}
 						});
+						uni.setStorageSync('islogin', '1');	
 					} else {
-						//this.$api.msg('token刷新失败');
+						uni.setStorageSync('islogin', '0');	
 					}
 				})
 				.catch(error => {

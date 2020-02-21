@@ -54,8 +54,6 @@
 				curSelectMenu: 0
 			}
 		},
-		onLoad() {
-		},
 		onShow() {
 			this.datas = uni.getStorageSync('currentUnitList')
 			this.searchDatas = this.datas
@@ -74,11 +72,22 @@
 				return this.$mainIsSearchHeight
 			}
 		},
+		onLoad(){
+		this.checkLogin();	
+		},
 		methods: {
 			handleNavbarClickLeft() {
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			checkLogin(){
+				const isLogin =uni.getStorageSync('islogin');
+				if(isLogin!=='1'){
+						uni.reLaunch({
+							url: '/pages/my/login/login'
+						});	
+				}
 			},
 			handleAdd() {
 				uni.navigateTo({

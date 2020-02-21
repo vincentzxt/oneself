@@ -103,6 +103,7 @@ export default {
 							exp: res.data.data.exp,
 							userId: res.data.data.userId
 						};
+						uni.setStorageSync('islogin', '1');	
 						uni.setStorage({
 							key: 'userInfo',
 							data: userInfo,
@@ -113,11 +114,13 @@ export default {
 							}
 						});
 					} else {
+						uni.setStorageSync('islogin', '0');	
 						this.$api.msg(res.data.returnMessage);
 					}
 					this.loading = false;
 				})
 				.catch(error => {
+					uni.setStorageSync('islogin', '0');	
 					this.loading = false;
 					this.$api.msg('请求失败fail');
 				});

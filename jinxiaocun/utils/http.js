@@ -42,9 +42,9 @@ http.interceptors.response.use(response => {
         // })
     // }
 	// 
-	const url =response.config.url;
+	const url =response.config.url; 
 	
-	if(url.includes("GetUserInfo")== false && url.includes("RefreshToken")== false){
+	if(url.includes("GetUserInfo")== false && url.includes("RefreshToken")== false && url.includes("ContactUnit/Query")== false && url.includes("BseProduct/Query")== false  && url.includes("QueryProductCategory")== false){
 		if (response.status == 200){
 			if(response.data.returnCode == '401'){		
 				uni.reLaunch({

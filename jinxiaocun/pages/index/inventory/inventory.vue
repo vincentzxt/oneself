@@ -120,6 +120,14 @@
 					delta: 1
 				})
 			},
+				checkLogin(){
+				const isLogin =uni.getStorageSync('islogin');
+				if(isLogin!=='1'){
+						uni.reLaunch({
+							url: '/pages/my/login/login'
+						});	
+				}
+			},
 			handleSelectType(val) {
 				this.curSelectType = val.productcategoryid
 				if (val.productcategoryid !== '00000') {
