@@ -9,11 +9,12 @@
 				</view>
 				<view class="space"></view>
 				<view class="wx-info">
-					<view>{{ loginname }}</view>
-					<view><uni-icon type="arrowthinright" size="25" color="#cccccc"></uni-icon></view>
 					<view>{{ nick_name || '未登录' }}</view>
+					<view><uni-icon type="arrowthinright" size="25" color="#cccccc"></uni-icon></view>
+					<view>{{ loginname }}</view>
 				</view>
 				<view class="space"></view>
+				<view style="padding: 6upx 24upx;font-size: 24upx;text-align: center;">将微信绑定在{{ loginname }}账号上方便快速登录</view>
 				<view class="wx-action">
 					<button type="primary" v-if="!hasRight" :loading="loading2" class="wx_class"  open-type="getUserInfo" @getuserinfo="getwxInfo" style="margin-top: 10px;">获取个人信息</button>
 					<button type="primary" v-if="hasRight" class="wx_class" @tap="bind_action()" :loading="loading" style="margin-top: 10px;">绑定微信</button>
