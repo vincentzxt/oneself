@@ -5,7 +5,6 @@
 		</view>
 		<view class="main">
 			<scroll-view :scroll-y="true" class="fill">
-				<!-- <view class="top"><view><text class="text">权限设置</text> </view><view><button type="default" size="mini" @tap="handleAdd">增加</button></view></view> -->
 				<view v-for="(item, index) in dataList" :key="index" class="list-item">
 					<cu-panel>
 						<cu-cell :title="item.loginname" :notes="item.telephone" notesColor="#555555" @clickTitle="handleEdit(item.userid)">

@@ -91,7 +91,11 @@
 			"path": "pages/my/my"
 		},
 		{
-			"path": "pages/my/login/login"
+			"path": "pages/my/login/login",
+			"style": {
+				 "backgroundColor":"#FFFFFF"
+			 }
+		
 		},
 		{
 			"path": "pages/my/set"
@@ -185,7 +189,7 @@
             "style" : {}
         }
         ,{
-            "path" : "pages/my/wcSet/wcSet",
+            "path" : "pages/my/wxSet/wxSet",
             "style" : {}
         }
     ],

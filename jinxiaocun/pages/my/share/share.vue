@@ -4,9 +4,7 @@
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
 		<view class="main">
-			<!-- <view class="uni-title">分享内容</view> -->
 			<view class="uni-textarea"><textarea v-model="shareText" auto-height="true" disabled="true" /></view>
-			<!-- <view class="uni-title">分享图片：</view> -->
 			<view class="uni-uploader" style="padding:15upx; background:#FFF;"><image class="uni-uploader__img" v-if="image" :src="image"></image></view>
 			<!-- #ifdef MP -->
 			<view class="uni-btn-v uni-common-mt"><button type="primary" style="background-color: #2d8cf0;" open-type="share">分享</button></view>

@@ -56,19 +56,10 @@ export default {
 		this.loadData();
 	},
 	methods: {
-		handleRefreshPage() {
-			console.log('refreshpage');
-		},
 		handleNavbarClickLeft() {
 			uni.navigateBack({
 				delta: 1
 			})
-		},
-		//设置
-		handleSet(){
-			uni.navigateTo({
-				url: '../my/set'
-			});
 		},
 		loadData(){
 			this.loadmore = 'loading',
@@ -146,7 +137,6 @@ export default {
 .no_data{
 	
 	display: flex;
-	//flex-direction: column;
 	align-items: center;
 	width: 100%;
 	height: 100%;
@@ -168,7 +158,6 @@ export default {
 	.list-between {
 		display: flex;
 		flex-direction: row;
-		//justify-content: space-around;
 		.item-content1 {
 			flex: 2;
 			font-size: $uni-font-size-min;

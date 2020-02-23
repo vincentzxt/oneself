@@ -61,9 +61,6 @@ export default {
 		numberFilter(number) {
 			return numberFormat(number)
 		},
-		handleRefreshPage() {
-			console.log('refreshpage');
-		},
 		handleNavbarClickLeft() {
 			uni.navigateBack({
 				delta: 1

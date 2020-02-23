@@ -45,8 +45,6 @@
 
 <script>
 import uniIcon from '@/components/uni-icon/uni-icon.vue';
-import uniList from '@/components/uni-list/uni-list.vue';
-import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { tokenpost } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
@@ -57,8 +55,6 @@ import { dateFormat, numberFormat } from '@/utils/tools.js'
 export default {
 	components: {
 		uniLoadMore,
-		uniList,
-		uniListItem,
 		uniIcon,
 		xwDate
 	},

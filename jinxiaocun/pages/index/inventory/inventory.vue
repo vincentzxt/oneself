@@ -74,6 +74,7 @@
 			}
 		},
 		onLoad() {
+			this.checkLogin()
 			this.productCategory = uni.getStorageSync('productCategory').productCategories
 			this.productCategory.unshift({ productcategoryid: '00000', productcategoryname: '所有分类' })
 			let reqData = {
