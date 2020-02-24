@@ -60,7 +60,7 @@
     "pages/my/share/myshare",
     "pages/bill/inventory-list/inventory-detail",
     "pages/my/about/about",
-    "pages/my/login/wx_login"
+    "pages/my/wxSet/wxSet"
   ],
   "subPackages": [],
   "window": {
@@ -96,10 +96,12 @@
       }
     ]
   },
+  "navigateToMiniProgramAppIdList": [
+    "wx9074de28009e1111"
+  ],
   "usingComponents": {
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  },
-  "sitemapLocation": "sitemap7.json"
+  }
 }

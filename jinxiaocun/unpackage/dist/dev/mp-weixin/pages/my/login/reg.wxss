@@ -128,6 +128,8 @@
   height: 80rpx;
 }
 .login.data-v-475765c6 {
+  height: 100vh;
+  background-color: #FFFFFF;
   font-size: 36rpx;
 }
 .login .tou.data-v-475765c6 {
@@ -138,7 +140,7 @@
     height: 64px;
 }
 .login .con.data-v-475765c6 {
-    padding: 10rpx 16rpx;
+    padding: 24rpx;
 }
 .login input.data-v-475765c6::-webkit-input-placeholder {
     color: #d2d2d2;
