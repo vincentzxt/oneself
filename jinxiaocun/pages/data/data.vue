@@ -97,22 +97,6 @@
 								<text>￥{{numberFilter(datas.payableAmount)}}</text>
 							</view>
 						</view>
-						<view class="main-recpay-content-wrap" style="width:45%">
-							<view>
-								<text style="margin-left: 10px">已收金额</text>
-							</view>
-							<view class="main-recpay-content-wrap-content">
-								<text>￥{{numberFilter(datas.receivedAmount)}}</text>
-							</view>
-						</view>
-						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;width:45%;">
-							<view style="margin-left: 10px;">
-								<text style="margin-left: 10px">已付金额</text>
-							</view>
-							<view class="main-recpay-content-wrap-content">
-								<text>￥{{numberFilter(datas.paymentAmount)}}</text>
-							</view>
-						</view>
 					</view>
 				</view>
 				<view class="main-account">
