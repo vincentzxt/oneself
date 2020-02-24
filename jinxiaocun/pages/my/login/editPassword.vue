@@ -136,15 +136,14 @@ export default {
 	height: 60upx;
 }
 .login{
-	// padding-top:100px;
-	// .head{font-size: 22px;padding: 20px;}
+	height: 100vh;
+	background-color: #FFFFFF;
 	font-size: 36upx;
 	.tou{text-align: center;}
 	.tou img{width: 64px;height: 64px;}
-	.con{padding: 24upx 16upx;}
+	.con{padding: 24upx}
 	.con_02 {
 		border-bottom: 2upx solid #f7f7f7;
-		//padding-top: 10px;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -156,7 +155,6 @@ export default {
 	.con_02_t {
 		color: #fff;
 		border-radius: 20upx;
-		//font-size: 28upx;
 	}
 	.con_02_r {
 		flex-grow: 1;
@@ -172,7 +170,6 @@ export default {
 }
 .user_bottom{
 		margin-top:60upx;
-		// padding-left:20rpx;padding-right:20rpx;
 		.send_btn{
 			background-color:#2d8cf0;
 		}

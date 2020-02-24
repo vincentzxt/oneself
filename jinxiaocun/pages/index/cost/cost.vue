@@ -112,6 +112,9 @@
 				this.handleVerify('feecategory')
 			}
 		},
+		onLoad(){
+		this.checkLogin();	
+		},
 		computed: {
 			headerHeight() {
 				return this.$headerHeight
@@ -125,6 +128,14 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			checkLogin(){
+				const isLogin =uni.getStorageSync('islogin');
+				if(isLogin!=='1'){
+						uni.reLaunch({
+							url: '/pages/my/login/login'
+						});	
+				}
 			},
 			initData() {
 				this.reqData = {

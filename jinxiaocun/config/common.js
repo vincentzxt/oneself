@@ -1,7 +1,7 @@
 export const api = {
 	 baseUrl: 'https://test.saas.yunmengzhu.com',
-	//baseUrl:'https://saas.yunmengzhu.com',
-	//正式 wxa9c130058c8210a1 测试:
+	// baseUrl:'https://saas.yunmengzhu.com',
+	// 正式 wxa9c130058c8210a1 测试:wxd7cad7e258a41c60
 	contactUnit: '/api/ContactUnit',
 	baseArea: '/api/BseArea',
 	baseProduct: '/api/BseProduct',
@@ -21,7 +21,8 @@ export const api = {
 	token: '/api/Token',
 	tokenRefresh:'/api/BseUser/RefreshToken',
 	login: '/api/BseUser/Login',
-	wxLogin: '/api/BseUser/WxLogin',
+	BindUserOpenId: '/api/BseUser/BindUserOpenId',
+	UnbindUserOpenId: '/api/BseUser/UnbindUserOpenId ',
 	ChangePassword:'/api/BseUser/ChangePassword',
 	ResetPassword:'/api/BseUser/ResetPassword',
 	Regist:'/api/BseUser/Regist',

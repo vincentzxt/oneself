@@ -180,6 +180,9 @@
 				}
 			}
 		},
+		onLoad(){
+			this.checkLogin();
+		},
 		computed: {
 			headerHeight() {
 				return this.$headerHeight
@@ -187,6 +190,7 @@
 			mainHeight() {
 				return this.$mainHeight
 			}
+			
 		},
 		methods: {
 			handleNavbarClickLeft() {
@@ -203,6 +207,14 @@
 				this.currentUnitTag = true
 				this.searchCurrentUnit = false
 				this.$refs.sc.cancel()
+			},
+			checkLogin(){
+				const isLogin =uni.getStorageSync('islogin');
+				if(isLogin!=='1'){
+						uni.reLaunch({
+							url: '/pages/my/login/login'
+						});	
+				}
 			},
 			handleSearchCurrentUnit(val) {
 				if (val.value) {

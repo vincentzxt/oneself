@@ -31,10 +31,9 @@
 		<uni-list>
 			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @tap="handlePassword()"></uni-list-item>
 			<uni-list-item title="积分兑换" thumb="../../static/my/icon/order.png" @tap="handleIntegral()"></uni-list-item>
-			<!-- <uni-list-item title="时长" thumb="../../static/my/icon/time.png" @tap="handleTime()" show-text="true" :content="dataList.daycount"></uni-list-item> -->
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @tap="handleShare()"></uni-list-item>
 			<uni-list-item title="关于我们" thumb="../../static/my/icon/xinxi.png" @tap="handleAbout()"></uni-list-item>
-			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png"></uni-list-item>
+			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png" @tap="handlewx()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<view class="user_bottom" v-if="login_status"><button type="default" class="logout_btn" @tap="handleLogout">退出登录</button></view>
@@ -46,13 +45,11 @@
 <script>
 import uniList from '@/components/uni-list/uni-list.vue';
 import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
-// import adCell from '@/component/ADCell/ADCell.vue';
 import { post, tokenpost } from '@/api/user.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
 export default {
 	components: {
-		// adCell
 		uniList,
 		uniListItem
 	},
@@ -61,6 +58,7 @@ export default {
 			title: '我的',
 			changestatus: 0,
 			login_status: false,
+			wxShowNum:0,
 			ava_url: '',
 			dataList: {
 				loginname: '',
@@ -77,13 +75,13 @@ export default {
 	},
 	onLoad() {
 		uni.$on('changecompany', this.loadInit);
-		// this.getwxInfo();
+		this.getwxInfo();
 	},
 	onShow() {
 		this.loadInit();
-		this.login_status = this.$api.login_status();
-
-		//this.loadData();
+		const isLogin =uni.getStorageSync('islogin');
+		this.login_status = isLogin=='1'?true:false;
+		console.log(this.login_status);
 	},
 	onUnload() {
 		uni.$off('changecompany');
@@ -182,6 +180,11 @@ export default {
 				url: '/pages/my/share/share'
 			});
 		},
+		handlewx() {
+			uni.navigateTo({
+				url: '/pages/my/wxSet/wxSet'
+			});
+		},
 		//退出登录
 		handleLogout() {
 			uni.showModal({
@@ -189,16 +192,23 @@ export default {
 				success: e => {
 					if (e.confirm) {
 						try {
-							uni.clearStorageSync();
-							setTimeout(() => {
-								const userInfo = uni.getStorageSync('userInfo');
-								console.log(userInfo);
-								if (!userInfo) {
-									uni.reLaunch({
-										url: '/pages/my/my'
-									});
+							uni.removeStorage({
+								key: 'userInfo',
+								success: function(res) {
+									uni.removeStorageSync('islogin');
+									uni.removeStorageSync('currentUnitList');
+									uni.removeStorageSync('productList');
+									uni.removeStorageSync('productCategory');
+									setTimeout(() => {
+										const userInfo = uni.getStorageSync('userInfo');
+										if (!userInfo) {
+											uni.reLaunch({
+												url: '/pages/my/my'
+											});
+										}
+									}, 200);
 								}
-							}, 200);
+							});
 						} catch (e) {}
 					}
 				}
@@ -219,7 +229,6 @@ export default {
 			tokenpost(api.tokenRefresh)
 				.then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						console.log(userInfo.token);
 						let refresh_userInfo = {
 							token: res.data.data.token,
 							exp: res.data.data.exp,
@@ -230,8 +239,9 @@ export default {
 							data: refresh_userInfo,
 							success: function() {}
 						});
+						uni.setStorageSync('islogin', '1');
 					} else {
-						//this.$api.msg('token刷新失败');
+						uni.setStorageSync('islogin', '0');
 					}
 				})
 				.catch(error => {
@@ -252,16 +262,24 @@ export default {
 									url: '../my/set'
 								});
 							}
+							if((this.dataList.wechatopenid == null || this.dataList.wechatopenid == '' ) && (this.wxShowNum==0)){
+								this.wxShowNum = 1;
+								uni.navigateTo({
+									url: '../my/wxSet/wxSet'
+								});
+							}
 						} else {
 							//this.$api.msg(res.data.returnMessage);
 							this.dataList = { loginname: '', realname: '', telephone: '', companyname: '', expiredate: '', daycount: 0, ordercount: '0' };
 							this.login_status = false;
 						}
 					} else {
+						
 						this.$api.msg(res.data.returnMessage);
 					}
 				})
 				.catch(error => {
+					this.login_status=false
 					this.$refs.loading.close();
 					this.$api.msg('请求失败fail');
 				});

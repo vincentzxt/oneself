@@ -30,7 +30,7 @@ export default {
 	data() {
 		return {
 			title: '买卖',
-			promoterid: 0,
+			promoterid: "",
 			lists: [
 				{ id: '1', name: '销售', icon: 'sale', color: '#f4613d', size: 32 },
 				{ id: '2', name: '采购', icon: 'purchase-fill', color: '#f4613d', size: 36 },
@@ -46,21 +46,27 @@ export default {
 		};
 	},
 	onLoad(option) {
-		this.load();
-		// uni.$on('tokenchange', this.load);
-		if (option.promoterid) {
-			this.promoterid = option.promoterid;
+		const that = this;
+		console.log('option',option);
+		if(option.scene){
+			that.promoterid = decodeURIComponent(option.scene);
+			uni.setStorage({
+				key: 'promoterid',
+				data: that.promoterid,
+				success: function() {
+					that.load();
+					that.tokenRefresh();
+				}
+			});
+		}else{
+				console.log("没有数据");
+				that.load();
+				that.tokenRefresh();
 		}
-		this.tokenRefresh();
+		
 	},
 	onShow() {
-		uni.setStorage({
-			key: 'promoterid',
-			data: this.promoterid,
-			success: function() {
-				console.log('设置promoterid成功！');
-			}
-		});
+		
 	},
 	onUnload() {
 		// uni.$off('tokenchange')
@@ -76,7 +82,6 @@ export default {
 			tokenpost(api.tokenRefresh)
 				.then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						console.log(userInfo.token);
 						let refresh_userInfo = {
 							token: res.data.data.token,
 							exp: res.data.data.exp,
@@ -87,8 +92,9 @@ export default {
 							data: refresh_userInfo,
 							success: function() {}
 						});
+						uni.setStorageSync('islogin', '1');	
 					} else {
-						//this.$api.msg('token刷新失败');
+						uni.setStorageSync('islogin', '0');	
 					}
 				})
 				.catch(error => {

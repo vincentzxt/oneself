@@ -12,20 +12,7 @@ Vue.config.productionTip = false
 
 App.mpType = 'app'
 //统一提示方便全局修改
-const login_check = function (){
-	if(!uni.getStorageSync('userInfo')){
-		uni.reLaunch({
-			url:'/pages/my/login/login'
-		})
-	};
-}
-const login_status = function (){
-	if(!uni.getStorageSync('userInfo')){
-		 return false;
-	}else{
-		return true;
-	};
-}
+
 const login =function(){
 	uni.reLaunch({
 		url: '/pages/my/login/login'
@@ -42,7 +29,7 @@ const msg = (title,  icon='none',duration=2000, mask=false)=>{
 		icon
 	});
 } 
-Vue.prototype.$api = {msg,login_status,login,login_check}; 
+Vue.prototype.$api = {msg,login}; 
 
 const app = new Vue({
     ...App

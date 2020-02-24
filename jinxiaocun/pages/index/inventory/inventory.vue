@@ -74,6 +74,7 @@
 			}
 		},
 		onLoad() {
+			this.checkLogin()
 			this.productCategory = uni.getStorageSync('productCategory').productCategories
 			this.productCategory.unshift({ productcategoryid: '00000', productcategoryname: '所有分类' })
 			let reqData = {
@@ -119,6 +120,14 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+				checkLogin(){
+				const isLogin =uni.getStorageSync('islogin');
+				if(isLogin!=='1'){
+						uni.reLaunch({
+							url: '/pages/my/login/login'
+						});	
+				}
 			},
 			handleSelectType(val) {
 				this.curSelectType = val.productcategoryid
