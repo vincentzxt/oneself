@@ -631,7 +631,7 @@
 				}
 			}
 			&-purchase {
-				margin-top: $uni-spacing-col-base;
+				margin-top: $uni-spacing-col-lg;
 				background-color: #FFFFFF;
 				&-header {
 					margin-left: 10px;
