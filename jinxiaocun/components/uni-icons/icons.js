@@ -60,6 +60,7 @@ export default {
 	'fukuan': '\ue602',
 	'yujing': '\ue639',
 	'fenxi': '\ue623',
+	'fenxi2': '\ue61d',
 	'lr-change': '\ue613',
 	'filter': '\ue612',
 	'right': '\ue7a3',

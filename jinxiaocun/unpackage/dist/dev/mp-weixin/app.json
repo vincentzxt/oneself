@@ -28,6 +28,7 @@
     "pages/bill/stock-list/stock-list",
     "pages/data/data",
     "pages/data/return/return",
+    "pages/data/sale/sale",
     "pages/my/my",
     "pages/my/login/login",
     "pages/my/set",
@@ -58,7 +59,8 @@
     "pages/my/recharge/recharge",
     "pages/my/share/myshare",
     "pages/bill/inventory-list/inventory-detail",
-    "pages/my/about/about"
+    "pages/my/about/about",
+    "pages/my/login/wx_login"
   ],
   "subPackages": [],
   "window": {
@@ -99,5 +101,5 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
   },
-  "sitemapLocation": "sitemap60.json"
+  "sitemapLocation": "sitemap7.json"
 }

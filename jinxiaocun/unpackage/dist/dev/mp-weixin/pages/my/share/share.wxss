@@ -162,6 +162,14 @@
 .container .main .uni-uploader__img.data-v-eab933f2 {
       width: 100%;
 }
+.container .main .share-pic.data-v-eab933f2 {
+      text-align: center;
+      padding: 30rpx;
+}
+.container .main .share-pic image.data-v-eab933f2 {
+      width: 160upxpx;
+      height: 160px;
+}
 .container .footer.data-v-eab933f2 {
     height: 7%;
     display: -webkit-box;

@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "cu-panel": "/components/custom/cu-panel",
+    "cu-cell": "/components/custom/cu-cell",
+    "cu-cell-group": "/components/custom/cu-cell-group",
+    "uni-list": "/components/uni-list/uni-list",
+    "uni-list-item": "/components/uni-list-item/uni-list-item",
+    "kps-image-cutter": "/components/ksp-image-cutter/ksp-image-cutter"
+  }
+}
