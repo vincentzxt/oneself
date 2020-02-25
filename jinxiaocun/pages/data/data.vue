@@ -35,16 +35,16 @@
 						<text style="margin-left: 10px">销售情况</text>
 					</view>
 					<view class="main-sale-content">
-					<!--	<view class="main-sale-content-block" @tap="handleNavTo('./sale/sale', 'date='+date+'&startDate='+startDate+'&endDate='+endDate)">-->
-						<view class="main-sale-content-block">
+						<view class="main-sale-content-block" style="background-color: #a1c8f3;" @tap="handleNavTo('./sale/sale', 'date='+date+'&startDate='+startDate+'&endDate='+endDate)">
+					<!--	<view class="main-sale-content-block"> -->
 							<text class="main-sale-content-block-title">{{numberFilter(datas.salesAmount)}}</text>
 							<text class="main-sale-content-block-des">销货(元)</text>
 						</view>
-						<view class="main-sale-content-block">
+						<view class="main-sale-content-block" style="background-color: #c4c4c4;">
 							<text class="main-sale-content-block-title">{{numberFilter(datas.salesReturnAmount)}}</text>
 							<text class="main-sale-content-block-des">退货(元)</text>
 						</view>
-						<view class="main-sale-content-block">
+						<view class="main-sale-content-block" style="background-color: #ffcc80;">
 							<text class="main-sale-content-block-title">{{numberFilter(datas.grossProfit)}}</text>
 							<text class="main-sale-content-block-des">毛利(元)</text>
 						</view>
@@ -53,10 +53,32 @@
 						<canvas canvas-id="saleLine" id="saleLine" class="main-sale-charts"></canvas>
 					</view>
 				</view>
+				<view class="main-purchase">
+					<view class="main-purchase-header">
+						<uni-icons type="fenxi2" color="#9cd77b" size=20></uni-icons>
+						<text style="margin-left: 10px">采购情况</text>
+					</view>
+					<view class="main-purchase-content">
+						<view class="main-purchase-content-block" style="background-color: #c4c4c4;">
+							<view class="main-purchase-content-block-title">
+								<view>￥{{numberFilter(datas.purchaseAmount)}}</view>
+								<view>{{datas.purchaseOrderCount}}单</view>
+							</view>
+							<text class="main-purchase-content-block-des">采购</text>
+						</view>
+						<view class="main-purchase-content-block" style="background-color: #ffcc80;">
+							<view class="main-purchase-content-block-title">
+								<text>￥{{numberFilter(datas.purchaseReturnAmount)}}</text>
+								<text>{{datas.purchaseOrderReturnCount}}单</text>
+							</view>
+							<text class="main-purchase-content-block-des">采购退货</text>
+						</view>
+					</view>
+				</view>
 				<view class="main-recpay">
 					<view class="main-recpay-header">
 						<uni-icons type="c-amount" color="#5cdbd3" size=20></uni-icons>
-						<text style="margin-left: 10px">收付情况</text>
+						<text style="margin-left: 10px">欠款情况</text>
 					</view>
 					<view class="main-recpay-content">
 						<view class="main-recpay-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%">
@@ -73,22 +95,6 @@
 							</view>
 							<view class="main-recpay-content-wrap-content">
 								<text>￥{{numberFilter(datas.payableAmount)}}</text>
-							</view>
-						</view>
-						<view class="main-recpay-content-wrap" style="width:45%">
-							<view>
-								<text style="margin-left: 10px">已收金额</text>
-							</view>
-							<view class="main-recpay-content-wrap-content">
-								<text>￥{{numberFilter(datas.receivedAmount)}}</text>
-							</view>
-						</view>
-						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;width:45%;">
-							<view style="margin-left: 10px;">
-								<text style="margin-left: 10px">已付金额</text>
-							</view>
-							<view class="main-recpay-content-wrap-content">
-								<text>￥{{numberFilter(datas.paymentAmount)}}</text>
 							</view>
 						</view>
 					</view>
@@ -127,13 +133,13 @@
 						<text style="margin-left: 10px">预警情况</text>
 					</view>
 					<view class="main-warning-content">
-						<view class="main-warning-content-wrap" style="background-color: #f9e6dc;">
-							<text class="main-warning-content-wrap-desc">{{datas.warningContactUnitQty}}条</text>
-							<text>客户预警</text>
+						<view class="main-warning-content-wrap" style="background-color: #fcf7f4;">
+							<text class="main-warning-content-wrap-title">{{datas.warningContactUnitQty}}条</text>
+							<text class="main-warning-content-wrap-text">客户预警</text>
 						</view>
-						<view class="main-warning-content-wrap" style="background-color: #e8fdd9;">
-							<text class="main-warning-content-wrap-desc">{{datas.warningStockQty}}条</text>
-							<text>库存预警</text>
+						<view class="main-warning-content-wrap" style="background-color: #f6fbf2;">
+							<text class="main-warning-content-wrap-title">{{datas.warningStockQty}}条</text>
+							<text class="main-warning-content-wrap-text">库存预警</text>
 						</view>
 					</view>
 				</view>
@@ -260,8 +266,8 @@
 			this.hotSellingProduct = []
 			this.slowSellingProduct = []
 			this.date = 'day'
-			this.startDate = dateFormat('YYYY-mm-dd', new Date()) + ' 00:00:00'
-			this.endDate = dateFormat('YYYY-mm-dd', new Date()) + ' 23:59:59'
+			this.startDate = dateFormat('YYYY-mm-dd', new Date())
+			this.endDate = dateFormat('YYYY-mm-dd', new Date())
 			this.getData(this.startDate, this.endDate)
 		},
 		computed: {
@@ -303,32 +309,32 @@
 				let eDate = new Date()
 				switch(val) {
 					case 'day':
-						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
-						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						this.startDate = dateFormat('YYYY-mm-dd', sDate)
+						this.endDate = dateFormat('YYYY-mm-dd', eDate)
 						break
 					case 'yesterday':
 						sDate.setDate(sDate.getDate() - 1)
-						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
+						this.startDate = dateFormat('YYYY-mm-dd', sDate)
 						eDate.setDate(eDate.getDate() - 1)
-						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						this.endDate = dateFormat('YYYY-mm-dd', eDate)
 						break
 					case 'week':
 						let w = sDate.getDay()
 						w = w == 0 ? 6 : w - 1
 						sDate.setDate(sDate.getDate() - w)
-						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
-						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						this.startDate = dateFormat('YYYY-mm-dd', sDate)
+						this.endDate = dateFormat('YYYY-mm-dd', eDate)
 						break
 					case 'month': 
 						sDate.setDate(1)
-						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
-						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						this.startDate = dateFormat('YYYY-mm-dd', sDate)
+						this.endDate = dateFormat('YYYY-mm-dd', eDate)
 						break
 					case 'year':
 						sDate.setMonth(0)
 						sDate.setDate(1)
-						this.startDate = dateFormat('YYYY-mm-dd', sDate) + ' 00:00:00'
-						this.endDate = dateFormat('YYYY-mm-dd', eDate) + ' 23:59:59'
+						this.startDate = dateFormat('YYYY-mm-dd', sDate)
+						this.endDate = dateFormat('YYYY-mm-dd', eDate)
 						break
 				}
 				this.getData(this.startDate, this.endDate)
@@ -336,8 +342,8 @@
 			showSaleLine(canvasId, chartData){
 				scaleLine = new uCharts({
 					canvasId: canvasId,
-					type: 'line',
-			    colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'],
+					type: 'area',
+			    colors: ['#39bbf5', '#fc4949', '#9cd77b', '#feb840', '#5cdbd3', '#f29d6e', '#b37fec'],
 					fontSize:11,
 					padding:[15,15,0,15],
 					legend:{
@@ -354,15 +360,14 @@
 					series: chartData.series,
 					animation: true,
 					xAxis: {
-						disableGrid:true,
-						axisLineColor:'#808695',
+						gridType:'solid',
+						gridColor:'#f3f3f3',
 						fontColor: '#808695',
 						rotateLabel: true
 					},
 					yAxis: {
 						gridType:'solid',
 						gridColor:'#f3f3f3',
-						axisLineColor:'#808695',
 						fontColor: '#808695',
 						format: (val) => {
 							return numberFormat(val)
@@ -371,8 +376,11 @@
 					width:this.cWidth * this.pixelRation,
 					height: this.cHeight * this.pixelRation,
 					extra: {
-						line:{
-							type: 'straight'
+						area:{
+							type: 'straight',
+							opacity:0.05,
+							addLine:true,
+							width:2
 						}
 					}
 				})
@@ -382,7 +390,7 @@
 					canvasId: canvasId,
 					type: 'ring',
 					fontSize:11,
-					colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'],
+					colors: ['#39bbf5', '#fc4949', '#9cd77b', '#feb840', '#5cdbd3', '#f29d6e', '#b37fec'],
 					legend:{
 					    show:true,
 					    position:'right',
@@ -428,7 +436,7 @@
 					canvasId: canvasId,
 					type: 'ring',
 					fontSize:11,
-					colors: ['#51a9f3', '#ef5a62', '#90dc5d', '#f7d767', '#5cdbd3', '#f29d6e', '#b37fec'],
+					colors: ['#39bbf5', '#fc4949', '#9cd77b', '#feb840', '#5cdbd3', '#f29d6e', '#b37fec'],
 					legend:{
 					    show:true,
 					    position:'right',
@@ -475,12 +483,16 @@
 					{
 						name: '销售额',
 						data: [],
-						color: '#facc14'
+						color: '#ff9701',
+						pointShape: 'circle',
+						legendShape: 'circle'
 					},
 					{
 						name: '利润',
 						data: [],
-						color: '#2fc25b'
+						color: '#50e457',
+						pointShape: 'circle',
+						legendShape: 'circle'
 					}
 				]
 				for (let item of this.datas.last7DaySalesList) {
@@ -560,17 +572,19 @@
 				margin-top: $uni-spacing-col-lg;
 				margin-bottom: $uni-spacing-col-lg;
 				&-hover {
-					color: #f29c6e;
+					color: #2d8cf0;
 				}
 				&-sline {
-					width: 80upx;
-					height: 3px;
-					background-color: #f29c6e;
+					width: 90upx;
+					height: 2px;
+					background-color: #2d8cf0;
+					margin-top: 5px;
 				}
 				&-nline {
-					width: 80upx;
-					height: 3px;
+					width: 90upx;
+					height: 2px;
 					background-color: #FFFFFF;
+					margin-top: 5px;
 				}
 			}
 		}
@@ -596,18 +610,17 @@
 					&-block {
 						height: 130upx;
 						width: 230upx;
-						background-color: $uni-bg-color;
 						display: flex;
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
+						color: #ffffff;
 						&-title {
 							font-size:$uni-font-size-sm;
-							color:$uni-title-color;
+							font-weight: bold;
 						}
 						&-des {
 							font-size:$uni-font-size-sm;
-							color: $uni-text-color-grey;
 						}
 					}
 				}
@@ -615,6 +628,46 @@
 					width: 750upx;
 					height: 400upx;
 					background-color: #FFFFFF;
+				}
+			}
+			&-purchase {
+				margin-top: $uni-spacing-col-lg;
+				background-color: #FFFFFF;
+				&-header {
+					margin-left: 10px;
+					display: flex;
+					align-items: center;
+					padding: 10px 0;
+					font-size: $uni-font-size-sm;
+					border-bottom: 0.5px solid #f3f3f3;
+				}
+				&-content {
+					width: 750upx;
+					display: flex;
+					justify-content: space-around;
+					align-items: center;
+					margin-top: $uni-spacing-col-lg;
+					&-block {
+						height: 130upx;
+						width: 350upx;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+						color: #ffffff;
+						margin-bottom: 10px;
+						&-title {
+							width:100%;
+							display: flex;
+							justify-content: space-around;
+							align-items: center;
+							font-size:$uni-font-size-sm;
+							font-weight: bold;
+						}
+						&-des {
+							font-size:$uni-font-size-sm;
+						}
+					}
 				}
 			}
 			&-recpay {
@@ -637,6 +690,7 @@
 						display: flex;
 						flex-direction: column;
 						padding: 10px 0;
+						color: $uni-text-color-grey;
 						&-content {
 							display: flex;
 							justify-content: center;
@@ -699,6 +753,7 @@
 					display: flex;
 					justify-content: space-around;
 					font-size: $uni-font-size-sm;
+					margin-top: $uni-spacing-col-lg;
 					&-wrap {
 						display: flex;
 						flex-direction: column;
@@ -706,9 +761,12 @@
 						width: 45%;
 						padding: 20upx 0;
 						margin-bottom: 10px;
-						&-desc {
+						&-title {
 							color: $uni-title-color;
 							margin-bottom: 10upx;
+						}
+						&-text {
+							color: $uni-text-color-grey;
 						}
 					}
 				}
@@ -734,7 +792,7 @@
 								width: 100upx;
 								height: 50upx;
 								line-height: 1.5;
-								border-radius: 5px;
+								border-radius: 50px;
 								display: flex;
 								justify-content: center;
 								align-items: center;

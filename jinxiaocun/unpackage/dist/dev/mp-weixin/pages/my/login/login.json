@@ -1,0 +1,6 @@
+{
+  "backgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "uni-icon": "/components/uni-icon/uni-icon"
+  }
+}
