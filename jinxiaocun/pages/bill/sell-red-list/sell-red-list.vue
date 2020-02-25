@@ -86,6 +86,11 @@ export default {
 		};
 	},
 	onLoad() {
+		if(option){
+			this.search_startDate = option.startDate
+			this.search_endDate = option.endDate
+			this.search_value = option.cutomerName
+		}
 		this.loadData();
 	},
 	onShow() {
