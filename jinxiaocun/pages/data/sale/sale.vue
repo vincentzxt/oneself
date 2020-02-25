@@ -17,15 +17,15 @@
 			<view class="main-sale">
 				<view class="main-sale-header">
 					<view class="main-sale-header-block" style="background-color: #a1c8f3;">
-						<text class="main-sale-header-block-title">{{numberFilter(totalOrder)}}</text>
+						<text class="main-sale-header-block-title">{{numberFilter(datas.totalqty)}}</text>
 						<text class="main-sale-header-block-des">订单总数</text>
 					</view>
 					<view class="main-sale-header-block" style="background-color: #c4c4c4;">
-						<text class="main-sale-header-block-title">￥{{numberFilter(totalAmount)}}</text>
+						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalamount)}}</text>
 						<text class="main-sale-header-block-des">销售总金额</text>
 					</view>
 					<view class="main-sale-header-block" style="background-color: #ffcc80;">
-						<text class="main-sale-header-block-title">￥{{numberFilter(totalProfit)}}</text>
+						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalprofit)}}</text>
 						<text class="main-sale-header-block-des">总毛利</text>
 					</view>
 				</view>
@@ -40,7 +40,7 @@
 					</view>
 					<view 
 						class = "main-sale-content-cell"
-						v-for = "(item, index) in datas"
+						v-for = "(item, index) in datas.reportDetailQueries"
 						:key = "index"
 						:style = "{'background-color': index % 2 !== 0 ? '#ebf7ff' : ''}"
 						@tap = "handleNavTo"
@@ -61,7 +61,7 @@
 						<uni-list-item 
 							:title="item.cutomerName"
 							:note="['金额：'+numberFilter(item.billAmount), '毛利：'+numberFilter(item.billProfit), '订单数：'+item.billQty]"
-							v-for="(item, index) in datas"
+							v-for="(item, index) in datas.reportDetailQueries"
 							:key="index"
 							@tap = "handleNavTo(item.cutomerName)">
 						</uni-list-item>
@@ -94,9 +94,6 @@
 			return {
 				title: '销售分析',
 				datas: [],
-				totalOrder: 0,
-				totalAmount: 0,
-				totalProfit: 0,
 				date: '',
 				startDate: '',
 				endDate: '',
