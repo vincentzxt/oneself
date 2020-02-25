@@ -85,7 +85,7 @@ export default {
 			orderList: [{ name: '退货日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
 		};
 	},
-	onLoad() {
+	onLoad(option) {
 		if(option){
 			this.search_startDate = option.startDate
 			this.search_endDate = option.endDate
