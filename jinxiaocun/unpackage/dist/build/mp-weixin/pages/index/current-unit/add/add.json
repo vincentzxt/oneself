@@ -1,7 +1,7 @@
 {
   "usingComponents": {
+    "simple-address": "/components/simple-address/simple-address",
     "cu-panel": "/components/custom/cu-panel",
-    "cu-cell": "/components/custom/cu-cell",
-    "simple-address": "/components/simple-address/simple-address"
+    "cu-cell": "/components/custom/cu-cell"
   }
 }

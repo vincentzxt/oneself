@@ -28,6 +28,7 @@
     "pages/bill/stock-list/stock-list",
     "pages/data/data",
     "pages/data/return/return",
+    "pages/data/sale/sale",
     "pages/my/my",
     "pages/my/login/login",
     "pages/my/set",
@@ -59,7 +60,7 @@
     "pages/my/share/myshare",
     "pages/bill/inventory-list/inventory-detail",
     "pages/my/about/about",
-    "pages/my/login/wx_login"
+    "pages/my/wxSet/wxSet"
   ],
   "subPackages": [],
   "window": {
@@ -95,6 +96,9 @@
       }
     ]
   },
+  "navigateToMiniProgramAppIdList": [
+    "wx9074de28009e1111"
+  ],
   "usingComponents": {
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",

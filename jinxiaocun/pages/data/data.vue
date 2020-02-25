@@ -657,7 +657,7 @@
 						color: #ffffff;
 						margin-bottom: 10px;
 						&-title {
-							width:100%;
+							width:100%;l
 							display: flex;
 							justify-content: space-around;
 							align-items: center;
