@@ -80,7 +80,7 @@
 	import cuCell from '@/components/custom/cu-cell.vue'
 	import cuDate from '@/components/custom/cu-date.vue'
 	import { api } from '@/config/common.js'
-	import { querySalesDetail, querySalesReturnDetail } from '@/api/data.js'
+	import { querySalesDetail, querySalesReturnDetail, queryPurchaseDetail, queryPurchaseReturnDetail } from '@/api/data.js'
 	import { dateFormat, numberFormat } from '@/utils/tools.js'
 	export default {
 		components: {
@@ -102,13 +102,16 @@
 					{ id: 1, name: '客户', checked: false, condition: true }
 				],
 				filter: 0,
-				cutomerName: ''
+				cutomerName: '',
+				detailUrl: ''
 			}
 		},
 		onLoad(options) {
 			this.date = options.date
 			this.startDate = options.startDate
 			this.endDate = options.endDate
+			this.title = '销售分析'
+			this.detailUrl = '/pages/bill/sell-list/sell-list'
 			this.getData()
 		},
 		computed: {
@@ -117,7 +120,7 @@
 			},
 			initDate() {
 				return {
-					title: '销售分析',
+					title: this.title,
 					date: this.date,
 					startDate: this.startDate,
 					endDate: this.endDate
@@ -161,7 +164,6 @@
 				return numberFormat(number)
 			},
 			handleNavTo(val = '') {
-				let url = '/pages/bill/sell-list/sell-list'
 				let params = ''
 				if (this.filter == 0) {
 					params = 'startDate='+this.startDate+'&endDate='+this.endDate
@@ -169,7 +171,7 @@
 					params = 'startDate='+this.startDate+'&endDate='+this.endDate+'&cutomerName='+val
 				}
 				uni.navigateTo({
-					url: url+'?'+params
+					url: this.detailUrl+'?'+params
 				})
 			},
 			handleDateOk(val) {

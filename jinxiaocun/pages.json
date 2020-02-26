@@ -85,10 +85,10 @@
 			"path": "pages/data/data"
 		},
 		{
-			"path" : "pages/data/return/return"
+			"path" : "pages/data/sale/sale"
 		},
 		{
-			"path" : "pages/data/sale/sale"
+			"path" : "pages/data/sale/sale-return"
 		},
 		{
 			"path": "pages/my/my"
