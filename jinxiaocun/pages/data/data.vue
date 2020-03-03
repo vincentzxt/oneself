@@ -40,11 +40,11 @@
 							<text class="main-sale-content-block-title">{{numberFilter(datas.salesAmount)}}</text>
 							<text class="main-sale-content-block-des">销货(元)</text>
 						</view>
-						<view class="main-sale-content-block" style="background-color: #c4c4c4;">
+						<view class="main-sale-content-block" style="background-color: #c4c4c4;" @tap="handleNavTo('./sale/sale-return', 'pageType=1&date='+date+'&startDate='+startDate+'&endDate='+endDate)">
 							<text class="main-sale-content-block-title">{{numberFilter(datas.salesReturnAmount)}}</text>
 							<text class="main-sale-content-block-des">退货(元)</text>
 						</view>
-						<view class="main-sale-content-block" style="background-color: #ffcc80;">
+						<view class="main-sale-content-block" style="background-color: #ffcc80;" @tap="handleNavTo('./sale/sale', 'date='+date+'&startDate='+startDate+'&endDate='+endDate)">
 							<text class="main-sale-content-block-title">{{numberFilter(datas.grossProfit)}}</text>
 							<text class="main-sale-content-block-des">毛利(元)</text>
 						</view>
@@ -59,14 +59,14 @@
 						<text style="margin-left: 10px">采购情况</text>
 					</view>
 					<view class="main-purchase-content">
-						<view class="main-purchase-content-block" style="background-color: #c4c4c4;">
+						<view class="main-purchase-content-block" style="background-color: #c4c4c4;" @tap="handleNavTo('./sale/sale-return', 'pageType=2&date='+date+'&startDate='+startDate+'&endDate='+endDate)">
 							<view class="main-purchase-content-block-title">
 								<view>￥{{numberFilter(datas.purchaseAmount)}}</view>
 								<view>{{datas.purchaseOrderCount}}单</view>
 							</view>
 							<text class="main-purchase-content-block-des">采购</text>
 						</view>
-						<view class="main-purchase-content-block" style="background-color: #ffcc80;">
+						<view class="main-purchase-content-block" style="background-color: #ffcc80;" @tap="handleNavTo('./sale/sale-return', 'pageType=3&date='+date+'&startDate='+startDate+'&endDate='+endDate)">
 							<view class="main-purchase-content-block-title">
 								<text>￥{{numberFilter(datas.purchaseReturnAmount)}}</text>
 								<text>{{datas.purchaseOrderReturnCount}}单</text>

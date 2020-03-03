@@ -18,24 +18,19 @@
 				<view class="main-sale-header">
 					<view class="main-sale-header-block" style="background-color: #a1c8f3;">
 						<text class="main-sale-header-block-title">{{numberFilter(datas.totalqty)}}</text>
-						<text class="main-sale-header-block-des">订单总数</text>
-					</view>
-					<view class="main-sale-header-block" style="background-color: #c4c4c4;">
-						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalamount)}}</text>
-						<text class="main-sale-header-block-des">销售总金额</text>
+						<text class="main-sale-header-block-des">{{totalTitle1}}</text>
 					</view>
 					<view class="main-sale-header-block" style="background-color: #ffcc80;">
-						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalprofit)}}</text>
-						<text class="main-sale-header-block-des">总毛利</text>
+						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalamount)}}</text>
+						<text class="main-sale-header-block-des">{{totalTitle2}}</text>
 					</view>
 				</view>
 				<view class="main-sale-content" v-if="filter == 0">
 					<view class="main-sale-content-header">
 						<view class="main-sale-content-header-view">
-							<view class="table-item1">日期</view>
-							<view class="table-item2">单据数</view>
-							<view class="table-item3">金额</view>
-							<view class="table-item3">毛利</view>
+							<view class="table-item1">{{tableHeader1}}</view>
+							<view class="table-item2">{{tableHeader2}}</view>
+							<view class="table-item3">{{tableHeader3}}</view>
 						</view>
 					</view>
 					<view 
@@ -49,7 +44,6 @@
 							<view class="table-item1">{{item.yearMonth}}</view>
 							<view class="table-item2">{{item.billQty}}</view>
 							<view class="table-item3">{{numberFilter(item.billAmount)}}</view>
-							<view class="table-item3">{{numberFilter(item.billProfit)}}</view>
 						</view>
 						<view class="main-sale-content-cell-footer">
 							<uni-icons type="arrow" size=20 color="#808695"></uni-icons>
@@ -60,7 +54,7 @@
 					<uni-list>
 						<uni-list-item 
 							:title="item.cutomerName"
-							:note="['金额：'+numberFilter(item.billAmount), '毛利：'+numberFilter(item.billProfit), '订单数：'+item.billQty]"
+							:note="['金额：'+numberFilter(item.billAmount), '订单数：'+item.billQty]"
 							v-for="(item, index) in datas.reportDetailQueries"
 							:key="index"
 							@tap = "handleNavTo(item.cutomerName)">
@@ -92,7 +86,13 @@
 		},
 		data() {
 			return {
-				title: '销售分析',
+				pageType: 1,
+				title: '',
+				totalTitle1: '',
+				totalTitle2: '',
+				tableHeader1: '',
+				tableHeader2: '',
+				tableHeader3: '',
 				datas: [],
 				date: '',
 				startDate: '',
@@ -107,11 +107,39 @@
 			}
 		},
 		onLoad(options) {
+			this.pageType = parseInt(options.pageType)
 			this.date = options.date
 			this.startDate = options.startDate
 			this.endDate = options.endDate
-			this.title = '销售分析'
-			this.detailUrl = '/pages/bill/sell-list/sell-list'
+			switch(this.pageType) {
+				case 1:
+					this.title = '销售退货'
+					this.totalTitle1 = '订单总数'
+					this.totalTitle2 = '退货总金额'
+					this.tableHeader1 = '日期'
+					this.tableHeader2 = '订单数'
+					this.tableHeader3 = '退货金额'
+					this.detailUrl = '/pages/bill/sell-red-list/sell-red-list'
+					break
+				case 2:
+					this.title = '采购分析'
+					this.totalTitle1 = '订单总数'
+					this.totalTitle2 = '采购总金额'
+					this.tableHeader1 = '日期'
+					this.tableHeader2 = '订单数'
+					this.tableHeader3 = '采购金额'
+					this.detailUrl = '/pages/bill/purchase-list/purchase-list'
+					break
+				case 3:
+					this.title = '采购退货'
+					this.totalTitle1 = '订单总数'
+					this.totalTitle2 = '退货总金额'
+					this.tableHeader1 = '日期'
+					this.tableHeader2 = '订单数'
+					this.tableHeader3 = '退货金额'
+					this.detailUrl = '/pages/bill/purchase-red-list/purchase-red-list'
+					break
+			}
 			this.getData()
 		},
 		computed: {
@@ -150,15 +178,41 @@
 					}
 				}
 				this.$refs.loading.open()
-				querySalesDetail(api.report, reqData).then(res => {
-					this.$refs.loading.close()
-					if (res.status == 200 && res.data.returnCode == '0000') {
-						this.datas = res.data.data
-						this.cutomerName = ''
-					}
-				}).catch(error => {
-					this.$refs.loading.close()
-				})
+				switch(this.pageType) {
+					case 1:
+						querySalesReturnDetail(api.report, reqData).then(res => {
+							this.$refs.loading.close()
+							if (res.status == 200 && res.data.returnCode == '0000') {
+								this.datas = res.data.data
+								this.cutomerName = ''
+							}
+						}).catch(error => {
+							this.$refs.loading.close()
+						})
+						break
+					case 2:
+						queryPurchaseDetail(api.report, reqData).then(res => {
+							this.$refs.loading.close()
+							if (res.status == 200 && res.data.returnCode == '0000') {
+								this.datas = res.data.data
+								this.cutomerName = ''
+							}
+						}).catch(error => {
+							this.$refs.loading.close()
+						})
+						break
+					case 3:
+						queryPurchaseReturnDetail(api.report, reqData).then(res => {
+							this.$refs.loading.close()
+							if (res.status == 200 && res.data.returnCode == '0000') {
+								this.datas = res.data.data
+								this.cutomerName = ''
+							}
+						}).catch(error => {
+							this.$refs.loading.close()
+						})
+						break
+				}
 			},
 			numberFilter(number) {
 				return numberFormat(number)
@@ -238,7 +292,7 @@
 					align-items: center;
 					&-block {
 						height: 130upx;
-						width: 230upx;
+						width: 345upx;
 						display: flex;
 						flex-direction: column;
 						justify-content: center;
