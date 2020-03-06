@@ -22,6 +22,12 @@
 				<button type="primary" class="wx_class" :loading="loading2"  open-type="getUserInfo" @getuserinfo="handleWxLogin" style="margin-top: 10px;">微信一键登录</button>
 			</view>
 		</view>
+	<!-- 	<view class="weixin">
+			<view class="weixin-area">
+				<image src="../../../static/my/icon/mine_weixin.png" mode=""></image>
+			</view>
+			
+		</view> -->
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
@@ -216,6 +222,27 @@ export default {
 		padding-right: 12px;
 		vertical-align: center;
 		padding: 10upx 0upx;
+	}
+}
+.weixin{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.weixin-area{
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 50%;
+	background-color: #f7f7f7;
+	text-align: center;
+	vertical-align: middle;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	image{
+		align-self: center;
+		width: 48rpx;
+		height: 48rpx;
 	}
 }
 .user_bottom {
