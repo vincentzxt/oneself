@@ -41,6 +41,7 @@ export const api = {
 	UploadImg:'/api/BseUser/UploadImg',
 	GetMyDayLogList:'/api/BseUser/GetMyDayLogList',
 	GetOrderList:'/api/SysOrder/GetMyOrderList',
+	RefundApply:'/api/SysRefund/RefundApply',
 	IntegralExchange:'/api/BseUser/IntegralExchange',
 	AddOrder:'/api/SysOrder/AddOrder',
 	GetCurrentActivity:'/api/SysActivity/GetCurrentActivity',
@@ -48,6 +49,7 @@ export const api = {
 	GetSmsCode:'/api/SysMessage/SendVerificationCode',
 	GetProductList:'/api/SysProduct/GetProductList',
 	Orderypay:'/api/WeChartPay/OrderPay',
-	GetSharePic:'/api/BseUser/GetSharePic/'
-	
+	GetSharePic:'/api/BseUser/GetSharePic/',
+	GetRefundList:'/api/SysDictionary/GetSysDictionaryList',
+	RefundApply:'/api/SysRefund/RefundApply'
 }

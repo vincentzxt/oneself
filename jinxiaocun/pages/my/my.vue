@@ -23,17 +23,17 @@
 			</view>
 		</view>
 		<uni-list v-if="dataList.ismain === 1">
-			<uni-list-item title="员工管理" thumb="../../static/my/icon/list.png" @tap="handleUserManage()" :show-arrow="true"></uni-list-item>
-			<uni-list-item title="收款账号" thumb="../../static/my/icon/bankcard.png" @tap="handleBankSet()"></uni-list-item>
-			<uni-list-item title="购买/续费" thumb="../../static/my/icon/recharge.png" @tap="handleRecharge()"></uni-list-item>
+			<uni-list-item title="员工管理" thumb="/static/my/icon/mine_yggl.png" @tap="handleUserManage()" :show-arrow="true"></uni-list-item>
+			<uni-list-item title="收款账号" thumb="../../static/my/icon/mine_skzh.png" @tap="handleBankSet()"></uni-list-item>
+			<uni-list-item title="购买/续费" thumb="../../static/my/icon/mine_gmjf.png" @tap="handleRecharge()"></uni-list-item>
 		</uni-list>
 		<view class="space" v-if="dataList.ismain === 1"></view>
 		<uni-list>
-			<uni-list-item title="修改密码" thumb="../../static/my/icon/editpwd.png" @tap="handlePassword()"></uni-list-item>
-			<uni-list-item title="积分兑换" thumb="../../static/my/icon/order.png" @tap="handleIntegral()"></uni-list-item>
-			<uni-list-item title="分享有礼" thumb="../../static/my/icon/share.png" @tap="handleShare()"></uni-list-item>
-			<uni-list-item title="关于我们" thumb="../../static/my/icon/xinxi.png" @tap="handleAbout()"></uni-list-item>
-			<uni-list-item title="帮助文档" thumb="../../static/my/icon/help.png" @tap="handlewx()"></uni-list-item>
+			<uni-list-item title="修改密码" thumb="../../static/my/icon/mine_xgmm.png" @tap="handlePassword()"></uni-list-item>
+			<uni-list-item title="积分兑换" thumb="../../static/my/icon/mine_jfdh.png" @tap="handleIntegral()"></uni-list-item>
+			<uni-list-item title="分享有礼" thumb="../../static/my/icon/mine_fxyl.png" @tap="handleShare()"></uni-list-item>
+			<uni-list-item title="关于我们" thumb="../../static/my/icon/mine_gywm.png" @tap="handleAbout()"></uni-list-item>
+			<uni-list-item title="帮助文档" thumb="../../static/my/icon/mine_bzwd.png" @tap="handlewx()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<view class="user_bottom" v-if="login_status"><button type="default" class="logout_btn" @tap="handleLogout">退出登录</button></view>
