@@ -91,6 +91,9 @@
 			"path" : "pages/data/sale/sale-return"
 		},
 		{
+		  "path" : "pages/data/receive-pay/receive-pay"
+		},
+		{
 			"path": "pages/my/my"
 		},
 		{

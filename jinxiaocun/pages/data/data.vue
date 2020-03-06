@@ -81,7 +81,7 @@
 						<text style="margin-left: 10px">欠款情况</text>
 					</view>
 					<view class="main-recpay-content">
-						<view class="main-recpay-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%">
+						<view class="main-recpay-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%" @tap="handleNavTo('./receive-pay/receive-pay', 'pageType=1')">
 							<view>
 								<text style="margin-left: 10px">应收金额</text>
 							</view>
@@ -89,7 +89,7 @@
 								<text>￥{{numberFilter(datas.receivableAmount)}}</text>
 							</view>
 						</view>
-						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;">
+						<view class="main-recpay-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;" @tap="handleNavTo('./receive-pay/receive-pay', 'pageType=2')">
 							<view style="margin-left: 10px;">
 								<text style="margin-left: 10px">应付金额</text>
 							</view>

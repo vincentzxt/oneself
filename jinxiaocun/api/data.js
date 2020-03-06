@@ -47,3 +47,36 @@ export const queryPurchaseReturnDetail = (url, data = {}) => {
 		method: 'post'
   })
 }
+
+export const queryReceive = (url, data = {}) => {
+	console.log(data)
+  return http.request({
+    url: url + '/QueryReceive',
+		data: data,
+		method: 'post'
+  })
+}
+
+export const queryReceiveDetail = (url, data = {}) => {
+  return http.request({
+    url: url + '/QueryReceiveDetail',
+		data: data,
+		method: 'post'
+  })
+}
+
+export const queryPay = (url, data = {}) => {
+  return http.request({
+    url: url + '/QueryPay',
+		data: data,
+		method: 'post'
+  })
+}
+
+export const queryPayDetail = (url, data = {}) => {
+  return http.request({
+    url: url + '/QueryPayDetail',
+		data: data,
+		method: 'post'
+  })
+}
