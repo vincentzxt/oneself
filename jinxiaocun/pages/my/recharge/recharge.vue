@@ -19,7 +19,7 @@
 							<view>
 								<text>【{{ item.orderStatusName }}】{{ item.ordercode }}</text>
 							</view>
-							<view v-if="item.orderStatusName == '未支付'" class="payment-blue" @tap="handlePayment"><text>支付</text></view>
+							<view v-if="item.orderStatusName == '未支付'" class="payment-blue" @tap="handlePayment(item.orderid)"><text>支付</text></view>
 							<view v-if="item.orderStatusName == '已支付'" class="payment-red" @tap="unpayment(item.orderid)"><text>退款</text></view>
 						</view>
 						<!-- 	<view class="list-between">
@@ -57,7 +57,6 @@
 							<view style="color: #999999;">申请时间</view>
 							<view>{{ item.applyrefundtime }}</view>
 						</view>
-
 					</view>
 					<view class="no_data" v-if="dataList.length === 0"><text class="item_text">暂无数据</text></view>
 					<uni-load-more v-if="dataList.length >= 10" :status="loadmore"></uni-load-more>
@@ -79,7 +78,7 @@ import cuLoading from '@/components/custom/cu-loading.vue';
 import WucTab from '@/components/wuc-tab/wuc-tab.vue';
 import helangCheckbox from '@/components/helang-checkbox/helang-checkbox.vue';
 import { dateFormat, numberFormat } from '@/utils/tools.js';
-import action from "@/components/shufei-action/action.vue"
+import action from '@/components/shufei-action/action.vue';
 export default {
 	components: {
 		uniLoadMore,
@@ -103,8 +102,8 @@ export default {
 			ordertype: '1,2',
 			tabList: [{ name: '续费' }, { name: '我的订单' }],
 			productList: [],
-			refundList:[],
-			nowId:-1
+			refundList: [],
+			nowId: -1
 		};
 	},
 	onLoad() {
@@ -116,7 +115,7 @@ export default {
 		this.pickerIndex = 3;
 		//this.loadData();
 		this.loadProduct();
-		this.loadRefundList()
+		this.loadRefundList();
 	},
 	onShow() {},
 	mounted() {},
@@ -132,52 +131,50 @@ export default {
 				url: '/pages/my/my'
 			});
 		},
-		unpayment(orderid){
-			var that = this
+		unpayment(orderid) {
+			var that = this;
 			uni.showModal({
 				title: '是否确认申请退款？',
 				success: e => {
 					if (e.confirm) {
-					that.nowId = orderid
-					            that.$refs.action.actionConfig={
-					                title:'请选择退款原因',
-					                summary:'',
-					                list:that.refundList,
-					                type:0,
-					                isBorderColor:false,
-					                specClass: 'show',
-					            }
-								}
-					},
-					})
-			
-		    },
-		  itemClick(index,type){
-		                //这里根据不同的类型点击的索引值,做对应的逻辑处理
-		                console.log(`你点击的action-sheet的类型是${type},list对应的索引值是${index}`)
-						console.log(this.refundList[index].dictionaryid)
-						if(index>-1){
-							const senddata = {'orderid':this.nowId ,'reasoncode':this.refundList[index].code}
-							this.$refs.loading.open();
-							tokenpost(api.RefundApply, senddata)
-								.then(res => {
-									this.$refs.loading.close();
-									if (res.status == 200 && res.data.returnCode == '0000') {
-										this.$api.msg("退款操作成功！");
-										this.pageIndex = 0;
-										this.dataList = [];
-										this.loadData();
-									} else {
-										this.$api.msg(res.data.returnMessage);
-									}
-								})
-								.catch(error => {
-									this.loadmore = 'more', 
-									this.$refs.loading.close();
-									this.$api.msg('请求失败fail');
-								});
+						that.nowId = orderid;
+						that.$refs.action.actionConfig = {
+							title: '请选择退款原因',
+							summary: '',
+							list: that.refundList,
+							type: 0,
+							isBorderColor: false,
+							specClass: 'show'
+						};
+					}
+				}
+			});
+		},
+		itemClick(index, type) {
+			//这里根据不同的类型点击的索引值,做对应的逻辑处理
+			console.log(`你点击的action-sheet的类型是${type},list对应的索引值是${index}`);
+			console.log(this.refundList[index].dictionaryid);
+			if (index > -1) {
+				const senddata = { orderid: this.nowId, reasoncode: this.refundList[index].code };
+				this.$refs.loading.open();
+				tokenpost(api.RefundApply, senddata)
+					.then(res => {
+						this.$refs.loading.close();
+						if (res.status == 200 && res.data.returnCode == '0000') {
+							this.$api.msg('退款操作成功！');
+							this.pageIndex = 0;
+							this.dataList = [];
+							this.loadData();
+						} else {
+							this.$api.msg(res.data.returnMessage);
 						}
-		            },			
+					})
+					.catch(error => {
+						(this.loadmore = 'more'), this.$refs.loading.close();
+						this.$api.msg('请求失败fail');
+					});
+			}
+		},
 		tabChange(val) {
 			console.log(val);
 			switch (val) {
@@ -203,12 +200,65 @@ export default {
 					break;
 			}
 		},
-		handlePayment(){
+		handlePayment(orderid) {
+			console.log('发起支付');
 			uni.login({
 				success: e => {
-					console.log('code:',e.code);
-					}
-			})
+					this.$refs.loading.open();
+					this.loading = true;
+					const sendData = { orderid: orderid, code: e.code };
+					tokenpost(api.Orderypay, sendData)
+						.then(res => {
+							this.loading = false;
+							if (res.status == 200 && res.data.returnCode == '0000') {
+								console.log('得到接口prepay_id', res.data.data);
+								let paymentData = res.data.data;
+								uni.requestPayment({
+									// provider: 'wxpay',
+									timeStamp: paymentData.timeStamp,
+									nonceStr: paymentData.nonceStr,
+									package: paymentData.package,
+									signType: 'MD5',
+									paySign: paymentData.paySign,
+									success: res => {
+										uni.showToast({
+											title: '支付成功!'
+										});
+										this.tabChange(1);
+										uni.$emit('changecompany', { msg: 'company变化了' });
+									},
+									fail: res => {
+										uni.showModal({
+											content: '支付失败,原因为: ' + res.errMsg,
+											showCancel: false
+										});
+									},
+									complete: () => {
+										this.$refs.loading.close();
+									}
+								});
+							} else {
+								this.$refs.loading.close();
+								this.$api.msg(res.data.returnMessage);
+							}
+						})
+						.catch(error => {
+							this.loading = false;
+							this.$refs.loading.close();
+							this.$api.msg('请求失败fail');
+							return;
+						});
+				},
+				fail: e => {
+					this.$refs.loading.close();
+					console.log('fail', e);
+					this.loading = false;
+					uni.showModal({
+						content: '支付失败,原因为: ' + e.errMsg,
+						showCancel: false
+					});
+				}
+			});
 		},
 		handleSubmit() {
 			console.log('发起支付');
@@ -327,13 +377,13 @@ export default {
 				});
 		},
 		loadRefundList() {
-			const senddata = {'parentid':1000};
+			const senddata = { parentid: 1000 };
 			tokenpost(api.GetRefundList, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						this.refundList = res.data.data.resultList
-					} 
+						this.refundList = res.data.data.resultList;
+					}
 				})
 				.catch(error => {
 					this.$api.msg('退款原因加载失败!');
