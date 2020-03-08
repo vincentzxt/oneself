@@ -105,10 +105,10 @@ export default {
 					const code =loginRes.code
 					const sendData = {'code':code,'logintype':1}
 					// that.$refs.loading.open();
-					that.loading2 = true;
+					that.$refs.loading.open()
 					post(api.login, sendData)
 						.then(res => {
-							that.loading2 = false;
+							that.$refs.loading.close()
 							if (res.status == 200 && res.data.returnCode == '0000') {
 								let userInfo = {
 									token: res.data.data.token,
@@ -130,7 +130,7 @@ export default {
 							}
 						})
 						.catch(error => {
-							that.loading2 = false;
+							that.$refs.loading.close()
 							that.$api.msg('微信授权登录失败');
 						});
 					 }
