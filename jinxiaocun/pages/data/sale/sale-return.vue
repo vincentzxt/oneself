@@ -113,7 +113,7 @@
 			this.endDate = options.endDate
 			switch(this.pageType) {
 				case 1:
-					this.title = '销售退货'
+					this.title = '销售退货分析'
 					this.totalTitle1 = '订单总数'
 					this.totalTitle2 = '退货总金额'
 					this.tableHeader1 = '日期'
@@ -131,7 +131,7 @@
 					this.detailUrl = '/pages/bill/purchase-list/purchase-list'
 					break
 				case 3:
-					this.title = '采购退货'
+					this.title = '采购退货分析'
 					this.totalTitle1 = '订单总数'
 					this.totalTitle2 = '退货总金额'
 					this.tableHeader1 = '日期'
