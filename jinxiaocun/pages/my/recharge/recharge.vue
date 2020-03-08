@@ -133,22 +133,31 @@ export default {
 			});
 		},
 		unpayment(orderid){
-			this.nowId = orderid
-		                this.$refs.action.actionConfig={
-		                    title:'请选择退款原因',
-		                    summary:'',
-		                    list:this.refundList,
-		                    type:0,
-		                    isBorderColor:false,
-		                    specClass: 'show',
-		                }
-		            },
+			var that = this
+			uni.showModal({
+				title: '是否确认申请退款？',
+				success: e => {
+					if (e.confirm) {
+					that.nowId = orderid
+					            that.$refs.action.actionConfig={
+					                title:'请选择退款原因',
+					                summary:'',
+					                list:that.refundList,
+					                type:0,
+					                isBorderColor:false,
+					                specClass: 'show',
+					            }
+								}
+					},
+					})
+			
+		    },
 		  itemClick(index,type){
 		                //这里根据不同的类型点击的索引值,做对应的逻辑处理
 		                console.log(`你点击的action-sheet的类型是${type},list对应的索引值是${index}`)
 						console.log(this.refundList[index].dictionaryid)
 						if(index>-1){
-							const senddata = {'orderid':this.nowId ,'reasoncode':this.refundList[index].name}
+							const senddata = {'orderid':this.nowId ,'reasoncode':this.refundList[index].code}
 							this.$refs.loading.open();
 							tokenpost(api.RefundApply, senddata)
 								.then(res => {

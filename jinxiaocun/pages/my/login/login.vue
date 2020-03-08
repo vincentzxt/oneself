@@ -14,20 +14,27 @@
 				<view class="con_02_l"><uni-icon type="locked" size="25" color="#cccccc"></uni-icon></view>
 				<view class="con_02_r"><input v-model="password" password="true" class="uni-input" placeholder="请输入密码" style="background-color: #fff;" /></view>
 			</view>
-			<view style="display: flex;flex-direction:row;justify-content: space-between; margin-top: 36upx;"><view @tap="handleReg()"><text style="padding-left: 24upx;">注册</text></view><view @tap="handleForget()" style="padding-right: 24upx;"><text>忘记密码？</text></view></view>
+			<view  class="con_03"><view @tap="handleReg()"><text>注册</text></view><view @tap="handleForget()"><text>忘记密码？</text></view></view>
 
 			<view class="user_bottom">
 				<button type="primary" class="send_btn wx_class" :loading="loading" @tap="handleLogin">登录</button>
-				<!-- <button type="primary" class="send_btn" @tap="reg_action()" style="margin-top: 10px;">注册</button> -->
-				<button type="primary" class="wx_class" :loading="loading2"  open-type="getUserInfo" @getuserinfo="handleWxLogin" style="margin-top: 10px;">微信一键登录</button>
 			</view>
 		</view>
-	<!-- 	<view class="weixin">
+		<view class="space"></view>
+	
+		<tui-nomore :visible="true" text="微信授权登录" bgcolor="#fafafa"></tui-nomore>
+		<view class="login_wx">
+		<button open-type="getUserInfo" @getuserinfo="handleWxLogin" class="tui-share-btn tui-share-position">
+		<view class="weixin">
 			<view class="weixin-area">
 				<image src="../../../static/my/icon/mine_weixin.png" mode=""></image>
 			</view>
-			
-		</view> -->
+		</view>
+		</button>
+		</view>
+			<view class="page_bottom">
+				首次请使用账号登录
+		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
@@ -37,6 +44,7 @@ import uniIcon from '@/components/uni-icon/uni-icon.vue';
 import { post } from '@/api/user.js';
 import { api } from '@/config/common.js';
 import { cuLoading } from '@/components/custom/cu-loading.vue';
+import tuiNomore from "@/components/nomore/nomore"
 export default {
 	data() {
 		return {
@@ -54,7 +62,7 @@ export default {
 			title: '登录'
 		};
 	},
-	components: { uniIcon },
+	components: { uniIcon ,tuiNomore},
 	onLoad() {
 	},
 	onShow() {},
@@ -223,15 +231,34 @@ export default {
 		vertical-align: center;
 		padding: 10upx 0upx;
 	}
+	.con_03{
+		display: flex;
+		flex-direction:row;
+		justify-content: space-between;
+		margin-top: 36upx;
+		font-size: 28rpx;
+		padding-left: 16rpx;
+		padding-right: 16rpx;
+	}
 }
-.weixin{
+.page_bottom{
+	position: absolute;
+	bottom:0;
+	height:60rpx;
+	width: 100%;
+	text-align: center;
+	font-size: 24rpx;
+	color: #bababa;
+	
+}
+.login_wx{
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 }
 .weixin-area{
-	width: 80rpx;
-	height: 80rpx;
+	width: 96rpx;
+	height: 96rpx;
 	border-radius: 50%;
 	background-color: #f7f7f7;
 	text-align: center;
@@ -241,14 +268,37 @@ export default {
 	justify-content: center;
 	image{
 		align-self: center;
-		width: 48rpx;
-		height: 48rpx;
+		width: 60rpx;
+		height: 60rpx;
 	}
+}
+.tui-share-btn {
+	width:96rpx;
+	height:96rpx;
+	text-align: center;
+	vertical-align: middle;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+		display: block;
+		background: none;
+		margin: 0;
+		padding: 0;
+		border-radius: 0;
+		border: 0px !important;
+	}
+	.tui-share-btn::after{
+			border: none !important;
+		}
+
+.tui-tag-share {
+		display: flex;
+		align-items: center;
 }
 .user_bottom {
 	margin-top: 60upx;
 	.wx_class{
-		border-radius: 50upx;
+		// border-radius: 50upx;
 	}
 	.send_btn {
 		background-color: #2d8cf0;

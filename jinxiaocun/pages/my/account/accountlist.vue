@@ -93,7 +93,7 @@ export default {
 	}	
 		.main {
 			height: 83%;
-			padding: 0 15upx;
+			padding: 0upx;
 			.list-item{
 				padding: 16upx 16upx;
 			}
