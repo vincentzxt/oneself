@@ -80,9 +80,12 @@
 		<view v-if="isShowSortDrawer" class="sort-drawer">
 			<view class="sort-drawer-mark" @tap="handleSortDrawerClose()"></view>
 			<view class="sort-drawer-content">
-				<view class="sort-drawer-content-item" v-for="(item, index) in initSort" :key="index" :style="{'border-bottom': index !== initSort.length-1 ? '0.5px solid #dddee1' : ''}" @tap="handleSelectSortDrawer(item.id)">
-					<view>{{item.name}}</view>
-					<uni-icons v-if="item.checked" type='right' color='#2d8cf0' size='20'></uni-icons>
+				<view class="sort-drawer-content-item" v-for="(item, index) in initSort" :key="index" :style="{'border-bottom': index !== initSort.length-1 ? '0.5px solid #dddee1' : ''}">
+					<view class="sort-drawer-content-item-left">{{item.name}}</view>
+					<view class="sort-drawer-content-item-right">
+						<uni-icons class="sort-drawer-content-item-right-icon" type='sort-up' color='#2d8cf0' size='20' @tap="handleSortUp(item.id)"></uni-icons>
+						<uni-icons class="sort-drawer-content-item-right-icon" type='sort-down' color='#2d8cf0' size='20' @tap="handleSortDown(item.id)"></uni-icons>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -364,8 +367,12 @@ export default {
 			this.$refs.popup.close()
 			this.isShowFilterDrawer = false
 		},
-		handleSelectSortDrawer(val) {
-			this.$emit('sortOk', val)
+		handleSortUp(val) {
+			this.$emit('sortUp', val)
+			this.isShowSortDrawer = false
+		},
+		handleSortDown(val) {
+			this.$emit('sortDown', val)
 			this.isShowSortDrawer = false
 		},
 		handleSortDrawerClose() {
@@ -517,6 +524,21 @@ export default {
 				padding: 15px 20px;
 				display: flex;
 				justify-content: space-between;
+				&-left {
+					width: 70%;
+				}
+				&-right {
+					width: 30%;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					&-icon {
+						width: 50%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+				}
 			}
 		}
 	}
