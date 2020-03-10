@@ -5,7 +5,7 @@
 			</uni-navbar>
 		</view>
 		<view class="header2">
-			<cu-date :isDate = "false" :initSort = "initSort" @sortOk="handleSortOk" :initFilter = "initFilter" @filterOk="handleFilterOk" @filterCancel="handleFilterCancel">
+			<cu-date :isDate = "false" :initSort = "initSort" @sortUp="handleSortUp" @sortDown="handleSortDown" :initFilter = "initFilter" @filterOk="handleFilterOk" @filterCancel="handleFilterCancel">
 				<cu-panel>
 					<cu-cell title="客户名称" isLastCell>
 						<input class="h50" slot="footer" type="text" v-model="customerName" placeholder="输入客户名称"/>
@@ -29,10 +29,10 @@
 					<uni-list>
 						<uni-list-item 
 							:title="item.contactunitname"
-							:note="['账龄：'+item.maxReceiveAge, '应收总余额：'+numberFilter(item.totalReceivableY)]"
+							:note="[tableHeader1+': '+item.maxReceiveAge, tableHeader2+': '+numberFilter(item.totalReceivableY)]"
 							v-for="(item, index) in datas.reportDetailQueries.reportReceiveAddPayCustomer"
 							:key="index"
-							@tap = "handleNavTo(item.contactunitname)">
+							@tap = "handleNavTo('./receive-pay-detail', 'pageType='+pageType+'&contactunitName='+item.contactunitname)">
 						</uni-list-item>
 					</uni-list>
 				</view>	
@@ -67,11 +67,10 @@
 				totalTitle2: '',
 				tableHeader1: '',
 				tableHeader2: '',
-				tableHeader3: '',
-				datas: [],
+				datas: {},
 				initSort: [
-					{ id: 0, name: '金额', checked: true },
-					{ id: 1, name: '帐龄', checked: false }
+					{ id: 0, name: '金额' },
+					{ id: 1, name: '帐龄' }
 				],
 				initFilter: [
 					{ id: 0, name: '所有', checked: true, condition: false },
@@ -89,19 +88,15 @@
 					this.title = '应收分析'
 					this.totalTitle1 = '欠款客户数'
 					this.totalTitle2 = '应收金额'
-					this.tableHeader1 = '日期'
-					this.tableHeader2 = '订单数'
-					this.tableHeader3 = '退货金额'
-					this.detailUrl = '/pages/bill/sell-red-list/sell-red-list'
+					this.tableHeader1 = '账龄'
+					this.tableHeader2 = '应收总金额'
 					break
 				case 2:
 					this.title = '应付分析'
 					this.totalTitle1 = '供应商欠款'
 					this.totalTitle2 = '总应付'
-					this.tableHeader1 = '日期'
-					this.tableHeader2 = '订单数'
-					this.tableHeader3 = '采购金额'
-					this.detailUrl = '/pages/bill/purchase-list/purchase-list'
+					this.tableHeader1 = '账龄'
+					this.tableHeader2 = '应付总金额'
 					break
 			}
 			this.getData()
@@ -115,6 +110,11 @@
 			handleNavbarClickLeft() {
 				uni.navigateBack({
 					delta: 1
+				})
+			},
+			handleNavTo(url, params) {
+				uni.navigateTo({
+					url: url+'?'+params
 				})
 			},
 			getData() {
@@ -149,20 +149,37 @@
 				}
 			},
 			numberFilter(number) {
+				console.log(number)
 				return numberFormat(number)
 			},
-			handleNavTo(val = '') {
-				let params = ''
-				if (this.filter == 0) {
-					params = 'startDate='+this.startDate+'&endDate='+this.endDate
-				} else if (this.filter == 1){
-					params = 'startDate='+this.startDate+'&endDate='+this.endDate+'&cutomerName='+val
+			compare(prop, type) {
+				if (type == 'up') {
+					return (obj1, obj2) => {
+						let val1 = obj1[prop]
+						let val2 = obj2[prop]
+						if (val1 < val2) {
+							return -1
+						} else if (val1 > val2) {
+							return 1
+						} else {
+							return 0
+						}
+					}
+				} else {
+					return (obj1, obj2) => {
+						let val1 = obj1[prop]
+						let val2 = obj2[prop]
+						if (val1 > val2) {
+							return -1
+						} else if (val1 < val2) {
+							return 1
+						} else {
+							return 0
+						}
+					}
 				}
-				uni.navigateTo({
-					url: this.detailUrl+'?'+params
-				})
 			},
-			handleSortOk(val) {
+			sortData(type, val) {
 				this.initSort = this.initSort.map((item)=>{
 					if (item.id == val) {
 						item.checked = true
@@ -171,6 +188,25 @@
 					}
 					return item
 				})
+				if (type == 'up') {
+					if (val == 0) {
+						this.datas.reportDetailQueries.reportReceiveAddPayCustomer.sort(this.compare('totalReceivableY', 'up'))
+					} else {
+						this.datas.reportDetailQueries.reportReceiveAddPayCustomer.sort(this.compare('maxReceiveAge', 'up'))
+					}
+				} else {
+					if (val == 0) {
+						this.datas.reportDetailQueries.reportReceiveAddPayCustomer.sort(this.compare('totalReceivableY', 'down'))
+					} else {
+						this.datas.reportDetailQueries.reportReceiveAddPayCustomer.sort(this.compare('maxReceiveAge', 'down'))
+					}
+				}
+			},
+			handleSortUp(val) {
+				this.sortData('up', val)
+			},
+			handleSortDown(val) {
+				this.sortData('down', val)
 			},
 			handleFilterOk(val) {
 				this.initFilter = this.initFilter.map((item)=>{

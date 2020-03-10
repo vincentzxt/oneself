@@ -59,19 +59,23 @@
 						<text style="margin-left: 10px">采购情况</text>
 					</view>
 					<view class="main-purchase-content">
-						<view class="main-purchase-content-block" style="background-color: #c4c4c4;" @tap="handleNavTo('./sale/sale-return', 'pageType=2&date='+date+'&startDate='+startDate+'&endDate='+endDate)">
-							<view class="main-purchase-content-block-title">
-								<view>￥{{numberFilter(datas.purchaseAmount)}}</view>
-								<view>{{datas.purchaseOrderCount}}单</view>
+						<view class="main-purchase-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%" @tap="handleNavTo('./sale/sale-return', 'pageType=2&date='+date+'&startDate='+startDate+'&endDate='+endDate)">
+							<view>
+								<text style="margin-left: 10px">采购</text>
 							</view>
-							<text class="main-purchase-content-block-des">采购</text>
+							<view class="main-purchase-content-wrap-content">
+								<text>￥{{numberFilter(datas.purchaseAmount)}}</text>
+								<text>{{datas.purchaseOrderCount}}单</text>
+							</view>
 						</view>
-						<view class="main-purchase-content-block" style="background-color: #ffcc80;" @tap="handleNavTo('./sale/sale-return', 'pageType=3&date='+date+'&startDate='+startDate+'&endDate='+endDate)">
-							<view class="main-purchase-content-block-title">
+						<view class="main-purchase-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;" @tap="handleNavTo('./sale/sale-return', 'pageType=3&date='+date+'&startDate='+startDate+'&endDate='+endDate)">
+							<view>
+								<text style="margin-left: 10px">采购退货</text>
+							</view>
+							<view class="main-purchase-content-wrap-content">
 								<text>￥{{numberFilter(datas.purchaseReturnAmount)}}</text>
 								<text>{{datas.purchaseOrderReturnCount}}单</text>
 							</view>
-							<text class="main-purchase-content-block-des">采购退货</text>
 						</view>
 					</view>
 				</view>
@@ -162,7 +166,7 @@
 											@tap="handleClickHotDate(90)">90天</view>
 							</view>
 						</view>
-						<view class="main-top-wrap-content">
+						<view class="main-top-wrap-content" v-if="hotSellingProduct.length > 0">
 							<view class="main-top-wrap-content-list">
 								<view class="main-top-wrap-content-list-item" v-for="(item, index) in hotSellingProduct" :key="index">
 									<uni-icons type="circle" color="#f29d6e" size=10 style="width:5%;"></uni-icons>
@@ -173,6 +177,9 @@
 									</view>
 								</view>
 							</view>
+						</view>
+						<view class="nodata" v-else>
+							<text>暂无数据</text>
 						</view>
 					</view>
 				</view>
@@ -195,7 +202,7 @@
 											@tap="handleClickSlowDate(90)">90天</view>
 							</view>
 						</view>
-						<view class="main-top-wrap-content">
+						<view class="main-top-wrap-content" v-if="slowSellingProduct.length > 0">
 							<view class="main-top-wrap-content-list">
 								<view class="main-top-wrap-content-list-item" v-for="(item, index) in slowSellingProduct" :key="index">
 									<uni-icons type="circle" color="#51a9f3" size=10 style="width:5%;"></uni-icons>
@@ -205,6 +212,9 @@
 									</view>
 								</view>
 							</view>
+						</view>
+						<view class="nodata" v-else>
+							<text>暂无数据</text>
 						</view>
 					</view>
 				</view>
@@ -559,6 +569,15 @@
 			//padding-top: 20px;
 			height: calc(100% - 60px);;
 		}
+		.nodata{
+			background-color: #ffffff;
+			font-size: $uni-font-size-sm;
+			padding: 5px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $uni-text-color-grey;
+		}
 		.header2 {
 			background-color: #FFFFFF;
 			display: flex;
@@ -633,39 +652,30 @@
 			&-purchase {
 				margin-top: $uni-spacing-col-lg;
 				background-color: #FFFFFF;
+				font-size: $uni-font-size-sm;
 				&-header {
 					margin-left: 10px;
 					display: flex;
 					align-items: center;
 					padding: 10px 0;
-					font-size: $uni-font-size-sm;
 					border-bottom: 0.5px solid #f3f3f3;
 				}
 				&-content {
-					width: 750upx;
 					display: flex;
-					justify-content: space-around;
 					align-items: center;
-					margin-top: $uni-spacing-col-lg;
-					&-block {
-						height: 130upx;
-						width: 350upx;
+					flex-wrap: wrap;
+					&-wrap {
+						margin-left: 10px;
 						display: flex;
 						flex-direction: column;
-						justify-content: center;
-						align-items: center;
-						color: #ffffff;
-						margin-bottom: 10px;
-						&-title {
-							width:100%;
+						padding: 10px 0;
+						color: $uni-text-color-grey;
+						&-content {
 							display: flex;
 							justify-content: space-around;
-							align-items: center;
-							font-size:$uni-font-size-sm;
-							font-weight: bold;
-						}
-						&-des {
-							font-size:$uni-font-size-sm;
+							font-size: $uni-font-size-base;
+							color: $uni-title-color;
+							margin-top: 10px;
 						}
 					}
 				}

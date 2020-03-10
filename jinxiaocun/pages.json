@@ -94,6 +94,9 @@
 		  "path" : "pages/data/receive-pay/receive-pay"
 		},
 		{
+		  "path" : "pages/data/receive-pay/receive-pay-detail"
+		},
+		{
 			"path": "pages/my/my"
 		},
 		{
