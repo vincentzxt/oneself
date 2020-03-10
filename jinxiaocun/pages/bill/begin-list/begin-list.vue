@@ -129,7 +129,8 @@ export default {
 			})
 		},
 		loadData() {
-			(this.loadmore = 'loading'), this.$refs.loading.open();
+			this.loadmore = 'loading',
+			this.$refs.loading.open();
 			const senddata = {
 				pageIndex: this.pageIndex + 1,
 				pageRows: this.pageRows,
