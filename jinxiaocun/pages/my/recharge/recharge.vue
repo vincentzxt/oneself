@@ -254,7 +254,7 @@ export default {
 					console.log('fail', e);
 					this.loading = false;
 					uni.showModal({
-						content: '支付失败,请重新支付!'
+						content: '支付失败,请重新支付!',
 						showCancel: false
 					});
 				}
@@ -319,7 +319,7 @@ export default {
 					console.log('fail', e);
 					this.loading = false;
 					uni.showModal({
-						content: '支付失败,请重新支付!' ,
+						content: '支付失败,请重新支付!',
 						showCancel: false
 					});
 				}
