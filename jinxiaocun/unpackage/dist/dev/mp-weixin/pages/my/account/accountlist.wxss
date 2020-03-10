@@ -242,7 +242,7 @@
 }
 .container .main.data-v-03fd427e {
     height: 83%;
-    padding: 0 15rpx;
+    padding: 0rpx;
 }
 .container .main .list-item.data-v-03fd427e {
       padding: 16rpx 16rpx;
