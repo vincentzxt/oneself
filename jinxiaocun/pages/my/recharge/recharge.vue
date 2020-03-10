@@ -229,7 +229,7 @@ export default {
 									},
 									fail: res => {
 										uni.showModal({
-											content: '支付失败,原因为: ' + res.errMsg,
+											content: '支付失败,请重新支付!',
 											showCancel: false
 										});
 									},
@@ -254,7 +254,7 @@ export default {
 					console.log('fail', e);
 					this.loading = false;
 					uni.showModal({
-						content: '支付失败,原因为: ' + e.errMsg,
+						content: '支付失败,请重新支付!'
 						showCancel: false
 					});
 				}
@@ -294,7 +294,7 @@ export default {
 									},
 									fail: res => {
 										uni.showModal({
-											content: '支付失败,原因为: ' + res.errMsg,
+											content: '支付失败,请重新支付!',
 											showCancel: false
 										});
 									},
@@ -319,7 +319,7 @@ export default {
 					console.log('fail', e);
 					this.loading = false;
 					uni.showModal({
-						content: '支付失败,原因为: ' + e.errMsg,
+						content: '支付失败,请重新支付!' ,
 						showCancel: false
 					});
 				}
