@@ -4,64 +4,76 @@
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
 		<view class="main">
-			<scroll-view :scroll-y="true" class="fill" @scrolltolower="loadData">
-				<uni-list>
-					<uni-list-item title="客户名称" :show-arrow="false" show-text="true" :content="dataList.contactunitname"></uni-list-item>
-					<uni-list-item title="下单时间" :show-arrow="false" show-text="true" :content="dataList.createtime"></uni-list-item>
-					<uni-list-item title="总金额" :show-arrow="false" show-text="true" :content="numberFilter(dataList.amount)"></uni-list-item>
-					<uni-list-item title="优惠金额" :show-arrow="false" show-text="true" :content="numberFilter(dataList.discountamount)"></uni-list-item>
-				</uni-list>
-				<view v-for="(item, index) in dataList.detailModels" :key="index" class="detail-item">
-					<view class="list-between">
-						<view class="item-content">
-							<text>商品名称：{{ item.productname }}</text>
-						</view> 
-					</view>
-					<view class="list-between">
-						<view class="item-content2">
-							<text>总数量：{{ item.salesqty }}</text>
-						</view>
-						<view class="item-content3">
-							<text>总金额：¥{{ numberFilter(item.salesamount) }}</text>
-						</view>
-					</view>
-				</view>
-			</scroll-view>
+			<view class="list">
+			<view class="list-cell">
+				<view class="list-cell-left">客户名称</view><view class="list-cell-right">{{dataList.contactunitname}}</view>
+			</view>
+			<view class="list-cell">
+				<view class="list-cell-left">下单时间</view><view class="list-cell-right">{{dataList.createtime}}</view>
+			</view>
+			<view class="list-cell">
+				<view class="list-cell-left">总金额</view><view class="list-cell-right">{{numberFilter(dataList.amount)}}</view>
+			</view>
+			<view class="list-cell last-cell">
+				<view class="list-cell-left">优惠金额</view><view class="list-cell-right">{{numberFilter(dataList.discountamount)}}</view>
+			</view>
+			</view>
+			<view class="box">
+				<t-table border="1" border-color="#cccccc" :is-check="false">
+					<t-tr font-size="14" color="#2d8cf0" align="left">
+						<t-th align="center">商品名称</t-th>
+						<t-th align="center">数量</t-th>
+						<t-th align="center">单位</t-th>
+						<t-th align="center">单价</t-th>
+						<t-th align="center">小计</t-th>
+					</t-tr>
+					<t-tr font-size="12" color="#5d6f61" align="right" v-for="(item, index) in dataList.detailModels" :key="index">
+						<t-td align="left">{{ item.productname }}</t-td>
+						<t-td align="center">{{ item.salesqty }}</t-td>
+						<t-td align="center">{{ item.unit }}</t-td>
+						<t-td align="center">{{ item.salesunitprice }}</t-td>
+						<t-td align="center">{{ numberFilter(item.salesamount) }}</t-td>
+					</t-tr>
+				</t-table>
+			</view>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
 
 <script>
-import uniList from '@/components/uni-list/uni-list.vue';
-import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
 import { get } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
-import { dateFormat, numberFormat } from '@/utils/tools.js'
+import { dateFormat, numberFormat } from '@/utils/tools.js';
+import tTable from '@/components/t-table/t-table.vue';
+import tTh from '@/components/t-table/t-th.vue';
+import tTr from '@/components/t-table/t-tr.vue';
+import tTd from '@/components/t-table/t-td.vue';
 export default {
 	components: {
-		uniList,
-		uniListItem,
-		cuLoading
+		cuLoading,
+		tTable,
+		tTh,
+		tTr,
+		tTd
 	},
 	data() {
 		return {
 			title: '销售详情',
-			id:0,
-			dataList:{}
+			id: 0,
+			dataList: {}
 		};
 	},
 	// onLoad() {this.loadData();},
 	onShow() {},
-	onLoad(option){
-		this.id =option.id
+	onLoad(option) {
+		this.id = option.id;
 		this.loadData();
-		
 	},
 	methods: {
 		numberFilter(number) {
-			return numberFormat(number)
+			return numberFormat(number);
 		},
 		handleRefreshPage() {
 			console.log('refreshpage');
@@ -73,15 +85,15 @@ export default {
 		},
 		loadData() {
 			this.loadmore = 'loading',
-			this.$refs.loading.open();
+			 this.$refs.loading.open();
 			const senddata = {
-				id:this.id
+				id: this.id
 			};
 			get(api.salesOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						this.dataList = res.data.data
+						this.dataList = res.data.data;
 					} else {
 						this.$api.msg(res.data.returnMessage);
 					}
@@ -120,45 +132,34 @@ export default {
 			justify-content: center;
 			align-items: center;
 		}
-		.detail-item {
-			margin-top: 12upx;
-			padding: 16upx 24upx;
-			background: #fff;
-			border-bottom: 0.8upx solid $uni-border-color;
-			.list-between {
+		.box{
+			background-color: #FFFFFF;
+			margin-top: 16rpx;
+		}
+		.list{
+			padding-left: 24rpx;
+			background-color: #FFFFFF;
+			.list-cell{
+				padding: 24rpx 24rpx 24rpx 0;
+				// width: 100%;
+				border-bottom: 1px solid $uni-border-color;
 				display: flex;
-				flex-direction: row;
+				flex-direction:row;
+				justify-content:space-between;
 				font-size: $uni-font-size-sm;
-				// justify-content: spac;
-				.item-content {
-					flex: 1;
-					line-height: 60upx;
-					width: 0;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
+				.list-cell-left{
+					color: #9e9e9e;
+					// flex: 1;
 				}
-				.item-content2 {
-					flex: 1;
-					line-height: 60upx;
-					width: 0;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
+				.list-cell-right{
+					// flex:1
 				}
-				.item-content3 {
-					flex: 1;
-					line-height: 60upx;
-				}
-				// .item-content3 {
-				// 	flex: 1;
-				// 	text-align: right;
-				// 	line-height: 60upx;
-				// }
+				
+			}
+			.last-cell{
+				border: 0px !important;
 			}
 		}
-		
 	}
 }
-
 </style>
