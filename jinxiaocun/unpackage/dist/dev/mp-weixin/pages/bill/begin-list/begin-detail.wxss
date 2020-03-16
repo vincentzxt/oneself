@@ -156,13 +156,17 @@
       -webkit-align-items: center;
               align-items: center;
 }
-.container .main .detail-item.data-v-4addfcd6 {
-      margin-top: 12rpx;
-      padding: 16rpx 24rpx;
-      background: #fff;
-      border-bottom: 0.8rpx solid #dddee1;
+.container .main .box.data-v-4addfcd6 {
+      background-color: #FFFFFF;
+      margin-top: 16rpx;
 }
-.container .main .detail-item .list-between.data-v-4addfcd6 {
+.container .main .list.data-v-4addfcd6 {
+      padding-left: 24rpx;
+      background-color: #FFFFFF;
+}
+.container .main .list .list-cell.data-v-4addfcd6 {
+        padding: 24rpx 24rpx 24rpx 0;
+        border-bottom: 1px solid #dddee1;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -170,32 +174,15 @@
         -webkit-box-direction: normal;
         -webkit-flex-direction: row;
                 flex-direction: row;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+                justify-content: space-between;
         font-size: 28rpx;
 }
-.container .main .detail-item .list-between .item-content.data-v-4addfcd6 {
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-                  flex: 1;
-          line-height: 60rpx;
-          width: 0;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+.container .main .list .list-cell .list-cell-left.data-v-4addfcd6 {
+          color: #9e9e9e;
 }
-.container .main .detail-item .list-between .item-content2.data-v-4addfcd6 {
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-                  flex: 1;
-          line-height: 60rpx;
-          width: 0;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-}
-.container .main .detail-item .list-between .item-content3.data-v-4addfcd6 {
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-                  flex: 1;
-          line-height: 60rpx;
+.container .main .list .last-cell.data-v-4addfcd6 {
+        border: 0px !important;
 }
 
