@@ -105,7 +105,7 @@
 				</view>
 				<view class="main-account">
 					<swiper class="main-account-swiper" :indicator-dots="true" :autoplay="true">
-						<swiper-item>
+						<swiper-item @tap="handleNavTo('./receipt-payment/receipt-payment', 'date='+date+'&startDate='+startDate+'&endDate='+endDate)">
 							<view class="main-account-header">
 								<uni-icons type="shoukuan" color="#90dc5d" size=20></uni-icons>
 								<text style="margin-left: 10px">收款情况</text>
@@ -117,7 +117,7 @@
 								</view>
 							</view>
 						</swiper-item>
-						<swiper-item>
+						<swiper-item @tap="handleNavTo('./receipt-payment/receipt-payment', 'date='+date+'&startDate='+startDate+'&endDate='+endDate)">
 							<view class="main-account-header">
 								<uni-icons type="fukuan" color="#f29d6e" size=20></uni-icons>
 								<text style="margin-left: 10px">付款情况</text>
@@ -130,20 +130,83 @@
 							</view>
 						</swiper-item>
 					</swiper>
-				</view>	
+				</view>
+				<view class="main-top">
+					<view class="main-top-wrap">
+						<view class="main-top-wrap-header">
+							<view>
+								<uni-icons type="xianjin" color="#51a9f3" size=20></uni-icons>
+								<text style="margin-left: 10px">费用信息(top5)</text>
+							</view>
+							<view class="main-top-wrap-header-footer">
+								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
+											:style="{'background-color': feeDate == 30 ? '#51a9f3' : '', 'color': feeDate == 30 ? '#ffffff' : ''}"
+											@tap="handleClickFetDate(30)">30天</view>
+								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
+											:style="{'background-color': feeDate == 60 ? '#51a9f3' : '', 'color': feeDate == 60 ? '#ffffff' : ''}"
+											@tap="handleClickFetDate(60)">60天</view>
+								<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #51a9f3;"
+											:style="{'background-color': feeDate == 90 ? '#51a9f3' : '', 'color': feeDate == 90 ? '#ffffff' : ''}"
+											@tap="handleClickFetDate(90)">90天</view>
+							</view>
+						</view>
+						<view class="main-top-wrap-total" @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
+							<view>费用总额：<text style="color:#ef5a62">{{numberFilter(feeTotal)}}</text></view>
+						</view>
+						<view class="main-top-wrap-content" v-if="feeListByCategoryTop5.length > 0" @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
+							<view class="main-top-wrap-content-list">
+								<view class="main-top-wrap-content-list-item" v-for="(item, index) in feeListByCategoryTop5" :key="index">
+									<uni-icons type="circle" color="#f29d6e" size=10 style="width:5%;"></uni-icons>
+									<view class="main-top-wrap-content-list-item-text" style="width:95%;">
+										<text style="display:inline-block;width:60%;">{{item.feecategory}}</text>
+										<text style="display:inline-block;width:40%;">￥{{numberFilter(item.amount)}}</text>
+									</view>
+								</view>
+							</view>
+						</view>
+						<view class="nodata" v-else @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
+							<text>暂无数据</text>
+						</view>
+					</view>
+				</view>
 				<view class="main-warning">
 					<view class="main-warning-header">
 						<uni-icons type="yujing" color="#ef5a62" size=20></uni-icons>
 						<text style="margin-left: 10px">预警情况</text>
 					</view>
 					<view class="main-warning-content">
-						<view class="main-warning-content-wrap" style="background-color: #fcf7f4;">
+						<view class="main-warning-content-wrap" style="background-color: #fcf7f4;" @tap="handleNavTo('./warning/customer/customer')">
 							<text class="main-warning-content-wrap-title">{{datas.warningContactUnitQty}}条</text>
 							<text class="main-warning-content-wrap-text">客户预警</text>
 						</view>
-						<view class="main-warning-content-wrap" style="background-color: #f6fbf2;">
+						<view class="main-warning-content-wrap" style="background-color: #f6fbf2;" @tap="handleNavTo('/pages/bill/earlywarn-list/earlywarn-list')">
 							<text class="main-warning-content-wrap-title">{{datas.warningStockQty}}条</text>
 							<text class="main-warning-content-wrap-text">库存预警</text>
+						</view>
+					</view>
+				</view>
+				<view class="main-stock">
+					<view class="main-stock-header">
+						<uni-icons type="stock-info" color="#9cd77b" size=20></uni-icons>
+						<text style="margin-left: 10px">库存信息</text>
+					</view>
+					<view class="main-stock-content" @tap="handleNavTo('/pages/bill/stock-list/stock-list')">
+						<view class="main-stock-content-wrap" style="border-bottom:0.5px solid #f3f3f3;width:45%">
+							<view>
+								<text style="margin-left: 10px">正库存信息</text>
+							</view>
+							<view class="main-stock-content-wrap-content">
+								<text>库存数：{{datas.stockModel.positiveQty}}</text>
+								<text style="margin-top:5px;">库存金额：￥{{datas.stockModel.positiveAmount}}</text>
+							</view>
+						</view>
+						<view class="main-stock-content-wrap" style="border-left:0.5px solid #f3f3f3;border-bottom:0.5px solid #f3f3f3;width:45%;">
+							<view>
+								<text style="margin-left: 10px">负库存信息</text>
+							</view>
+							<view class="main-stock-content-wrap-content">
+								<text>库存数：{{datas.stockModel.negativeQty}}</text>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -166,7 +229,7 @@
 											@tap="handleClickHotDate(90)">90天</view>
 							</view>
 						</view>
-						<view class="main-top-wrap-content" v-if="hotSellingProduct.length > 0">
+						<view class="main-top-wrap-content" v-if="hotSellingProduct.length > 0" @tap="handleNavTo('./top/hotSelling/hotSelling')">
 							<view class="main-top-wrap-content-list">
 								<view class="main-top-wrap-content-list-item" v-for="(item, index) in hotSellingProduct" :key="index">
 									<uni-icons type="circle" color="#f29d6e" size=10 style="width:5%;"></uni-icons>
@@ -178,7 +241,7 @@
 								</view>
 							</view>
 						</view>
-						<view class="nodata" v-else>
+						<view class="nodata" v-else @tap="handleNavTo('./top/hotSelling/hotSelling')">
 							<text>暂无数据</text>
 						</view>
 					</view>
@@ -202,7 +265,7 @@
 											@tap="handleClickSlowDate(90)">90天</view>
 							</view>
 						</view>
-						<view class="main-top-wrap-content" v-if="slowSellingProduct.length > 0">
+						<view class="main-top-wrap-content" v-if="slowSellingProduct.length > 0" @tap="handleNavTo('/pages/bill/stock-list/stock-list')">
 							<view class="main-top-wrap-content-list">
 								<view class="main-top-wrap-content-list-item" v-for="(item, index) in slowSellingProduct" :key="index">
 									<uni-icons type="circle" color="#51a9f3" size=10 style="width:5%;"></uni-icons>
@@ -213,7 +276,7 @@
 								</view>
 							</view>
 						</view>
-						<view class="nodata" v-else>
+						<view class="nodata" v-else @tap="handleNavTo('/pages/bill/stock-list/stock-list')">
 							<text>暂无数据</text>
 						</view>
 					</view>
@@ -231,7 +294,7 @@
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import { api } from '@/config/common.js'
 	import { query } from '@/api/common.js'
-	import { queryHotSellingProduct, querySlowSellingProduct } from '@/api/data.js'
+	import { queryHotSellingProduct, querySlowSellingProduct, queryFeeReport } from '@/api/data.js'
 	import { dateFormat, numberFormat } from '@/utils/tools.js'
 	var scaleLine = null
 	var receivableRing = null
@@ -259,8 +322,13 @@
 				paymentRingTotal: 0,
 				hotSellingProduct: [],
 				slowSellingProduct: [],
+				feeListByCategoryTop5: [],
 				hotDate: 30,
-				slowDate: 30
+				slowDate: 30,
+				feeDate: 30,
+				feeStartDate: '',
+				feeEndDate: '',
+				feeTotal: 0.00
 			};
 		},
 		onShow() {
@@ -273,12 +341,19 @@
 			this.paymentRingArr = []
 			this.receivableRingTotal = 0
 			this.paymentRingTotal = 0
+			this.feeTotal = 0.00
 			this.hotSellingProduct = []
 			this.slowSellingProduct = []
+			this.feeListByCategoryTop5 = []
 			this.date = 'day'
 			this.startDate = dateFormat('YYYY-mm-dd', new Date())
 			this.endDate = dateFormat('YYYY-mm-dd', new Date())
 			this.getData(this.startDate, this.endDate)
+			let sDate = new Date()
+			let eDate = new Date()
+			sDate.setDate(sDate.getDate() - 29)
+			this.feeStartDate = dateFormat('YYYY-mm-dd', sDate)
+			this.feeEndDate = dateFormat('YYYY-mm-dd', eDate)
 		},
 		computed: {
 			headerHeight() {
@@ -289,7 +364,7 @@
 			numberFilter(number) {
 				return numberFormat(number)
 			},
-			handleNavTo(url, params) {
+			handleNavTo(url, params = '') {
 				uni.navigateTo({
 					url: url+'?'+params
 				})
@@ -306,6 +381,7 @@
 						this.datas = res.data.data
 						this.hotSellingProduct = this.datas.hotSellingProduct
 						this.slowSellingProduct = this.datas.slowSellingProduct
+						this.feeListByCategoryTop5 = this.datas.feeListByCategoryTop5
 						this.getDayData()
 						this.getAccountData()
 					}
@@ -556,7 +632,43 @@
 				}).catch(error => {
 					this.$refs.loading.close()
 				})
-			}
+			},
+			handleClickFetDate(val) {
+				this.feeDate = val
+				let sDate = new Date()
+				let eDate = new Date()
+				switch (val) {
+					case 30:
+						sDate.setDate(sDate.getDate() - 29)
+						this.feeStartDate = dateFormat('YYYY-mm-dd', sDate)
+						this.feeEndDate = dateFormat('YYYY-mm-dd', eDate)
+						break
+					case 60:
+						sDate.setDate(sDate.getDate() - 59)
+						this.feeStartDate = dateFormat('YYYY-mm-dd', sDate)
+						this.feeEndDate = dateFormat('YYYY-mm-dd', eDate)
+						break
+					case 90:
+						sDate.setDate(sDate.getDate() - 89)
+						this.feeStartDate = dateFormat('YYYY-mm-dd', sDate)
+						this.feeEndDate = dateFormat('YYYY-mm-dd', eDate)
+						break
+				}
+				let reqData = {
+					startDate: this.feeStartDate,
+					endDate: this.feeEndDate
+				}
+				this.$refs.loading.open()
+				queryFeeReport(api.report, reqData).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.feeListByCategoryTop5 = res.data.data.resultList
+						this.feeTotal = res.data.data.amount
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+				})
+			},
 		}
 	}
 </script>
@@ -781,6 +893,36 @@
 					}
 				}
 			}
+			&-stock {
+				margin-top: $uni-spacing-col-lg;
+				background-color: #FFFFFF;
+				font-size: $uni-font-size-sm;
+				&-header {
+					margin-left: 10px;
+					display: flex;
+					align-items: center;
+					padding: 10px 0;
+					border-bottom: 0.5px solid #f3f3f3;
+				}
+				&-content {
+					display: flex;
+					flex-wrap: wrap;
+					&-wrap {
+						margin-left: 10px;
+						display: flex;
+						flex-direction: column;
+						padding: 10px 0;
+						color: $uni-text-color-grey;
+						&-content {
+							margin-left: 10px;
+							display: flex;
+							flex-direction: column;
+							color: $uni-title-color;
+							margin-top: 10px;
+						}
+					}
+				}
+			}
 			&-top {
 				margin-top: $uni-spacing-col-lg;
 				background-color: #FFFFFF;
@@ -808,6 +950,13 @@
 								align-items: center;
 							}
 						}
+					}
+					&-total {
+						margin: 0px 10px;
+						margin-left: 40px;
+						display: flex;
+						padding: 10px 0;
+						border-bottom: 0.5px solid #f3f3f3;
 					}
 					&-content {
 						margin-bottom: 10px;

@@ -80,5 +80,10 @@ export default {
 	'c-contacts': '\ue61c',
 	'c-discount': '\ue62f',
 	'c-amount': '\ue621',
-	'c-product': '\ue7a6'
+	'c-product': '\ue7a6',
+	'weixin': '\ue65d',
+	'zhifubao': '\ue663',
+	'xianjin': '\ue637',
+	'yinhang': '\ue614',
+	'stock-info': '\ue67a'
 }

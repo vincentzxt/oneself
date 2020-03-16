@@ -80,3 +80,34 @@ export const queryPayDetail = (url, data = {}) => {
 		method: 'post'
   })
 }
+
+export const queryCashAccountReport = (url, data = {}) => {
+  return http.request({
+    url: url + '/QueryCashAccountReport',
+		data: data,
+		method: 'post'
+  })
+}
+
+export const queryCashAccountDetailReport = (url, data = {}) => {
+  return http.request({
+    url: url + '/QueryCashAccountDetailReport',
+		data: data,
+		method: 'post'
+  })
+}
+
+export const queryWarningCustomer = (url, date) => {
+	return http.request({
+		url: url + '/QueryWarningCustomer?warningDays='+date,
+		method: 'post'
+	})
+}
+
+export const queryFeeReport = (url, data = {}) => {
+  return http.request({
+    url: url + '/QueryFeeReport',
+		data: data,
+		method: 'post'
+  })
+}

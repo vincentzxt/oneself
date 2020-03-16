@@ -1,86 +1,33 @@
 {
 	"pages": [
-		{
-			"path": "pages/index/index"
+		{	"path": "pages/index/index" },
+		{	"path": "pages/index/sale/sale" },
+		{	"path": "pages/index/sale/payment/payment" },
+		{	"path": "pages/index/purchase/purchase" },
+		{	"path": "pages/index/purchase/payment/payment" },
+		{	"path": "pages/index/current-unit/current-unit",
+			"style": { "enablePullDownRefresh": true }
 		},
-		{
-			"path": "pages/index/sale/sale"
-		},
-		{
-			"path": "pages/index/sale/payment/payment"
-		},
-		{
-			"path": "pages/index/purchase/purchase"
-		},
-		{
-			"path": "pages/index/purchase/payment/payment"
-		},
-		{
-			"path": "pages/index/current-unit/current-unit",
-			"style": {
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/index/current-unit/add/add"
-		},
-		{
-			"path": "pages/index/current-unit/edit/edit"
-		},
-		{
-			"path": "pages/index/product/product"
-		},
-		{
-			"path": "pages/index/product/add/add"
-		},
-		{
-			"path": "pages/index/product/edit/edit0"
-		},
-		{
-			"path": "pages/index/product/edit/edit1"
-		},
-		{
-			"path": "pages/index/product/type/type"
-		},
-		{
-			"path": "pages/index/product/unit/unit"
-		},
-		{
-			"path": "pages/index/receipt/receipt"
-		},
-		{
-			"path": "pages/index/payment/payment"
-		},
-		{
-			"path": "pages/index/cost/cost"
-		},
-		{
-		    "path" : "pages/index/cost/type/type"
-		},
-		{
-			"path": "pages/index/return-order/return-order"
-		},
-		{
-			"path": "pages/index/return-order/payment/payment"
-		},
-		{
-			"path": "pages/index/return-order/orders/orders"
-		},
-		{
-			"path": "pages/index/early-stage/early-stage"
-		},
-		{
-			"path": "pages/index/inventory/inventory"
-		},
-		{
-			"path": "pages/index/inventory/add/add"
-		},
-		{
-			"path": "pages/bill/bill"
-		},
-		{
-			"path": "pages/bill/stock-list/stock-list"
-		},
+		{	"path": "pages/index/current-unit/add/add" },
+		{ "path": "pages/index/current-unit/edit/edit" },
+		{ "path": "pages/index/product/product" },
+		{ "path": "pages/index/product/add/add" },
+		{ "path": "pages/index/product/edit/edit0" },
+		{ "path": "pages/index/product/edit/edit1" },
+		{ "path": "pages/index/product/type/type" },
+		{ "path": "pages/index/product/unit/unit" },
+		{ "path": "pages/index/receipt/receipt" },
+		{ "path": "pages/index/payment/payment" },
+		{ "path": "pages/index/cost/cost" },
+		{ "path" : "pages/index/cost/type/type" },
+		{ "path": "pages/index/return-order/return-order" },
+		{ "path": "pages/index/return-order/payment/payment" },
+		{ "path": "pages/index/return-order/orders/orders" },
+		{ "path": "pages/index/early-stage/early-stage" },
+		{ "path": "pages/index/inventory/inventory" },
+		{ "path": "pages/index/inventory/add/add" },
+		{ "path": "pages/bill/bill" },
+		{ "path": "pages/bill/stock-list/stock-list" },
 		{
 			"path": "pages/data/data"
 		},
@@ -95,6 +42,21 @@
 		},
 		{
 		  "path" : "pages/data/receive-pay/receive-pay-detail"
+		},
+		{
+			"path" : "pages/data/receipt-payment/receipt-payment"
+		},
+		{
+			"path" : "pages/data/receipt-payment/receipt-payment-detail"
+		},
+		{
+			"path" : "pages/data/warning/customer/customer"
+		},
+		{
+		    "path" : "pages/data/top/hotSelling/hotSelling"
+		},
+		{
+				"path" : "pages/data/fee/fee"
 		},
 		{
 			"path": "pages/my/my"
@@ -179,16 +141,14 @@
 			"path": "pages/bill/earlywarn-list/earlywarn-list"
 		},
 		{
-			"path": "pages/my/integral/integral",
-			"style": {}
-		}, {
-			"path": "pages/my/recharge/recharge",
-			"style": {}
+			"path": "pages/my/integral/integral"
+		},
+		{
+			"path": "pages/my/recharge/recharge"
+		},
+		{
+			"path" : "pages/my/share/myshare"
 		}
-	    ,{
-            "path" : "pages/my/share/myshare",
-            "style" : {}
-        }
         ,{
             "path" : "pages/bill/inventory-list/inventory-detail",
             "style" : {}

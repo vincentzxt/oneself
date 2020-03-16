@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "uni-list": "/components/uni-list/uni-list",
+    "uni-list-item": "/components/uni-list-item/uni-list-item",
+    "cu-search-bar": "/components/custom/cu-search-bar",
+    "cu-panel": "/components/custom/cu-panel",
+    "cu-cell": "/components/custom/cu-cell"
+  }
+}

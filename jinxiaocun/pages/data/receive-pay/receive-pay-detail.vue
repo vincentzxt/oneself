@@ -32,24 +32,26 @@
 						class = "main-receive-pay-content-cell"
 						v-for = "(item, index) in datas.reportReceiveCustomerPays"
 						:key = "index"
-						@tap = "handleNavTo"
 						>
 						<view class="main-receive-pay-content-cell-header">
 							<view class = "main-receive-pay-content-cell-header-ym">
 								<view class="table-item0">{{item.ym}}</view>
-							</view>
-							<view class="main-receive-pay-content-cell-header-footer">
-								<uni-icons type="arrow" size=20 color="#808695"></uni-icons>
 							</view>
 						</view>
 						<view
 							class = "main-receive-pay-content-cell-body"
 							v-for = "(child, indexChild) in item.reportReceiveAddPayCustomer"
 							:key = "indexChild"
+							@tap = "handleNavTo(child)"
 						>
-							<view class="table-item1">{{dateFilter(child.bildate)}}</view>
-							<view class="table-item2">{{child.receiveAmount}}</view>
-							<view class="table-item3">{{child.salesAmount}}</view>
+							<view class = "main-receive-pay-content-cell-body-view">
+								<view class="table-item1">{{dateFilter(child.bildate)}}</view>
+								<view class="table-item2">{{child.receiveAmount}}</view>
+								<view class="table-item3">{{child.salesAmount}}</view>
+							</view>
+							<view class="main-receive-pay-content-cell-body-footer">
+								<uni-icons type="arrow" size=20 color="#808695"></uni-icons>
+							</view>
 						</view>
 					</view>
 				</view>	
@@ -133,8 +135,9 @@
 					delta: 1
 				})
 			},
-			handleNavTo() {
-				let params = 'startDate='+this.startDate+'&endDate='+this.endDate+'&customerName='+this.customerName
+			handleNavTo(val) {
+				let date = val.bildate.split(' ')[0]
+				let params = 'date='+date+'&customerName='+this.customerName
 				uni.navigateTo({
 					url: this.detailUrl+'?'+params
 				})
@@ -205,15 +208,15 @@
 			width: 100%;
 		}
 		.table-item1 {
-			width: 23%;
+			width: 30%;
 		}
 		.table-item2 {
-			width: 23%;
+			width: 40%;
 			border-left:0.5px solid #dddee1;
 			padding-left:10px;
 		}
 		.table-item3 {
-			width: 27%;
+			width: 40%;
 			border-left:0.5px solid #dddee1;
 			padding-left:10px;
 		}
@@ -272,7 +275,14 @@
 							display: flex;
 							&-ym {
 								display: flex;
+							}
+						}
+						&-body {
+							padding: 10px 5px;
+							display: flex;
+							&-view {
 								width: 95%;
+								display: flex;
 							}
 							&-footer {
 								width: 5%;
@@ -280,11 +290,6 @@
 								justify-content: center;
 								align-items: center;
 							}
-						}
-						&-body {
-							padding: 10px 5px;
-							width: 95%;
-							display: flex;
 						}
 					}
 				}

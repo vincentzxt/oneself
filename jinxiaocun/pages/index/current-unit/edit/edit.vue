@@ -27,11 +27,7 @@
 						<cu-cell title="电话" :disVerMessage="verify.telephone.disVerMessage" :verify="verify.telephone.message">
 							<input class="h50" slot="footer" type="number" v-model="reqData.bseContactUnitContactModels[0].telephone" placeholder-style="color:#c5c8ce" placeholder="请输入电话" @blur="handleVerify('telephone')"/>
 						</cu-cell>
-						<cu-cell title="位置" isLink @tap="handleOpenAddress">
-							<view class="h50 fc" v-if="reqData.province" slot="footer">{{reqData.province}}, {{reqData.city}}, {{reqData.district}}</view>
-							<view class="h50 fc" v-else slot="footer"></view>
-						</cu-cell>
-						<cu-cell title="街道">
+						<cu-cell title="地址">
 							<input class="h50" slot="footer" type="text" v-model="reqData.address" placeholder-style="color:#c5c8ce" placeholder="请输入街道"/>
 						</cu-cell>
 						<cu-cell title="邮箱" isLastCell :disVerMessage="verify.email.disVerMessage" :verify="verify.email.message">
@@ -47,7 +43,6 @@
 		<view class="footer">
 			<button class="fill" style="background-color: #2d8cf0;" type="primary" @tap="handleSubmit">提交</button>
 		</view>
-		<simple-address ref="address" :pickerValueDefault="addressArray" @onCancel="handleAddressCancel" @onConfirm="handleAddressChange" themeColor='#007AFF'></simple-address>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
@@ -55,15 +50,13 @@
 <script>
 	import cuPanel from '@/components/custom/cu-panel.vue'
 	import cuCell from '@/components/custom/cu-cell.vue'
-	import simpleAddress from '@/components/simple-address/simple-address.nvue'
 	import { updateAll } from '@/api/current-unit.js'
 	import { api } from '@/config/common.js'
 	import getGlobalData from '@/utils/business.js'
 	export default {
 		components: {
 			cuPanel,
-			cuCell,
-			simpleAddress
+			cuCell
 		},
 		data() {
 			return {
@@ -73,9 +66,6 @@
 					contactunitname: '',
 					contactunittype: 3,
 					querycode: '',
-					province: '',
-					city: '',
-					district: '',
 					address: '',
 					bseContactUnitContactModels:[
 						{
@@ -93,7 +83,6 @@
 					telephone: { okVerify: true, disVerMessage: false, message: '号码长度不能超过11位' },
 					email: { okVerify: true, disVerMessage: false, message: '请输入正确的邮箱地址' }
 				},
-				addressArray: [0, 0, 0],
 				showArea: true
 			}
 		},
@@ -103,9 +92,6 @@
 			this.reqData.contactunitname = item.contactunitname
 			this.reqData.contactunittype = item.contactunittype
 			this.reqData.querycode = item.querycode
-			this.reqData.province = item.province
-			this.reqData.city = item.city
-			this.reqData.district = item.district
 			this.reqData.address = item.address
 			this.reqData.bseContactUnitContactModels[0].contactunitid = this.reqData.contactunitid
 			this.reqData.bseContactUnitContactModels[0].contactid = item.bseContactUnitContactModels[0].contactid
@@ -135,23 +121,6 @@
 			},
 			handleTypeChange(val) {
 				this.reqData.contactunittype = val.detail.value
-			},
-			handleOpenAddress() {
-				this.showArea = false
-				this.$refs.address.open()
-			},
-			handleAddressChange(val) {
-				this.addressArray = []
-				for (let item of val.label.split('-')) {
-					this.addressArray.push(item)
-				}
-				this.reqData.province = this.addressArray[0]
-				this.reqData.city = this.addressArray[1]
-				this.reqData.district = this.addressArray[2]
-				this.showArea = true
-			},
-			handleAddressCancel() {
-				this.showArea = true
 			},
 			handleVerify(val) {
 				switch(val) {

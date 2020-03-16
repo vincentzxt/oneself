@@ -149,7 +149,6 @@
 				}
 			},
 			numberFilter(number) {
-				console.log(number)
 				return numberFormat(number)
 			},
 			compare(prop, type) {
