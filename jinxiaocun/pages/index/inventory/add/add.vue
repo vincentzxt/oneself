@@ -39,6 +39,7 @@
 		},
 		data() {
 			return {
+				title: '库存盘点',
 				reqData: {
 					orderlist: []
 				}

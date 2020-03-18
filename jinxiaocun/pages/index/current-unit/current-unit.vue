@@ -164,7 +164,6 @@
 			margin-top: 5px;
 			&-menu {
 				background-color: #ffffff;
-				color: #2d8cf0;
 				margin-bottom: 5px;
 				display: flex;
 				flex-direction: column;
