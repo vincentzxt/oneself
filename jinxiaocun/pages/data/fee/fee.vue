@@ -5,37 +5,39 @@
 			</uni-navbar>
 		</view>
 		<view class="header2">
-			<cu-date :isDate = "false" :initSort = "initSort" @sortUp="handleSortUp" @sortDown="handleSortDown" :initFilter = "initFilter" @filterOk="handleFilterOk" @filterCancel="handleFilterCancel">
+			<cu-date :initDate = "initDate" @dateOk="handleDateOk" :initSort = "initSort" @sortUp="handleSortUp" @sortDown="handleSortDown" :initFilter = "initFilter" @filterOk="handleFilterOk" @filterCancel="handleFilterCancel">
 				<cu-panel>
 					<cu-cell title="客户名称" isLastCell>
-						<input class="h50" slot="footer" type="text" v-model="customerName" placeholder="输入客户名称"/>
+						<input class="h50" slot="footer" type="text" v-model="contactUnitName" placeholder="输入客户名称"/>
 					</cu-cell>
 				</cu-panel>
 			</cu-date>
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
-			<view class="main-receive-pay">
-				<view class="main-receive-pay-header">
-					<view class="main-receive-pay-header-block" style="background-color: #a1c8f3;">
-						<text class="main-receive-pay-header-block-title">{{numberFilter(datas.reportDetailQueries.debitCustomerCount)}}</text>
-						<text class="main-receive-pay-header-block-des">{{totalTitle1}}</text>
+			<view class="main-hotsell">
+				<view class="main-hotsell-content">
+					<view class="main-hotsell-content-header">
+						<view class="main-hotsell-content-header-view">
+							<view class="table-item1">费用名称</view>
+							<view class="table-item2">费用金额</view>
+						</view>
 					</view>
-					<view class="main-receive-pay-header-block" style="background-color: #ffcc80;">
-						<text class="main-receive-pay-header-block-title">￥{{numberFilter(datas.reportDetailQueries.totalReceivableX)}}</text>
-						<text class="main-receive-pay-header-block-des">{{totalTitle2}}</text>
+					<view 
+						class = "main-hotsell-content-cell"
+						v-for = "(item, index) in datas"
+						:key = "index"
+						:style = "{'background-color': index % 2 !== 0 ? '#ebf7ff' : ''}"
+						@tap = "handleNavTo"
+						>
+						<view class = "main-hotsell-content-cell-body">
+							<view class="table-item1">{{item.feecategory}}</view>
+							<view class="table-item2">{{numberFilter(item.amount)}}</view>
+						</view>
+						<view class="main-hotsell-content-cell-footer">
+							<uni-icons type="arrow" size=20 color="#808695"></uni-icons>
+						</view>
 					</view>
 				</view>
-				<view class="main-receive-pay-content">
-					<uni-list>
-						<uni-list-item 
-							:title="item.contactunitname"
-							:note="[tableHeader1+': '+item.maxReceiveAge, tableHeader2+': '+numberFilter(item.totalReceivableY)]"
-							v-for="(item, index) in datas.reportDetailQueries.reportReceiveAddPayCustomer"
-							:key="index"
-							@tap = "handleNavTo('./receive-pay-detail', 'pageType='+pageType+'&contactunitName='+item.contactunitname)">
-						</uni-list-item>
-					</uni-list>
-				</view>	
 			</view>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
@@ -43,67 +45,51 @@
 </template>
 
 <script>
-	import uniList from '@/components/uni-list/uni-list.vue'
-	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import cuPanel from '@/components/custom/cu-panel.vue'
 	import cuCell from '@/components/custom/cu-cell.vue'
 	import cuDate from '@/components/custom/cu-date.vue'
 	import { api } from '@/config/common.js'
-	import { queryReceive, queryPay } from '@/api/data.js'
+	import { queryFeeReport } from '@/api/data.js'
 	import { dateFormat, numberFormat } from '@/utils/tools.js'
 	export default {
 		components: {
-			uniList,
-			uniListItem,
 			cuPanel,
 			cuCell,
 			cuDate
 		},
 		data() {
 			return {
-				pageType: 1,
-				title: '',
-				totalTitle1: '',
-				totalTitle2: '',
-				tableHeader1: '',
-				tableHeader2: '',
-				datas: {},
+				title: '费用信息分析',
+				date: 'custom',
+				startDate: '',
+				endDate: '',
+				datas: [],
 				initSort: [
-					{ id: 0, name: '金额' },
-					{ id: 1, name: '帐龄' }
+					{ id: 0, name: '金额' }
 				],
 				initFilter: [
 					{ id: 0, name: '所有', checked: true, condition: false },
-					{ id: 1, name: '客户', checked: false, condition: true }
+					{ id: 1, name: '客户名称', checked: false, condition: true }
 				],
-				filter: 0,
-				customerName: '',
-				orderBy: 0
+				contactUnitName: ''
 			}
 		},
 		onLoad(options) {
-			this.pageType = parseInt(options.pageType)
-			switch(this.pageType) {
-				case 1:
-					this.title = '应收分析'
-					this.totalTitle1 = '欠款客户数'
-					this.totalTitle2 = '应收金额'
-					this.tableHeader1 = '账龄'
-					this.tableHeader2 = '应收总金额'
-					break
-				case 2:
-					this.title = '应付分析'
-					this.totalTitle1 = '供应商欠款'
-					this.totalTitle2 = '总应付'
-					this.tableHeader1 = '账龄'
-					this.tableHeader2 = '应付总金额'
-					break
-			}
+			this.startDate = options.startDate
+			this.endDate = options.endDate
 			this.getData()
 		},
 		computed: {
 			headerHeight() {
 				return this.$headerHeight
+			},
+			initDate() {
+				return {
+					title: this.title,
+					date: this.date,
+					startDate: this.startDate,
+					endDate: this.endDate
+				}
 			}
 		},
 		methods: {
@@ -112,41 +98,28 @@
 					delta: 1
 				})
 			},
-			handleNavTo(url, params) {
+			handleNavTo() {
+				let params = 'startDate='+this.startDate+'&endDate='+this.endDate+'&contactUnitName='+this.contactUnitName
 				uni.navigateTo({
-					url: url+'?'+params
+					url: '/pages/bill/fee-list/fee-list?'+params
 				})
 			},
 			getData() {
 				let	reqData = {
-					customerName: this.customerName,
-					orderBy: this.orderBy
+					startDate: this.startDate,
+					endDate: this.endDate,
+					contactUnitName: this.contactUnitName
 				}
 				this.$refs.loading.open()
-				switch(this.pageType) {
-					case 1:
-						queryReceive(api.report, reqData).then(res => {
-							this.$refs.loading.close()
-							if (res.status == 200 && res.data.returnCode == '0000') {
-								this.datas = res.data.data
-								this.customerName = ''
-							}
-						}).catch(error => {
-							this.$refs.loading.close()
-						})
-						break
-					case 2:
-						queryPay(api.report, reqData).then(res => {
-							this.$refs.loading.close()
-							if (res.status == 200 && res.data.returnCode == '0000') {
-								this.datas = res.data.data
-								this.customerName = ''
-							}
-						}).catch(error => {
-							this.$refs.loading.close()
-						})
-						break
-				}
+				queryFeeReport(api.report, reqData).then(res => {
+					this.$refs.loading.close()
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.datas = res.data.data.resultList
+						this.contactUnitName = ''
+					}
+				}).catch(error => {
+					this.$refs.loading.close()
+				})
 			},
 			numberFilter(number) {
 				return numberFormat(number)
@@ -188,18 +161,16 @@
 					return item
 				})
 				if (type == 'up') {
-					if (val == 0) {
-						this.datas.reportDetailQueries.reportReceiveAddPayCustomer.sort(this.compare('totalReceivableY', 'up'))
-					} else {
-						this.datas.reportDetailQueries.reportReceiveAddPayCustomer.sort(this.compare('maxReceiveAge', 'up'))
-					}
+					this.datas.sort(this.compare('amount', 'up'))
 				} else {
-					if (val == 0) {
-						this.datas.reportDetailQueries.reportReceiveAddPayCustomer.sort(this.compare('totalReceivableY', 'down'))
-					} else {
-						this.datas.reportDetailQueries.reportReceiveAddPayCustomer.sort(this.compare('maxReceiveAge', 'down'))
-					}
+					this.datas.sort(this.compare('amount', 'down'))
 				}
+			},
+			handleDateOk(val) {
+				this.date = val.date
+				this.startDate = val.startDate
+				this.endDate = val.endDate
+				this.getData()
 			},
 			handleSortUp(val) {
 				this.sortData('up', val)
@@ -216,11 +187,10 @@
 					}
 					return item
 				})
-				this.filter = val
 				this.getData()
 			},
 			handleFilterCancel() {
-				this.cutomerName = ''
+				this.contactUnitName = ''
 			}
 		}
 	}
@@ -240,21 +210,16 @@
 			margin-top: $uni-spacing-col-base;
 		}
 		.table-item1 {
-			width: 23%;
+			width: 50%;
 		}
 		.table-item2 {
-			width: 23%;
-			border-left:0.5px solid #dddee1;
-			padding-left:10px;
-		}
-		.table-item3 {
-			width: 27%;
+			width: 50%;
 			border-left:0.5px solid #dddee1;
 			padding-left:10px;
 		}
 		.main {
 			margin-top: $uni-spacing-col-base;
-			&-receive-pay {
+			&-hotsell {
 				font-size:$uni-font-size-sm;
 				&-header {
 					background-color: #FFFFFF;

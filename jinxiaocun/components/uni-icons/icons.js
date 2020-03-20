@@ -1,4 +1,14 @@
 export default {
+	'home_xiaoshou': '\ue603',
+	'home_caigou': '\ue608',
+	'home_khgys': '\ue609',
+	'home_chanpin': '\ue60a',
+	'home_skd': '\ue60b',
+	'home_fkd': '\ue60c',
+	'home_fyd': '\ue60d',
+	'home_thd': '\ue60e',
+	'home_qichu': '\ue615',
+	'home_pandian': '\ue616',
 	'sale': '\ue622',
 	'cost': '\ue604',
 	'purchase': '\ue887',
@@ -80,5 +90,10 @@ export default {
 	'c-contacts': '\ue61c',
 	'c-discount': '\ue62f',
 	'c-amount': '\ue621',
-	'c-product': '\ue7a6'
+	'c-product': '\ue7a6',
+	'weixin': '\ue65d',
+	'zhifubao': '\ue663',
+	'xianjin': '\ue637',
+	'yinhang': '\ue614',
+	'stock-info': '\ue67a'
 }

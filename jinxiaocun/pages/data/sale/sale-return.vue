@@ -13,7 +13,7 @@
 				</cu-panel>
 			</cu-date>
 		</view>
-		<view class="main" :style="{'height': mainHeight + 'px'}">
+		<view class="main">
 			<view class="main-sale">
 				<view class="main-sale-header">
 					<view class="main-sale-header-block" style="background-color: #a1c8f3;">
