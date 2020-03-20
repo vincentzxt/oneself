@@ -11,7 +11,7 @@
 						<view slot="footer" style="width:100%;">
 							<picker @change="handlePrintChanage" :range="printList" :value="reqData.printertype" range-key='name'>
 								<view class="main-picker">
-									<text v-if="reqData.printertype==''" style="color:#c5c8ce">请选择设备类型</text>
+									<text v-if="reqData.printertype=='' || reqData.printertype==0" style="color:#c5c8ce">请选择设备类型</text>
 									<text v-else>{{printList[reqData.printertype].name}}</text>
 								</view>
 							</picker>
@@ -82,7 +82,7 @@
 				printTypeindex:1,
 				printModelIndex:1,
 				printList: [{name:''},{name:'盒子'},{name:'映美'}],
-				printModel:[{name:''},{name:'Aisino TY-805E'},{name:'Aisino XY-8010+'},{name:'Aisino AX-380+'},{name:'Epson LQ-1600K'},{name:'EPSON LQ-730K ESC/P2'},{name:'HP LaserJet Pro MFP M127-M128 PCLmS'},{name:'HP Color LaserJet 2800 Series PS'},{name:'HP LaserJet CP 1025'}],
+				printModel:[{name:''},{name:'Jolimark CFP-535W'},{name:'Aisino TY-805E'},{name:'Aisino XY-8010+'},{name:'Aisino AX-380+'},{name:'Epson LQ-1600K'},{name:'EPSON LQ-730K ESC/P2'},{name:'HP LaserJet Pro MFP M127-M128 PCLmS'},{name:'HP Color LaserJet 2800 Series PS'},{name:'HP LaserJet CP 1025'}],
 				loading:false,
 				title: '打印机设置'
 			};
@@ -91,6 +91,7 @@
 		},
 		onLoad(option){
 			this.loadData();
+			
 		},
 		methods: {
 		
@@ -120,6 +121,23 @@
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.reqData = res.data.data;
 					} else {
+						//this.$api.msg(res.data.returnMessage) 
+					}
+				}).catch(error => {
+					this.$refs.loading.close();
+					this.$api.msg('请求失败fail') 
+				})
+			},
+			Unbind() {
+				this.$refs.loading.open()
+				const sendData = {
+					printerid:this.reqData.printerid
+				};
+				tokenpost(api.UnBindPrint,sendData).then(res => {
+					this.$refs.loading.close();
+					if (res.status == 200 && res.data.returnCode == '0000') {
+						this.reqData.printerid = 0;
+					} else {
 						this.$api.msg(res.data.returnMessage) 
 					}
 				}).catch(error => {
@@ -140,7 +158,6 @@
 			handleSubmit() {
 				const reqData = {
 					printertype:this.reqData.printertype,
-					printerid:this.reqData.printerid,
 					printername:this.reqData.printername,
 					printermodel:this.reqData.printermodel,
 					printercode:this.reqData.printercode,
@@ -167,11 +184,15 @@
 					this.$api.msg('设备密钥不能为空！');
 					return;
 				}
+				
+				if(this.reqData.printerid!=0){
+					this.Unbind()
+				}
 				this.loading = true;
 				tokenpost(api.BindPrint, reqData)
 					.then(res => {
 						if (res.status == 200 && res.data.returnCode == '0000') {
-							this.$api.msg(res.data.returnMessage);
+							this.$api.msg('打印机设置成功');
 						} else {
 							this.$api.msg(res.data.returnMessage);
 						}

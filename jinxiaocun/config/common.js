@@ -1,6 +1,6 @@
 export const api = {
-	baseUrl: 'https://test.saas.yunmengzhu.com',
-	// baseUrl:'https://saas.yunmengzhu.com',
+	// baseUrl: 'https://test.saas.yunmengzhu.com',
+	baseUrl:'https://saas.yunmengzhu.com',
 	// 正式 wxa9c130058c8210a1 测试:wxd7cad7e258a41c60
 	contactUnit: '/api/ContactUnit',
 	baseArea: '/api/BseArea',
@@ -53,5 +53,7 @@ export const api = {
 	GetRefundList:'/api/SysDictionary/GetSysDictionaryList',
 	RefundApply:'/api/SysRefund/RefundApply',
 	GetFirstActivePrinter:'/api/Print/GetFirstActivePrinter',
-	BindPrint:'api/Print/Bind'
+	UnBindPrint:'api/Print/UnBind',
+	BindPrint:'api/Print/Bind',
+	
 }
