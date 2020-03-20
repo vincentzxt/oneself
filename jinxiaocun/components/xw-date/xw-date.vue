@@ -87,7 +87,19 @@ export default {
 			type: String,
 			default: 'null'
 		},
+		start_date: {
+			type: String,
+			default: ''
+		},
+		end_date: {
+			type: String,
+			default: ''
+		},
 		searchName: {
+			type: String,
+			default: ''
+		},
+		searchValue: {
 			type: String,
 			default: ''
 		},
@@ -169,14 +181,31 @@ export default {
 			now_date: init_endDate,
 			startDate: init_endDate,
 			endDate: init_endDate,
-			search_startDate: init_endDate,
-			search_endDate: init_endDate,
+			search_startDate:'',
+			search_endDate:'',
 			search_value:'',
 			value: [9999, month_short - 1, day_short-1],
 			visible: true,
 			indicatorStyle: `height: ${Math.round(uni.getSystemInfoSync().screenWidth / (750 / 100))}px;`
 		};
 	},
+mounted(){
+	if(this.start_date==''){
+		this.search_startDate =this.now_date
+	
+	}else{
+		this.search_startDate = this.start_date
+	}
+	if(this.end_date==''){
+		this.search_endDate =this.now_date
+	}else{
+		this.search_endDate = this.end_date
+	}
+	if(this.searchValue!=''){
+		this.search_value = this.searchValue
+		console.log(this.searchValue);
+	}
+},
 	methods: {
 		bindChange1(e) {
 			const val = e.detail.value;

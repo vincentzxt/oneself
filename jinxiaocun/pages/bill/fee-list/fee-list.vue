@@ -3,7 +3,7 @@
 		<view class="header">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
-		<xw-date title="费用日期" orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
+		<xw-date title="费用日期" orderList="orderList" :searchName="searchName" :searchValue='search_value' @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
 			<view class="total-item">
 				<text>{{ totalRecords }}</text>
@@ -78,8 +78,8 @@ export default {
 			totalAmount: '0.00',
 			totalRecords: '0',
 			dataList: [],
-			search_startDate: nowDate,
-			search_endDate: nowDate,
+			search_startDate: '',
+			search_endDate: '',
 			order_name: 'createtime',
 			order_type: 1,
 			search_value: '',
@@ -87,6 +87,15 @@ export default {
 		};
 	},
 	onLoad() {
+		if(options.startDate){
+			console.log("sss");
+			this.search_startDate = options.startDate
+			this.search_endDate =options.endDate
+			this.search_value = options.contactUnitName
+		}else{
+			this.search_startDate = nowDate
+			this.search_endDate =nowDate
+		}
 		this.loadData();
 	},
 	onShow() {

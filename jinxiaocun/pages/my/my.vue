@@ -26,6 +26,7 @@
 			<uni-list-item title="员工管理" thumb="/static/my/icon/mine_yggl.png" @tap="handleUserManage()" :show-arrow="true"></uni-list-item>
 			<uni-list-item title="收款账号" thumb="../../static/my/icon/mine_skzh.png" @tap="handleBankSet()"></uni-list-item>
 			<uni-list-item title="购买/续费" thumb="../../static/my/icon/mine_gmjf.png" @tap="handleRecharge()"></uni-list-item>
+			<uni-list-item title="打印机设置" thumb="../../static/my/icon/mine_gmjf.png" @tap="handlePrint()"></uni-list-item>
 		</uni-list>
 		<view class="space" v-if="dataList.ismain === 1"></view>
 		<uni-list>
@@ -34,6 +35,7 @@
 			<uni-list-item title="分享有礼" thumb="../../static/my/icon/mine_fxyl.png" @tap="handleShare()"></uni-list-item>
 			<uni-list-item title="关于我们" thumb="../../static/my/icon/mine_gywm.png" @tap="handleAbout()"></uni-list-item>
 			<uni-list-item title="帮助文档" thumb="../../static/my/icon/mine_bzwd.png" @tap="handlewx()"></uni-list-item>
+		<uni-list-item title="客服电话" thumb="../../static/my/icon/mine_kefu.png" showText="true" content='400-1565-661' @tap="handleCall()"></uni-list-item>
 		</uni-list>
 		<view class="space"></view>
 		<view class="user_bottom" v-if="login_status"><button type="default" class="logout_btn" @tap="handleLogout">退出登录</button></view>
@@ -115,6 +117,11 @@ export default {
 			}
 			uni.navigateTo({
 				url: '/pages/my/login/editPassword'
+			});
+		},
+		handleCall(){
+			uni.makePhoneCall({
+			    phoneNumber: '4001565661' //仅为示例
 			});
 		},
 		handleBankSet() {

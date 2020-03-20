@@ -51,5 +51,7 @@ export const api = {
 	Orderypay:'/api/WeChartPay/OrderPay',
 	GetSharePic:'/api/BseUser/GetSharePic/',
 	GetRefundList:'/api/SysDictionary/GetSysDictionaryList',
-	RefundApply:'/api/SysRefund/RefundApply'
+	RefundApply:'/api/SysRefund/RefundApply',
+	GetFirstActivePrinter:'/api/Print/GetFirstActivePrinter',
+	BindPrint:'api/Print/Bind'
 }
