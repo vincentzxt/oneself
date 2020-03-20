@@ -26,7 +26,7 @@
 			<uni-list-item title="员工管理" thumb="/static/my/icon/mine_yggl.png" @tap="handleUserManage()" :show-arrow="true"></uni-list-item>
 			<uni-list-item title="收款账号" thumb="../../static/my/icon/mine_skzh.png" @tap="handleBankSet()"></uni-list-item>
 			<uni-list-item title="购买/续费" thumb="../../static/my/icon/mine_gmjf.png" @tap="handleRecharge()"></uni-list-item>
-			<uni-list-item title="打印机设置" thumb="../../static/my/icon/mine_gmjf.png" @tap="handlePrint()"></uni-list-item>
+			<uni-list-item title="打印机设置" thumb="../../static/my/icon/dyj.png" @tap="handlePrint()"></uni-list-item>
 		</uni-list>
 		<view class="space" v-if="dataList.ismain === 1"></view>
 		<uni-list>
@@ -117,6 +117,15 @@ export default {
 			}
 			uni.navigateTo({
 				url: '/pages/my/login/editPassword'
+			});
+		},
+		handlePrint() {
+			if (!this.login_status) {
+				this.$api.login();
+				return;
+			}
+			uni.navigateTo({
+				url: '/pages/my/print/print'
 			});
 		},
 		handleCall(){
