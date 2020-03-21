@@ -166,16 +166,24 @@
 .container .main.data-v-7e623e07 {
   margin-top: 5px;
 }
+.container .main-mark.data-v-7e623e07 {
+    display: block;
+    opacity: 0.5;
+    position: absolute;
+    width: 100%;
+    z-index: 998;
+    height: 100%;
+    background-color: #000000;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+}
 .container .main-menu.data-v-7e623e07 {
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
     background-color: #ffffff;
     margin-bottom: 5px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-            flex-direction: column;
 }
 .container .main-menu-item.data-v-7e623e07 {
       padding: 15px 20px;

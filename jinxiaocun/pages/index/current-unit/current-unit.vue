@@ -4,15 +4,16 @@
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">				
 			</uni-navbar>
 			<view class="header">
-				<uni-search-bar style="width:80%;" @input="handleSearch" placeholder="速查码/名称/电话"></uni-search-bar>
+				<uni-search-bar style="width:80%;" @input="handleSearch" placeholder="速查码/名称/电话" cancelButton="none" clearButton="always"></uni-search-bar>
 				<view class="header-item" style="width:20%;" @tap="handleShowMenu">
 					<view style="margin-right:5px;">筛选</view>
-					<uni-icons v-if="showMenu" type="arrow-down" color="#2d8cf0" size=20></uni-icons>
-					<uni-icons v-else type="arrow-up" color="#2d8cf0" size=20></uni-icons>
+					<uni-icons v-if="showMenu" type="arrow-down" color="#808695" size=20></uni-icons>
+					<uni-icons v-else type="arrow-up" color="#808695" size=20></uni-icons>
 				</view>
 			</view>
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
+			<view v-if="showMenu" class="main-mark" @tap="handleCancelMenu"></view>
 			<view v-if="showMenu" class="main-menu">
 				<view class="main-menu-item" v-for="(item, index) in menuList" :key="index" :style="{'border-bottom': index !== menuList.length-1 ? '0.5px solid #dddee1' : ''}" @tap="handleSelectMenu(index)">
 					<view>{{item}}</view>
@@ -27,7 +28,7 @@
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleAdd">添加</button>
+			<button class="fill" style="background-color: #2d8cf0;border-radius: 50px;" type="primary" @click="handleAdd">添加</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
@@ -102,6 +103,9 @@
 			handleShowMenu() {
 				this.showMenu = !this.showMenu
 			},
+			handleCancelMenu() {
+				this.showMenu = false
+			},
 			handleSelectMenu(val) {
 				this.curSelectMenu = val
 				if (val == 0) {
@@ -162,11 +166,23 @@
 		}
 		.main {
 			margin-top: 5px;
+			&-mark {
+				display: block;
+				opacity: 0.5;
+				position: absolute;
+				width: 100%;
+				z-index: 998;
+				height: 100%;
+				background-color: #000000;
+				transition: opacity 0.3s;
+			}
 			&-menu {
+				display: block;
+				position: absolute;
+				width: 100%;
+				z-index: 999;
 				background-color: #ffffff;
 				margin-bottom: 5px;
-				display: flex;
-				flex-direction: column;
 				&-item {
 					padding: 15px 20px;
 					display: flex;
