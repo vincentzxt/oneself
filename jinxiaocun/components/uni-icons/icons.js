@@ -40,6 +40,7 @@ export default {
 	'data': '\ue902',
 	'data-fill': '\ue905',
 	'phone': '\ue8bd',
+	'kefu': '\ue617',
 	'mobile': '\ue8dc',
 	'product': '\ue8a1',
 	'product-fill': '\ue8a0',
