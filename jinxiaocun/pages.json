@@ -161,6 +161,10 @@
             "path" : "pages/my/wxSet/wxSet",
             "style" : {}
         }
+        ,{
+            "path" : "pages/my/print/print",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"
