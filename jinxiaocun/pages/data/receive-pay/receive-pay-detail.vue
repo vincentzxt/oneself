@@ -46,8 +46,8 @@
 						>
 							<view class = "main-receive-pay-content-cell-body-view">
 								<view class="table-item1">{{dateFilter(child.bildate)}}</view>
-								<view class="table-item2">{{child.receiveAmount}}</view>
-								<view class="table-item3">{{child.salesAmount}}</view>
+								<view class="table-item2">{{child.salesAmount}}</view>
+								<view class="table-item3">{{child.receiveAmount}}</view>
 							</view>
 							<view class="main-receive-pay-content-cell-body-footer">
 								<uni-icons type="arrow" size=20 color="#808695"></uni-icons>
