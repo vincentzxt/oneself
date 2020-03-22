@@ -185,7 +185,6 @@
           -webkit-box-align: center;
           -webkit-align-items: center;
                   align-items: center;
-          color: #ffffff;
 }
 .container .main-receive-pay-header-block-title.data-v-01b242fa {
             font-size: 28rpx;
@@ -193,6 +192,7 @@
 }
 .container .main-receive-pay-header-block-des.data-v-01b242fa {
             font-size: 28rpx;
+            color: #808695;
 }
 .container .main-receive-pay-content.data-v-01b242fa {
         margin-top: 10rpx;

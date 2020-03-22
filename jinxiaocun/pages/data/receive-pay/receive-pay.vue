@@ -16,11 +16,11 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<view class="main-receive-pay">
 				<view class="main-receive-pay-header">
-					<view class="main-receive-pay-header-block" style="background-color: #a1c8f3;">
+					<view class="main-receive-pay-header-block">
 						<text class="main-receive-pay-header-block-title">{{numberFilter(datas.reportDetailQueries.debitCustomerCount)}}</text>
 						<text class="main-receive-pay-header-block-des">{{totalTitle1}}</text>
 					</view>
-					<view class="main-receive-pay-header-block" style="background-color: #ffcc80;">
+					<view class="main-receive-pay-header-block">
 						<text class="main-receive-pay-header-block-title">￥{{numberFilter(datas.reportDetailQueries.totalReceivableX)}}</text>
 						<text class="main-receive-pay-header-block-des">{{totalTitle2}}</text>
 					</view>
@@ -270,13 +270,13 @@
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
-						color: #ffffff;
 						&-title {
 							font-size:$uni-font-size-sm;
 							font-weight: bold;
 						}
 						&-des {
 							font-size:$uni-font-size-sm;
+							color: $uni-text-color-grey;
 						}
 					}
 				}

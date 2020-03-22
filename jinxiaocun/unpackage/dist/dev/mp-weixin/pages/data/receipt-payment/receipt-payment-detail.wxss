@@ -185,7 +185,6 @@
           -webkit-box-align: center;
           -webkit-align-items: center;
                   align-items: center;
-          color: #ffffff;
 }
 .container .main-sale-header-block-title.data-v-06ae5b36 {
             font-size: 28rpx;
@@ -193,6 +192,7 @@
 }
 .container .main-sale-header-block-des.data-v-06ae5b36 {
             font-size: 28rpx;
+            color: #808695;
 }
 .container .main-sale-content.data-v-06ae5b36 {
         margin-top: 10rpx;

@@ -1,11 +1,6 @@
 export const api = {
-<<<<<<< HEAD
-	 baseUrl: 'https://test.saas.yunmengzhu.com',
-	//baseUrl:'https://saas.yunmengzhu.com',
-=======
 	baseUrl: 'https://test.saas.yunmengzhu.com',
 	// baseUrl:'https://saas.yunmengzhu.com',
->>>>>>> fe26294870968f4066aa55ee0dbeb06259fd0e95
 	// 正式 wxa9c130058c8210a1 测试:wxd7cad7e258a41c60
 	contactUnit: '/api/ContactUnit',
 	baseArea: '/api/BseArea',
