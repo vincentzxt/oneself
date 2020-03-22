@@ -68,7 +68,8 @@
     "pages/bill/inventory-list/inventory-detail",
     "pages/my/about/about",
     "pages/my/wxSet/wxSet",
-    "pages/my/print/print"
+    "pages/my/print/print",
+    "pages/my/print/printlist"
   ],
   "subPackages": [],
   "window": {
@@ -111,6 +112,5 @@
     "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
-  },
-  "sitemapLocation": "sitemap21.json"
+  }
 }

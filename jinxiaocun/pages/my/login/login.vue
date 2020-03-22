@@ -26,9 +26,7 @@
 		<view class="login_wx">
 		<button open-type="getUserInfo" @getuserinfo="handleWxLogin" class="tui-share-btn tui-share-position">
 		<view class="weixin">
-			<view class="weixin-area">
-				<image src="../../../static/my/icon/mine_weixin.png" mode=""></image>
-			</view>
+				<image src="../../../static/my/weixin@2x.png"></image>
 		</view>
 		</button>
 		</view>
@@ -256,11 +254,11 @@ export default {
 	flex-direction: row;
 	justify-content: center;
 }
-.weixin-area{
-	width: 96rpx;
-	height: 96rpx;
+.weixin{
+	width: 100rpx;
+	height: 100rpx;
 	border-radius: 50%;
-	background-color: #f7f7f7;
+	// background-color: #f7f7f7;
 	text-align: center;
 	vertical-align: middle;
 	display: flex;
@@ -268,8 +266,8 @@ export default {
 	justify-content: center;
 	image{
 		align-self: center;
-		width: 60rpx;
-		height: 60rpx;
+		width: 80rpx;
+		height: 80rpx;
 	}
 }
 .tui-share-btn {

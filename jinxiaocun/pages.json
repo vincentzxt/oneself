@@ -165,6 +165,10 @@
             "path" : "pages/my/print/print",
             "style" : {}
         }
+        ,{
+            "path" : "pages/my/print/printlist",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom"

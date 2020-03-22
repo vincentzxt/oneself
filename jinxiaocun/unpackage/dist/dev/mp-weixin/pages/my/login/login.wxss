@@ -305,11 +305,10 @@
   -webkit-justify-content: center;
           justify-content: center;
 }
-.weixin-area.data-v-6f3928ca {
-  width: 96rpx;
-  height: 96rpx;
+.weixin.data-v-6f3928ca {
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 50%;
-  background-color: #f7f7f7;
   text-align: center;
   vertical-align: middle;
   display: -webkit-box;
@@ -323,11 +322,11 @@
   -webkit-justify-content: center;
           justify-content: center;
 }
-.weixin-area image.data-v-6f3928ca {
+.weixin image.data-v-6f3928ca {
     -webkit-align-self: center;
             align-self: center;
-    width: 60rpx;
-    height: 60rpx;
+    width: 80rpx;
+    height: 80rpx;
 }
 .tui-share-btn.data-v-6f3928ca {
   width: 96rpx;

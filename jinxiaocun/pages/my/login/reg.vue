@@ -16,7 +16,7 @@
 			</view>
 			<view class="con_02">
 				<view class="con_02_l"><uni-icons type="identifying-code" size="25" color="#CCCCCC"></uni-icons></view>
-				<view class="con_02_r"><input v-model="verificationCode" class="uni-input" focus placeholder="请输入验证码" /></view>
+				<view class="con_02_r"><input v-model="verificationCode" style="width: 220rpx;" class="uni-input" focus placeholder="请输入验证码" /></view>
 				<button type="default" size="mini"  @click="send"  :disabled="code_status" class="code_btn">{{codeText}}</button>
 			</view>
 			<view class="con_02">
