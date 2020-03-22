@@ -38,9 +38,6 @@
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
@@ -49,7 +46,7 @@
   -webkit-align-items: center;
           align-items: center;
   height: 50px;
-  padding: 0px 5px 0px 0px;
+  padding: 0px 5px 0px 5px;
   border-width: 0px;
   border-style: solid;
 }
