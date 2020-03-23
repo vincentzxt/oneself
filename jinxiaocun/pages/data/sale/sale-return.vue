@@ -16,11 +16,11 @@
 		<view class="main">
 			<view class="main-sale">
 				<view class="main-sale-header">
-					<view class="main-sale-header-block" style="background-color: #a1c8f3;">
+					<view class="main-sale-header-block">
 						<text class="main-sale-header-block-title">{{numberFilter(datas.totalqty)}}</text>
 						<text class="main-sale-header-block-des">{{totalTitle1}}</text>
 					</view>
-					<view class="main-sale-header-block" style="background-color: #ffcc80;">
+					<view class="main-sale-header-block">
 						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalamount)}}</text>
 						<text class="main-sale-header-block-des">{{totalTitle2}}</text>
 					</view>
@@ -297,13 +297,13 @@
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
-						color: #ffffff;
 						&-title {
 							font-size:$uni-font-size-sm;
 							font-weight: bold;
 						}
 						&-des {
 							font-size:$uni-font-size-sm;
+							color: $uni-text-color-grey;
 						}
 					}
 				}

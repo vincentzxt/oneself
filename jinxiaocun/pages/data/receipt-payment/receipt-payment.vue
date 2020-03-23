@@ -11,15 +11,15 @@
 		<view class="main">
 			<view class="main-sale">
 				<view class="main-sale-header">
-					<view class="main-sale-header-block" style="background-color: #a1c8f3;">
+					<view class="main-sale-header-block">
 						<text class="main-sale-header-block-title">{{numberFilter(datas.totalBalance)}}</text>
 						<text class="main-sale-header-block-des">总余额</text>
 					</view>
-					<view class="main-sale-header-block" style="background-color: #c4c4c4;">
+					<view class="main-sale-header-block">
 						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalRecieved)}}</text>
 						<text class="main-sale-header-block-des">总收款</text>
 					</view>
-					<view class="main-sale-header-block" style="background-color: #ffcc80;">
+					<view class="main-sale-header-block">
 						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalPayment)}}</text>
 						<text class="main-sale-header-block-des">总付款</text>
 					</view>
@@ -207,13 +207,13 @@
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
-						color: #ffffff;
 						&-title {
 							font-size:$uni-font-size-sm;
 							font-weight: bold;
 						}
 						&-des {
 							font-size:$uni-font-size-sm;
+							color: $uni-text-color-grey;
 						}
 					}
 				}

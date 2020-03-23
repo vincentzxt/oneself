@@ -90,7 +90,7 @@
 						payaccountName: '',
 						amount: 0.00,
 						totalCount: 0,
-						isprint: 0,
+						isprint: 1,
 						status: 0
 					},
 					orderlist: []

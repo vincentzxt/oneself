@@ -28,7 +28,7 @@
 			</scroll-view>
 		</view>
 		<view class="footer">
-			<button class="fill" style="background-color: #2d8cf0;border-radius: 50px;" type="primary" @click="handleAdd">添加</button>
+			<button class="fill" style="background-color: #2d8cf0;" type="primary" @click="handleAdd">添加</button>
 		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>

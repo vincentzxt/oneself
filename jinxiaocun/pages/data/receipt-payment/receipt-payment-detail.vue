@@ -252,13 +252,13 @@
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
-						color: #ffffff;
 						&-title {
 							font-size:$uni-font-size-sm;
 							font-weight: bold;
 						}
 						&-des {
 							font-size:$uni-font-size-sm;
+							color: $uni-text-color-grey;
 						}
 					}
 				}

@@ -16,15 +16,15 @@
 		<view class="main" :style="{'height': mainHeight + 'px'}">
 			<view class="main-sale">
 				<view class="main-sale-header">
-					<view class="main-sale-header-block" style="background-color: #a1c8f3;">
+					<view class="main-sale-header-block">
 						<text class="main-sale-header-block-title">{{numberFilter(datas.totalqty)}}</text>
 						<text class="main-sale-header-block-des">订单总数</text>
 					</view>
-					<view class="main-sale-header-block" style="background-color: #c4c4c4;">
+					<view class="main-sale-header-block">
 						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalamount)}}</text>
 						<text class="main-sale-header-block-des">销售总金额</text>
 					</view>
-					<view class="main-sale-header-block" style="background-color: #ffcc80;">
+					<view class="main-sale-header-block">
 						<text class="main-sale-header-block-title">￥{{numberFilter(datas.totalprofit)}}</text>
 						<text class="main-sale-header-block-des">总毛利</text>
 					</view>
@@ -243,13 +243,13 @@
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
-						color: #ffffff;
 						&-title {
 							font-size:$uni-font-size-sm;
 							font-weight: bold;
 						}
 						&-des {
 							font-size:$uni-font-size-sm;
+							color: $uni-text-color-grey;
 						}
 					}
 				}

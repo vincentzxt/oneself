@@ -131,44 +131,6 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="main-top">
-					<view class="main-top-wrap">
-						<view class="main-top-wrap-header">
-							<view>
-								<uni-icons type="xianjin" color="#51a9f3" size=20></uni-icons>
-								<text style="margin-left: 10px">费用信息(top5)</text>
-							</view>
-							<view class="main-top-wrap-header-footer">
-								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
-											:style="{'background-color': feeDate == 30 ? '#51a9f3' : '', 'color': feeDate == 30 ? '#ffffff' : ''}"
-											@tap="handleClickFetDate(30)">30天</view>
-								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
-											:style="{'background-color': feeDate == 60 ? '#51a9f3' : '', 'color': feeDate == 60 ? '#ffffff' : ''}"
-											@tap="handleClickFetDate(60)">60天</view>
-								<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #51a9f3;"
-											:style="{'background-color': feeDate == 90 ? '#51a9f3' : '', 'color': feeDate == 90 ? '#ffffff' : ''}"
-											@tap="handleClickFetDate(90)">90天</view>
-							</view>
-						</view>
-						<view class="main-top-wrap-total" @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
-							<view>费用总额：<text style="color:#ef5a62">{{numberFilter(feeTotal)}}</text></view>
-						</view>
-						<view class="main-top-wrap-content" v-if="feeListByCategoryTop5.length > 0" @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
-							<view class="main-top-wrap-content-list">
-								<view class="main-top-wrap-content-list-item" v-for="(item, index) in feeListByCategoryTop5" :key="index">
-									<uni-icons type="circle" color="#f29d6e" size=10 style="width:5%;"></uni-icons>
-									<view class="main-top-wrap-content-list-item-text" style="width:95%;">
-										<text style="display:inline-block;width:60%;">{{item.feecategory}}</text>
-										<text style="display:inline-block;width:40%;">￥{{numberFilter(item.amount)}}</text>
-									</view>
-								</view>
-							</view>
-						</view>
-						<view class="nodata" v-else @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
-							<text>暂无数据</text>
-						</view>
-					</view>
-				</view>
 				<view class="main-warning">
 					<view class="main-warning-header">
 						<uni-icons type="yujing" color="#ef5a62" size=20></uni-icons>
@@ -207,6 +169,44 @@
 							<view class="main-stock-content-wrap-content">
 								<text>库存数：{{datas.stockModel.negativeQty}}</text>
 							</view>
+						</view>
+					</view>
+				</view>
+				<view class="main-top">
+					<view class="main-top-wrap">
+						<view class="main-top-wrap-header">
+							<view>
+								<uni-icons type="xianjin" color="#51a9f3" size=20></uni-icons>
+								<text style="margin-left: 10px">费用信息(top5)</text>
+							</view>
+							<view class="main-top-wrap-header-footer">
+								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
+											:style="{'background-color': feeDate == 30 ? '#51a9f3' : '', 'color': feeDate == 30 ? '#ffffff' : ''}"
+											@tap="handleClickFetDate(30)">30天</view>
+								<view class="main-top-wrap-header-footer-item" style="margin-right: 10px; border: 0.5px solid #51a9f3;" 
+											:style="{'background-color': feeDate == 60 ? '#51a9f3' : '', 'color': feeDate == 60 ? '#ffffff' : ''}"
+											@tap="handleClickFetDate(60)">60天</view>
+								<view class="main-top-wrap-header-footer-item" style="border: 0.5px solid #51a9f3;"
+											:style="{'background-color': feeDate == 90 ? '#51a9f3' : '', 'color': feeDate == 90 ? '#ffffff' : ''}"
+											@tap="handleClickFetDate(90)">90天</view>
+							</view>
+						</view>
+						<view class="main-top-wrap-total" @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
+							<view>费用总额：<text style="color:#ef5a62">{{numberFilter(feeTotal)}}</text></view>
+						</view>
+						<view class="main-top-wrap-content" v-if="feeListByCategoryTop5.length > 0" @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
+							<view class="main-top-wrap-content-list">
+								<view class="main-top-wrap-content-list-item" v-for="(item, index) in feeListByCategoryTop5" :key="index">
+									<uni-icons type="circle" color="#f29d6e" size=10 style="width:5%;"></uni-icons>
+									<view class="main-top-wrap-content-list-item-text" style="width:95%;">
+										<text style="display:inline-block;width:60%;">{{item.feecategory}}</text>
+										<text style="display:inline-block;width:40%;">￥{{numberFilter(item.amount)}}</text>
+									</view>
+								</view>
+							</view>
+						</view>
+						<view class="nodata" v-else @tap="handleNavTo('./fee/fee', 'startDate='+feeStartDate+'&endDate='+feeEndDate)">
+							<text>暂无数据</text>
 						</view>
 					</view>
 				</view>

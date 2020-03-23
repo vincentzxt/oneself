@@ -75,7 +75,7 @@
 						contactunitname: '',
 						telephone: '',
 						amount: 0.00,
-						isprint: 0,
+						isprint: 1,
 						discountamount: ''
 					},
 					orderlist: []

@@ -136,11 +136,10 @@
 		overflow: hidden;
 		position: relative;
 		flex: 1;
-		justify-content: center;
 		flex-direction: row;
 		align-items: center;
 		height: $uni-searchbar-height;
-		padding: 0px 5px 0px 0px;
+		padding: 0px 5px 0px 5px;
 		border-width: 0px;
 		border-style: solid;
 	}
