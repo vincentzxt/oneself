@@ -8,7 +8,7 @@
 			<scroll-view :scroll-y="true" class="fill">
 				<view class="tou"><img src="@/static/image/logo.jpeg"/></img></view>
 				<uni-list>
-			<uni-list-item title="版本号" show-text="true" :show-arrow="false"  content="v1.1"></uni-list-item>
+			<uni-list-item title="版本号" show-text="true" :show-arrow="false"  content="v2.0.0"></uni-list-item>
 			<uni-list-item title="微博账号" show-text="true" :show-arrow="true"  content="一格云单" @tap="handleweibo"></uni-list-item>
 			<uni-list-item title="微信公众号" show-text="true" :show-arrow="true"  content="yigeyundan"></uni-list-item>
 		</uni-list>

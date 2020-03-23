@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "cu-date": "/components/custom/cu-date"
+  }
+}

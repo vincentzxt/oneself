@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "wuc-tab": "/components/wuc-tab/wuc-tab",
+    "helang-checkbox": "/components/helang-checkbox/helang-checkbox-jf"
+  }
+}

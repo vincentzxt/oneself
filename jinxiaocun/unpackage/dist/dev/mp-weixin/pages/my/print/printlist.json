@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "sort-picker-list": "/components/nickro-sortPickerList/nickro-sortPickerList",
+    "cu-loading": "/components/custom/cu-loading"
+  }
+}

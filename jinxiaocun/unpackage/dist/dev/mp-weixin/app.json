@@ -1,0 +1,117 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/sale/sale",
+    "pages/index/sale/payment/payment",
+    "pages/index/purchase/purchase",
+    "pages/index/purchase/payment/payment",
+    "pages/index/current-unit/current-unit",
+    "pages/index/current-unit/add/add",
+    "pages/index/current-unit/edit/edit",
+    "pages/index/product/product",
+    "pages/index/product/add/add",
+    "pages/index/product/edit/edit0",
+    "pages/index/product/edit/edit1",
+    "pages/index/product/type/type",
+    "pages/index/product/unit/unit",
+    "pages/index/receipt/receipt",
+    "pages/index/payment/payment",
+    "pages/index/cost/cost",
+    "pages/index/cost/type/type",
+    "pages/index/return-order/return-order",
+    "pages/index/return-order/payment/payment",
+    "pages/index/return-order/orders/orders",
+    "pages/index/early-stage/early-stage",
+    "pages/index/inventory/inventory",
+    "pages/index/inventory/add/add",
+    "pages/bill/bill",
+    "pages/bill/stock-list/stock-list",
+    "pages/data/data",
+    "pages/data/sale/sale",
+    "pages/data/sale/sale-return",
+    "pages/data/receive-pay/receive-pay",
+    "pages/data/receive-pay/receive-pay-detail",
+    "pages/data/receipt-payment/receipt-payment",
+    "pages/data/receipt-payment/receipt-payment-detail",
+    "pages/data/warning/customer/customer",
+    "pages/data/top/hotSelling/hotSelling",
+    "pages/data/fee/fee",
+    "pages/my/my",
+    "pages/my/login/login",
+    "pages/my/set",
+    "pages/my/login/reg",
+    "pages/my/login/forget",
+    "pages/my/user/user",
+    "pages/my/user/useradd",
+    "pages/my/user/useredit",
+    "pages/my/account/accountlist",
+    "pages/my/login/editPassword",
+    "pages/my/share/share",
+    "pages/bill/sell-list/sell-list",
+    "pages/bill/sell-list/sell-detail",
+    "pages/bill/purchase-list/purchase-list",
+    "pages/bill/purchase-list/purchase-detail",
+    "pages/bill/payment-list/payment-list",
+    "pages/bill/receipt-list/receipt-list",
+    "pages/bill/fee-list/fee-list",
+    "pages/bill/sell-red-list/sell-red-list",
+    "pages/bill/sell-red-list/sell-detail",
+    "pages/bill/purchase-red-list/purchase-red-list",
+    "pages/bill/purchase-red-list/purchase-detail",
+    "pages/bill/inventory-list/inventory-list",
+    "pages/bill/begin-list/begin-list",
+    "pages/bill/begin-list/begin-detail",
+    "pages/bill/earlywarn-list/earlywarn-list",
+    "pages/my/integral/integral",
+    "pages/my/recharge/recharge",
+    "pages/my/share/myshare",
+    "pages/bill/inventory-list/inventory-detail",
+    "pages/my/about/about",
+    "pages/my/wxSet/wxSet",
+    "pages/my/print/print",
+    "pages/my/print/printlist"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#88909f",
+    "selectedColor": "#2d8cf0",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/icons/tab_maimai_nor.png",
+        "selectedIconPath": "static/icons/tab_maimai_sel.png",
+        "text": "买卖"
+      },
+      {
+        "pagePath": "pages/bill/bill",
+        "iconPath": "static/icons/tab_danju_nor.png",
+        "selectedIconPath": "static/icons/tab_danju_sel.png",
+        "text": "单据"
+      },
+      {
+        "pagePath": "pages/data/data",
+        "iconPath": "static/icons/tab_baobiao_nor.png",
+        "selectedIconPath": "static/icons/tab_baobiao_sel.png",
+        "text": "报表"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/icons/tab_wode_nor.png",
+        "selectedIconPath": "static/icons/tab_wode_sel.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx9074de28009e1111"
+  ],
+  "usingComponents": {
+    "uni-navbar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "cu-loading": "/components/custom/cu-loading"
+  },
+  "sitemapLocation": "sitemap.json"
+}

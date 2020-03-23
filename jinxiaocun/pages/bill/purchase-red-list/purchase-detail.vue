@@ -32,7 +32,7 @@
 						</t-tr>
 						<t-tr font-size="12" color="#5d6f61" align="right" v-for="(item, index) in dataList.detailModels" :key="index">
 							<t-td align="left">{{ item.productname }}</t-td>
-							<t-td align="center"><text v-if="item.ismainunit==1">{{item.qty}}</text><text v-else>{item.assistunitqty}}</text></t-td>
+							<t-td align="center"><text v-if="item.ismainunit==1">{{item.qty}}</text><text v-else>{{item.assistunitqty}}</text></t-td>
 							<t-td align="center">{{ item.unit }}</t-td>
 							<t-td align="center"><text v-if="item.ismainunit==1">{{item.purchaseunitprice}}</text><text v-else>{{item.assispurchaseunitprice}}</text></t-td>
 							<t-td align="center">{{ numberFilter(item.purchaseamount) }}</t-td>
