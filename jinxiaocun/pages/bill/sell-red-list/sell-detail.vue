@@ -21,7 +21,7 @@
 				<view class="list-cell-left">毛利</view><view class="list-cell-right">{{numberFilter(dataList.grossprofit)}}</view>
 			</view>
 			<view class="list-cell last-cell">
-				<view class="list-cell-left">是否付款</view><view class="list-cell-right"><text v-if="isoncredit==0">已支付</text><text v-else>未支付</text></view>
+				<view class="list-cell-left">是否付款</view><view class="list-cell-right"><text v-if="dataList.isoncredit==0">已支付</text><text v-else>未支付</text></view>
 			</view>
 			</view>
 			<view class="box">
