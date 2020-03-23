@@ -86,11 +86,12 @@ export default {
 		};
 	},
 	onLoad(option) {
-		if(option){
-			this.search_startDate = option.startDate
-			this.search_endDate = option.endDate
-			this.search_value = option.cutomerName
-		}
+	if(option.startDate){
+		console.log("有参数",option.startDate);
+		this.search_startDate = option.startDate
+		this.search_endDate = option.endDate
+		this.search_value = option.cutomerName
+	}
 		this.loadData();
 	},
 	onShow() {

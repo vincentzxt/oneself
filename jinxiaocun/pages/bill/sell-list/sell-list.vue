@@ -91,11 +91,11 @@ export default {
 			orderList: [{ name: '销售日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
 		};
 	},
-	onLoad(option) {
-		if(option){
-			this.search_startDate = option.startDate
-			this.search_endDate = option.endDate
-			this.search_value = option.cutomerName
+	onLoad(options) {
+		if(options.startDate){
+			this.search_startDate = options.startDate
+			this.search_endDate = options.endDate
+			this.search_value = options.cutomerName
 		}
 		this.loadData();
 	},

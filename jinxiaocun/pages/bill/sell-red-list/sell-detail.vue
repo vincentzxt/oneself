@@ -5,38 +5,44 @@
 		</view>
 		<view class="main">
 			<view class="list">
-				<view class="list-cell">
-					<view class="list-cell-left">客户名称</view><view class="list-cell-right">{{dataList.contactunitname}}</view>
-				</view>
-				<view class="list-cell">
-					<view class="list-cell-left">下单时间</view><view class="list-cell-right">{{dataList.createtime}}</view>
-				</view>
-				<view class="list-cell">
-					<view class="list-cell-left">总金额</view><view class="list-cell-right">{{numberFilter(dataList.amount)}}</view>
-				</view>
-				<view class="list-cell last-cell">
-					<view class="list-cell-left">优惠金额</view><view class="list-cell-right">{{numberFilter(dataList.discountamount)}}</view>
-				</view>
-				</view>
-				<view class="box">
-					<t-table border="1" border-color="#cccccc" :is-check="false">
-						<t-tr font-size="14" color="#2d8cf0" align="left">
-							<t-th align="center">商品名称</t-th>
-							<t-th align="center">数量</t-th>
-							<t-th align="center">单位</t-th>
-							<t-th align="center">单价</t-th>
-							<t-th align="center">小计</t-th>
-						</t-tr>
-						<t-tr font-size="12" color="#5d6f61" align="right" v-for="(item, index) in dataList.detailModels" :key="index">
-							<t-td align="left">{{ item.productname }}</t-td>
-							<t-td align="center">{{ item.salesqty }}</t-td>
-							<t-td align="center">{{ item.unit }}</t-td>
-							<t-td align="center">{{ item.salesunitprice }}</t-td>
-							<t-td align="center">{{ numberFilter(item.salesamount) }}</t-td>
-						</t-tr>
-					</t-table>
-				</view>
+			<view class="list-cell">
+				<view class="list-cell-left">客户名称</view><view class="list-cell-right">{{dataList.contactunitname}}</view>
 			</view>
+			<view class="list-cell">
+				<view class="list-cell-left">下单时间</view><view class="list-cell-right">{{dataList.createtime}}</view>
+			</view>
+			<view class="list-cell">
+				<view class="list-cell-left">总金额</view><view class="list-cell-right">{{numberFilter(dataList.amount)}}</view>
+			</view>
+			<view class="list-cell">
+				<view class="list-cell-left">优惠金额</view><view class="list-cell-right">{{numberFilter(dataList.discountamount)}}</view>
+			</view>
+			<view class="list-cell">
+				<view class="list-cell-left">毛利</view><view class="list-cell-right">{{numberFilter(dataList.grossprofit)}}</view>
+			</view>
+			<view class="list-cell last-cell">
+				<view class="list-cell-left">是否付款</view><view class="list-cell-right"><text v-if="isoncredit==0">已支付</text><text v-else>未支付</text></view>
+			</view>
+			</view>
+			<view class="box">
+				<t-table border="1" border-color="#cccccc" :is-check="false">
+					<t-tr font-size="14" color="#2d8cf0" align="left">
+						<t-th align="center">商品名称</t-th>
+						<t-th align="center">数量</t-th>
+						<t-th align="center">单位</t-th>
+						<t-th align="center">单价</t-th>
+						<t-th align="center">小计</t-th>
+					</t-tr>
+					<t-tr font-size="12" color="#5d6f61" align="right" v-for="(item, index) in dataList.detailModels" :key="index">
+						<t-td align="left">{{ item.productname }}</t-td>
+						<t-td align="center"><text v-if="item.ismainunit==1">{{item.salesqty}}</text><text v-else>{item.assistunitqty}}</text></t-td>
+						<t-td align="center">{{ item.unit }}</t-td>
+						<t-td align="center"><text v-if="item.ismainunit==1">{{item.salesunitprice}}</text><text v-else>{{item.assissalesunitprice}}</text></t-td>
+						<t-td align="center">{{ numberFilter(item.salesamount) }}</t-td>
+					</t-tr>
+				</t-table>
+			</view>
+		</view>
 		<cu-loading ref="loading"></cu-loading>
 	</view>
 </template>
@@ -45,7 +51,7 @@
 import { get } from '@/api/bills.js';
 import { api } from '@/config/common.js';
 import cuLoading from '@/components/custom/cu-loading.vue';
-import { dateFormat, numberFormat } from '@/utils/tools.js'
+import { dateFormat, numberFormat } from '@/utils/tools.js';
 import tTable from '@/components/t-table/t-table.vue';
 import tTh from '@/components/t-table/t-th.vue';
 import tTr from '@/components/t-table/t-tr.vue';
@@ -60,21 +66,20 @@ export default {
 	},
 	data() {
 		return {
-			title: '销售退货详情',
-			id:0,
-			dataList:{}
+			title: '销售详情',
+			id: 0,
+			dataList: {}
 		};
 	},
 	// onLoad() {this.loadData();},
 	onShow() {},
-	onLoad(option){
-		this.id =option.id
+	onLoad(option) {
+		this.id = option.id;
 		this.loadData();
-		
 	},
 	methods: {
 		numberFilter(number) {
-			return numberFormat(number)
+			return numberFormat(number);
 		},
 		handleRefreshPage() {
 			console.log('refreshpage');
@@ -86,15 +91,15 @@ export default {
 		},
 		loadData() {
 			this.loadmore = 'loading',
-			this.$refs.loading.open();
+			 this.$refs.loading.open();
 			const senddata = {
-				id:this.id
+				id: this.id
 			};
 			get(api.salesOrder, senddata)
 				.then(res => {
 					this.$refs.loading.close();
 					if (res.status == 200 && res.data.returnCode == '0000') {
-						this.dataList = res.data.data
+						this.dataList = res.data.data;
 					} else {
 						this.$api.msg(res.data.returnMessage);
 					}
@@ -161,8 +166,6 @@ export default {
 				border: 0px !important;
 			}
 		}
-		
 	}
 }
-
 </style>

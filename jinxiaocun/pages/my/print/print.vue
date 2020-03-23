@@ -196,6 +196,7 @@ export default {
 				.then(res => {
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						this.$api.msg('打印机设置成功');
+						this.handleNavbarClickLeft()
 					} else {
 						this.$api.msg(res.data.returnMessage);
 					}
