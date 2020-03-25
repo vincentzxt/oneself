@@ -24,12 +24,6 @@
 							{{item.cashaccountname}}</view>
 						</view>
 					</cu-cell>
-					<cu-cell title="打印单据">
-						<radio-group class="h50 fc" slot="footer" @change="handlePrintChange">
-							<radio color="#2db7f5" value=0 :checked="reqData.order.isprint == 0">否</radio>
-							<radio color="#2db7f5" value=1 :checked="reqData.order.isprint == 1" style="margin-left: 10px;">是</radio>
-						</radio-group>
-					</cu-cell>
 					<cu-cell title="抹零" isLastCell :notes="showDisCount" notesColor="#f97d5f">
 						<switch class="h50 fc" slot="footer" color="#2db7f5" :checked="discount == 1 ? true : false" @change="handleDisCount"/>
 					</cu-cell>
@@ -75,7 +69,7 @@
 						contactunitname: '',
 						telephone: '',
 						amount: 0.00,
-						isprint: 1,
+						isprint: 0,
 						discountamount: ''
 					},
 					orderlist: []
@@ -140,15 +134,11 @@
 				})
 			},
 			handleCreditChange(val) {
-				console.log(val)
 				this.reqData.order.isOnCredit = val.detail.value
 			},
 			handleSelectCashAccount(val) {
 				this.reqData.order.accountid = val.cashaccountid
 				this.reqData.order.accountName = val.cashaccountname
-			},
-			handlePrintChange(val) {
-				this.reqData.order.isprint = val.detail.value
 			},
 			handleDisCount(val) {
 				if (val.detail.value) {
@@ -164,36 +154,16 @@
 				create(api.salesOrder, this.reqData).then(res => {
 					this.$refs.loading.close()
 					if (res.status == 200 && res.data.returnCode == '0000') {
+						let params = 'orderId='+res.data.data.salesOrderId+'&returnPage=/pages/index/sale/sale'
 						getGlobalData.getCurrentUnit().then(res => {
-							uni.showToast({
-								icon: 'success',
-								title: '提交成功'
+							console.log(params)
+							uni.navigateTo({
+								url: '/pages/index/print-order/print-order?'+params
 							})
-							setTimeout(()=>{
-								let pages =  getCurrentPages()
-								let prevPage = pages[pages.length - 2]
-								prevPage.setData({
-									commandType: 'success'
-								})
-								uni.navigateBack({
-									delta: 1
-								})
-							},500)
 						}).catch(err => {
-							uni.showToast({
-								icon: 'success',
-								title: '提交成功'
+							uni.navigateTo({
+								url: '/pages/index/print-order/print-order?'+params
 							})
-							setTimeout(()=>{
-								let pages =  getCurrentPages()
-								let prevPage = pages[pages.length - 2]
-								prevPage.setData({
-									commandType: 'success'
-								})
-								uni.navigateBack({
-									delta: 1
-								})
-							},500)
 						})
 					} else {
 						uni.showToast({

@@ -3,8 +3,7 @@
 		<view class="cu-date">
 			<view class="cu-date-left">
 				<view v-if="isDate" class="cu-date-left-date" @tap="handleShowDatePopup">
-					<uni-icons type="calendar" size="18" color="#808695"></uni-icons>
-					<view class="cu-date-left-date-text" style="color:#2d8cf0">{{ initDate.date ? dateList[initDate.date] : dateList[cur_date]}}</view>
+					<view class="cu-date-left-date-text" style="color:#2d8cf0">{{ dateFilter(initDate.startDate) }} - {{ dateFilter(initDate.endDate) }}</view>
 				</view>
 			</view>
 			<view class="cu-date-right">
@@ -301,6 +300,9 @@ export default {
 				}
 			})
 		},
+		dateFilter(val) {
+			return val.replace(/-/g, '.')
+		},
 		handleShowDatePopup() {
 			this.isShowSortDrawer = false
 			this.isShowFilterDrawer = false
@@ -432,6 +434,7 @@ export default {
 		&-right {
 			display: flex;
 			align-items: center;
+			color: #2d8cf0;
 			&-filter {
 				margin-left: 10px;
 			}
@@ -567,6 +570,7 @@ export default {
 				flex-direction: column;
 				&-header {
 					margin-bottom: 15px;
+					color: $uni-text-color-grey;
 				}
 				&-items {
 					display: flex;
@@ -601,6 +605,7 @@ export default {
 				flex-direction: column;
 				&-header {
 					margin-bottom: 15px;
+					color: $uni-text-color-grey;
 				}
 				&-items {
 					font-size: $uni-font-size-sm;

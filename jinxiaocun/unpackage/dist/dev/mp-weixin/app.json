@@ -24,6 +24,7 @@
     "pages/index/early-stage/early-stage",
     "pages/index/inventory/inventory",
     "pages/index/inventory/add/add",
+    "pages/index/print-order/print-order",
     "pages/bill/bill",
     "pages/bill/stock-list/stock-list",
     "pages/data/data",
@@ -113,5 +114,5 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
   },
-  "sitemapLocation": "sitemap34.json"
+  "sitemapLocation": "sitemap16.json"
 }

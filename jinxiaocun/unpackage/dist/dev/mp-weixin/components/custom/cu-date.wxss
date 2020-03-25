@@ -49,6 +49,7 @@
     -webkit-box-align: center;
     -webkit-align-items: center;
             align-items: center;
+    color: #2d8cf0;
 }
 .cu-date-right-filter.data-v-00b873c4 {
       margin-left: 10px;
@@ -237,6 +238,7 @@ picker-view.data-v-00b873c4 {
 }
 .filter-drawer-content-quick-header.data-v-00b873c4 {
       margin-bottom: 15px;
+      color: #808695;
 }
 .filter-drawer-content-quick-items.data-v-00b873c4 {
       display: -webkit-box;
@@ -291,6 +293,7 @@ picker-view.data-v-00b873c4 {
 }
 .filter-drawer-content-condition-header.data-v-00b873c4 {
       margin-bottom: 15px;
+      color: #808695;
 }
 .filter-drawer-content-condition-items.data-v-00b873c4 {
       font-size: 28rpx;

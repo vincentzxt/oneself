@@ -134,9 +134,6 @@
 .container .h50.data-v-01b242fa {
     height: 50px;
 }
-.container .header2.data-v-01b242fa {
-    margin-top: 10rpx;
-}
 .container .table-item1.data-v-01b242fa {
     width: 23%;
 }
@@ -151,7 +148,7 @@
     padding-left: 10px;
 }
 .container .main.data-v-01b242fa {
-    margin-top: 10rpx;
+    border-top: 0.5px solid #dddee1;
 }
 .container .main-receive-pay.data-v-01b242fa {
       font-size: 28rpx;
@@ -208,8 +205,8 @@
 .container .main-receive-pay-content-header.data-v-01b242fa {
           padding: 10px 5px;
           border-bottom: 0.5px solid #dddee1;
-          background-color: #f8f8f9;
-          color: #1c2438;
+          background-color: #7abcf3;
+          color: #ffffff;
 }
 .container .main-receive-pay-content-header-view.data-v-01b242fa {
             display: -webkit-box;

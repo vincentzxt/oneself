@@ -223,8 +223,8 @@
 .container .main-warning-content-header.data-v-4f5509d2 {
           padding: 10px 5px;
           border-bottom: 0.5px solid #dddee1;
-          background-color: #f8f8f9;
-          color: #1c2438;
+          background-color: #7abcf3;
+          color: #ffffff;
 }
 .container .main-warning-content-header-view.data-v-4f5509d2 {
             display: -webkit-box;

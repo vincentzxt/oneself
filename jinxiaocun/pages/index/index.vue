@@ -36,10 +36,10 @@ export default {
 				{ id: '2', name: '采购', icon: 'home_caigou', color: '#897ef4', size: 36 },
 				{ id: '3', name: '客户&供应商', icon: 'home_khgys', color: '#fcb454', size: 36 },
 				{ id: '4', name: '产品', icon: 'home_chanpin', color: '#68de96', size: 36 },
-				{ id: '5', name: '收款单', icon: 'home_skd', color: '#5eb8f4', size: 36 },
-				{ id: '6', name: '付款单', icon: 'home_fkd', color: '#ff8716', size: 36 },
-				{ id: '7', name: '费用单', icon: 'home_fyd', color: '#58c8f8', size: 36 },
-				{ id: '8', name: '退货单', icon: 'home_thd', color: '#ffabd4', size: 36 },
+				{ id: '5', name: '收款', icon: 'home_skd', color: '#5eb8f4', size: 36 },
+				{ id: '6', name: '付款', icon: 'home_fkd', color: '#ff8716', size: 36 },
+				{ id: '7', name: '费用', icon: 'home_fyd', color: '#58c8f8', size: 36 },
+				{ id: '8', name: '退货', icon: 'home_thd', color: '#ffabd4', size: 36 },
 				{ id: '9', name: '期初', icon: 'home_qichu', color: '#829afb', size: 36 },
 				{ id: '10', name: '盘点', icon: 'home_pandian', color: '#ff5f84', size: 36 }
 			]

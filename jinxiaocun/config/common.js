@@ -55,6 +55,6 @@ export const api = {
 	GetFirstActivePrinter:'/api/Print/GetFirstActivePrinter',
 	UnBindPrint:'api/Print/UnBind',
 	BindPrint:'api/Print/Bind',
-	GetWSYLPrinterList:'/api/Print/GetWSYLPrinterList'
-	
+	GetWSYLPrinterList:'/api/Print/GetWSYLPrinterList',
+	Print: '/api/Print'
 }

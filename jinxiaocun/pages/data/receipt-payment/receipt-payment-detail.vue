@@ -219,7 +219,7 @@
 			height: 50px;
 		}
 		.header2 {
-			margin-top: $uni-spacing-col-base;
+			
 		}
 		.table-item1 {
 			width: 40%;
@@ -235,7 +235,7 @@
 			padding-left:10px;
 		}
 		.main {
-			margin-top: $uni-spacing-col-base;
+			border-top:0.5px solid #dddee1;
 			&-sale {
 				font-size:$uni-font-size-sm;
 				&-header {
@@ -270,8 +270,8 @@
 					&-header {
 						padding: 10px 5px;
 						border-bottom:0.5px solid #dddee1;
-						background-color: #f8f8f9;
-						color: $uni-title-color;
+						background-color: #7abcf3;
+						color: #ffffff;
 						&-view {
 							display: flex;
 							align-items: center;

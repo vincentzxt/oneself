@@ -12,7 +12,6 @@
 					Vue.prototype.$headerIsSearchHeight = res.statusBarHeight + 104
 					Vue.prototype.$mainHeight = res.screenHeight - res.statusBarHeight - 97
 					Vue.prototype.$mainIsSearchHeight = res.screenHeight - res.statusBarHeight - 157
-					console.log(res)
 				}
 			})
 			//uni.removeStorageSync('userInfo')
