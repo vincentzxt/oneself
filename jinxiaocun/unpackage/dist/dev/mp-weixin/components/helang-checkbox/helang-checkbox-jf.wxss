@@ -12,7 +12,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.container.data-v-7f78f672 {
+.container.data-v-3919d61b {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -34,21 +34,21 @@
   font-size: 28rpx;
   text-align: center;
 }
-.container > view.data-v-7f78f672 {
+.container > view.data-v-3919d61b {
     margin-bottom: 20rpx;
     padding-right: 20rpx;
     box-sizing: border-box;
 }
-.container.col_1 > view.data-v-7f78f672 {
+.container.col_1 > view.data-v-3919d61b {
     width: 100%;
 }
-.container.col_2 > view.data-v-7f78f672 {
+.container.col_2 > view.data-v-3919d61b {
     width: 50%;
 }
-.container.col_3 > view.data-v-7f78f672 {
+.container.col_3 > view.data-v-3919d61b {
     width: 33.3333333%;
 }
-.container .item.data-v-7f78f672 {
+.container .item.data-v-3919d61b {
     line-height: 50rpx;
     padding: 20rpx 20rpx;
     box-sizing: border-box;
@@ -67,12 +67,12 @@
     -webkit-flex-direction: column;
             flex-direction: column;
 }
-.container .item.active.data-v-7f78f672 {
+.container .item.active.data-v-3919d61b {
       background-color: #f5fff9;
       color: #42b983;
       border: #42b983 solid 1px;
 }
-.container .item.active.data-v-7f78f672::before {
+.container .item.active.data-v-3919d61b::before {
         content: '';
         display: block;
         width: 20px;
@@ -85,7 +85,7 @@
         -webkit-clip-path: polygon(100% 0, 0% 100%, 100% 100%);
                 clip-path: polygon(100% 0, 0% 100%, 100% 100%);
 }
-.container .item.active.data-v-7f78f672::after {
+.container .item.active.data-v-3919d61b::after {
         content: '';
         display: block;
         width: 4px;

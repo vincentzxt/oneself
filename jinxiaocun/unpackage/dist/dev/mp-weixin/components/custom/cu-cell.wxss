@@ -12,7 +12,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.cu-cell.data-v-5f2c1378 {
+.cu-cell.data-v-121156cc {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -26,7 +26,7 @@
   position: relative;
   padding: 10px 0px;
 }
-.cu-cell.data-v-5f2c1378::after {
+.cu-cell.data-v-121156cc::after {
     content: '';
     position: absolute;
     top: 0;
@@ -44,13 +44,13 @@
     left: 15px;
     right: 0;
 }
-.cu-cell-last.data-v-5f2c1378::after {
+.cu-cell-last.data-v-121156cc::after {
     display: none;
 }
-.cu-cell-disabled.data-v-5f2c1378 {
+.cu-cell-disabled.data-v-121156cc {
     color: #808695;
 }
-.cu-cell-wrap.data-v-5f2c1378 {
+.cu-cell-wrap.data-v-121156cc {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -63,7 +63,7 @@
     font-size: 34rpx;
     overflow: hidden;
 }
-.cu-cell-wrap-icon.data-v-5f2c1378 {
+.cu-cell-wrap-icon.data-v-121156cc {
       width: 10%;
       display: -webkit-box;
       display: -webkit-flex;
@@ -75,13 +75,13 @@
       -webkit-align-items: center;
               align-items: center;
 }
-.cu-cell-wrap-icon.data-v-5f2c1378:empty {
+.cu-cell-wrap-icon.data-v-121156cc:empty {
         display: none;
 }
-.cu-cell-wrap-sub.data-v-5f2c1378 {
+.cu-cell-wrap-sub.data-v-121156cc {
       width: 10%;
 }
-.cu-cell-wrap-bd.data-v-5f2c1378 {
+.cu-cell-wrap-bd.data-v-121156cc {
       display: -webkit-box;
       display: -webkit-flex;
       display: flex;
@@ -91,14 +91,14 @@
       -webkit-flex-wrap: wrap;
               flex-wrap: wrap;
 }
-.cu-cell-wrap-bd-notnull.data-v-5f2c1378 {
+.cu-cell-wrap-bd-notnull.data-v-121156cc {
         color: #f4613d;
         margin-right: 2px;
 }
-.cu-cell-wrap-text.data-v-5f2c1378 {
+.cu-cell-wrap-text.data-v-121156cc {
       font-size: 34rpx;
 }
-.cu-cell-wrap-ft.data-v-5f2c1378 {
+.cu-cell-wrap-ft.data-v-121156cc {
       width: 65%;
       display: -webkit-box;
       display: -webkit-flex;
@@ -108,7 +108,7 @@
       -webkit-flex-direction: column;
               flex-direction: column;
 }
-.cu-cell-wrap-ft-item.data-v-5f2c1378 {
+.cu-cell-wrap-ft-item.data-v-121156cc {
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -121,7 +121,7 @@
                 align-items: center;
         line-height: 1.5;
 }
-.cu-cell-notes.data-v-5f2c1378 {
+.cu-cell-notes.data-v-121156cc {
     padding: 0 15px;
     display: -webkit-box;
     display: -webkit-flex;
@@ -130,7 +130,7 @@
     margin-top: 5px;
     color: #f7d767;
 }
-.cu-cell-verify.data-v-5f2c1378 {
+.cu-cell-verify.data-v-121156cc {
     padding: 0 15px;
     display: -webkit-box;
     display: -webkit-flex;

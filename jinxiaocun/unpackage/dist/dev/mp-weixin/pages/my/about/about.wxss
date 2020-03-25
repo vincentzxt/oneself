@@ -12,31 +12,31 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-4fc9763a {
+.fill.data-v-40663d0f {
   width: 100%;
   height: 90%;
 }
-.fill .tou.data-v-4fc9763a {
+.fill .tou.data-v-40663d0f {
     text-align: center;
     margin: 80rpx 0 60rpx;
 }
-.fill .tou ._img.data-v-4fc9763a {
+.fill .tou ._img.data-v-40663d0f {
     width: 64px;
     height: 64px;
 }
-.container.data-v-4fc9763a {
+.container.data-v-40663d0f {
   font-size: 34rpx;
   background-color: #FFFFFF;
   height: 100vh;
   width: 100vw;
 }
-.container .header.data-v-4fc9763a {
+.container .header.data-v-40663d0f {
     height: 10%;
 }
-.container .main.data-v-4fc9763a {
+.container .main.data-v-40663d0f {
     height: 83%;
 }
-.container .main .picker.data-v-4fc9763a {
+.container .main .picker.data-v-40663d0f {
       width: 100%;
       display: -webkit-box;
       display: -webkit-flex;
@@ -45,12 +45,12 @@
       -webkit-justify-content: flex-end;
               justify-content: flex-end;
 }
-.container .footer.data-v-4fc9763a {
+.container .footer.data-v-40663d0f {
     height: 7%;
     text-align: center;
     font-size: 28rpx;
 }
-.uni-list-cell.data-v-4fc9763a {
+.uni-list-cell.data-v-40663d0f {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

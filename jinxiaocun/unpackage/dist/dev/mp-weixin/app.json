@@ -114,5 +114,9 @@
     "uni-icons": "/components/uni-icons/uni-icons",
     "cu-loading": "/components/custom/cu-loading"
   },
+<<<<<<< HEAD
   "sitemapLocation": "sitemap16.json"
+=======
+  "sitemapLocation": "sitemap.json"
+>>>>>>> 3bb87a1fbc54a27008b2419f8403b991e2a840fe
 }

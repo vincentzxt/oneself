@@ -14,8 +14,14 @@
 			<view class="list-cell">
 				<view class="list-cell-left">总金额</view><view class="list-cell-right">{{numberFilter(dataList.amount)}}</view>
 			</view>
-			<view class="list-cell last-cell">
+			<view class="list-cell">
 				<view class="list-cell-left">优惠金额</view><view class="list-cell-right">{{numberFilter(dataList.discountamount)}}</view>
+			</view>
+			<view class="list-cell">
+				<view class="list-cell-left">毛利</view><view class="list-cell-right">{{numberFilter(dataList.grossprofit)}}</view>
+			</view>
+			<view class="list-cell last-cell">
+				<view class="list-cell-left">是否付款</view><view class="list-cell-right"><text v-if="dataList.isoncredit==0">已支付</text><text v-else>未支付</text></view>
 			</view>
 			</view>
 			<view class="box">
@@ -27,13 +33,13 @@
 						<t-th align="center">单价</t-th>
 						<t-th align="center">小计</t-th>
 					</t-tr>
-					<t-tr font-size="12" color="#5d6f61" align="right" v-for="(item, index) in dataList.detailModels" :key="index">
-						<t-td align="left">{{ item.productname }}</t-td>
-						<t-td align="center">{{ item.salesqty }}</t-td>
-						<t-td align="center">{{ item.unit }}</t-td>
-						<t-td align="center">{{ item.salesunitprice }}</t-td>
-						<t-td align="center">{{ numberFilter(item.salesamount) }}</t-td>
-					</t-tr>
+				<t-tr font-size="12" color="#5d6f61" align="right" v-for="(item, index) in dataList.detailModels" :key="index">
+					<t-td align="left">{{ item.productname }}</t-td>
+					<t-td align="center"><text v-if="item.ismainunit==1">{{item.salesqty}}</text><text v-else>{{item.assistunitqty}}</text></t-td>
+					<t-td align="center">{{ item.unit }}</t-td>
+					<t-td align="center"><text v-if="item.ismainunit==1">{{item.salesunitprice}}</text><text v-else>{{item.assissalesunitprice}}</text></t-td>
+					<t-td align="center">{{ numberFilter(item.salesamount) }}</t-td>
+				</t-tr>
 				</t-table>
 			</view>
 		</view>

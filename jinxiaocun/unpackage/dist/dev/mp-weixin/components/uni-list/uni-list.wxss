@@ -12,7 +12,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.uni-list.data-v-ef9aa034 {
+.uni-list.data-v-646e87dc {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -23,10 +23,10 @@
   -webkit-flex-direction: column;
           flex-direction: column;
 }
-.uni-list.data-v-ef9aa034:before {
+.uni-list.data-v-646e87dc:before {
   height: 0;
 }
-.uni-list.data-v-ef9aa034:after {
+.uni-list.data-v-646e87dc:after {
   height: 0;
 }
 

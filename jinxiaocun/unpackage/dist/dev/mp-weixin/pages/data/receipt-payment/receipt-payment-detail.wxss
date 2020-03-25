@@ -12,7 +12,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.uni-popup.data-v-c5eca4b4 {
+.uni-popup.data-v-5565425c {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -20,7 +20,7 @@
   right: 0;
   z-index: 99;
 }
-.uni-popup__mask.data-v-c5eca4b4 {
+.uni-popup__mask.data-v-5565425c {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -29,40 +29,40 @@
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
 }
-.mask-ani.data-v-c5eca4b4 {
+.mask-ani.data-v-5565425c {
   -webkit-transition-property: opacity;
   transition-property: opacity;
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.uni-top-mask.data-v-c5eca4b4 {
+.uni-top-mask.data-v-5565425c {
   opacity: 1;
 }
-.uni-bottom-mask.data-v-c5eca4b4 {
+.uni-bottom-mask.data-v-5565425c {
   opacity: 1;
 }
-.uni-center-mask.data-v-c5eca4b4 {
+.uni-center-mask.data-v-5565425c {
   opacity: 1;
 }
-.uni-popup__wrapper.data-v-c5eca4b4 {
+.uni-popup__wrapper.data-v-5565425c {
   display: block;
   position: absolute;
 }
-.top.data-v-c5eca4b4 {
+.top.data-v-5565425c {
   top: 0;
   left: 0;
   right: 0;
   -webkit-transform: translateY(-500px);
           transform: translateY(-500px);
 }
-.bottom.data-v-c5eca4b4 {
+.bottom.data-v-5565425c {
   bottom: 0;
   left: 0;
   right: 0;
   -webkit-transform: translateY(500px);
           transform: translateY(500px);
 }
-.center.data-v-c5eca4b4 {
+.center.data-v-5565425c {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -84,11 +84,11 @@
           transform: scale(1.2);
   opacity: 0;
 }
-.uni-popup__wrapper-box.data-v-c5eca4b4 {
+.uni-popup__wrapper-box.data-v-5565425c {
   display: block;
   position: relative;
 }
-.content-ani.data-v-c5eca4b4 {
+.content-ani.data-v-5565425c {
   -webkit-transition-property: opacity, -webkit-transform;
   transition-property: opacity, -webkit-transform;
   transition-property: transform, opacity;
@@ -96,15 +96,15 @@
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.uni-top-content.data-v-c5eca4b4 {
+.uni-top-content.data-v-5565425c {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
-.uni-bottom-content.data-v-c5eca4b4 {
+.uni-bottom-content.data-v-5565425c {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
-.uni-center-content.data-v-c5eca4b4 {
+.uni-center-content.data-v-5565425c {
   -webkit-transform: scale(1);
           transform: scale(1);
   opacity: 1;
@@ -124,36 +124,48 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.container.data-v-06ae5b36 {
+.container.data-v-d6e34c8e {
   height: 100vh;
   width: 100vw;
 }
-.container .fill.data-v-06ae5b36 {
+.container .fill.data-v-d6e34c8e {
     height: calc(100% - 60px);
 }
-.container .h50.data-v-06ae5b36 {
+.container .h50.data-v-d6e34c8e {
     height: 50px;
 }
+<<<<<<< HEAD
 .container .table-item1.data-v-06ae5b36 {
+=======
+.container .header2.data-v-d6e34c8e {
+    margin-top: 10rpx;
+}
+.container .table-item1.data-v-d6e34c8e {
+>>>>>>> 3bb87a1fbc54a27008b2419f8403b991e2a840fe
     width: 40%;
 }
-.container .table-item2.data-v-06ae5b36 {
+.container .table-item2.data-v-d6e34c8e {
     width: 30%;
     border-left: 0.5px solid #dddee1;
     padding-left: 10px;
 }
-.container .table-item3.data-v-06ae5b36 {
+.container .table-item3.data-v-d6e34c8e {
     width: 30%;
     border-left: 0.5px solid #dddee1;
     padding-left: 10px;
 }
+<<<<<<< HEAD
 .container .main.data-v-06ae5b36 {
     border-top: 0.5px solid #dddee1;
+=======
+.container .main.data-v-d6e34c8e {
+    margin-top: 10rpx;
+>>>>>>> 3bb87a1fbc54a27008b2419f8403b991e2a840fe
 }
-.container .main-sale.data-v-06ae5b36 {
+.container .main-sale.data-v-d6e34c8e {
       font-size: 28rpx;
 }
-.container .main-sale-header.data-v-06ae5b36 {
+.container .main-sale-header.data-v-d6e34c8e {
         background-color: #FFFFFF;
         padding: 10px 0;
         width: 750rpx;
@@ -166,7 +178,7 @@
         -webkit-align-items: center;
                 align-items: center;
 }
-.container .main-sale-header-block.data-v-06ae5b36 {
+.container .main-sale-header-block.data-v-d6e34c8e {
           height: 130rpx;
           width: 345rpx;
           display: -webkit-box;
@@ -183,15 +195,15 @@
           -webkit-align-items: center;
                   align-items: center;
 }
-.container .main-sale-header-block-title.data-v-06ae5b36 {
+.container .main-sale-header-block-title.data-v-d6e34c8e {
             font-size: 28rpx;
             font-weight: bold;
 }
-.container .main-sale-header-block-des.data-v-06ae5b36 {
+.container .main-sale-header-block-des.data-v-d6e34c8e {
             font-size: 28rpx;
             color: #808695;
 }
-.container .main-sale-content.data-v-06ae5b36 {
+.container .main-sale-content.data-v-d6e34c8e {
         margin-top: 10rpx;
         background-color: #FFFFFF;
         display: -webkit-box;
@@ -202,13 +214,13 @@
         -webkit-flex-direction: column;
                 flex-direction: column;
 }
-.container .main-sale-content-header.data-v-06ae5b36 {
+.container .main-sale-content-header.data-v-d6e34c8e {
           padding: 10px 5px;
           border-bottom: 0.5px solid #dddee1;
           background-color: #7abcf3;
           color: #ffffff;
 }
-.container .main-sale-content-header-view.data-v-06ae5b36 {
+.container .main-sale-content-header-view.data-v-d6e34c8e {
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
@@ -217,20 +229,20 @@
                     align-items: center;
             width: 95%;
 }
-.container .main-sale-content-cell.data-v-06ae5b36 {
+.container .main-sale-content-cell.data-v-d6e34c8e {
           display: -webkit-box;
           display: -webkit-flex;
           display: flex;
           padding: 10px 5px;
           border-bottom: 0.5px solid #dddee1;
 }
-.container .main-sale-content-cell-body.data-v-06ae5b36 {
+.container .main-sale-content-cell-body.data-v-d6e34c8e {
             width: 95%;
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
 }
-.container .main-sale-content-cell-footer.data-v-06ae5b36 {
+.container .main-sale-content-cell-footer.data-v-d6e34c8e {
             width: 5%;
             display: -webkit-box;
             display: -webkit-flex;

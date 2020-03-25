@@ -76,12 +76,13 @@ export default {
 			totalAmount: '0.00',
 			totalRecords: '0',
 			dataList: [],
-			search_startDate: '',
-			search_endDate: '',
+			search_startDate: nowDate,
+			search_endDate: nowDate,
 			order_name: 'createtime',
 			order_type: 1,
 			search_value: '',
-			orderList: [{ name: '单据日期', value: 'createtime' }, { name: '金额', value: 'amount' }]
+			orderList: [{ name: '单据日期', value: 'createtime' }, { name: '金额', value: 'amount' }],
+			initDate:nowDate
 		};
 	},
 	onLoad(options) {
@@ -90,12 +91,7 @@ export default {
 			this.search_startDate = options.date
 			this.search_endDate =options.date
 			this.search_value = options.customerName
-		}else{
-			console.log('aaaa');
-			this.search_startDate = nowDate
-			this.search_endDate =nowDate
 		}
-
 		this.loadData();
 	},
 	onShow() {
