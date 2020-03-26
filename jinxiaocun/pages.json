@@ -26,6 +26,7 @@
 		{ "path": "pages/index/early-stage/early-stage" },
 		{ "path": "pages/index/inventory/inventory" },
 		{ "path": "pages/index/inventory/add/add" },
+		{	"path" : "pages/index/print-order/print-order" },
 		{ "path": "pages/bill/bill" },
 		{ "path": "pages/bill/stock-list/stock-list" },
 		{

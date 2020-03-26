@@ -57,15 +57,17 @@
 					</view>
 				</view>
 				<view class="main-sale-content1" v-if="filter == 1">
-					<uni-list>
-						<uni-list-item 
-							:title="item.cutomerName"
-							:note="['金额：'+numberFilter(item.billAmount), '毛利：'+numberFilter(item.billProfit), '订单数：'+item.billQty]"
-							v-for="(item, index) in datas.reportDetailQueries"
-							:key="index"
-							@tap = "handleNavTo(item.cutomerName)">
-						</uni-list-item>
-					</uni-list>
+					<view>
+						<uni-list>
+							<uni-list-item 
+								:title="item.cutomerName"
+								:note="['金额：'+numberFilter(item.billAmount), '毛利：'+numberFilter(item.billProfit), '订单数：'+item.billQty]"
+								v-for="(item, index) in datas.reportDetailQueries"
+								:key="index"
+								@tap = "handleNavTo(item.cutomerName)">
+							</uni-list-item>
+						</uni-list>
+					</view>
 				</view>	
 			</view>
 		</view>
@@ -210,7 +212,6 @@
 			height: 50px;
 		}
 		.header2 {
-			margin-top: $uni-spacing-col-base;
 		}
 		.table-item1 {
 			width: 23%;
@@ -225,8 +226,17 @@
 			border-left:0.5px solid #dddee1;
 			padding-left:10px;
 		}
+		.nodata{
+			background-color: #ffffff;
+			font-size: $uni-font-size-sm;
+			padding: 5px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $uni-text-color-grey;
+		}
 		.main {
-			margin-top: $uni-spacing-col-base;
+			border-top:0.5px solid #dddee1;
 			&-sale {
 				font-size:$uni-font-size-sm;
 				&-header {
@@ -261,8 +271,8 @@
 					&-header {
 						padding: 10px 5px;
 						border-bottom:0.5px solid #dddee1;
-						background-color: #f8f8f9;
-						color: $uni-title-color;
+						background-color: #7abcf3;
+						color: #ffffff;
 						&-view {
 							display: flex;
 							align-items: center;

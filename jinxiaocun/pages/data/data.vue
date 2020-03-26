@@ -382,6 +382,7 @@
 						this.hotSellingProduct = this.datas.hotSellingProduct
 						this.slowSellingProduct = this.datas.slowSellingProduct
 						this.feeListByCategoryTop5 = this.datas.feeListByCategoryTop5
+						this.feeTotal = this.datas.feeAmount
 						this.getDayData()
 						this.getAccountData()
 					}
