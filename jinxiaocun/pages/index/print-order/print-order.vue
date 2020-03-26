@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view :style="{'height': headerHeight + 'px'}">
-			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">
+			<uni-navbar :title="title" background-color="#2d8cf0" color="#fff" status-bar fixed>
 			</uni-navbar>
 		</view>
 		<view class="main" :style="{'height': mainHeight + 'px'}">
@@ -64,11 +64,6 @@
 			}
 		},
 		methods: {
-			handleNavbarClickLeft() {
-				uni.navigateBack({
-					delta: 1
-				})
-			},
 			handlePrint() {
 				this.$refs.loading.open()
 				printSalesOrder(api.Print, this.reqData).then(res => {

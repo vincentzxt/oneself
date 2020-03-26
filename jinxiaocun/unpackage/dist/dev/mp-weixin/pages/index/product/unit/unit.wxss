@@ -12,7 +12,7 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.uni-popup.data-v-5565425c {
+.uni-popup.data-v-c5eca4b4 {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -20,7 +20,7 @@
   right: 0;
   z-index: 99;
 }
-.uni-popup__mask.data-v-5565425c {
+.uni-popup__mask.data-v-c5eca4b4 {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -29,40 +29,40 @@
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
 }
-.mask-ani.data-v-5565425c {
+.mask-ani.data-v-c5eca4b4 {
   -webkit-transition-property: opacity;
   transition-property: opacity;
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.uni-top-mask.data-v-5565425c {
+.uni-top-mask.data-v-c5eca4b4 {
   opacity: 1;
 }
-.uni-bottom-mask.data-v-5565425c {
+.uni-bottom-mask.data-v-c5eca4b4 {
   opacity: 1;
 }
-.uni-center-mask.data-v-5565425c {
+.uni-center-mask.data-v-c5eca4b4 {
   opacity: 1;
 }
-.uni-popup__wrapper.data-v-5565425c {
+.uni-popup__wrapper.data-v-c5eca4b4 {
   display: block;
   position: absolute;
 }
-.top.data-v-5565425c {
+.top.data-v-c5eca4b4 {
   top: 0;
   left: 0;
   right: 0;
   -webkit-transform: translateY(-500px);
           transform: translateY(-500px);
 }
-.bottom.data-v-5565425c {
+.bottom.data-v-c5eca4b4 {
   bottom: 0;
   left: 0;
   right: 0;
   -webkit-transform: translateY(500px);
           transform: translateY(500px);
 }
-.center.data-v-5565425c {
+.center.data-v-c5eca4b4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -84,11 +84,11 @@
           transform: scale(1.2);
   opacity: 0;
 }
-.uni-popup__wrapper-box.data-v-5565425c {
+.uni-popup__wrapper-box.data-v-c5eca4b4 {
   display: block;
   position: relative;
 }
-.content-ani.data-v-5565425c {
+.content-ani.data-v-c5eca4b4 {
   -webkit-transition-property: opacity, -webkit-transform;
   transition-property: opacity, -webkit-transform;
   transition-property: transform, opacity;
@@ -96,15 +96,15 @@
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.uni-top-content.data-v-5565425c {
+.uni-top-content.data-v-c5eca4b4 {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
-.uni-bottom-content.data-v-5565425c {
+.uni-bottom-content.data-v-c5eca4b4 {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
-.uni-center-content.data-v-5565425c {
+.uni-center-content.data-v-c5eca4b4 {
   -webkit-transform: scale(1);
           transform: scale(1);
   opacity: 1;
@@ -124,20 +124,20 @@
 /* 水平间距 */
 /* 垂直间距 */
 /* 透明度 */
-.fill.data-v-170f868a {
+.fill.data-v-f1667932 {
   width: 100%;
   height: 100%;
 }
-.h50.data-v-170f868a {
+.h50.data-v-f1667932 {
   height: 50px;
 }
-.container .main.data-v-170f868a {
+.container .main.data-v-f1667932 {
   margin-top: 5px;
 }
-.container .footer.data-v-170f868a {
+.container .footer.data-v-f1667932 {
   height: 48px;
 }
-.container .popup-wrap.data-v-170f868a {
+.container .popup-wrap.data-v-f1667932 {
   background-color: #FFFFFF;
   display: -webkit-box;
   display: -webkit-flex;
@@ -148,7 +148,7 @@
           flex-direction: column;
   border-radius: 5px;
 }
-.container .popup-wrap-header.data-v-170f868a {
+.container .popup-wrap-header.data-v-f1667932 {
     padding: 15px 10px;
     display: -webkit-box;
     display: -webkit-flex;
@@ -159,13 +159,13 @@
     color: #ffffff;
     background-color: #2d8cf0;
 }
-.container .popup-wrap-content.data-v-170f868a {
+.container .popup-wrap-content.data-v-f1667932 {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     padding: 10px 0px;
 }
-.container .popup-wrap-footer.data-v-170f868a {
+.container .popup-wrap-footer.data-v-f1667932 {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -177,11 +177,11 @@
     padding: 10px;
     border-top: 0.5px solid #dddee1;
 }
-.container .popup-wrap-footer-add.data-v-170f868a {
+.container .popup-wrap-footer-add.data-v-f1667932 {
       background-color: #2d8cf0;
       font-size: 34rpx;
 }
-.container .popup-wrap-footer-cancel.data-v-170f868a {
+.container .popup-wrap-footer-cancel.data-v-f1667932 {
       background-color: #ffffff;
       border-width: 0px;
       font-size: 34rpx;

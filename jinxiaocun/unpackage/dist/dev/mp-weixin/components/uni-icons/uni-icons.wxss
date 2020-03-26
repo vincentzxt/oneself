@@ -17,7 +17,7 @@
   src: url("//at.alicdn.com/t/font_1563314_9boyxifvzw5.eot");
   src: url("//at.alicdn.com/t/font_1563314_9boyxifvzw5.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1563314_9boyxifvzw5.woff2") format("woff2"), url("//at.alicdn.com/t/font_1563314_9boyxifvzw5.woff") format("woff"), url("//at.alicdn.com/t/font_1563314_9boyxifvzw5.ttf") format("truetype"), url("//at.alicdn.com/t/font_1563314_9boyxifvzw5.svg#iconfont") format("svg");
 }
-.uni-icons.data-v-639e642e {
+.uni-icons.data-v-2b5ab302 {
   font-family: uniicons;
   text-decoration: none;
   text-align: center;

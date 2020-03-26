@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons",
     "cu-date": "/components/custom/cu-date"
   }
 }

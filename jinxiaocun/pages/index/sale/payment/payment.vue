@@ -156,7 +156,6 @@
 					if (res.status == 200 && res.data.returnCode == '0000') {
 						let params = 'orderId='+res.data.data.salesOrderId+'&returnPage=/pages/index/sale/sale'
 						getGlobalData.getCurrentUnit().then(res => {
-							console.log(params)
 							uni.navigateTo({
 								url: '/pages/index/print-order/print-order?'+params
 							})

@@ -1,11 +1,11 @@
 {
   "usingComponents": {
-    "cu-search-bar": "/components/custom/cu-search-bar",
-    "uni-popup": "/components/uni-popup/uni-popup",
-    "cu-panel": "/components/custom/cu-panel",
-    "cu-cell": "/components/custom/cu-cell",
     "uni-list": "/components/uni-list/uni-list",
     "uni-list-item": "/components/uni-list-item/uni-list-item",
-    "uni-number-box": "/components/uni-number-box/uni-number-box"
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "uni-number-box": "/components/uni-number-box/uni-number-box",
+    "cu-search-bar": "/components/custom/cu-search-bar",
+    "cu-panel": "/components/custom/cu-panel",
+    "cu-cell": "/components/custom/cu-cell"
   }
 }
