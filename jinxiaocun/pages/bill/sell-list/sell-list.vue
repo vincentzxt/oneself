@@ -3,7 +3,7 @@
 		<view class="header">
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft"></uni-navbar>
 		</view>
-		<xw-date title="销售日期" :orderList="orderList" :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
+		<xw-date title="销售日期" :orderList="orderList" :start_date="search_startDate" :end_date="search_endDate"  :searchName="searchName" @click_sub="handle_data_sub"></xw-date>
 		<view class="total">
 			<view class="total-item">
 				<text>{{ totalRecords }}</text>

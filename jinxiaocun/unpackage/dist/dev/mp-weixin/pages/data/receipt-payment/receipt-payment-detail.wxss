@@ -134,14 +134,7 @@
 .container .h50.data-v-d6e34c8e {
     height: 50px;
 }
-<<<<<<< HEAD
-.container .table-item1.data-v-06ae5b36 {
-=======
-.container .header2.data-v-d6e34c8e {
-    margin-top: 10rpx;
-}
 .container .table-item1.data-v-d6e34c8e {
->>>>>>> 3bb87a1fbc54a27008b2419f8403b991e2a840fe
     width: 40%;
 }
 .container .table-item2.data-v-d6e34c8e {
@@ -154,13 +147,8 @@
     border-left: 0.5px solid #dddee1;
     padding-left: 10px;
 }
-<<<<<<< HEAD
-.container .main.data-v-06ae5b36 {
-    border-top: 0.5px solid #dddee1;
-=======
 .container .main.data-v-d6e34c8e {
-    margin-top: 10rpx;
->>>>>>> 3bb87a1fbc54a27008b2419f8403b991e2a840fe
+    border-top: 0.5px solid #dddee1;
 }
 .container .main-sale.data-v-d6e34c8e {
       font-size: 28rpx;

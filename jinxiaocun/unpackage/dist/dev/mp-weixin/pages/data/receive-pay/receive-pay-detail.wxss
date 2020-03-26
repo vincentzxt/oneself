@@ -134,14 +134,7 @@
 .container .h50.data-v-4147675f {
     height: 50px;
 }
-<<<<<<< HEAD
-.container .table-item0.data-v-0b8b4c0b {
-=======
-.container .header2.data-v-4147675f {
-    margin-top: 10rpx;
-}
 .container .table-item0.data-v-4147675f {
->>>>>>> 3bb87a1fbc54a27008b2419f8403b991e2a840fe
     width: 100%;
 }
 .container .table-item1.data-v-4147675f {
@@ -157,13 +150,8 @@
     border-left: 0.5px solid #dddee1;
     padding-left: 10px;
 }
-<<<<<<< HEAD
-.container .main.data-v-0b8b4c0b {
-    border-top: 0.5px solid #dddee1;
-=======
 .container .main.data-v-4147675f {
-    margin-top: 10rpx;
->>>>>>> 3bb87a1fbc54a27008b2419f8403b991e2a840fe
+    border-top: 0.5px solid #dddee1;
 }
 .container .main-receive-pay.data-v-4147675f {
       font-size: 28rpx;
