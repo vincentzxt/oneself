@@ -4,7 +4,7 @@
 			<uni-navbar :title="title" left-icon="back" background-color="#2d8cf0" color="#fff" status-bar fixed @clickLeft="handleNavbarClickLeft">				
 			</uni-navbar>
 			<view class="header">
-				<uni-search-bar style="width:80%;" @input="handleSearch" placeholder="速查码/名称/电话" cancelButton="none" clearButton="always"></uni-search-bar>
+				<uni-search-bar style="width:80%;" @input="handleSearch" placeholder="速查码/名称/电话"></uni-search-bar>
 				<view class="header-item" style="width:20%;" @tap="handleShowMenu">
 					<view style="margin-right:5px;">筛选</view>
 					<uni-icons v-if="showMenu" type="arrow-down" color="#808695" size=20></uni-icons>
@@ -129,6 +129,7 @@
 						if (!item.bseContactUnitContactModels[0].telephone) {
 							item.bseContactUnitContactModels[0].telephone = ''
 						}
+						console.log(val.value)
 						return item.contactunitname.indexOf(val.value) !== -1 || item.querycode.toLowerCase().indexOf(val.value.toLowerCase()) !== -1 || item.bseContactUnitContactModels[0].telephone.indexOf(val.value) !== -1
 					})
 				} else {
